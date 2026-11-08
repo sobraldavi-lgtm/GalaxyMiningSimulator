@@ -150,13 +150,15 @@ local function attach(player)
 end
 
 local function track(player)
-	player.CharacterAdded:Connect(function(character)
-		character:WaitForChild("UpperTorso", 5)
-		attach(player)
-	end)
+	-- Espera o torso existir (R15 ou R6), inclusive para personagens já no jogo.
+	local function onCharacter(character)
+		local torso = character:WaitForChild("UpperTorso", 5) or character:FindFirstChild("Torso")
+		if torso then attach(player) end
+	end
+	player.CharacterAdded:Connect(onCharacter)
 	player.CharacterRemoving:Connect(function() clear(player) end)
 	player:GetAttributeChangedSignal("EquippedBackpack"):Connect(function() attach(player) end)
-	if player.Character then task.spawn(attach, player) end
+	if player.Character then task.spawn(onCharacter, player.Character) end
 end
 for _, player in ipairs(Players:GetPlayers()) do track(player) end
 Players.PlayerAdded:Connect(track)

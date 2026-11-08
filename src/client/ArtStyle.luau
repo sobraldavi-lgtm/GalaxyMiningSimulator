@@ -66,6 +66,13 @@ function ArtStyle.oreIcon(oreType: string): string
 	return style and style.Icon or "gem"
 end
 
+-- Dados de um pet pelo id (fonte única para HUD, loja e modelos).
+local petById = {}
+for _, pet in ipairs(Config.Pets) do petById[pet.Id] = pet end
+function ArtStyle.pet(id: string?)
+	return id and petById[id] or nil
+end
+
 -- Ícone de cada pet pelo formato (Look).
 ArtStyle.PetIcon = table.freeze({
 	blob = "pet", rock = "petRock", cloud = "petCloud", bolt = "petBolt", ice = "petIce", sun = "petSun",

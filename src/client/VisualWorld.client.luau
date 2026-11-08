@@ -51,9 +51,10 @@ local world = workspace:WaitForChild("TerraNova")
 -- neon (faixas, bordas, hologramas, anéis do chão) viram foscas na mesma cor,
 -- só neste cliente. Depósitos de minério e peças mineráveis não são alterados.
 local NEON_MAX_SIZE = 6
-local deposits = world:WaitForChild("OreDeposits", 30)
 local function tame(part)
 	if not part:IsA("BasePart") or part.Material ~= Enum.Material.Neon then return end
+	-- Sem esperar OreDeposits: a checagem é feita na hora, para não atrasar o cenário.
+	local deposits = world:FindFirstChild("OreDeposits")
 	if part:GetAttribute("Mineable") or (deposits and part:IsDescendantOf(deposits)) then return end
 	local size = part.Size
 	if math.max(size.X, size.Y, size.Z) > NEON_MAX_SIZE then

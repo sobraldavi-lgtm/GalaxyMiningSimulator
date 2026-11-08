@@ -65,12 +65,7 @@ for id, ore in pairs(Config.Ores) do
 end
 table.sort(oreList, function(a, b) return a.ore.Value < b.ore.Value end)
 
-local function findPet(id)
-	for _, pet in ipairs(Config.Pets) do
-		if pet.Id == id then return pet end
-	end
-	return nil
-end
+local findPet = ArtStyle.pet
 
 local goals = {}
 for _, backpack in ipairs(Config.Backpacks) do
@@ -225,6 +220,7 @@ local goalButton = Theme.action(goalCard, "ABRIR LOJA", C.Gold, { Size = UDim2.n
 local goalBadge
 local goalBadgeKey
 local goalMode = "goal"
+local goalKind -- tipo do item da meta atual (Egg, Tool, Backpack)
 
 -- ---------- Notificações empilhadas ----------
 local toasts = Instance.new("Frame")
@@ -971,6 +967,9 @@ goalButton.Activated:Connect(function()
 	if goalMode == "full" then
 		locate("SaleStation", "Counter", "a Estação de Venda")
 	else
+		-- Abre a loja já na aba do item da meta.
+		local categories = { Egg = "Pets", Tool = "Tools", Backpack = "Backpacks" }
+		playerGui:SetAttribute("GalaxyShopCategory", goalKind and categories[goalKind] or nil)
 		toggleMenu("Loja")
 	end
 end)
@@ -1112,6 +1111,7 @@ local function updateGoal(s)
 		Theme.setTint(goalButton, C.Red)
 	elseif goal then
 		goalMode = "goal"
+		goalKind = goal.Kind
 		key = goal.Id
 		goalHeader.Text = "PRÓXIMA META"
 		goalHeader.TextColor3 = C.Gold
