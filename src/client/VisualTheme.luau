@@ -562,6 +562,12 @@ function Theme.illustration(parent, kind, accent)
 		iconPart(icon, 18, 0, 9, 4, light, 2, 30)
 		iconPart(icon, 21, 4, 4, 8, light, 2, -20)
 		iconPart(icon, 12, 10, 8, 8, accent, 4)
+	elseif kind == "egg" then
+		iconPart(icon, 8, 2, 16, 25, accent, 9)
+		iconPart(icon, 10, 4, 6, 8, accent:Lerp(light, 0.5), 4)
+		iconPart(icon, 15, 15, 5, 5, accent:Lerp(ink, 0.3), 3)
+		iconPart(icon, 11, 20, 4, 4, accent:Lerp(ink, 0.3), 2)
+		iconPart(icon, 19, 9, 3, 3, light, 2)
 	elseif kind == "rocket" then
 		iconPart(icon, 12, 2, 9, 20, light, 4)
 		iconPart(icon, 13, 8, 6, 6, accent, 3)

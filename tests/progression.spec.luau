@@ -65,7 +65,7 @@ equal(player:BuyBackpack("Dust02"), true, "Compra mochila")
 local bought = player:Progress("Buy")
 equal(#bought, 1, "Compra conclui Tecnologia aprimorada")
 player.credits = 200
-equal(player:BuyPet("Lumini"), true, "Resgata Lumini")
+equal(player:HatchEgg("StarEgg"), true, "Abre Ovo Estelar (Lumini garantida)")
 local pet = player:Progress("Pet", "Lumini")
 equal(#pet, 1, "Lumini equipada conclui Amigo alienígena")
 equal(player:CurrentMission().Id, "UnknownSignal", "Missão 5 ativa")
@@ -119,7 +119,7 @@ local saved = InventoryModel.new(Config)
 saved.credits = 5000
 saved:BuyBackpack("Dust02")
 saved:Purchase("Tool03")
-saved:BuyPet("Lumini")
+saved:HatchEgg("StarEgg")
 saved:Mine("Iron")
 saved:TrainMining()
 saved.rebirths = 2
@@ -168,4 +168,71 @@ equal(prefs.settings.GalaxyHideDust, nil, "Valor não booleano descartado")
 local restored = InventoryModel.fromData(Config, prefs:Serialize())
 equal(restored:Snapshot().Settings.GalaxyMute, true, "Preferência volta após carregar")
 print("PASS: preferências validadas e salvas.")
+
+-- Gacha: chances somam 100, sorteio pelas faixas, garantia e equipamento.
+for _, egg in ipairs(Config.Eggs) do
+	local total = 0
+	for _, entry in ipairs(egg.Odds) do total += entry[2] end
+	equal(total, 100, "Chances do " .. egg.Name .. " somam 100%")
+end
+local hatcher = InventoryModel.new(Config)
+hatcher.credits = 100000
+local function fixed(value) return function() return value end end
+local _, _, first = hatcher:HatchEgg("CometEgg", fixed(0.39))
+equal(first.PetId, "Rokko", "Cometa: 0–40% é Rokko (ovo sem Lumini não usa a garantia)")
+equal(hatcher.equippedPet, "Rokko", "Primeiro pet é equipado")
+local _, _, second = hatcher:HatchEgg("CometEgg", fixed(0.40))
+equal(second.PetId, "Nebbi", "Cometa: 40–75% é Nebbi")
+equal(hatcher.equippedPet, "Nebbi", "Pet melhor é equipado automaticamente")
+local _, _, third = hatcher:HatchEgg("StarEgg", fixed(0))
+equal(third.PetId, "Lumini", "Estelar: 0–70% é Lumini (já tem pets: sorteio normal)")
+equal(hatcher.equippedPet, "Nebbi", "Pet pior não troca o equipado")
+local _, _, rare = hatcher:HatchEgg("CometEgg", fixed(0.999))
+equal(rare.PetId, "Glacio", "Cometa: 95–100% é Glacio")
+local before = hatcher.credits
+local _, _, dup = hatcher:HatchEgg("CometEgg", fixed(0.1))
+equal(dup.Duplicate, true, "Rokko repetido")
+equal(hatcher.credits, before - 600 + 300, "Repetido devolve 300 de 600")
+equal(select(1, hatcher:HatchEgg("Unknown")), false, "Ovo inválido")
+print("PASS: gacha com chances, garantia inicial, repetidos e equipamento.")
+
+-- Garantia de raro: 9 aberturas sem Raro+ → a 10ª do mesmo ovo é Raro ou Épico.
+local lucky = InventoryModel.new(Config)
+lucky.credits = 100000
+lucky.ownedPets.Rokko = true -- já tem pet: sem a garantia do pet inicial
+local commonRoll = function() return 0 end -- Estelar: 0 → Lumini (Comum)
+for index = 1, Config.PityOpens - 1 do
+	local _, _, result = lucky:HatchEgg("StarEgg", commonRoll)
+	equal(result.Pity, false, "Abertura " .. index .. " sem garantia")
+end
+equal(lucky.pity.StarEgg, Config.PityOpens - 1, "Contador da garantia")
+local _, _, guaranteed = lucky:HatchEgg("StarEgg", commonRoll)
+equal(guaranteed.Pity, true, "10ª abertura usa a garantia")
+equal(guaranteed.PetId, "Nebbi", "Estelar garante Nebbi (único Raro+ do ovo)")
+equal(lucky.pity.StarEgg, 0, "Garantia zera o contador")
+-- Um Raro sorteado naturalmente também zera o contador.
+lucky:HatchEgg("StarEgg", commonRoll)
+lucky:HatchEgg("StarEgg", function() return 0.99 end) -- 99 → Nebbi
+equal(lucky.pity.StarEgg, 0, "Raro natural zera o contador")
+-- Contadores são por ovo e são salvos.
+lucky:HatchEgg("CometEgg", function() return 0 end) -- Rokko (Incomum)
+equal(lucky.pity.CometEgg, 1, "Contador separado por ovo")
+equal(InventoryModel.fromData(Config, lucky:Serialize()).pity.CometEgg, 1, "Garantia salva")
+print("PASS: garantia de raro por ovo.")
+
+-- Abrir 3: cobra 3× o preço, devolve três resultados; quantidade inválida recusada.
+local triple = InventoryModel.new(Config)
+triple.credits = 3 * 600
+local ok, message, results = triple:HatchEggs("CometEgg", Config.MultiOpen, function() return 0.5 end)
+equal(ok, true, "Abre 3 ovos")
+equal(#results, 3, "Três resultados")
+equal(results[1].PetId, "Nebbi", "0,5 no Cometa → Nebbi")
+equal(results[2].Duplicate, true, "Segundo Nebbi é repetido")
+equal(triple.credits, 300 + 300, "Paga 1.800 e recebe 2 reembolsos de 300")
+equal(type(message), "string", "Mensagem resumida")
+equal(select(1, triple:HatchEggs("CometEgg", 2)), false, "Só 1 ou 3")
+triple.credits = 1000
+equal(select(1, triple:HatchEggs("CometEgg", 3)), false, "Sem saldo para 3")
+equal(triple.credits, 1000, "Recusa não cobra")
+print("PASS: abrir 3 ovos.")
 

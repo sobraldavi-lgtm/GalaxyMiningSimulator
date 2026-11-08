@@ -573,3 +573,36 @@ Escolhidas com o usuário como **hipóteses para testes** (centralizadas em
 - Salvamento com DataStore e trava de sessão; o treino de poder continua por sessão.
 - Hangar: apresentação da Orion Scout e do mapa galáctico; viagens continuam fora do MVP.
 
+## Decisão: pets por gacha de ovos — 08/11/2026
+
+Por decisão do usuário, pets passam a ser obtidos **apenas em ovos** no OVNI,
+substituindo o resgate direto. Isso altera a regra anterior "sem sorteios
+aleatórios" do MVP. Regras mantidas para proteger o jogador:
+
+- Ovos custam **Créditos** (sem Robux, sem monetização no MVP).
+- As **chances de cada pet são sempre mostradas** no cartão do ovo.
+- O sorteio acontece **só no servidor**; o cliente apenas anima o resultado.
+- Quem ainda não tem pets e abre um ovo que contém Lumini recebe **Lumini**, para
+  que a missão "Amigo alienígena" não dependa de sorte.
+- Pet repetido devolve **50%** do preço do ovo; pet novo é equipado se for melhor.
+
+Ovos iniciais (hipóteses para testes, em `MiningConfig.Eggs`):
+
+| Ovo | Preço | Chances |
+| --- | --- | --- |
+| Ovo Estelar | 75 | Lumini 70% · Rokko 25% · Nebbi 5% |
+| Ovo Cometa | 600 | Rokko 40% · Nebbi 35% · Zapi 20% · Glacio 5% |
+| Ovo Supernova | 2.500 | Zapi 45% · Glacio 35% · Solari 20% |
+
+Raridades: Lumini Comum, Rokko Incomum, Nebbi e Zapi Raros, Glacio e Solari Épicos.
+Se ovos forem vendidos por Robux no futuro, as regras do Roblox exigem mostrar as
+chances antes da compra (já atendido) e a decisão deve ser revisada à parte.
+
+### Gacha: abrir 3 e garantia de raro — 08/11/2026 (aprovado pelo usuário)
+
+- **Abrir 3:** abre 3 ovos de uma vez pelo preço × 3 (sem desconto).
+- **Garantia de raro:** cada ovo tem um contador salvo. Depois de 9 aberturas
+  seguidas desse ovo sem pet Raro ou Épico, a 10ª é garantida Raro+, sorteada
+  entre os Raro+ do próprio ovo pelas chances dele. Qualquer Raro+ zera o contador.
+  A loja mostra "Raro em N" em cada ovo; o Ovo Supernova só tem Raro+ ("SEMPRE RARO+").
+

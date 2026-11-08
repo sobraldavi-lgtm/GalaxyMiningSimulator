@@ -177,6 +177,24 @@ local function build(base, oreType)
 	entry.ring = ring
 	entry.floor = floor
 	entry.color = color
+	entry.top = top
+
+	-- Pedregulhos nos cantos quebram a silhueta de caixa da base,
+	-- com veios do minério correndo pela superfície.
+	local half = base.Size / 2
+	for _, corner in ipairs({ { -1, -1 }, { 1, -1 }, { -1, 1 }, { 1, 1 } }) do
+		local size = rng:NextNumber(2.4, 3.4)
+		local at = base.CFrame * CFrame.new(corner[1] * (half.X - 0.6), -half.Y + size * 0.32, corner[2] * (half.Z - 0.5))
+			* CFrame.Angles(rng:NextNumber(0, 3), rng:NextNumber(0, 3), rng:NextNumber(0, 3))
+		add(at, Vector3.new(size, size * 0.8, size * 0.9), ROCK:Lerp(color, rng:NextNumber(0.04, 0.12)),
+			Enum.Material.Rock, Enum.PartType.Ball)
+		for _ = 1, 2 do
+			local vein = add(at * CFrame.Angles(rng:NextNumber(0, 6.28), rng:NextNumber(0, 6.28), 0)
+				* CFrame.new(0, size * 0.38, 0), Vector3.new(0.5, 0.12, size * 0.55), color:Lerp(WHITE, 0.1),
+				style.Material == Enum.Material.Basalt and Enum.Material.Neon or Enum.Material.SmoothPlastic)
+			vein.Reflectance = 0.3
+		end
+	end
 
 	-- Pedregulhos ao redor.
 	for _ = 1, 5 do
@@ -214,10 +232,36 @@ local function build(base, oreType)
 	end)
 end
 
--- Reação aos golpes: tremor; na quebra, clarão, onda de choque e "renascer".
+-- Lascas do minério voando a partir do topo do depósito.
+local function chips(entry, amount)
+	for _ = 1, amount do
+		local size = math.random(25, 50) / 100
+		local chip = piece(entry.top * CFrame.new(math.random(-10, 10) / 10, 0.6, math.random(-10, 10) / 10)
+			* CFrame.Angles(math.random() * 3, math.random() * 3, 0), Vector3.new(size, size, size),
+			entry.color:Lerp(WHITE, math.random() * 0.3), Enum.Material.SmoothPlastic)
+		local angle = math.random() * math.pi * 2
+		local push = math.random(25, 45) / 10
+		local apex = chip.Position + Vector3.new(math.cos(angle) * push, math.random(20, 35) / 10, math.sin(angle) * push)
+		local landing = apex + Vector3.new(math.cos(angle) * push * 0.6, -math.random(30, 45) / 10, math.sin(angle) * push * 0.6)
+		local up = TweenService:Create(chip, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = apex,
+		})
+		local down = TweenService:Create(chip, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+			Position = landing,
+			Transparency = 1,
+			Size = Vector3.new(0.05, 0.05, 0.05),
+		})
+		up.Completed:Once(function() down:Play() end)
+		down.Completed:Once(function() chip:Destroy() end)
+		up:Play()
+	end
+end
+
+-- Reação aos golpes: tremor e lascas; na quebra, clarão, onda de choque e "renascer".
 hitSignal.Event:Connect(function(base, broke)
 	local entry = decor[base]
 	if not entry or reduced() then return end
+	chips(entry, broke and 9 or 3)
 	if not broke then
 		for _, item in ipairs(entry.parts) do
 			local jolt = Vector3.new(math.random() - 0.5, math.random() * 0.4, math.random() - 0.5) * 0.35

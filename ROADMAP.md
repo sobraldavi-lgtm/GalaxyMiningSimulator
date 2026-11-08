@@ -19,7 +19,9 @@
 2. Mineração por cliques e depósitos independentes por jogador: protótipo implementado; testes no Studio pendentes (docs/MINING-TEST.md).
 3. Inventário por peso, venda e Créditos: implementados em memória; teste integrado no Studio pendente.
 4. Ferramentas, mochilas e loja: 20 ferramentas, 20 Mochilas de Poeira Cósmica, 9 minérios e 6 pets em menu de loja; Minas Profundas no mapa (gerador em tools/build_space_map.py); teste no Studio pendente.
-5. Estação de pets com OVNI em Terra Nova: 6 pets com bônus; pets visíveis para todos.
+5. Estação de pets com OVNI em Terra Nova: 6 pets com bônus obtidos por gacha de ovos
+   (chances visíveis, sorteio no servidor, primeiro pet garantido, abrir 3 e garantia
+   de raro a cada 10); pets visíveis para todos.
    Fluxo de descoberta de Rokko e Nebbi e segundo espaço de criatura pendentes.
 6. Cinco missões de ORBI, XP e níveis, Fragmentos Estelares, renascimento, placares,
    salvamento com DataStore e apresentação da Orion Scout no hangar: implementados

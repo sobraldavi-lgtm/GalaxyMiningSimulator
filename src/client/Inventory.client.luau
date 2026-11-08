@@ -83,9 +83,11 @@ for id, upgrade in pairs(Config.Upgrades) do
 	table.insert(goals, { Kind = "Tool", Id = id, Name = upgrade.Name, Price = upgrade.Price, Power = upgrade.Power,
 		Icon = ArtStyle.ToolIcon[ArtStyle.toolFamily(upgrade.Name)], Color = Color3.fromHex(upgrade.Color or "#22E1FF"), Detail = "Ferramenta · poder " .. Theme.format(upgrade.Power) })
 end
-for _, pet in ipairs(Config.Pets) do
-	table.insert(goals, { Kind = "Pet", Id = pet.Id, Name = pet.Name, Price = pet.Price, Icon = ArtStyle.petIcon(pet.Look),
-		Color = Color3.fromHex(pet.Color), Detail = "Pet · +" .. math.round(pet.Bonus * 100) .. "% de poder" })
+-- O primeiro ovo é meta até o jogador ter um pet (depois, ovos são opcionais).
+do
+	local egg = Config.Eggs[1]
+	table.insert(goals, { Kind = "Egg", Id = egg.Id, Name = egg.Name, Price = egg.Price, Icon = "egg",
+		Color = Color3.fromHex(egg.Color), Detail = "Ovo de pet · primeiro pet garantido" })
 end
 table.sort(goals, function(a, b) return a.Price < b.Price end)
 
@@ -95,8 +97,8 @@ local function nextGoal(s)
 		local owned
 		if goal.Kind == "Backpack" then
 			owned = s.OwnedBackpacks[goal.Id]
-		elseif goal.Kind == "Pet" then
-			owned = s.OwnedPets[goal.Id]
+		elseif goal.Kind == "Egg" then
+			owned = next(s.OwnedPets) ~= nil
 		else
 			owned = s.OwnedUpgrades[goal.Id] or goal.Power <= s.ToolPower
 		end
@@ -539,6 +541,13 @@ local function buildOres(body)
 end
 
 -- ----- Mochila: Pets -----
+-- Em qual ovo cada pet pode nascer (o mais barato), para orientar o jogador.
+local eggSourceOf = {}
+for _, egg in ipairs(Config.Eggs) do
+	for _, entry in ipairs(egg.Odds) do
+		eggSourceOf[entry[1]] = eggSourceOf[entry[1]] or (egg.Name .. " · " .. entry[2] .. "%")
+	end
+end
 local function buildPets(body)
 	local intro = sectionWell(body, 1, 50)
 	local introText = Theme.label(intro, "Um pet equipado por vez. O bônus é somado ao poder da ferramenta.", 14, C.Frost)
@@ -575,6 +584,15 @@ local function buildPets(body)
 		local bonus = Theme.title(card, "+" .. math.round(pet.Bonus * 100) .. "% de poder", 13, C.Mint)
 		bonus.Position = UDim2.fromOffset(4, 112)
 		bonus.Size = UDim2.new(1, -8, 0, 18)
+		local rarityColor = Color3.fromHex(Config.Rarities[pet.Rarity] or "#FFFFFF")
+		local rarity = Theme.title(card, string.upper(pet.Rarity), 10, C.Ink)
+		rarity.TextStrokeTransparency = 1
+		rarity.BackgroundColor3 = rarityColor
+		rarity.Position = UDim2.fromOffset(6, 6)
+		rarity.Size = UDim2.fromOffset(62, 16)
+		rarity.ZIndex = 4
+		Theme.round(rarity, 8)
+		Theme.stroke(rarity, C.Ink, 2)
 		local button = Theme.action(card, "", C.Blue, { Size = UDim2.new(1, -16, 0, 44), TextSize = 15 })
 		button.AnchorPoint = Vector2.new(0.5, 1)
 		button.Position = UDim2.new(0.5, 0, 1, -8)
@@ -611,7 +629,7 @@ local function buildPets(body)
 				Theme.setText(entry.button, "EQUIPAR")
 				Theme.setTint(entry.button, C.Blue)
 			else
-				Theme.setText(entry.button, "✦ " .. Theme.format(entry.pet.Price) .. " no OVNI")
+				Theme.setText(entry.button, eggSourceOf[entry.pet.Id] or "Em ovos no OVNI")
 				Theme.setTint(entry.button, C.Gray)
 			end
 		end
@@ -1161,50 +1179,189 @@ task.spawn(function()
 	end)
 end)
 
--- ---------- Celebração de resgate de pet ----------
-local function celebrate(petId)
-	local pet = findPet(petId)
+-- ---------- Abertura de ovos (gacha) ----------
+-- O resultado já vem sorteado do servidor; aqui só a apresentação:
+-- os ovos tremem, racham num clarão e revelam os pets com a cor da raridade.
+-- Funciona para 1 ou 3 ovos (lado a lado).
+local function findEgg(id)
+	for _, egg in ipairs(Config.Eggs) do
+		if egg.Id == id then return egg end
+	end
+	return nil
+end
+
+local hatching = false
+local hatchQueue = {}
+local playHatch
+
+local function slotX(index, count)
+	if count == 1 then return 0.5 end
+	return 0.5 + (index - (count + 1) / 2) * 0.3
+end
+
+local function buildShell(holder, egg, x, size)
+	local eggColor = Color3.fromHex(egg.Color)
+	local shell = Instance.new("Frame")
+	shell.AnchorPoint = Vector2.new(0.5, 0.5)
+	shell.Position = UDim2.fromScale(x, 0.42)
+	shell.Size = UDim2.fromOffset(size, size * 1.27)
+	shell.BackgroundColor3 = C.White
+	shell.BorderSizePixel = 0
+	shell.ZIndex = 3
+	Theme.round(shell, 999)
+	Theme.stroke(shell, C.Ink, 5)
+	Theme.gradient(shell, eggColor:Lerp(C.White, 0.45), eggColor:Lerp(C.Ink, 0.45))
+	shell.Parent = holder
+	for _, spot in ipairs({ { 0.3, 0.35, 0.23 }, { 0.68, 0.55, 0.17 }, { 0.4, 0.75, 0.13 } }) do
+		local dot = Instance.new("Frame")
+		dot.AnchorPoint = Vector2.new(0.5, 0.5)
+		dot.Position = UDim2.fromScale(spot[1], spot[2])
+		dot.Size = UDim2.fromOffset(size * spot[3], size * spot[3])
+		dot.BackgroundColor3 = eggColor:Lerp(C.White, 0.7)
+		dot.BackgroundTransparency = 0.25
+		dot.BorderSizePixel = 0
+		dot.ZIndex = 4
+		Theme.round(dot, 99)
+		dot.Parent = shell
+	end
+	return shell
+end
+
+-- Revela um pet no lugar do ovo; `size` reduz tudo quando são 3.
+local function revealOne(holder, hatch, x, size)
+	local pet = findPet(hatch.PetId)
 	if not pet then return end
 	local color = Color3.fromHex(pet.Color)
-	Sound.play("reward", 1.2)
-	Theme.confetti(stage, 60)
+	local rarityColor = Color3.fromHex(Config.Rarities[pet.Rarity] or "#FFFFFF")
+	local scale = size / 150
+	Theme.rays(holder, { Color = rarityColor, Alt = color, Length = 380 * scale, Width = 26 * scale, Count = 10,
+		Position = UDim2.fromScale(x, 0.42), Transparency = hatch.Duplicate and 0.78 or 0.45 })
+	local portrait = Theme.badge(holder, ArtStyle.petIcon(pet.Look), color, size)
+	portrait.AnchorPoint = Vector2.new(0.5, 0.5)
+	portrait.Position = UDim2.fromScale(x, 0.42)
+	portrait.ZIndex = 3
+	Theme.pop(portrait, 0.5)
+	local function line(text, textSize, textColor, y, height, background)
+		local label = Theme.title(holder, text, textSize, background and C.Ink or textColor)
+		label.AnchorPoint = Vector2.new(0.5, 0)
+		label.Position = UDim2.new(x, 0, 0.42, y)
+		label.Size = UDim2.fromOffset(math.max(size * 2.6, 150), height)
+		label.ZIndex = 4
+		Theme.fitText(label, textSize, 9)
+		if background then
+			label.TextStrokeTransparency = 1
+			label.BackgroundColor3 = background
+			label.Size = UDim2.fromOffset(size * 0.85, height)
+			Theme.round(label, height // 2)
+			Theme.stroke(label, C.Ink, 3)
+		end
+		return label
+	end
+	local top = size * 0.56
+	line(string.upper(pet.Rarity), 18 * scale + 4, C.Ink, top, 26 * scale + 4, rarityColor)
+	line(pet.Name, 44 * scale + 6, color:Lerp(C.White, 0.35), top + 32 * scale + 4, 48 * scale + 6)
+	local detail = hatch.Duplicate and ("REPETIDO · +" .. Theme.format(hatch.Refund) .. " ✦")
+		or ("NOVO! · +" .. math.round(pet.Bonus * 100) .. "% de poder")
+	line(detail, 20 * scale + 4, hatch.Duplicate and C.Muted or C.Gold, top + 82 * scale + 8, 24 * scale + 6)
+	if hatch.Pity then
+		line("GARANTIA DE RARO", 14 * scale + 4, C.Ink, -size * 0.75, 22 * scale + 4, C.Gold)
+	end
+end
+
+function playHatch(list)
+	if hatching then
+		table.insert(hatchQueue, list)
+		return
+	end
+	local egg = findEgg(list[1] and list[1].Egg)
+	if not egg then return end
+	hatching = true
+	local count = #list
+	local size = count == 1 and 150 or 104
 	local holder = Instance.new("Frame")
-	holder.Name = "PetReveal"
+	holder.Name = "Hatch"
 	holder.AnchorPoint = Vector2.new(0.5, 0.5)
 	holder.Position = UDim2.fromScale(0.5, 0.45)
-	holder.Size = UDim2.fromOffset(360, 360)
+	holder.Size = UDim2.fromOffset(count == 1 and 440 or 720, 440)
 	holder.BackgroundTransparency = 1
 	holder.Parent = stage
+	local limit = Instance.new("UISizeConstraint")
+	limit.MaxSize = Vector2.new(count == 1 and 440 or 720, 440)
+	limit.Parent = holder
 	local scale = Instance.new("UIScale")
 	scale.Parent = holder
-	Theme.rays(holder, { Color = color, Alt = C.Gold, Length = 380, Width = 30, Count = 10,
-		Position = UDim2.fromScale(0.5, 0.4), Transparency = 0.45 })
-	local portrait = Theme.badge(holder, ArtStyle.petIcon(pet.Look), color, 140)
-	portrait.AnchorPoint = Vector2.new(0.5, 0.5)
-	portrait.Position = UDim2.fromScale(0.5, 0.4)
-	portrait.ZIndex = 3
-	local headline = Theme.title(holder, "PET RESGATADO!", 40, C.Gold)
-	headline.AnchorPoint = Vector2.new(0.5, 0)
-	headline.Position = UDim2.new(0.5, 0, 0.4, 82)
-	headline.Size = UDim2.fromOffset(460, 46)
-	headline.ZIndex = 4
-	local detail = Theme.title(holder, pet.Name .. "  ·  +" .. math.round(pet.Bonus * 100) .. "% de poder  ·  Equipado", 20, C.White)
-	detail.AnchorPoint = Vector2.new(0.5, 0)
-	detail.Position = UDim2.new(0.5, 0, 0.4, 128)
-	detail.Size = UDim2.fromOffset(460, 26)
-	detail.ZIndex = 4
-	if not Theme.reducedMotion(holder) then
-		scale.Scale = 0.2
-		TweenService:Create(scale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
-	end
-	task.delay(3, function()
-		if Theme.reducedMotion(holder) then
+
+	local function finish()
+		local function done()
 			holder:Destroy()
+			hatching = false
+			local nextList = table.remove(hatchQueue, 1)
+			if nextList then playHatch(nextList) end
+		end
+		if Theme.reducedMotion(holder) then
+			done()
 			return
 		end
 		local out = TweenService:Create(scale, Theme.Motion.Exit, { Scale = 0 })
-		out.Completed:Once(function() holder:Destroy() end)
+		out.Completed:Once(done)
 		out:Play()
+	end
+
+	local function revealAll()
+		local best = 0
+		for index, hatch in ipairs(list) do
+			local pet = findPet(hatch.PetId)
+			local rank = pet and ({ ["Comum"] = 1, ["Incomum"] = 2, ["Raro"] = 3, ["Épico"] = 4 })[pet.Rarity] or 1
+			if not hatch.Duplicate then best = math.max(best, rank) end
+			-- Com 3 ovos, um pequeno atraso entre cada revelação dá suspense.
+			task.delay((index - 1) * (count > 1 and 0.35 or 0), function()
+				if holder.Parent then revealOne(holder, hatch, slotX(index, count), size) end
+			end)
+		end
+		Sound.play("reward", best >= 3 and 1.5 or best > 0 and 1.25 or 1)
+		if best > 0 then Theme.confetti(stage, best >= 3 and 90 or 50) end
+		task.delay(2.6 + (count - 1) * 0.35, finish)
+	end
+
+	if Theme.reducedMotion(holder) then
+		revealAll()
+		return
+	end
+
+	local shells = {}
+	for index = 1, count do
+		table.insert(shells, buildShell(holder, egg, slotX(index, count), size))
+	end
+	local label = Theme.title(holder, (count > 1 and (count .. "× ") or "") .. egg.Name, 26, C.White)
+	label.AnchorPoint = Vector2.new(0.5, 0)
+	label.Position = UDim2.new(0.5, 0, 0.42, size * 0.75)
+	label.Size = UDim2.fromOffset(400, 30)
+	scale.Scale = 0.3
+	TweenService:Create(scale, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
+
+	-- Tremidas cada vez mais fortes, depois o clarão.
+	task.spawn(function()
+		task.wait(0.4)
+		for step = 1, 6 do
+			local angle = (step % 2 == 0 and -1 or 1) * (6 + step * 3)
+			Sound.play("hit", 0.8 + step * 0.08)
+			for index, shell in ipairs(shells) do
+				TweenService:Create(shell, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+					{ Rotation = angle * (index % 2 == 0 and -1 or 1) }):Play()
+			end
+			task.wait(0.16 - step * 0.012)
+		end
+		local flash = Instance.new("Frame")
+		flash.Size = UDim2.fromScale(1, 1)
+		flash.BackgroundColor3 = C.White
+		flash.BorderSizePixel = 0
+		flash.ZIndex = 40
+		flash.Parent = stage
+		TweenService:Create(flash, TweenInfo.new(0.5), { BackgroundTransparency = 1 }):Play()
+		Debris:AddItem(flash, 0.55)
+		for _, shell in ipairs(shells) do shell:Destroy() end
+		label:Destroy()
+		revealAll()
 	end)
 end
 
@@ -1301,8 +1458,8 @@ remote.OnClientEvent:Connect(function(snapshot)
 	updateGoal(snapshot)
 
 	-- Notificações: coletas já aparecem no contador; a loja mostra as próprias mensagens.
-	if snapshot.PetReveal then
-		celebrate(snapshot.PetReveal)
+	if snapshot.Hatches and #snapshot.Hatches > 0 then
+		playHatch(snapshot.Hatches)
 	elseif snapshot.Message and snapshot.Tone ~= "pickup" and not playerGui:GetAttribute("GalaxyShopOpen") then
 		notify(snapshot.Message, snapshot.Tone)
 	end

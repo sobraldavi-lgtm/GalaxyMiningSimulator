@@ -48,6 +48,7 @@ function InventoryModel.new(config)
 		lifetimeCredits = 0,
 		purchases = 0,
 		settings = {},
+		pity = {},
 	}, InventoryModel)
 end
 
@@ -116,21 +117,116 @@ function InventoryModel:TrainMining()
 	return true, gained
 end
 
-function InventoryModel:BuyPet(id)
-	local pet = findPet(self.config, id)
-	if not pet then
-		return false, "Pet inválido."
+local function findEgg(config, id)
+	for _, egg in ipairs(config.Eggs) do
+		if egg.Id == id then
+			return egg
+		end
 	end
-	if self.ownedPets[id] then
-		return false, "Você já possui " .. pet.Name .. "."
+	return nil
+end
+
+-- Sorteia entre as entradas de um ovo, respeitando o peso de cada uma.
+local function pick(entries, value)
+	local total = 0
+	for _, entry in ipairs(entries) do total += entry[2] end
+	local target = value * total
+	local sum = 0
+	for _, entry in ipairs(entries) do
+		sum += entry[2]
+		if target < sum then return entry[1] end
 	end
-	if self.credits < pet.Price then
-		return false, "Faltam " .. (pet.Price - self.credits) .. " Créditos para resgatar " .. pet.Name .. "."
+	return entries[#entries][1]
+end
+
+-- Abre um ovo já pago. Regras, nesta ordem:
+--  1. quem ainda não tem pets e abre um ovo com o pet inicial recebe esse pet;
+--  2. garantia: após (PityOpens - 1) aberturas sem raridade alta, sai uma delas;
+--  3. caso contrário, sorteio normal pelas chances do ovo.
+function InventoryModel:HatchOne(egg, roll)
+	local config = self.config
+	local petId
+	if next(self.ownedPets) == nil then
+		for _, entry in ipairs(egg.Odds) do
+			if entry[1] == config.FirstEggPet then petId = entry[1] end
+		end
 	end
-	self.credits -= pet.Price
-	self.ownedPets[id] = true
-	self.equippedPet = id
-	return true, pet.Name .. " resgatado e equipado!"
+	local pity = self.pity[egg.Id] or 0
+	local pityTriggered = false
+	if not petId and pity >= config.PityOpens - 1 then
+		local rare = {}
+		for _, entry in ipairs(egg.Odds) do
+			local candidate = findPet(config, entry[1])
+			if candidate and config.PityRarities[candidate.Rarity] then table.insert(rare, entry) end
+		end
+		if #rare > 0 then
+			petId = pick(rare, (roll or math.random)())
+			pityTriggered = true
+		end
+	end
+	if not petId then
+		petId = pick(egg.Odds, (roll or math.random)())
+	end
+	local pet = findPet(config, petId)
+	self.pity[egg.Id] = config.PityRarities[pet.Rarity] and 0 or pity + 1
+	local duplicate = self.ownedPets[petId] == true
+	local refund = 0
+	local equipped = false
+	if duplicate then
+		refund = math.floor(egg.Price * config.DuplicateRefund)
+		self.credits += refund
+	else
+		self.ownedPets[petId] = true
+		local current = self.equippedPet and findPet(config, self.equippedPet)
+		if not current or pet.Bonus > current.Bonus then
+			self.equippedPet = petId
+			equipped = true
+		end
+	end
+	return { Egg = egg.Id, PetId = petId, Duplicate = duplicate, Refund = refund,
+		Equipped = equipped, Pity = pityTriggered }
+end
+
+-- Abre `count` ovos (1 ou MultiOpen). Cobra tudo antes; devolve a lista de resultados.
+function InventoryModel:HatchEggs(eggId, count, roll)
+	local egg = findEgg(self.config, eggId)
+	if not egg then
+		return false, "Ovo inválido."
+	end
+	if count ~= 1 and count ~= self.config.MultiOpen then
+		return false, "Quantidade inválida."
+	end
+	local cost = egg.Price * count
+	if self.credits < cost then
+		return false, "Faltam " .. (cost - self.credits) .. " Créditos para abrir "
+			.. (count > 1 and (count .. "× ") or "o ") .. egg.Name .. "."
+	end
+	self.credits -= cost
+	local results, names = {}, {}
+	for _ = 1, count do
+		local result = self:HatchOne(egg, roll)
+		table.insert(results, result)
+		local pet = findPet(self.config, result.PetId)
+		table.insert(names, pet.Name .. (result.Duplicate and "" or " (novo)"))
+	end
+	local message
+	if count == 1 then
+		local pet = findPet(self.config, results[1].PetId)
+		if results[1].Duplicate then
+			message = pet.Name .. " repetido: +" .. results[1].Refund .. " Créditos devolvidos."
+		else
+			message = "Nasceu " .. pet.Name .. " (" .. pet.Rarity .. ")!" .. (results[1].Equipped and " Equipado." or "")
+		end
+	else
+		message = count .. " ovos abertos: " .. table.concat(names, ", ") .. "."
+	end
+	return true, message, results
+end
+
+-- Atalho para um ovo (usado pelos testes): devolve o primeiro resultado.
+function InventoryModel:HatchEgg(eggId, roll)
+	local ok, message, results = self:HatchEggs(eggId, 1, roll)
+	return ok, message, results and results[1]
 end
 
 -- id = nil guarda o pet atual.
@@ -365,6 +461,7 @@ function InventoryModel:Serialize()
 		LifetimeCredits = self.lifetimeCredits,
 		Purchases = self.purchases,
 		Settings = table.clone(self.settings),
+		Pity = table.clone(self.pity),
 	}
 end
 
@@ -428,6 +525,11 @@ function InventoryModel.fromData(config, data)
 	inventory.lifetimeCredits = count(data.LifetimeCredits)
 	inventory.purchases = count(data.Purchases)
 	inventory:SetSettings(data.Settings)
+	if type(data.Pity) == "table" then
+		for eggId, value in pairs(data.Pity) do
+			if findEgg(config, eggId) then inventory.pity[eggId] = count(value) end
+		end
+	end
 	return inventory
 end
 
@@ -463,6 +565,7 @@ function InventoryModel:Snapshot()
 		SaleMultiplier = self:GetSaleMultiplier(),
 		LifetimeCredits = self.lifetimeCredits,
 		Settings = table.clone(self.settings),
+		Pity = table.clone(self.pity),
 	}
 end
 
