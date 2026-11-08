@@ -116,21 +116,66 @@ function InventoryModel:TrainMining()
 	return true, gained
 end
 
-function InventoryModel:BuyPet(id)
-	local pet = findPet(self.config, id)
-	if not pet then
-		return false, "Pet inválido."
+local function findEgg(config, id)
+	for _, egg in ipairs(config.Eggs) do
+		if egg.Id == id then
+			return egg
+		end
 	end
-	if self.ownedPets[id] then
-		return false, "Você já possui " .. pet.Name .. "."
+	return nil
+end
+
+-- Sorteia o pet de um ovo. `roll` devolve um número em [0, 1) (padrão: math.random).
+-- Regras: o servidor sorteia; quem ainda não tem pets e abre um ovo que contém
+-- o pet inicial recebe esse pet; repetido devolve parte do preço; pet novo é
+-- equipado se for melhor que o atual.
+function InventoryModel:HatchEgg(eggId, roll)
+	local egg = findEgg(self.config, eggId)
+	if not egg then
+		return false, "Ovo inválido."
 	end
-	if self.credits < pet.Price then
-		return false, "Faltam " .. (pet.Price - self.credits) .. " Créditos para resgatar " .. pet.Name .. "."
+	if self.credits < egg.Price then
+		return false, "Faltam " .. (egg.Price - self.credits) .. " Créditos para abrir o " .. egg.Name .. "."
 	end
-	self.credits -= pet.Price
-	self.ownedPets[id] = true
-	self.equippedPet = id
-	return true, pet.Name .. " resgatado e equipado!"
+	self.credits -= egg.Price
+	local petId
+	local starter = self.config.FirstEggPet
+	if next(self.ownedPets) == nil then
+		for _, entry in ipairs(egg.Odds) do
+			if entry[1] == starter then petId = starter end
+		end
+	end
+	if not petId then
+		local value = (roll or math.random)() * 100
+		local total = 0
+		for _, entry in ipairs(egg.Odds) do
+			total += entry[2]
+			if value < total then
+				petId = entry[1]
+				break
+			end
+		end
+		petId = petId or egg.Odds[#egg.Odds][1]
+	end
+	local pet = findPet(self.config, petId)
+	local duplicate = self.ownedPets[petId] == true
+	local refund = 0
+	local message
+	if duplicate then
+		refund = math.floor(egg.Price * self.config.DuplicateRefund)
+		self.credits += refund
+		message = pet.Name .. " repetido: +" .. refund .. " Créditos devolvidos."
+	else
+		self.ownedPets[petId] = true
+		local current = self.equippedPet and findPet(self.config, self.equippedPet)
+		if not current or pet.Bonus > current.Bonus then
+			self.equippedPet = petId
+			message = "Nasceu " .. pet.Name .. " (" .. pet.Rarity .. ")! Equipado."
+		else
+			message = "Nasceu " .. pet.Name .. " (" .. pet.Rarity .. ")!"
+		end
+	end
+	return true, message, { Egg = egg.Id, PetId = petId, Duplicate = duplicate, Refund = refund }
 end
 
 -- id = nil guarda o pet atual.

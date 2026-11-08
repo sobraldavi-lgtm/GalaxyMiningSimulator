@@ -18,6 +18,7 @@ local lastBackpack = {}
 local lastRebirth = {}
 local lastTransmitter = {}
 local lastSettings = {}
+local hatchRandom = Random.new() -- sorteio dos ovos só no servidor
 local initialized = false
 local remote
 local shopFloor
@@ -102,6 +103,7 @@ local function publish(player, message, petReveal, tone, extra)
 	if extra then
 		logMissions(player, inventory, extra.Missions)
 		snapshot.LevelUp = extra.LevelUp
+		snapshot.Hatch = extra.Hatch
 		if extra.Missions and #extra.Missions > 0 then
 			local list = {}
 			for _, mission in ipairs(extra.Missions) do
@@ -276,29 +278,40 @@ function handleAction(player, action, argument)
 		inventory:SetSettings(argument)
 		return
 	end
-	if action == "BuyPet" or action == "EquipPet" or action == "UnequipPet" then
+	if action == "HatchEgg" then
 		local root = alive(player)
-		if (action ~= "UnequipPet" and typeof(argument) ~= "string") or not root
+		-- Intervalo cobre a animação de abertura no cliente.
+		if typeof(argument) ~= "string" or not root or now - (lastPetChange[player] or -math.huge) < 1.2 then
+			return
+		end
+		lastPetChange[player] = now
+		-- Ovos só no OVNI da Estação de Pets.
+		if not petTerminal or (root.Position - petTerminal.Position).Magnitude > 40 then
+			publish(player, "Vá até o OVNI da Estação de Pets para abrir ovos.", nil, "warning")
+			return
+		end
+		local ok, message, result = inventory:HatchEgg(argument, function()
+			return hatchRandom:NextNumber()
+		end)
+		local missions = ok and inventory:Progress("Pet", result.PetId) or nil
+		publish(player, message, nil, ok and "success" or "error", { Missions = missions, Hatch = result })
+		return
+	end
+	if action == "EquipPet" or action == "UnequipPet" then
+		local root = alive(player)
+		if (action == "EquipPet" and typeof(argument) ~= "string") or not root
 			or now - (lastPetChange[player] or -math.huge) < 0.6 then
 			return
 		end
 		lastPetChange[player] = now
 		local ok, message
-		if action == "BuyPet" then
-			-- Resgate presencial no OVNI da Estação de Pets.
-			if not petTerminal or (root.Position - petTerminal.Position).Magnitude > 40 then
-				publish(player, "Vá até a Estação de Pets para resgatar.", nil, "warning")
-				return
-			end
-			ok, message = inventory:BuyPet(argument)
-		elseif action == "EquipPet" then
+		if action == "EquipPet" then
 			ok, message = inventory:EquipPet(argument)
 		else
 			ok, message = inventory:EquipPet(nil)
 		end
 		local missions = ok and inventory:Progress("Pet", argument) or nil
-		publish(player, message, (ok and action == "BuyPet") and argument or nil, ok and "success" or "error",
-			{ Missions = missions })
+		publish(player, message, nil, ok and "success" or "error", { Missions = missions })
 		return
 	end
 	if action == "BuyBackpack" or action == "EquipBackpack" or action == "BuyUpgrade" then
@@ -366,7 +379,7 @@ function Service.Init()
 	local world = workspace:WaitForChild("TerraNova")
 	local counter = world:WaitForChild("SaleStation"):WaitForChild("Counter")
 	petTerminal = world:WaitForChild("PetShop"):WaitForChild("Terminal")
-	createPrompt(petTerminal, "OpenPets", "Resgatar / equipar pets", "OVNI de resgate", 10)
+	createPrompt(petTerminal, "OpenPets", "Abrir ovos / equipar pets", "OVNI de resgate", 10)
 
 	local sell = createPrompt(counter, "SellMinerals", "Vender minerais", "Estação de Venda", 12, 0.2)
 	sell.Triggered:Connect(function(player)

@@ -2,14 +2,33 @@
 return table.freeze({
 	Power = 5,
 	-- Pets: bônus percentual sobre o poder da ferramenta. Um pet equipado por vez.
+	-- Obtidos só em ovos (gacha com Créditos, sem Robux); raridade do GDD.
 	Pets = table.freeze({
-		table.freeze({ Id = "Lumini", Name = "Lumini", Bonus = 0.1, Price = 75, Color = "#55B5FF", Look = "blob" }),
-		table.freeze({ Id = "Rokko", Name = "Rokko", Bonus = 0.15, Price = 200, Color = "#9A7B5A", Look = "rock" }),
-		table.freeze({ Id = "Nebbi", Name = "Nebbi", Bonus = 0.2, Price = 450, Color = "#B58CFF", Look = "cloud" }),
-		table.freeze({ Id = "Zapi", Name = "Zapi", Bonus = 0.25, Price = 900, Color = "#FFE23D", Look = "bolt" }),
-		table.freeze({ Id = "Glacio", Name = "Glacio", Bonus = 0.32, Price = 1800, Color = "#8FE8FF", Look = "ice" }),
-		table.freeze({ Id = "Solari", Name = "Solari", Bonus = 0.4, Price = 3500, Color = "#FF9A2E", Look = "sun" }),
+		table.freeze({ Id = "Lumini", Name = "Lumini", Bonus = 0.1, Rarity = "Comum", Color = "#55B5FF", Look = "blob" }),
+		table.freeze({ Id = "Rokko", Name = "Rokko", Bonus = 0.15, Rarity = "Incomum", Color = "#9A7B5A", Look = "rock" }),
+		table.freeze({ Id = "Nebbi", Name = "Nebbi", Bonus = 0.2, Rarity = "Raro", Color = "#B58CFF", Look = "cloud" }),
+		table.freeze({ Id = "Zapi", Name = "Zapi", Bonus = 0.25, Rarity = "Raro", Color = "#FFE23D", Look = "bolt" }),
+		table.freeze({ Id = "Glacio", Name = "Glacio", Bonus = 0.32, Rarity = "Épico", Color = "#8FE8FF", Look = "ice" }),
+		table.freeze({ Id = "Solari", Name = "Solari", Bonus = 0.4, Rarity = "Épico", Color = "#FF9A2E", Look = "sun" }),
 	}),
+	-- Cores de raridade (apresentação).
+	Rarities = table.freeze({
+		Comum = "#B9C3D6", Incomum = "#2EE59D", Raro = "#22B8FF", ["Épico"] = "#B05CFF",
+	}),
+	-- Ovos do OVNI (gacha). Chances em pontos percentuais; cada ovo soma 100.
+	-- Valores são hipótese para testes. As chances são sempre mostradas ao jogador.
+	Eggs = table.freeze({
+		table.freeze({ Id = "StarEgg", Name = "Ovo Estelar", Price = 75, Color = "#55B5FF",
+			Odds = table.freeze({ { "Lumini", 70 }, { "Rokko", 25 }, { "Nebbi", 5 } }) }),
+		table.freeze({ Id = "CometEgg", Name = "Ovo Cometa", Price = 600, Color = "#B58CFF",
+			Odds = table.freeze({ { "Rokko", 40 }, { "Nebbi", 35 }, { "Zapi", 20 }, { "Glacio", 5 } }) }),
+		table.freeze({ Id = "NovaEgg", Name = "Ovo Supernova", Price = 2500, Color = "#FF9A2E",
+			Odds = table.freeze({ { "Zapi", 45 }, { "Glacio", 35 }, { "Solari", 20 } }) }),
+	}),
+	-- Primeiro ovo sempre dá este pet (a missão "Amigo alienígena" não depende de sorte).
+	FirstEggPet = "Lumini",
+	-- Pet repetido devolve esta fração do preço do ovo em Créditos.
+	DuplicateRefund = 0.5,
 	-- Progressão do explorador. Níveis 1–5 vêm do GDD; o resto são hipóteses
 	-- de balanceamento escolhidas com o usuário para testar (ajustar após testes).
 	Progression = table.freeze({
@@ -37,8 +56,8 @@ return table.freeze({
 			Goal = "Compre uma melhoria na Loja Orion", Credits = 100, Fragments = 1,
 			Orbi = "Com Créditos você melhora o equipamento. Visite a Loja Orion e compre sua primeira melhoria." }),
 		table.freeze({ Id = "AlienFriend", Title = "Amigo alienígena", Kind = "Pet", Target = "Lumini", Count = 1,
-			Goal = "Resgate e equipe Lumini no OVNI", Credits = 150, Fragments = 1,
-			Orbi = "Detectei uma criatura azul perto do OVNI! Resgate Lumini e equipe-a para minerar mais forte." }),
+			Goal = "Abra um Ovo Estelar no OVNI e equipe Lumini", Credits = 150, Fragments = 1,
+			Orbi = "Detectei ovos alienígenas no OVNI! Abra um Ovo Estelar: dele sempre nasce Lumini na primeira vez." }),
 		table.freeze({ Id = "UnknownSignal", Title = "Sinal desconhecido", Kind = "Transmitter", Count = 1,
 			Goal = "Reative o transmissor da caverna azul", Credits = 250, Fragments = 1,
 			Orbi = "Um sinal estranho vem da caverna azul. Ao chegar ao nível 3, reative o transmissor lá dentro." }),

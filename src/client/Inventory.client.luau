@@ -83,9 +83,11 @@ for id, upgrade in pairs(Config.Upgrades) do
 	table.insert(goals, { Kind = "Tool", Id = id, Name = upgrade.Name, Price = upgrade.Price, Power = upgrade.Power,
 		Icon = ArtStyle.ToolIcon[ArtStyle.toolFamily(upgrade.Name)], Color = Color3.fromHex(upgrade.Color or "#22E1FF"), Detail = "Ferramenta · poder " .. Theme.format(upgrade.Power) })
 end
-for _, pet in ipairs(Config.Pets) do
-	table.insert(goals, { Kind = "Pet", Id = pet.Id, Name = pet.Name, Price = pet.Price, Icon = ArtStyle.petIcon(pet.Look),
-		Color = Color3.fromHex(pet.Color), Detail = "Pet · +" .. math.round(pet.Bonus * 100) .. "% de poder" })
+-- O primeiro ovo é meta até o jogador ter um pet (depois, ovos são opcionais).
+do
+	local egg = Config.Eggs[1]
+	table.insert(goals, { Kind = "Egg", Id = egg.Id, Name = egg.Name, Price = egg.Price, Icon = "egg",
+		Color = Color3.fromHex(egg.Color), Detail = "Ovo de pet · primeiro pet garantido" })
 end
 table.sort(goals, function(a, b) return a.Price < b.Price end)
 
@@ -95,8 +97,8 @@ local function nextGoal(s)
 		local owned
 		if goal.Kind == "Backpack" then
 			owned = s.OwnedBackpacks[goal.Id]
-		elseif goal.Kind == "Pet" then
-			owned = s.OwnedPets[goal.Id]
+		elseif goal.Kind == "Egg" then
+			owned = next(s.OwnedPets) ~= nil
 		else
 			owned = s.OwnedUpgrades[goal.Id] or goal.Power <= s.ToolPower
 		end
@@ -539,6 +541,13 @@ local function buildOres(body)
 end
 
 -- ----- Mochila: Pets -----
+-- Em qual ovo cada pet pode nascer (o mais barato), para orientar o jogador.
+local eggSourceOf = {}
+for _, egg in ipairs(Config.Eggs) do
+	for _, entry in ipairs(egg.Odds) do
+		eggSourceOf[entry[1]] = eggSourceOf[entry[1]] or (egg.Name .. " · " .. entry[2] .. "%")
+	end
+end
 local function buildPets(body)
 	local intro = sectionWell(body, 1, 50)
 	local introText = Theme.label(intro, "Um pet equipado por vez. O bônus é somado ao poder da ferramenta.", 14, C.Frost)
@@ -575,6 +584,15 @@ local function buildPets(body)
 		local bonus = Theme.title(card, "+" .. math.round(pet.Bonus * 100) .. "% de poder", 13, C.Mint)
 		bonus.Position = UDim2.fromOffset(4, 112)
 		bonus.Size = UDim2.new(1, -8, 0, 18)
+		local rarityColor = Color3.fromHex(Config.Rarities[pet.Rarity] or "#FFFFFF")
+		local rarity = Theme.title(card, string.upper(pet.Rarity), 10, C.Ink)
+		rarity.TextStrokeTransparency = 1
+		rarity.BackgroundColor3 = rarityColor
+		rarity.Position = UDim2.fromOffset(6, 6)
+		rarity.Size = UDim2.fromOffset(62, 16)
+		rarity.ZIndex = 4
+		Theme.round(rarity, 8)
+		Theme.stroke(rarity, C.Ink, 2)
 		local button = Theme.action(card, "", C.Blue, { Size = UDim2.new(1, -16, 0, 44), TextSize = 15 })
 		button.AnchorPoint = Vector2.new(0.5, 1)
 		button.Position = UDim2.new(0.5, 0, 1, -8)
@@ -611,7 +629,7 @@ local function buildPets(body)
 				Theme.setText(entry.button, "EQUIPAR")
 				Theme.setTint(entry.button, C.Blue)
 			else
-				Theme.setText(entry.button, "✦ " .. Theme.format(entry.pet.Price) .. " no OVNI")
+				Theme.setText(entry.button, eggSourceOf[entry.pet.Id] or "Em ovos no OVNI")
 				Theme.setTint(entry.button, C.Gray)
 			end
 		end
@@ -1161,50 +1179,151 @@ task.spawn(function()
 	end)
 end)
 
--- ---------- Celebração de resgate de pet ----------
-local function celebrate(petId)
-	local pet = findPet(petId)
-	if not pet then return end
+-- ---------- Abertura de ovo (gacha) ----------
+-- O resultado já vem sorteado do servidor; aqui só a apresentação:
+-- o ovo treme, racha num clarão e revela o pet com a cor da raridade.
+local function findEgg(id)
+	for _, egg in ipairs(Config.Eggs) do
+		if egg.Id == id then return egg end
+	end
+	return nil
+end
+
+local hatching = false
+local hatchQueue = {}
+local playHatch
+
+local function reveal(holder, hatch, pet, finish)
 	local color = Color3.fromHex(pet.Color)
-	Sound.play("reward", 1.2)
-	Theme.confetti(stage, 60)
+	local rarityColor = Color3.fromHex(Config.Rarities[pet.Rarity] or "#FFFFFF")
+	local epic = pet.Rarity == "Épico" or pet.Rarity == "Raro"
+	Sound.play("reward", hatch.Duplicate and 1 or (epic and 1.5 or 1.25))
+	if not hatch.Duplicate then
+		Theme.confetti(stage, epic and 90 or 50)
+	end
+	Theme.rays(holder, { Color = rarityColor, Alt = color, Length = 400, Width = 30, Count = 10,
+		Position = UDim2.fromScale(0.5, 0.4), Transparency = hatch.Duplicate and 0.75 or 0.45 })
+	local portrait = Theme.badge(holder, ArtStyle.petIcon(pet.Look), color, 150)
+	portrait.AnchorPoint = Vector2.new(0.5, 0.5)
+	portrait.Position = UDim2.fromScale(0.5, 0.4)
+	portrait.ZIndex = 3
+	Theme.pop(portrait, 0.5)
+	local rarity = Theme.title(holder, string.upper(pet.Rarity), 18, C.Ink)
+	rarity.TextStrokeTransparency = 1
+	rarity.BackgroundColor3 = rarityColor
+	rarity.AnchorPoint = Vector2.new(0.5, 0)
+	rarity.Position = UDim2.new(0.5, 0, 0.4, 84)
+	rarity.Size = UDim2.fromOffset(120, 28)
+	rarity.ZIndex = 4
+	Theme.round(rarity, 14)
+	Theme.stroke(rarity, C.Ink, 3)
+	local name = Theme.title(holder, pet.Name, 44, color:Lerp(C.White, 0.35))
+	name.AnchorPoint = Vector2.new(0.5, 0)
+	name.Position = UDim2.new(0.5, 0, 0.4, 116)
+	name.Size = UDim2.fromOffset(460, 50)
+	name.ZIndex = 4
+	local detail = Theme.title(holder, hatch.Duplicate and ("REPETIDO  ·  +" .. Theme.format(hatch.Refund) .. " ✦ devolvidos")
+		or ("NOVO!  ·  +" .. math.round(pet.Bonus * 100) .. "% de poder"), 20, hatch.Duplicate and C.Muted or C.Gold)
+	detail.AnchorPoint = Vector2.new(0.5, 0)
+	detail.Position = UDim2.new(0.5, 0, 0.4, 166)
+	detail.Size = UDim2.fromOffset(460, 26)
+	detail.ZIndex = 4
+	task.delay(2.4, finish)
+end
+
+function playHatch(hatch)
+	local egg = findEgg(hatch.Egg)
+	local pet = findPet(hatch.PetId)
+	if not egg or not pet then return end
+	if hatching then
+		table.insert(hatchQueue, hatch)
+		return
+	end
+	hatching = true
 	local holder = Instance.new("Frame")
-	holder.Name = "PetReveal"
+	holder.Name = "Hatch"
 	holder.AnchorPoint = Vector2.new(0.5, 0.5)
 	holder.Position = UDim2.fromScale(0.5, 0.45)
-	holder.Size = UDim2.fromOffset(360, 360)
+	holder.Size = UDim2.fromOffset(420, 420)
 	holder.BackgroundTransparency = 1
 	holder.Parent = stage
 	local scale = Instance.new("UIScale")
 	scale.Parent = holder
-	Theme.rays(holder, { Color = color, Alt = C.Gold, Length = 380, Width = 30, Count = 10,
-		Position = UDim2.fromScale(0.5, 0.4), Transparency = 0.45 })
-	local portrait = Theme.badge(holder, ArtStyle.petIcon(pet.Look), color, 140)
-	portrait.AnchorPoint = Vector2.new(0.5, 0.5)
-	portrait.Position = UDim2.fromScale(0.5, 0.4)
-	portrait.ZIndex = 3
-	local headline = Theme.title(holder, "PET RESGATADO!", 40, C.Gold)
-	headline.AnchorPoint = Vector2.new(0.5, 0)
-	headline.Position = UDim2.new(0.5, 0, 0.4, 82)
-	headline.Size = UDim2.fromOffset(460, 46)
-	headline.ZIndex = 4
-	local detail = Theme.title(holder, pet.Name .. "  ·  +" .. math.round(pet.Bonus * 100) .. "% de poder  ·  Equipado", 20, C.White)
-	detail.AnchorPoint = Vector2.new(0.5, 0)
-	detail.Position = UDim2.new(0.5, 0, 0.4, 128)
-	detail.Size = UDim2.fromOffset(460, 26)
-	detail.ZIndex = 4
-	if not Theme.reducedMotion(holder) then
-		scale.Scale = 0.2
-		TweenService:Create(scale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
-	end
-	task.delay(3, function()
-		if Theme.reducedMotion(holder) then
+
+	local function finish()
+		local function done()
 			holder:Destroy()
+			hatching = false
+			local nextHatch = table.remove(hatchQueue, 1)
+			if nextHatch then playHatch(nextHatch) end
+		end
+		if Theme.reducedMotion(holder) then
+			done()
 			return
 		end
 		local out = TweenService:Create(scale, Theme.Motion.Exit, { Scale = 0 })
-		out.Completed:Once(function() holder:Destroy() end)
+		out.Completed:Once(done)
 		out:Play()
+	end
+
+	if Theme.reducedMotion(holder) then
+		reveal(holder, hatch, pet, finish)
+		return
+	end
+
+	-- O ovo: elipse com manchas na cor do ovo.
+	local eggColor = Color3.fromHex(egg.Color)
+	local shell = Instance.new("Frame")
+	shell.AnchorPoint = Vector2.new(0.5, 0.5)
+	shell.Position = UDim2.fromScale(0.5, 0.4)
+	shell.Size = UDim2.fromOffset(150, 190)
+	shell.BackgroundColor3 = C.White
+	shell.BorderSizePixel = 0
+	shell.ZIndex = 3
+	Theme.round(shell, 999)
+	Theme.stroke(shell, C.Ink, 5)
+	Theme.gradient(shell, eggColor:Lerp(C.White, 0.45), eggColor:Lerp(C.Ink, 0.45))
+	shell.Parent = holder
+	for _, spot in ipairs({ { 0.3, 0.35, 34 }, { 0.68, 0.55, 26 }, { 0.4, 0.75, 20 } }) do
+		local dot = Instance.new("Frame")
+		dot.AnchorPoint = Vector2.new(0.5, 0.5)
+		dot.Position = UDim2.fromScale(spot[1], spot[2])
+		dot.Size = UDim2.fromOffset(spot[3], spot[3])
+		dot.BackgroundColor3 = eggColor:Lerp(C.White, 0.7)
+		dot.BackgroundTransparency = 0.25
+		dot.BorderSizePixel = 0
+		dot.ZIndex = 4
+		Theme.round(dot, 99)
+		dot.Parent = shell
+	end
+	local label = Theme.title(holder, egg.Name, 26, C.White)
+	label.AnchorPoint = Vector2.new(0.5, 0)
+	label.Position = UDim2.new(0.5, 0, 0.4, 110)
+	label.Size = UDim2.fromOffset(360, 30)
+	scale.Scale = 0.3
+	TweenService:Create(scale, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
+
+	-- Tremidas cada vez mais fortes, depois o clarão.
+	task.spawn(function()
+		task.wait(0.4)
+		for step = 1, 6 do
+			local angle = (step % 2 == 0 and -1 or 1) * (6 + step * 3)
+			Sound.play("hit", 0.8 + step * 0.08)
+			TweenService:Create(shell, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+				{ Rotation = angle }):Play()
+			task.wait(0.16 - step * 0.012)
+		end
+		local flash = Instance.new("Frame")
+		flash.Size = UDim2.fromScale(1, 1)
+		flash.BackgroundColor3 = C.White
+		flash.BorderSizePixel = 0
+		flash.ZIndex = 40
+		flash.Parent = stage
+		TweenService:Create(flash, TweenInfo.new(0.5), { BackgroundTransparency = 1 }):Play()
+		Debris:AddItem(flash, 0.55)
+		shell:Destroy()
+		label:Destroy()
+		reveal(holder, hatch, pet, finish)
 	end)
 end
 
@@ -1301,8 +1420,8 @@ remote.OnClientEvent:Connect(function(snapshot)
 	updateGoal(snapshot)
 
 	-- Notificações: coletas já aparecem no contador; a loja mostra as próprias mensagens.
-	if snapshot.PetReveal then
-		celebrate(snapshot.PetReveal)
+	if snapshot.Hatch then
+		playHatch(snapshot.Hatch)
 	elseif snapshot.Message and snapshot.Tone ~= "pickup" and not playerGui:GetAttribute("GalaxyShopOpen") then
 		notify(snapshot.Message, snapshot.Tone)
 	end

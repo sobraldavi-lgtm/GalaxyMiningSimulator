@@ -66,6 +66,7 @@ Tudo que anima respeita **Movimento reduzido**.
 - **Placas dos minérios:** acima de cada grupo de depósitos, com nome, resistência, golpes necessários com o poder atual (⌈resistência ÷ poder⌉, como no GDD) e um selo FÁCIL, MÉDIO, DIFÍCIL ou EXTREMO.
 - **Prompts:** cartões holográficos com tecla 3D que se enche ao segurar; no toque, a tecla é um botão.
 - **Mundo vivo** (só no cliente): planetas e anéis giram, ilhas, orbes e postes flutuam, nuvens derivam, estrelas dos postes rodam, chamas dos foguetes tremulam e hologramas dos portais pulsam. Só peças decorativas sem colisão de `TerraNova/Expansion` se movem.
+- **Ovos (gacha):** na loja, a aba Ovos mostra cada ovo com as chances por pet na cor da raridade (✔ nos já obtidos) e o contador da coleção. Ao abrir, o ovo treme cada vez mais, racha num clarão e revela o pet com raios, selo de raridade e "NOVO!" ou "REPETIDO". A aba Pets da mochila mostra a raridade e em qual ovo cada pet nasce.
 - **Celebração:** raios, confete e cartão central no resgate de pet; vinheta "TERRA NOVA" depois do carregamento.
 
 ## Controles

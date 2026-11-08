@@ -19,7 +19,7 @@ local C = Theme.Color
 local categories = {
 	{ Id = "Backpacks", Name = "Mochilas", Icon = "pack", Accent = C.Violet },
 	{ Id = "Tools", Name = "Ferramentas", Icon = "drill", Accent = C.Cyan },
-	{ Id = "Pets", Name = "Pets", Icon = "pet", Accent = C.Mint },
+	{ Id = "Pets", Name = "Ovos", Icon = "egg", Accent = C.Mint },
 }
 
 local items = {}
@@ -43,13 +43,14 @@ for index, entry in ipairs(tools) do
 		Price = entry.upgrade.Price, Power = entry.upgrade.Power,
 	})
 end
-local petBonus = {}
-for index, pet in ipairs(Config.Pets) do
-	petBonus[pet.Id] = pet.Bonus
+-- Ovos de pet (gacha): o sorteio acontece no servidor; aqui mostramos as chances.
+local petById = {}
+for _, pet in ipairs(Config.Pets) do petById[pet.Id] = pet end
+for index, egg in ipairs(Config.Eggs) do
 	table.insert(items, {
-		Id = pet.Id, Category = "Pets", Kind = "Pet", Order = index,
-		Name = pet.Name, Color = Color3.fromHex(pet.Color), Icon = ArtStyle.petIcon(pet.Look),
-		Price = pet.Price, Bonus = pet.Bonus,
+		Id = egg.Id, Category = "Pets", Kind = "Egg", Order = index,
+		Name = egg.Name, Color = Color3.fromHex(egg.Color), Icon = "egg",
+		Price = egg.Price, Odds = egg.Odds,
 	})
 end
 
@@ -244,6 +245,14 @@ local function makeCard(item)
 
 	local primary = textLine(face, 128, 14, C.White)
 	local secondary = textLine(face, 147, 12, C.Muted)
+	if item.Kind == "Egg" then
+		-- Lista de chances (até 4 linhas) no lugar das duas linhas de atributo.
+		primary.Position = UDim2.fromOffset(8, 124)
+		primary.Size = UDim2.new(1, -16, 0, 44)
+		primary.TextYAlignment = Enum.TextYAlignment.Top
+		Theme.fitText(primary, 12, 7)
+		secondary.Visible = false
+	end
 
 	-- Progresso até poder comprar (só quando falta saldo).
 	local track = Instance.new("Frame")
@@ -272,13 +281,9 @@ local function makeCard(item)
 		if item.Kind == "Backpack" then
 			if state.BackpackId == item.Id then return end
 			remote:FireServer(state.OwnedBackpacks[item.Id] and "EquipBackpack" or "BuyBackpack", item.Id)
-		elseif item.Kind == "Pet" then
-			if state.EquippedPet == item.Id then
-				remote:FireServer("UnequipPet")
-			elseif state.OwnedPets[item.Id] then
-				remote:FireServer("EquipPet", item.Id)
-			else
-				remote:FireServer("BuyPet", item.Id)
+		elseif item.Kind == "Egg" then
+			if state.Credits >= item.Price then
+				remote:FireServer("HatchEgg", item.Id)
 			end
 		elseif not state.OwnedUpgrades[item.Id] then
 			remote:FireServer("BuyUpgrade", item.Id)
@@ -303,7 +308,8 @@ end
 local function isOwned(item)
 	if not state then return false end
 	if item.Kind == "Backpack" then return state.OwnedBackpacks[item.Id] == true end
-	if item.Kind == "Pet" then return state.OwnedPets[item.Id] == true end
+	-- Ovos se repetem; o primeiro só é "meta" enquanto o jogador não tem pets.
+	if item.Kind == "Egg" then return next(state.OwnedPets) ~= nil end
 	return state.OwnedUpgrades[item.Id] == true or (item.Power ~= nil and item.Power <= state.ToolPower)
 end
 
@@ -322,7 +328,6 @@ end
 local function refresh()
 	creditsLabel.Text = Theme.compact(state and state.Credits or 0)
 	local goal = nextGoal(selected)
-	local currentBonus = state and state.EquippedPet and petBonus[state.EquippedPet] or 0
 	for _, card in ipairs(cards) do
 		local item = card.item
 		card.frame.Visible = item.Category == selected
@@ -337,15 +342,19 @@ local function refresh()
 				elseif state.OwnedBackpacks[item.Id] then
 					text, color = "EQUIPAR", C.Blue
 				end
-			elseif item.Kind == "Pet" then
-				card.primary.Text = "+" .. math.round(item.Bonus * 100) .. "% de poder"
-					.. delta(math.round(item.Bonus * 100), math.round(currentBonus * 100), "%")
-				card.secondary.Text = "Companheiro"
-				if state.EquippedPet == item.Id then
-					text, color, highlight = "✔ GUARDAR", C.Gold, true
-				elseif state.OwnedPets[item.Id] then
-					text, color = "EQUIPAR", C.Blue
+			elseif item.Kind == "Egg" then
+				-- Chances sempre visíveis, na cor da raridade; ✔ marca pets já obtidos.
+				local lines = {}
+				for _, entry in ipairs(item.Odds) do
+					local pet = petById[entry[1]]
+					local hex = Config.Rarities[pet.Rarity] or "#FFFFFF"
+					table.insert(lines, string.format('<font color="%s">%s%s</font>  %d%%', hex,
+						state.OwnedPets[pet.Id] and "✔ " or "", pet.Name, entry[2]))
 				end
+				card.primary.Text = table.concat(lines, "\n")
+				card.secondary.Text = ""
+				text = "ABRIR  ✦ " .. Theme.compact(item.Price)
+				color = state.Credits >= item.Price and C.Mint or C.Gray
 			else
 				card.primary.Text = "Poder " .. Theme.format(item.Power) .. delta(item.Power, state.ToolPower)
 				card.secondary.Text = "Ferramenta"
@@ -369,7 +378,8 @@ local function refresh()
 			card.rays.Visible = isGoal or highlight
 			card.edge.Color = highlight and C.Gold or isGoal and C.White or C.Ink
 			card.edge.Thickness = (highlight or isGoal) and 4 or 3
-			local showProgress = not highlight and not isOwned(item) and not affordable
+			-- Ovos usam o espaço da barra para a lista de chances.
+			local showProgress = not highlight and not affordable and item.Kind ~= "Egg" and not isOwned(item)
 			card.track.Visible = showProgress
 			if showProgress then
 				card.fill.Size = UDim2.fromScale(math.clamp(state.Credits / math.max(item.Price, 1), 0, 1), 1)
@@ -385,10 +395,14 @@ local function refresh()
 					total += 1
 					local item = card.item
 					local has = (item.Kind == "Backpack" and state.OwnedBackpacks[item.Id])
-						or (item.Kind == "Pet" and state.OwnedPets[item.Id])
 						or (item.Kind == "Tool" and state.OwnedUpgrades[item.Id])
 					if has then owned += 1 end
 				end
+			end
+			if id == "Pets" then
+				-- Na aba de ovos, o contador mostra a coleção de pets.
+				owned, total = 0, #Config.Pets
+				for _ in pairs(state.OwnedPets) do owned += 1 end
 			end
 			tab.count.Text = owned .. "/" .. total
 		end
@@ -493,7 +507,8 @@ remote.OnClientEvent:Connect(function(snapshot)
 	if shop.Overlay.Visible then
 		refresh()
 		if snapshot.Message and snapshot.Tone ~= "pickup" and snapshot.Tone ~= "power" then
-			say(snapshot.Message, snapshot.Tone)
+			-- Abertura de ovo tem animação própria (som e confete): a loja só mostra o texto.
+			say(snapshot.Message, snapshot.Hatch and "info" or snapshot.Tone)
 		end
 	end
 end)
