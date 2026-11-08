@@ -2,18 +2,30 @@
 local InventoryModel = {}
 InventoryModel.__index = InventoryModel
 
+local function findBackpack(config, id)
+	for index, backpack in ipairs(config.Backpacks) do
+		if backpack.Id == id then
+			return backpack, index
+		end
+	end
+	return nil
+end
+
 function InventoryModel.new(config)
+	local starting = findBackpack(config, config.StartingBackpack)
 	return setmetatable({
 		config = config,
 		items = {},
 		weight = 0,
 		credits = 0,
-		capacity = config.BackpackCapacity,
+		capacity = starting.Capacity,
+		backpackId = starting.Id,
+		ownedBackpacks = { [starting.Id] = true },
 		power = config.Power,
 		trainingPower = 0,
 		trainingClicks = 0,
 		toolName = "Extrator Básico",
-		backpackName = "Mochila Inicial",
+		backpackName = starting.Name,
 		ownedUpgrades = {},
 	}, InventoryModel)
 end
@@ -25,11 +37,51 @@ end
 
 function InventoryModel:GetMiningPower()
 	local multiplier = self.luminiEquipped and (1 + self.config.LuminiBonus) or 1
-	return math.round(self.power * multiplier * 100) / 100 + self.trainingPower
+	return math.round(self.power * multiplier * 100) / 100 + self:GetTrainingPower()
+end
+
+function InventoryModel:GetPowerCap()
+	return (findBackpack(self.config, self.backpackId)).PowerCap
+end
+
+-- O treino acumulado nunca passa do limite da mochila equipada.
+function InventoryModel:GetTrainingPower()
+	return math.min(self.trainingPower, self:GetPowerCap())
+end
+
+function InventoryModel:BuyBackpack(id)
+	local backpack = findBackpack(self.config, id)
+	if not backpack then
+		return false, "Mochila inválida."
+	end
+	if self.ownedBackpacks[id] then
+		return false, "Você já possui " .. backpack.Name .. "."
+	end
+	if self.credits < backpack.Price then
+		return false, "Créditos insuficientes: faltam " .. (backpack.Price - self.credits) .. "."
+	end
+	self.credits -= backpack.Price
+	self.ownedBackpacks[id] = true
+	self:EquipBackpack(id, true)
+	return true, "Mochila de " .. backpack.Name .. " comprada e equipada!"
+end
+
+function InventoryModel:EquipBackpack(id, force)
+	local backpack = findBackpack(self.config, id)
+	if not backpack or not self.ownedBackpacks[id] then
+		return false, "Você não possui essa mochila."
+	end
+	if not force and self.weight > backpack.Capacity then
+		return false, "Esvazie a mochila: a carga excede " .. backpack.Capacity .. "."
+	end
+	self.backpackId = id
+	self.capacity = backpack.Capacity
+	self.backpackName = backpack.Name
+	return true, backpack.Name .. " equipada."
 end
 
 function InventoryModel:TrainMining()
-	if self.trainingPower >= self.config.TrainingPowerCap then
+	if self.trainingPower >= self:GetPowerCap() then
 		return false, false
 	end
 	self.trainingClicks += 1
@@ -96,9 +148,6 @@ function InventoryModel:Purchase(upgradeId)
 	if upgrade.Kind == "Tool" then
 		self.power = upgrade.Power
 		self.toolName = upgrade.Name
-	elseif upgrade.Kind == "Backpack" then
-		self.capacity = upgrade.Capacity
-		self.backpackName = upgrade.Name
 	else
 		return false, "Tipo de melhoria inválido."
 	end
@@ -116,7 +165,10 @@ function InventoryModel:Snapshot()
 		LuminiDiscovered = self.luminiDiscovered == true,
 		LuminiEquipped = self.luminiEquipped == true,
 		Power = self:GetMiningPower(),
-		TrainingPower = self.trainingPower,
+		TrainingPower = self:GetTrainingPower(),
+		PowerCap = self:GetPowerCap(),
+		BackpackId = self.backpackId,
+		OwnedBackpacks = table.clone(self.ownedBackpacks),
 		TrainingClicks = self.trainingClicks,
 		ToolName = self.toolName,
 		BackpackName = self.backpackName,

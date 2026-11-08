@@ -204,8 +204,19 @@ local petCatalog = {
 	},
 }
 local petCards = {}
+local backpackCards = {}
 local function renderState()
 	if not state then return end
+	for _, card in ipairs(backpackCards) do
+		local backpack = card.backpack
+		if state.BackpackId == backpack.Id then
+			card.button.Text = "✔ EQUIPADA"
+		elseif state.OwnedBackpacks[backpack.Id] then
+			card.button.Text = "Equipar"
+		else
+			card.button.Text = "Comprar • " .. backpack.Price .. " Créditos"
+		end
+	end
 	if infoLabels.inventory then
 		infoLabels.inventory.Text = string.format("Ferro  %d   •   Cobre  %d   •   Cristal  %d\nCarga: %d / %d\n%s  •  %s",
 			state.Items.Iron or 0, state.Items.Copper or 0, state.Items.Crystal or 0,
@@ -235,6 +246,7 @@ local function openMenu(name)
 	end
 	table.clear(infoLabels)
 	table.clear(petCards)
+	table.clear(backpackCards)
 	local order = 0
 	local function row(text, action, height)
 		order += 1
@@ -271,9 +283,37 @@ local function openMenu(name)
 			find.Activated:Connect(function() locate("Shop", display) end)
 		end
 		local drill = Config.Upgrades.TitaniumDrill
-		local backpack = Config.Upgrades.ReinforcedBackpack
 		offerCard(drill, drill.Power .. " poder", "Display-74", Theme.Color.Cyan, "drill")
-		offerCard(backpack, backpack.Capacity .. " carga", "Display-62", Theme.Color.Violet, "pack")
+		row("MOCHILAS DE POEIRA CÓSMICA\nCarga maior e limite de poder de treino maior. Compre perto da loja.", nil, 70)
+		for index, backpack in ipairs(Config.Backpacks) do
+			order += 1
+			local tint = Color3.fromHex(backpack.Color)
+			local frame = surface(body, backpack.Id, tint)
+			frame.LayoutOrder = order
+			frame.Size = UDim2.new(1, -9, 0, 112)
+			frame.ZIndex = 6
+			local badge = Theme.illustration(frame, "pack", tint)
+			badge.Position = UDim2.fromOffset(10, 10)
+			local info = Theme.label(frame, string.format("%d. %s\nCarga %d  •  Limite de poder +%d",
+				index, backpack.Name, backpack.Capacity, backpack.PowerCap), 14)
+			info.Position = UDim2.fromOffset(52, 4)
+			info.Size = UDim2.new(1, -62, 0, 44)
+			info.TextXAlignment = Enum.TextXAlignment.Left
+			info.ZIndex = 7
+			local button = Theme.action(frame, "")
+			button.Position = UDim2.fromOffset(10, 56)
+			button.Size = UDim2.new(1, -20, 0, 44)
+			button.ZIndex = 7
+			button.Activated:Connect(function()
+				if not state then return end
+				if state.OwnedBackpacks[backpack.Id] then
+					remote:FireServer("EquipBackpack", backpack.Id)
+				else
+					remote:FireServer("BuyBackpack", backpack.Id)
+				end
+			end)
+			table.insert(backpackCards, { backpack = backpack, button = button })
+		end
 		row("Localizar Estação de Venda", function() locate("SaleStation", "Counter") end)
 	elseif name == "Mochila" then
 		local tabs = Instance.new("Frame", body)
@@ -383,10 +423,10 @@ local displayedRatio
 remote.OnClientEvent:Connect(function(snapshot)
 	state = snapshot
 	credits.Text = tostring(snapshot.Credits)
-	local progress = snapshot.TrainingPower >= Config.TrainingPowerCap and "MÁX."
+	local progress = snapshot.TrainingPower >= snapshot.PowerCap and "MÁX."
 		or string.format("%d/%d", snapshot.TrainingClicks, Config.TrainingClicksPerPoint)
 	power.Text = tostring(snapshot.Power)
-	training.Text = string.format("+%d  ·  %s", snapshot.TrainingPower, progress)
+	training.Text = string.format("+%d/%d  ·  %s", snapshot.TrainingPower, snapshot.PowerCap, progress)
 	capacity.Text = string.format("%d/%d%s", snapshot.Weight, snapshot.Capacity,
 		snapshot.Weight >= snapshot.Capacity and " CHEIA" or "")
 	playerGui:SetAttribute("GalaxyToolName", snapshot.ToolName)
