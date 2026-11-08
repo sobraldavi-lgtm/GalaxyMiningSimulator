@@ -2,8 +2,8 @@ local TweenService = game:GetService("TweenService")
 local Theme = {}
 
 Theme.Color = table.freeze({
-	Navy = Color3.fromHex("#0B1530"),
-	Blue = Color3.fromHex("#3478F6"),
+	Navy = Color3.fromHex("#1B1250"),
+	Blue = Color3.fromHex("#2F7BFF"),
 	Cyan = Color3.fromHex("#00D8FF"),
 	Violet = Color3.fromHex("#A855F7"),
 	Amber = Color3.fromHex("#FFCA3A"),
@@ -11,8 +11,8 @@ Theme.Color = table.freeze({
 	Frost = Color3.fromHex("#EAF4FF"),
 	Text = Color3.fromHex("#EDF4FF"),
 	Track = Color3.fromHex("#273857"),
-	Deep = Color3.fromHex("#050B1C"),
-	Surface = Color3.fromHex("#182B55"),
+	Deep = Color3.fromHex("#0A0630"),
+	Surface = Color3.fromHex("#4B2BB8"),
 })
 
 Theme.Font = table.freeze({ Display = Enum.Font.GothamBlack, Label = Enum.Font.GothamBold })
@@ -47,8 +47,8 @@ function Theme.panel(object: GuiObject, accent: Color3?)
 	object.BackgroundColor3 = Color3.new(1, 1, 1)
 	object.BorderSizePixel = 0
 	Theme.round(object, 12)
-	local stroke = outline(object, tint, 1.5)
-	stroke.Transparency = 0.32
+	local stroke = outline(object, tint:Lerp(Theme.Color.Deep, 0.7), 3)
+	stroke.Transparency = 0
 	local gradient = Instance.new("UIGradient", object)
 	gradient.Rotation = 105
 	gradient.Color = ColorSequence.new({
@@ -76,10 +76,12 @@ function Theme.button(object: TextButton)
 	object.TextColor3 = Theme.Color.Text
 	object.AutoButtonColor = false
 	Theme.round(object, 8)
-	outline(object, Theme.Color.Cyan, 1.5)
+	outline(object, Theme.Color.Deep, 3)
+	object.TextStrokeColor3 = Theme.Color.Deep
+	object.TextStrokeTransparency = 0.2
 
 	local gradient = Instance.new("UIGradient")
-	gradient.Color = ColorSequence.new(Color3.new(1, 1, 1), Color3.fromHex("#A9B9EA"))
+	gradient.Color = ColorSequence.new(Color3.new(1, 1, 1), Color3.fromHex("#8FA2E8"))
 	gradient.Rotation = 90
 	gradient.Parent = object
 end
@@ -88,10 +90,10 @@ function Theme.sheet(object: Frame)
 	object.BackgroundColor3 = Color3.new(1, 1, 1)
 	object.BorderSizePixel = 0
 	Theme.round(object, 18)
-	outline(object, Theme.Color.Blue, 2)
+	outline(object, Theme.Color.Deep, 4)
 	local gradient = Instance.new("UIGradient", object)
 	gradient.Rotation = 90
-	gradient.Color = ColorSequence.new(Color3.fromHex("#FFFFFF"), Color3.fromHex("#BCD8FF"))
+	gradient.Color = ColorSequence.new(Color3.fromHex("#FFFFFF"), Color3.fromHex("#C9B8FF"))
 end
 
 function Theme.meter(track: Frame, fill: Frame)
@@ -115,6 +117,9 @@ function Theme.label(parent, text, size, color)
 	label.Text = text
 	label.TextSize = size
 	label.TextWrapped = true
+	label.TextStrokeColor3 = Theme.Color.Deep
+	-- Texto escuro (Navy) fica sem contorno; os claros ganham contorno estilo desenho.
+	label.TextStrokeTransparency = (color == Theme.Color.Navy) and 1 or 0.45
 	label.Parent = parent
 	return label
 end

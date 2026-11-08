@@ -7,8 +7,10 @@ local inventories = {}
 local lastSnapshot = {}
 local lastPetChange = {}
 local lastSale = {}
+local lastBackpack = {}
 local initialized = false
 local remote
+local shopFloor
 
 local function getInventory(player)
 	if not inventories[player] then
@@ -66,6 +68,30 @@ function Service.Init()
 			if getInventory(player):SetLuminiEquipped(equipped) then
 				player:SetAttribute("LuminiEquipped", equipped)
 				publish(player, equipped and "Lumini equipada." or "Lumini guardada.")
+			end
+			return
+		end
+		if action == "BuyBackpack" or action == "EquipBackpack" then
+			local character = player.Character
+			local root = character and character:FindFirstChild("HumanoidRootPart")
+			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+			if typeof(equipped) ~= "string" or not root or not humanoid or humanoid.Health <= 0
+				or now - (lastBackpack[player] or -math.huge) < 0.5 then
+				return
+			end
+			lastBackpack[player] = now
+			local inventory = getInventory(player)
+			if action == "BuyBackpack" then
+				-- Compra presencial: exige estar perto da Loja Orion.
+				if not shopFloor or (root.Position - shopFloor.Position).Magnitude > 45 then
+					publish(player, "Vá até a Loja Orion para comprar mochilas.")
+					return
+				end
+				local _, message = inventory:BuyBackpack(equipped)
+				publish(player, message)
+			else
+				local _, message = inventory:EquipBackpack(equipped)
+				publish(player, message)
 			end
 			return
 		end
@@ -145,9 +171,9 @@ function Service.Init()
 
 	-- Compra presencial em expositores separados. IDs, preços e efeitos são do servidor.
 	local shop = world:WaitForChild("Shop")
+	shopFloor = shop:WaitForChild("Floor")
 	local offers = {
 		{ Id = "TitaniumDrill", Display = "Display-74", Key = Enum.KeyCode.F, GamepadKey = Enum.KeyCode.ButtonY },
-		{ Id = "ReinforcedBackpack", Display = "Display-62", Key = Enum.KeyCode.G, GamepadKey = Enum.KeyCode.ButtonB },
 	}
 	for _, offer in ipairs(offers) do
 		local display = shop:WaitForChild(offer.Display)
@@ -188,6 +214,7 @@ function Service.Init()
 		lastSnapshot[player] = nil
 		lastPetChange[player] = nil
 		lastSale[player] = nil
+		lastBackpack[player] = nil
 	end)
 end
 

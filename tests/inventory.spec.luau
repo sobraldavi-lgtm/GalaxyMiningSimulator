@@ -36,12 +36,19 @@ equal(inventory:Purchase("TitaniumDrill"), false, "Broca sem saldo suficiente")
 equal(inventory:Snapshot().Credits, 197, "Compra recusada preserva saldo")
 equal(inventory:Snapshot().Power, 5, "Compra recusada preserva poder")
 inventory:Add("Iron")
-equal(inventory:Purchase("ReinforcedBackpack"), true, "Compra da mochila")
+equal(#Config.Backpacks, 20, "20 mochilas de Poeira Cósmica")
+equal(inventory:Snapshot().PowerCap, 3, "Mochila inicial limita poder em 3")
+equal(inventory:BuyBackpack("Unknown"), false, "Mochila inválida")
+equal(inventory:BuyBackpack("Dust01"), false, "Mochila inicial já possuída")
+equal(inventory:BuyBackpack("Dust02"), true, "Compra da mochila")
 equal(inventory:Snapshot().Credits, 47, "Desconta 150 Créditos")
 equal(inventory:Snapshot().Capacity, 50, "Capacidade aumenta para 50")
+equal(inventory:Snapshot().PowerCap, 5, "Limite de poder acompanha a mochila")
 equal(inventory:Snapshot().Weight, 1, "Compra preserva carga")
-equal(inventory:Purchase("ReinforcedBackpack"), false, "Compra duplicada rejeitada")
+equal(inventory:BuyBackpack("Dust02"), false, "Compra duplicada rejeitada")
 equal(inventory:Snapshot().Credits, 47, "Compra duplicada não cobra novamente")
+equal(inventory:BuyBackpack("Dust20"), false, "Mochila sem saldo")
+equal(inventory:EquipBackpack("Dust03"), false, "Não equipa mochila não possuída")
 for _ = 1, 24 do
 	equal(inventory:Add("Copper"), true, "Usa capacidade ampliada")
 end
@@ -56,3 +63,26 @@ equal(inventory:Snapshot().Credits, 90, "Não cobra broca duplicada")
 equal(other:Snapshot().Capacity, 20, "Mochila do outro jogador não muda")
 equal(other:Snapshot().Power, 5, "Ferramenta do outro jogador não muda")
 print("PASS: compras, saldo insuficiente, duplicação, equipamento e carga preservada.")
+
+-- Limite de poder segue a mochila equipada.
+local trainer = InventoryModel.new(Config)
+for _ = 1, 100 do
+	trainer:TrainMining()
+end
+equal(trainer:Snapshot().TrainingPower, 3, "Treino parado no limite da mochila inicial")
+equal(trainer:Snapshot().Power, 8, "Poder = 5 + treino 3")
+trainer.credits = 1000
+equal(trainer:BuyBackpack("Dust02"), true, "Compra mochila 2")
+for _ = 1, 100 do
+	trainer:TrainMining()
+end
+equal(trainer:Snapshot().TrainingPower, 5, "Treino sobe até o novo limite")
+trainer:Add("Iron")
+for _ = 1, 40 do
+	trainer:Add("Iron")
+end
+equal(trainer:EquipBackpack("Dust01"), false, "Não troca para mochila menor com carga acima")
+trainer:Sell()
+equal(trainer:EquipBackpack("Dust01"), true, "Troca para mochila inicial vazia")
+equal(trainer:Snapshot().TrainingPower, 3, "Poder efetivo cai ao limite da mochila equipada")
+print("PASS: 20 mochilas, compra, equipar e limite de poder por mochila.")
