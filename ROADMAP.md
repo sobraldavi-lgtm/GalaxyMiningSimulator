@@ -15,7 +15,7 @@
 
 ## Próximas etapas — Uma por vez, após definir cada entrega
 
-1. Cenário Terra Nova: mapa ampliado (raio 250) com estética espacial, instalações afastadas, caminhos neon, portais, minas profundas e cenário gerado por tools/build_space_map.py (parte do commit af17020). Validação visual pendente no Studio.
+1. Cenário Terra Nova: mapa ampliado (raio 250) com estilo cartunesco cósmico (cores vivas, ilhas, planetas, árvores de algodão-doce), instalações afastadas, caminhos de poeira estelar, portais, minas profundas e cenário gerado por tools/build_space_map.py (parte do commit af17020). Validação visual pendente no Studio.
 2. Mineração por cliques e depósitos independentes por jogador: protótipo implementado; testes no Studio pendentes (docs/MINING-TEST.md).
 3. Inventário por peso, venda e Créditos: implementados em memória; teste integrado no Studio pendente.
 4. Ferramentas, mochilas e loja: 20 ferramentas, 20 Mochilas de Poeira Cósmica, 9 minérios e 6 pets em menu de loja; Minas Profundas no mapa (gerador em tools/build_space_map.py); teste no Studio pendente.
