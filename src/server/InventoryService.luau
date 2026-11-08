@@ -1,60 +1,278 @@
+-- Serviço de inventário, economia e progressão (autoridade do servidor).
+-- Carrega/salva via DataService, publica o estado ao cliente, mantém os
+-- leaderstats e os placares, e valida toda ação pedida pelo cliente.
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local HttpService = game:GetService("HttpService")
 local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("MiningConfig"))
 local InventoryModel = require(script.Parent:WaitForChild("InventoryModel"))
+local DataService = require(script.Parent:WaitForChild("DataService"))
+
 local Service = {}
-local inventories = {}
+local inventories = {} -- só jogadores com dados já carregados
 local lastSnapshot = {}
 local lastPetChange = {}
 local lastSale = {}
 local lastBackpack = {}
+local lastRebirth = {}
+local lastTransmitter = {}
 local initialized = false
 local remote
 local shopFloor
 local petTerminal
 
+local AUTOSAVE_INTERVAL = 120
+local LEADERBOARD_INTERVAL = 90
+
 local function getInventory(player)
-	if not inventories[player] then
-		inventories[player] = InventoryModel.new(Config)
-	end
 	return inventories[player]
+end
+
+function Service.IsReady(player)
+	return inventories[player] ~= nil
+end
+
+-- ---------- Leaderstats (lista de jogadores do Roblox) ----------
+local function updateLeaderstats(player, inventory)
+	local stats = player:FindFirstChild("leaderstats")
+	if not stats then
+		stats = Instance.new("Folder")
+		stats.Name = "leaderstats"
+		for _, spec in ipairs({ { "Créditos", "IntValue" }, { "Nível", "IntValue" }, { "Renasc.", "IntValue" } }) do
+			local value = Instance.new(spec[2])
+			value.Name = spec[1]
+			value.Parent = stats
+		end
+		stats.Parent = player
+	end
+	stats["Créditos"].Value = inventory.credits
+	stats["Nível"].Value = (inventory:GetLevel())
+	stats["Renasc."].Value = inventory.rebirths
 end
 
 -- Tone é só apresentação: indica ao cliente a cor e o ícone da notificação
 -- (success, error, warning, sale, power, pickup). Não carrega regras.
-local function publish(player, message, petReveal, tone)
-	local snapshot = getInventory(player):Snapshot()
-	-- Atributo replicado só para apresentação: todos os clientes desenham a ferramenta.
+-- extra: { LevelUp = n, Missions = { ... } } para celebrações no cliente.
+local function publish(player, message, petReveal, tone, extra)
+	local inventory = getInventory(player)
+	if not inventory then return end
+	local snapshot = inventory:Snapshot()
+	-- Atributos replicados só para apresentação: todos os clientes desenham ferramenta e pet.
 	if player:GetAttribute("EquippedTool") ~= snapshot.ToolId then
 		player:SetAttribute("EquippedTool", snapshot.ToolId)
+	end
+	if player:GetAttribute("EquippedPet") ~= snapshot.EquippedPet then
+		player:SetAttribute("EquippedPet", snapshot.EquippedPet)
 	end
 	snapshot.Message = message
 	snapshot.PetReveal = petReveal
 	snapshot.Tone = tone
+	if extra then
+		snapshot.LevelUp = extra.LevelUp
+		if extra.Missions and #extra.Missions > 0 then
+			local list = {}
+			for _, mission in ipairs(extra.Missions) do
+				table.insert(list, { Title = mission.Title, Credits = mission.Credits, Fragments = mission.Fragments })
+			end
+			snapshot.CompletedMissions = list
+		end
+	end
+	snapshot.SaveMode = DataService.IsAvailable() and "cloud" or "memory"
+	updateLeaderstats(player, inventory)
 	remote:FireClient(player, snapshot)
 end
 
 function Service.CanFit(player, oreType)
-	return getInventory(player):CanFit(oreType)
+	local inventory = getInventory(player)
+	return inventory ~= nil and inventory:CanFit(oreType)
 end
 
 function Service.GetPower(player)
-	return getInventory(player):GetMiningPower()
+	local inventory = getInventory(player)
+	return inventory and inventory:GetMiningPower() or 0
 end
 
 function Service.Train(player)
-	local progressed, gained = getInventory(player):TrainMining()
+	local inventory = getInventory(player)
+	if not inventory then return end
+	local progressed, gained = inventory:TrainMining()
 	if progressed then
 		publish(player, gained and "Treino • +1 de poder" or nil, nil, "power")
 	end
 end
 
 function Service.Add(player, oreType)
-	local success = getInventory(player):Add(oreType)
+	local inventory = getInventory(player)
+	if not inventory then return false end
+	local success, levelUp, missions = inventory:Mine(oreType)
 	if success then
-		publish(player, "+1 " .. Config.Ores[oreType].Name, nil, "pickup")
+		publish(player, "+1 " .. Config.Ores[oreType].Name, nil, "pickup", { LevelUp = levelUp, Missions = missions })
 	end
 	return success
+end
+
+local function alive(player)
+	local character = player.Character
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+	if not root or not humanoid or humanoid.Health <= 0 then return nil end
+	return root
+end
+
+local function createPrompt(parent, name, action, object, distance, hold)
+	local prompt = Instance.new("ProximityPrompt")
+	prompt.Name = name
+	prompt.ActionText = action
+	prompt.ObjectText = object
+	prompt.KeyboardKeyCode = Enum.KeyCode.E
+	prompt.GamepadKeyCode = Enum.KeyCode.ButtonX
+	prompt.HoldDuration = hold or 0
+	prompt.MaxActivationDistance = distance
+	prompt.RequiresLineOfSight = false
+	prompt.Parent = parent
+	return prompt
+end
+
+-- ---------- Salvamento ----------
+local saving = {}
+
+local function save(player, release)
+	local inventory = getInventory(player)
+	if not inventory or saving[player] then return end
+	saving[player] = true
+	DataService.Save(player, inventory:Serialize(), release)
+	DataService.SubmitScore("Lifetime", player.UserId, inventory.lifetimeCredits)
+	DataService.SubmitScore("Rebirths", player.UserId, inventory.rebirths)
+	saving[player] = nil
+end
+
+local function load(player)
+	local ok, data = DataService.Load(player)
+	if not player.Parent then return end
+	if not ok then
+		-- Sem dados confiáveis, não deixamos jogar: evita sobrescrever o progresso salvo.
+		player:Kick("Não foi possível carregar seu progresso agora. Tente entrar novamente em instantes.")
+		return
+	end
+	local inventory = InventoryModel.fromData(Config, data)
+	inventories[player] = inventory
+	player:SetAttribute("EquippedPet", inventory.equippedPet)
+	player:SetAttribute("EquippedTool", inventory.toolId)
+	-- Missões de estado (ex.: Lumini já equipada) concluem ao entrar.
+	local missions = inventory:Progress(nil)
+	publish(player, data and "Progresso carregado. Bem-vindo de volta!" or nil, nil, "info", { Missions = missions })
+end
+
+-- ---------- Placares ----------
+local nameCache = {}
+local function displayName(userId)
+	if nameCache[userId] then return nameCache[userId] end
+	local online = Players:GetPlayerByUserId(userId)
+	if online then
+		nameCache[userId] = online.DisplayName
+		return online.DisplayName
+	end
+	local ok, name = pcall(function() return Players:GetNameFromUserIdAsync(userId) end)
+	nameCache[userId] = ok and name or ("Explorador " .. userId)
+	return nameCache[userId]
+end
+
+local leaderboardData
+local function refreshLeaderboards()
+	for _, board in ipairs({ { "Lifetime", "lifetimeCredits" }, { "Rebirths", "rebirths" } }) do
+		local entries = DataService.TopScores(board[1], 10)
+		if not entries then
+			-- Sem DataStore: placar só com quem está neste servidor.
+			entries = {}
+			for player, inventory in pairs(inventories) do
+				table.insert(entries, { UserId = player.UserId, Value = inventory[board[2]] })
+			end
+			table.sort(entries, function(a, b) return a.Value > b.Value end)
+			while #entries > 10 do table.remove(entries) end
+		end
+		local list = {}
+		for rank, entry in ipairs(entries) do
+			list[rank] = { Name = displayName(entry.UserId), Value = entry.Value }
+		end
+		leaderboardData:SetAttribute(board[1], HttpService:JSONEncode(list))
+	end
+	leaderboardData:SetAttribute("UpdatedAt", os.time())
+end
+
+-- ---------- Ações do cliente ----------
+local function handleAction(player, action, argument)
+	local inventory = getInventory(player)
+	if not inventory then return end
+	local now = os.clock()
+	if action == "BuyPet" or action == "EquipPet" or action == "UnequipPet" then
+		local root = alive(player)
+		if (action ~= "UnequipPet" and typeof(argument) ~= "string") or not root
+			or now - (lastPetChange[player] or -math.huge) < 0.6 then
+			return
+		end
+		lastPetChange[player] = now
+		local ok, message
+		if action == "BuyPet" then
+			-- Resgate presencial no OVNI da Estação de Pets.
+			if not petTerminal or (root.Position - petTerminal.Position).Magnitude > 40 then
+				publish(player, "Vá até a Estação de Pets para resgatar.", nil, "warning")
+				return
+			end
+			ok, message = inventory:BuyPet(argument)
+		elseif action == "EquipPet" then
+			ok, message = inventory:EquipPet(argument)
+		else
+			ok, message = inventory:EquipPet(nil)
+		end
+		local missions = ok and inventory:Progress("Pet", argument) or nil
+		publish(player, message, (ok and action == "BuyPet") and argument or nil, ok and "success" or "error",
+			{ Missions = missions })
+		return
+	end
+	if action == "BuyBackpack" or action == "EquipBackpack" or action == "BuyUpgrade" then
+		local root = alive(player)
+		if typeof(argument) ~= "string" or not root or now - (lastBackpack[player] or -math.huge) < 0.5 then
+			return
+		end
+		lastBackpack[player] = now
+		if action == "EquipBackpack" then
+			local ok, message = inventory:EquipBackpack(argument)
+			publish(player, message, nil, ok and "success" or "error")
+			return
+		end
+		-- Compra presencial: exige estar perto da Loja Orion.
+		if not shopFloor or (root.Position - shopFloor.Position).Magnitude > 45 then
+			publish(player, "Vá até a Loja Orion para comprar.", nil, "warning")
+			return
+		end
+		local ok, message
+		if action == "BuyBackpack" then
+			ok, message = inventory:BuyBackpack(argument)
+		else
+			ok, message = inventory:Purchase(argument)
+		end
+		local missions = ok and inventory:Progress("Buy") or nil
+		publish(player, message, nil, ok and "success" or "error", { Missions = missions })
+		return
+	end
+	if action == "Rebirth" then
+		if now - (lastRebirth[player] or -math.huge) < 2 then return end
+		lastRebirth[player] = now
+		local ok, message = inventory:Rebirth()
+		publish(player, message, nil, ok and "success" or "error")
+		if ok then
+			task.spawn(save, player, false) -- marco importante: salva logo
+		end
+		return
+	end
+	if action ~= nil then
+		return
+	end
+	if now - (lastSnapshot[player] or -math.huge) < 1 then
+		return
+	end
+	lastSnapshot[player] = now
+	publish(player)
 end
 
 function Service.Init()
@@ -62,146 +280,113 @@ function Service.Init()
 		return
 	end
 	initialized = true
+	DataService.Init()
+
 	remote = Instance.new("RemoteEvent")
 	remote.Name = "InventoryState"
-	remote.OnServerEvent:Connect(function(player, action, equipped)
-		local now = os.clock()
-		if action == "BuyPet" or action == "EquipPet" or action == "UnequipPet" then
-			local character = player.Character
-			local root = character and character:FindFirstChild("HumanoidRootPart")
-			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-			if (action ~= "UnequipPet" and typeof(equipped) ~= "string") or not root or not humanoid
-				or humanoid.Health <= 0 or now - (lastPetChange[player] or -math.huge) < 0.6 then
-				return
-			end
-			lastPetChange[player] = now
-			local inventory = getInventory(player)
-			local ok, message
-			if action == "BuyPet" then
-				-- Resgate presencial no OVNI da Estação de Pets.
-				if not petTerminal or (root.Position - petTerminal.Position).Magnitude > 40 then
-					publish(player, "Vá até a Estação de Pets para resgatar.", nil, "warning")
-					return
-				end
-				ok, message = inventory:BuyPet(equipped)
-			elseif action == "EquipPet" then
-				ok, message = inventory:EquipPet(equipped)
-			else
-				ok, message = inventory:EquipPet(nil)
-			end
-			player:SetAttribute("EquippedPet", inventory.equippedPet)
-			publish(player, message, (ok and action == "BuyPet") and equipped or nil, ok and "success" or "error")
-			return
-		end
-		if action == "BuyBackpack" or action == "EquipBackpack" or action == "BuyUpgrade" then
-			local character = player.Character
-			local root = character and character:FindFirstChild("HumanoidRootPart")
-			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-			if typeof(equipped) ~= "string" or not root or not humanoid or humanoid.Health <= 0
-				or now - (lastBackpack[player] or -math.huge) < 0.5 then
-				return
-			end
-			lastBackpack[player] = now
-			local inventory = getInventory(player)
-			if action == "BuyBackpack" or action == "BuyUpgrade" then
-				-- Compra presencial: exige estar perto da Loja Orion.
-				if not shopFloor or (root.Position - shopFloor.Position).Magnitude > 45 then
-					publish(player, "Vá até a Loja Orion para comprar.", nil, "warning")
-					return
-				end
-				local ok, message
-				if action == "BuyBackpack" then
-					ok, message = inventory:BuyBackpack(equipped)
-				else
-					ok, message = inventory:Purchase(equipped)
-				end
-				publish(player, message, nil, ok and "success" or "error")
-			else
-				local ok, message = inventory:EquipBackpack(equipped)
-				publish(player, message, nil, ok and "success" or "error")
-			end
-			return
-		end
-		if action ~= nil then
-			return
-		end
-		if now - (lastSnapshot[player] or -math.huge) < 1 then
-			return
-		end
-		lastSnapshot[player] = now
-		publish(player)
-	end)
+	remote.OnServerEvent:Connect(handleAction)
 	remote.Parent = ReplicatedStorage
+
+	leaderboardData = Instance.new("Folder")
+	leaderboardData.Name = "LeaderboardData"
+	leaderboardData.Parent = ReplicatedStorage
 
 	local world = workspace:WaitForChild("TerraNova")
 	local counter = world:WaitForChild("SaleStation"):WaitForChild("Counter")
 	petTerminal = world:WaitForChild("PetShop"):WaitForChild("Terminal")
-	local openPets = Instance.new("ProximityPrompt")
-	openPets.Name = "OpenPets"
-	openPets.ActionText = "Resgatar / equipar pets"
-	openPets.ObjectText = "OVNI de resgate"
-	openPets.HoldDuration = 0
-	openPets.MaxActivationDistance = 10
-	openPets.RequiresLineOfSight = false
-	openPets.Parent = petTerminal
-	local prompt = Instance.new("ProximityPrompt")
-	prompt.Name = "SellMinerals"
-	prompt.ActionText = "Vender minerais"
-	prompt.ObjectText = "Estação de Venda"
-	prompt.KeyboardKeyCode = Enum.KeyCode.E
-	prompt.GamepadKeyCode = Enum.KeyCode.ButtonX
-	prompt.HoldDuration = 0.2
-	prompt.MaxActivationDistance = 12
-	prompt.RequiresLineOfSight = false
-	prompt.Triggered:Connect(function(player)
+	createPrompt(petTerminal, "OpenPets", "Resgatar / equipar pets", "OVNI de resgate", 10)
+
+	local sell = createPrompt(counter, "SellMinerals", "Vender minerais", "Estação de Venda", 12, 0.2)
+	sell.Triggered:Connect(function(player)
+		local inventory = getInventory(player)
 		local now = os.clock()
-		if now - (lastSale[player] or -math.huge) < 0.5 then
-			return
-		end
+		if not inventory or now - (lastSale[player] or -math.huge) < 0.5 then return end
 		lastSale[player] = now
-		local character = player.Character
-		local root = character and character:FindFirstChild("HumanoidRootPart")
-		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-		if not prompt.Enabled or not root or not humanoid or humanoid.Health <= 0 then
-			return
-		end
+		local root = alive(player)
 		-- O prompt é só a entrada; validar a proximidade novamente no servidor.
-		if (root.Position - counter.Position).Magnitude > prompt.MaxActivationDistance then
-			return
-		end
-		local earned = getInventory(player):Sell()
+		if not root or (root.Position - counter.Position).Magnitude > sell.MaxActivationDistance then return end
+		local earned, levelUp, missions = inventory:SellAll()
 		publish(player, earned > 0 and ("Venda concluída: +" .. earned .. " Créditos.") or "Sua mochila está vazia.",
-			nil, earned > 0 and "sale" or "warning")
+			nil, earned > 0 and "sale" or "warning", { LevelUp = levelUp, Missions = missions })
 	end)
-	prompt.Parent = counter
 
 	-- A loja é um menu: o prompt só pede ao cliente para abrir a interface.
-	-- Preços, saldo e efeitos continuam validados pelo servidor nas compras.
 	local shop = world:WaitForChild("Shop")
 	shopFloor = shop:WaitForChild("Floor")
-	local openShop = Instance.new("ProximityPrompt")
-	openShop.Name = "OpenShop"
-	openShop.ActionText = "Abrir loja"
-	openShop.ObjectText = "Loja Orion"
-	openShop.KeyboardKeyCode = Enum.KeyCode.E
-	openShop.GamepadKeyCode = Enum.KeyCode.ButtonX
-	openShop.HoldDuration = 0
-	openShop.MaxActivationDistance = 14
-	openShop.RequiresLineOfSight = false
-	openShop.Parent = shop:WaitForChild("PurchaseDesk")
+	createPrompt(shop:WaitForChild("PurchaseDesk"), "OpenShop", "Abrir loja", "Loja Orion", 14)
 
-	local function equipDefaults(player)
-		player:SetAttribute("EquippedTool", getInventory(player).toolId)
+	-- Missão 5: transmissor da caverna azul (exige nível de acesso à caverna).
+	local transmitter = world:WaitForChild("Cave"):WaitForChild("Transmitter", 10)
+	if transmitter then
+		local activate = createPrompt(transmitter, "ActivateTransmitter", "Reativar transmissor", "Caverna azul", 10, 1)
+		activate.Triggered:Connect(function(player)
+			local inventory = getInventory(player)
+			local now = os.clock()
+			if not inventory or now - (lastTransmitter[player] or -math.huge) < 1 then return end
+			lastTransmitter[player] = now
+			local root = alive(player)
+			if not root or (root.Position - transmitter.Position).Magnitude > 14 then return end
+			if inventory:CanUseTransmitter() then
+				local missions = inventory:Progress("Transmitter")
+				publish(player, "Transmissor reativado! Um sinal ecoa pela galáxia…", nil, "success", { Missions = missions })
+			elseif inventory:CurrentMission() and inventory:CurrentMission().Kind == "Transmitter" then
+				publish(player, "O transmissor exige nível " .. Config.Progression.CaveLevel .. " de explorador.", nil, "warning")
+			else
+				publish(player, "O transmissor está em silêncio… por enquanto.", nil, "info")
+			end
+		end)
 	end
-	Players.PlayerAdded:Connect(equipDefaults)
-	for _, player in ipairs(Players:GetPlayers()) do equipDefaults(player) end
+
+	-- Hangar: só abre a apresentação da Orion Scout no cliente.
+	local terminal = world:WaitForChild("Hangar"):WaitForChild("Terminal", 10)
+	if terminal then
+		createPrompt(terminal, "OpenHangar", "Ver nave e destinos", "Hangar Orion", 12)
+	end
+
+	Players.PlayerAdded:Connect(function(player) task.spawn(load, player) end)
+	for _, player in ipairs(Players:GetPlayers()) do task.spawn(load, player) end
 
 	Players.PlayerRemoving:Connect(function(player)
+		save(player, true)
 		inventories[player] = nil
 		lastSnapshot[player] = nil
 		lastPetChange[player] = nil
 		lastSale[player] = nil
 		lastBackpack[player] = nil
+		lastRebirth[player] = nil
+		lastTransmitter[player] = nil
+	end)
+
+	-- Ao fechar o servidor, salva todos em paralelo e espera terminar.
+	game:BindToClose(function()
+		local pending = 0
+		for player in pairs(inventories) do
+			pending += 1
+			task.spawn(function()
+				save(player, true)
+				pending -= 1
+			end)
+		end
+		local deadline = os.clock() + 25
+		-- Também espera salvamentos já em andamento (ex.: disparados pela saída do jogador).
+		while (pending > 0 or next(saving) ~= nil) and os.clock() < deadline do
+			task.wait(0.2)
+		end
+	end)
+
+	task.spawn(function()
+		while true do
+			task.wait(AUTOSAVE_INTERVAL)
+			for player in pairs(inventories) do
+				task.spawn(save, player, false)
+			end
+		end
+	end)
+	task.spawn(function()
+		while true do
+			pcall(refreshLeaderboards)
+			task.wait(LEADERBOARD_INTERVAL)
+		end
 	end)
 end
 

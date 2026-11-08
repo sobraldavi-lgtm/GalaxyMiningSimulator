@@ -553,6 +553,28 @@ function Theme.illustration(parent, kind, accent)
 		iconPart(icon, 14, 2, 4, 24, accent, 2)
 		iconPart(icon, 4, 12, 24, 4, accent, 2)
 		iconPart(icon, 12, 10, 8, 8, light, 2, 45)
+	elseif kind == "rebirth" then
+		-- Seta circular: anel aberto com ponta.
+		local ring = iconPart(icon, 5, 3, 22, 22, accent, 11)
+		ring.BackgroundTransparency = 1
+		Theme.stroke(ring, light, 4)
+		iconPart(icon, 4, 2, 9, 9, C.Ink, 1, 45).BackgroundTransparency = 1
+		iconPart(icon, 18, 0, 9, 4, light, 2, 30)
+		iconPart(icon, 21, 4, 4, 8, light, 2, -20)
+		iconPart(icon, 12, 10, 8, 8, accent, 4)
+	elseif kind == "rocket" then
+		iconPart(icon, 12, 2, 9, 20, light, 4)
+		iconPart(icon, 13, 8, 6, 6, accent, 3)
+		iconPart(icon, 7, 15, 5, 9, accent, 2, -15)
+		iconPart(icon, 21, 15, 5, 9, accent, 2, 15)
+		iconPart(icon, 13, 22, 6, 6, C.Orange, 3)
+	elseif kind == "trophy" then
+		iconPart(icon, 8, 3, 16, 13, accent, 6)
+		iconPart(icon, 4, 5, 6, 8, accent:Lerp(ink, 0.2), 3)
+		iconPart(icon, 22, 5, 6, 8, accent:Lerp(ink, 0.2), 3)
+		iconPart(icon, 14, 15, 4, 6, accent, 1)
+		iconPart(icon, 9, 21, 14, 5, accent:Lerp(ink, 0.25), 2)
+		iconPart(icon, 12, 6, 3, 6, light, 1)
 	-- Ferramentas por família
 	elseif kind == "pickaxe" then
 		iconPart(icon, 14, 6, 4, 23, C.Gray:Lerp(light, 0.4), 2, 35)

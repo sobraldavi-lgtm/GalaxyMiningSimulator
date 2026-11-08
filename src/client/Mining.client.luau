@@ -435,7 +435,7 @@ player.CharacterAdded:Connect(function()
 end)
 
 -- Camadas só visuais que nunca devem bloquear a mineração.
-local passThrough = { GalaxyVignette = true, GalaxyCelebration = true, GalaxyLoading = true }
+local passThrough = { GalaxyVignette = true, GalaxyCelebration = true, GalaxyLoading = true, GalaxyProgressStage = true }
 local function overHud(position)
 	local inset = GuiService:GetGuiInset()
 	local point = position - inset

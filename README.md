@@ -84,8 +84,6 @@ Depósitos renovam imediatamente após quebrar; golpes respeitam intervalo de 0,
 Atalhos: L Loja, B Mochila, M Missões, P Ajustes; B no controle fecha janelas.
 Design System 5.1 (visual noturno de galáxia), telas e roteiro de revisão visual: docs/UI-GUIDE.md.
 A tela de carregamento fica em src/first (ReplicatedFirst).
-Viagem e salvamento ainda não estão implementados.
-Mochila e saldo duram apenas esta sessão; parar Play ou sair do servidor reinicia os dados.
 Roteiro de teste e parâmetros provisórios: docs/MINING-TEST.md.
 Conferir colisões, legibilidade das placas e ausência de novos erros no Output.
 
@@ -105,4 +103,30 @@ confirmadas pelo usuário. Cenário Terra Nova: build e XML verificados;
 validação visual e circulação no Studio pendentes. Protótipo de mineração empacotado
 com sucesso; inventário e venda passaram nos testes de regras, e todos os scripts
 compilaram no Luau 0.745. Execução integrada e multiplayer ainda pendentes no Studio.
+
+## Salvamento, missões e placares
+
+O progresso (Créditos, carga, ferramentas, mochilas, pets, XP, missões, Fragmentos
+e renascimentos) é salvo por `src/server/DataService.luau` com DataStore. O treino
+de poder é por sessão, como define o GDD.
+
+- Trava de sessão: só um servidor grava os dados de cada jogador por vez.
+- Salva a cada 2 minutos, ao sair do jogo, ao renascer e ao fechar o servidor.
+- Se não conseguir carregar, o jogador é desconectado com aviso, para não
+  sobrescrever o progresso salvo com dados vazios.
+- Para testar no Studio: publique o lugar e ative Game Settings > Security >
+  "Enable Studio Access to API Services". Sem isso, o jogo roda em **modo de
+  teste** (só memória) e mostra o aviso "MODO DE TESTE" no canto da tela.
+
+Testes de regras, fora do Studio, com o Luau CLI:
+
+```
+luau tests/inventory.spec.luau
+luau tests/progression.spec.luau
+```
+
+Missões de ORBI aparecem no rastreador da HUD e no menu Missões (tecla M). O
+transmissor da missão 5 fica na Caverna Azul. Os placares ficam perto do ponto
+de nascimento, o terminal do hangar fica na plataforma da Orion Scout, e o
+renascimento fica no menu Renascer (tecla R).
 

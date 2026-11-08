@@ -75,4 +75,10 @@ function ArtStyle.petIcon(look: string?): string
 	return look and ArtStyle.PetIcon[look] or "pet"
 end
 
+-- Ícone de cada tipo de missão de ORBI.
+local missionIcons = { Mine = "pickaxe", Sell = "coin", Buy = "shop", Pet = "pet", Transmitter = "robot" }
+function ArtStyle.missionIcon(kind: string?): string
+	return kind and missionIcons[kind] or "mission"
+end
+
 return ArtStyle

@@ -553,3 +553,22 @@ Não inventar esses valores durante a criação da estrutura.
 - Inventário, Créditos e equipamento são mantidos apenas durante a sessão;
   salvamento e os demais equipamentos do catálogo continuam pendentes.
 
+## Decisões de progressão — 08/11/2026
+
+Escolhidas com o usuário como **hipóteses para testes** (centralizadas em
+`src/shared/MiningConfig.luau`, ajustar após testes com jogadores):
+
+- XP: 1 por minério extraído e 10 por venda com Créditos. Níveis 1–5 seguem a
+  tabela do GDD (0/100/250/450/700); depois do 5, +300 XP por nível.
+- Missões de ORBI (§10) em sequência, com recompensas de 50, 75, 100, 150 e 250
+  Créditos e 1 Fragmento Estelar cada. A missão 5 (transmissor da caverna azul)
+  exige nível 3, que é o "acesso à caverna azul" da tabela de níveis.
+- O "segundo espaço de criatura" do nível 4 continua pendente (um pet por vez).
+- Renascimento (pedido do usuário, fora do GDD original): custa 50.000 × (n + 1)
+  Créditos; reinicia Créditos, carga, ferramentas, mochilas e treino; mantém pets,
+  nível, XP, missões e Fragmentos; cada renascimento dá +25% nas vendas.
+- Placares: Top 10 de Créditos ganhos em vendas e de renascimentos (OrderedDataStore),
+  além de leaderstats (Créditos, Nível, Renasc.) na lista de jogadores.
+- Salvamento com DataStore e trava de sessão; o treino de poder continua por sessão.
+- Hangar: apresentação da Orion Scout e do mapa galáctico; viagens continuam fora do MVP.
+

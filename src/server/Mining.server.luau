@@ -45,6 +45,10 @@ remote.OnServerEvent:Connect(function(player, action, target)
 	if not root or not humanoid or humanoid.Health <= 0 then
 		return
 	end
+	-- Nada é aceito antes de os dados do jogador terminarem de carregar.
+	if not Inventory.IsReady(player) then
+		return
+	end
 	if action == "Practice" and target == nil then
 		Inventory.Train(player)
 		return
