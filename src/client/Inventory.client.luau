@@ -14,6 +14,7 @@ local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Mi
 local remote = ReplicatedStorage:WaitForChild("InventoryState")
 local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 local C = Theme.Color
+local persistSettings -- definida na seção de Ajustes
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "GalaxyHUD"
@@ -821,7 +822,22 @@ local function buildRebirth(body)
 	end
 end
 
--- ----- Ajustes (preferências locais desta sessão) -----
+-- ----- Ajustes (salvos no servidor junto com o progresso) -----
+-- Envia as preferências com um pequeno atraso: vários toques viram um envio.
+local settingsToken = 0
+function persistSettings()
+	settingsToken += 1
+	local token = settingsToken
+	task.delay(1.5, function()
+		if token ~= settingsToken then return end
+		local values = {}
+		for _, key in ipairs(Config.ClientSettings) do
+			values[key] = playerGui:GetAttribute(key) == true
+		end
+		remote:FireServer("SaveSettings", values)
+	end)
+end
+
 local function buildSettings(body)
 	local options = {
 		{ "Movimento reduzido", "Desliga animações de menus, números e do cenário.", "GalaxyReduceMotion", false, "motion" },
@@ -829,12 +845,16 @@ local function buildSettings(body)
 		{ "Números de dano", "Mostra o dano de cada golpe acima do minério.", "GalaxyHideDamage", true, "bolt" },
 		{ "Placas dos minérios", "Nome, resistência e golpes necessários.", "GalaxyHideOrePlates", true, "gem" },
 		{ "Poeira cósmica", "Partículas brilhantes flutuando ao seu redor.", "GalaxyHideDust", true, "sparkle" },
+		{ "Guia de objetivo", "Feixe e marcador até o objetivo da missão atual.", "GalaxyHideGuide", true, "pin" },
+		{ "Efeitos do cenário", "Galáxia, animações e decoração dos minérios. Desligue em aparelhos lentos.",
+			"GalaxyLowGraphics", true, "star" },
 	}
 	for index, option in ipairs(options) do
 		local attribute, inverted = option[3], option[4]
 		local current = playerGui:GetAttribute(attribute) == true
 		local row = Theme.toggle(body, option[1], option[2], if inverted then not current else current, function(value)
 			playerGui:SetAttribute(attribute, if inverted then not value else value)
+			persistSettings()
 		end, option[5])
 		row.LayoutOrder = index
 	end
@@ -1204,9 +1224,19 @@ local function setFill(fill, ratio)
 	})
 end
 
+local settingsApplied = false
 remote.OnClientEvent:Connect(function(snapshot)
 	local previous = state
 	state = snapshot
+	-- Primeira mensagem: aplica as preferências salvas (só chaves conhecidas).
+	if not settingsApplied and snapshot.Settings then
+		settingsApplied = true
+		for _, key in ipairs(Config.ClientSettings) do
+			if snapshot.Settings[key] ~= nil then
+				playerGui:SetAttribute(key, snapshot.Settings[key] == true)
+			end
+		end
+	end
 
 	-- Créditos: contagem animada e "+N" flutuante nos ganhos.
 	if lastCredits == nil or Theme.reducedMotion(gui) then

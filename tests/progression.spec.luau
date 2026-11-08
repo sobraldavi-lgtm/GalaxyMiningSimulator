@@ -157,3 +157,15 @@ equal(fixed.Xp, 0, "XP NaN vira 0")
 equal(fixed.MissionIndex, #Config.Missions + 1, "Índice de missão limitado")
 equal(InventoryModel.fromData(Config, nil):Snapshot().Credits, 0, "Sem dados: jogador novo")
 print("PASS: salvamento, ida e volta, e dados inválidos.")
+
+-- Preferências: só chaves conhecidas e booleanos; salvas e carregadas.
+local prefs = InventoryModel.new(Config)
+equal(prefs:SetSettings("x"), false, "Preferências precisam ser tabela")
+prefs:SetSettings({ GalaxyMute = true, GalaxyLowGraphics = false, Hack = true, GalaxyHideDust = "sim" })
+equal(prefs.settings.GalaxyMute, true, "Chave conhecida salva")
+equal(prefs.settings.Hack, nil, "Chave desconhecida descartada")
+equal(prefs.settings.GalaxyHideDust, nil, "Valor não booleano descartado")
+local restored = InventoryModel.fromData(Config, prefs:Serialize())
+equal(restored:Snapshot().Settings.GalaxyMute, true, "Preferência volta após carregar")
+print("PASS: preferências validadas e salvas.")
+

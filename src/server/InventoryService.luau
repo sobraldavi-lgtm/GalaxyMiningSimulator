@@ -4,6 +4,7 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local HttpService = game:GetService("HttpService")
+local AnalyticsService = game:GetService("AnalyticsService")
 local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("MiningConfig"))
 local InventoryModel = require(script.Parent:WaitForChild("InventoryModel"))
 local DataService = require(script.Parent:WaitForChild("DataService"))
@@ -16,6 +17,7 @@ local lastSale = {}
 local lastBackpack = {}
 local lastRebirth = {}
 local lastTransmitter = {}
+local lastSettings = {}
 local initialized = false
 local remote
 local shopFloor
@@ -50,6 +52,36 @@ local function updateLeaderstats(player, inventory)
 	stats["Renasc."].Value = inventory.rebirths
 end
 
+-- ---------- Analytics do Roblox (painel Creator Hub) ----------
+-- Funil do tutorial e fluxo de Créditos. Nunca interfere no jogo (pcall).
+local function analytics(callback)
+	task.spawn(pcall, callback)
+end
+
+local function logFunnel(player, step, name)
+	analytics(function()
+		AnalyticsService:LogOnboardingFunnelStepEvent(player, step, name)
+	end)
+end
+
+local function logCredits(player, flow, amount, balance, transaction, sku)
+	if amount <= 0 then return end
+	analytics(function()
+		AnalyticsService:LogEconomyEvent(player, flow, "Creditos", amount, balance, transaction, sku)
+	end)
+end
+
+-- Missões concluídas: passo do funil e Créditos ganhos de recompensa.
+local function logMissions(player, inventory, missions)
+	if not missions then return end
+	for _, mission in ipairs(missions) do
+		local index = table.find(Config.Missions, mission) or 0
+		logFunnel(player, index + 1, "Missão " .. index .. ": " .. mission.Title)
+		logCredits(player, Enum.AnalyticsEconomyFlowType.Source, mission.Credits, inventory.credits,
+			Enum.AnalyticsEconomyTransactionType.Gameplay.Name, "Mission_" .. mission.Id)
+	end
+end
+
 -- Tone é só apresentação: indica ao cliente a cor e o ícone da notificação
 -- (success, error, warning, sale, power, pickup). Não carrega regras.
 -- extra: { LevelUp = n, Missions = { ... } } para celebrações no cliente.
@@ -68,6 +100,7 @@ local function publish(player, message, petReveal, tone, extra)
 	snapshot.PetReveal = petReveal
 	snapshot.Tone = tone
 	if extra then
+		logMissions(player, inventory, extra.Missions)
 		snapshot.LevelUp = extra.LevelUp
 		if extra.Missions and #extra.Missions > 0 then
 			local list = {}
@@ -166,6 +199,9 @@ local function load(player)
 	end
 	local inventory = InventoryModel.fromData(Config, data)
 	inventories[player] = inventory
+	if not data then
+		logFunnel(player, 1, "Primeira entrada")
+	end
 	player:SetAttribute("EquippedPet", inventory.equippedPet)
 	player:SetAttribute("EquippedTool", inventory.toolId)
 	-- Missões de estado (ex.: Lumini já equipada) concluem ao entrar.
@@ -214,10 +250,32 @@ local function refreshLeaderboards()
 end
 
 -- ---------- Ações do cliente ----------
-local function handleAction(player, action, argument)
+local handleAction
+local function trackedAction(player, action, argument)
+	local inventory = getInventory(player)
+	if not inventory then return end
+	local before = inventory.credits
+	handleAction(player, action, argument)
+	-- Créditos gastos (compras, resgates e renascimento) entram como "sink".
+	local spent = before - inventory.credits
+	if spent > 0 and inventories[player] == inventory then
+		local transaction = action == "Rebirth" and Enum.AnalyticsEconomyTransactionType.Gameplay.Name
+			or Enum.AnalyticsEconomyTransactionType.Shop.Name
+		logCredits(player, Enum.AnalyticsEconomyFlowType.Sink, spent, inventory.credits, transaction,
+			typeof(argument) == "string" and argument or action)
+	end
+end
+
+function handleAction(player, action, argument)
 	local inventory = getInventory(player)
 	if not inventory then return end
 	local now = os.clock()
+	if action == "SaveSettings" then
+		if now - (lastSettings[player] or -math.huge) < 1 then return end
+		lastSettings[player] = now
+		inventory:SetSettings(argument)
+		return
+	end
 	if action == "BuyPet" or action == "EquipPet" or action == "UnequipPet" then
 		local root = alive(player)
 		if (action ~= "UnequipPet" and typeof(argument) ~= "string") or not root
@@ -298,7 +356,7 @@ function Service.Init()
 
 	remote = Instance.new("RemoteEvent")
 	remote.Name = "InventoryState"
-	remote.OnServerEvent:Connect(handleAction)
+	remote.OnServerEvent:Connect(trackedAction)
 	remote.Parent = ReplicatedStorage
 
 	leaderboardData = Instance.new("Folder")
@@ -320,6 +378,8 @@ function Service.Init()
 		-- O prompt é só a entrada; validar a proximidade novamente no servidor.
 		if not root or (root.Position - counter.Position).Magnitude > sell.MaxActivationDistance then return end
 		local earned, levelUp, missions = inventory:SellAll()
+		logCredits(player, Enum.AnalyticsEconomyFlowType.Source, earned, inventory.credits,
+			Enum.AnalyticsEconomyTransactionType.Gameplay.Name, "Sale")
 		publish(player, earned > 0 and ("Venda concluída: +" .. earned .. " Créditos.") or "Sua mochila está vazia.",
 			nil, earned > 0 and "sale" or "warning", { LevelUp = levelUp, Missions = missions })
 	end)
@@ -373,6 +433,7 @@ function Service.Init()
 		lastBackpack[player] = nil
 		lastRebirth[player] = nil
 		lastTransmitter[player] = nil
+		lastSettings[player] = nil
 	end)
 
 	-- Ao fechar o servidor, salva todos em paralelo e espera terminar.

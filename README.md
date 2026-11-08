@@ -130,3 +130,18 @@ transmissor da missão 5 fica na Caverna Azul. Os placares ficam perto do ponto
 de nascimento, o terminal do hangar fica na plataforma da Orion Scout, e o
 renascimento fica no menu Renascer (tecla R).
 
+## Guia, preferências, desempenho e analytics
+
+- **Guia de objetivo:** um feixe e um marcador apontam para o objetivo da missão
+  atual (ou para a Estação de Venda quando a mochila enche). Pode ser desligado
+  em Ajustes.
+- **Preferências salvas:** as opções de Ajustes são salvas com o progresso. O
+  servidor aceita só as chaves de `ClientSettings` em `MiningConfig`, com valores
+  verdadeiro/falso.
+- **Efeitos do cenário:** desligar em Ajustes retira o céu galáctico, as
+  animações e a decoração dos minérios, para aparelhos lentos.
+- **Analytics** (Creator Hub > Analytics): funil do tutorial (primeira entrada
+  e cada missão concluída) e economia de Créditos (fontes: vendas e missões;
+  gastos: loja, pets e renascimento). Os eventos só aparecem com o jogo
+  publicado e nunca interferem na partida.
+

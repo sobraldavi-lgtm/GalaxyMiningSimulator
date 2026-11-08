@@ -24,7 +24,8 @@
 6. Cinco missões de ORBI, XP e níveis, Fragmentos Estelares, renascimento, placares,
    salvamento com DataStore e apresentação da Orion Scout no hangar: implementados
    (decisões no GDD, 08/11/2026); testes de regra em tests/progression.spec.luau;
-   validação no Studio pendente.
+   guia de objetivo, preferências salvas, modo de desempenho e analytics (funil
+   e economia); validação no Studio pendente.
 7. Interfaces: Design System 6.0 "Elegância Cósmica" (docs/UI-GUIDE.md): mundo noturno com
    céu galáctico, arte 3D própria para os 9 minérios, pets visíveis para todos,
    ferramentas na mão por família, interface escura com neon só como acento, botões 3D,
