@@ -24,6 +24,10 @@ end
 -- (success, error, warning, sale, power, pickup). Não carrega regras.
 local function publish(player, message, petReveal, tone)
 	local snapshot = getInventory(player):Snapshot()
+	-- Atributo replicado só para apresentação: todos os clientes desenham a ferramenta.
+	if player:GetAttribute("EquippedTool") ~= snapshot.ToolId then
+		player:SetAttribute("EquippedTool", snapshot.ToolId)
+	end
 	snapshot.Message = message
 	snapshot.PetReveal = petReveal
 	snapshot.Tone = tone
@@ -185,6 +189,12 @@ function Service.Init()
 	openShop.MaxActivationDistance = 14
 	openShop.RequiresLineOfSight = false
 	openShop.Parent = shop:WaitForChild("PurchaseDesk")
+
+	local function equipDefaults(player)
+		player:SetAttribute("EquippedTool", getInventory(player).toolId)
+	end
+	Players.PlayerAdded:Connect(equipDefaults)
+	for _, player in ipairs(Players:GetPlayers()) do equipDefaults(player) end
 
 	Players.PlayerRemoving:Connect(function(player)
 		inventories[player] = nil

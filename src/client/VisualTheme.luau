@@ -553,6 +553,71 @@ function Theme.illustration(parent, kind, accent)
 		iconPart(icon, 14, 2, 4, 24, accent, 2)
 		iconPart(icon, 4, 12, 24, 4, accent, 2)
 		iconPart(icon, 12, 10, 8, 8, light, 2, 45)
+	-- Ferramentas por família
+	elseif kind == "pickaxe" then
+		iconPart(icon, 14, 6, 4, 23, C.Gray:Lerp(light, 0.4), 2, 35)
+		iconPart(icon, 4, 4, 24, 6, accent, 3, -12)
+		iconPart(icon, 3, 6, 5, 7, accent:Lerp(light, 0.4), 2, -40)
+		iconPart(icon, 24, 2, 5, 7, accent:Lerp(light, 0.4), 2, 15)
+	elseif kind == "hammer" then
+		iconPart(icon, 14, 10, 4, 19, C.Gray:Lerp(light, 0.4), 2, 30)
+		iconPart(icon, 6, 2, 20, 12, accent, 3, 30)
+		iconPart(icon, 9, 4, 14, 3, accent:Lerp(light, 0.5), 1, 30)
+	elseif kind == "blade" then
+		iconPart(icon, 12, 18, 4, 11, C.Gray:Lerp(light, 0.4), 2, 40)
+		iconPart(icon, 8, 18, 12, 4, accent:Lerp(ink, 0.2), 2, 40)
+		iconPart(icon, 15, 1, 6, 21, accent, 3, 40)
+		iconPart(icon, 17, 3, 2, 14, light, 1, 40)
+	elseif kind == "laser" then
+		iconPart(icon, 4, 9, 20, 10, light, 4)
+		iconPart(icon, 7, 16, 6, 11, light, 2, -10)
+		iconPart(icon, 22, 11, 8, 6, accent, 3)
+		iconPart(icon, 8, 11, 12, 3, accent, 1)
+		iconPart(icon, 28, 12, 4, 4, accent:Lerp(light, 0.6), 2)
+	-- Minérios
+	elseif kind == "nugget" then
+		iconPart(icon, 4, 11, 15, 14, accent:Lerp(ink, 0.2), 6)
+		iconPart(icon, 13, 5, 15, 15, accent, 7)
+		iconPart(icon, 9, 16, 10, 9, accent, 4)
+		iconPart(icon, 17, 8, 5, 4, light, 2)
+	elseif kind == "shard" then
+		iconPart(icon, 7, 6, 7, 21, accent:Lerp(ink, 0.3), 2, -18)
+		iconPart(icon, 13, 2, 8, 25, accent, 2, 8)
+		iconPart(icon, 20, 9, 6, 17, accent:Lerp(ink, 0.15), 2, 28)
+		iconPart(icon, 15, 5, 2, 12, light, 1, 8)
+	elseif kind == "diamond" then
+		iconPart(icon, 5, 6, 22, 7, accent:Lerp(light, 0.35), 2)
+		iconPart(icon, 9, 8, 14, 14, accent, 2, 45)
+		iconPart(icon, 7, 6, 18, 6, accent:Lerp(light, 0.5), 2)
+		iconPart(icon, 12, 7, 4, 3, light, 1)
+	-- Variações de pet (rosto + acessório)
+	elseif kind == "petRock" or kind == "petCloud" or kind == "petBolt" or kind == "petIce" or kind == "petSun" then
+		if kind == "petSun" then
+			for angle = 0, 315, 45 do
+				local rad = math.rad(angle)
+				iconPart(icon, 14 + math.cos(rad) * 12, 13 + math.sin(rad) * 12, 5, 5, C.Gold, 2, angle)
+			end
+		elseif kind == "petBolt" then
+			iconPart(icon, 6, 0, 5, 11, C.Gold, 1, -25)
+			iconPart(icon, 21, 0, 5, 11, C.Gold, 1, 25)
+		elseif kind == "petIce" then
+			iconPart(icon, 14, 0, 4, 9, light, 1)
+			iconPart(icon, 8, 2, 4, 7, light, 1, -20)
+			iconPart(icon, 20, 2, 4, 7, light, 1, 20)
+		elseif kind == "petCloud" then
+			iconPart(icon, 1, 12, 12, 11, accent:Lerp(light, 0.3), 6)
+			iconPart(icon, 19, 12, 12, 11, accent:Lerp(light, 0.3), 6)
+		elseif kind == "petRock" then
+			iconPart(icon, 8, 1, 5, 8, C.Orange, 1, -15)
+			iconPart(icon, 15, 0, 5, 9, C.Gold, 1, 0)
+			iconPart(icon, 21, 2, 4, 7, C.Orange, 1, 15)
+		end
+		iconPart(icon, 5, 7, 22, 20, accent, (kind == "petRock" or kind == "petIce") and 5 or 10)
+		iconPart(icon, 10, 12, 5, 7, ink, 3)
+		iconPart(icon, 18, 12, 5, 7, ink, 3)
+		iconPart(icon, 11, 13, 2, 2, light, 1)
+		iconPart(icon, 19, 13, 2, 2, light, 1)
+		iconPart(icon, 13, 21, 6, 2, ink, 1)
 	end
 	return icon
 end

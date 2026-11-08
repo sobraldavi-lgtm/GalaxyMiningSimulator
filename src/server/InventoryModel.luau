@@ -34,6 +34,7 @@ function InventoryModel.new(config)
 		trainingPower = 0,
 		trainingClicks = 0,
 		toolName = "Extrator Básico",
+		toolId = "Basic",
 		backpackName = starting.Name,
 		ownedUpgrades = {},
 		ownedPets = {},
@@ -173,6 +174,7 @@ function InventoryModel:Purchase(upgradeId)
 	if upgrade.Kind == "Tool" then
 		self.power = upgrade.Power
 		self.toolName = upgrade.Name
+		self.toolId = upgradeId
 	else
 		return false, "Tipo de melhoria inválido."
 	end
@@ -198,6 +200,7 @@ function InventoryModel:Snapshot()
 		OwnedUpgrades = table.clone(self.ownedUpgrades),
 		TrainingClicks = self.trainingClicks,
 		ToolName = self.toolName,
+		ToolId = self.toolId,
 		BackpackName = self.backpackName,
 	}
 end

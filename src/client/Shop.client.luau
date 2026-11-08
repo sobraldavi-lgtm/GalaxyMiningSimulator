@@ -7,6 +7,7 @@ local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local Theme = require(script.Parent.VisualTheme)
 local Sound = require(script.Parent.Sound)
+local ArtStyle = require(script.Parent.ArtStyle)
 local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("MiningConfig"))
 local remote = ReplicatedStorage:WaitForChild("InventoryState")
 local player = Players.LocalPlayer
@@ -37,7 +38,8 @@ table.sort(tools, function(a, b) return a.upgrade.Price < b.upgrade.Price end)
 for index, entry in ipairs(tools) do
 	table.insert(items, {
 		Id = entry.id, Category = "Tools", Kind = "Tool", Order = index,
-		Name = entry.upgrade.Name, Color = Color3.fromHex(entry.upgrade.Color or "#22E1FF"), Icon = "drill",
+		Name = entry.upgrade.Name, Color = Color3.fromHex(entry.upgrade.Color or "#22E1FF"),
+		Icon = ArtStyle.ToolIcon[ArtStyle.toolFamily(entry.upgrade.Name)],
 		Price = entry.upgrade.Price, Power = entry.upgrade.Power,
 	})
 end
@@ -46,7 +48,7 @@ for index, pet in ipairs(Config.Pets) do
 	petBonus[pet.Id] = pet.Bonus
 	table.insert(items, {
 		Id = pet.Id, Category = "Pets", Kind = "Pet", Order = index,
-		Name = pet.Name, Color = Color3.fromHex(pet.Color), Icon = "pet",
+		Name = pet.Name, Color = Color3.fromHex(pet.Color), Icon = ArtStyle.petIcon(pet.Look),
 		Price = pet.Price, Bonus = pet.Bonus,
 	})
 end

@@ -22,6 +22,15 @@ Direção visual **"Galáxia Profunda"** (Design System 5.1): simulador cartunes
 
 Use sempre cor **e** texto juntos para comunicar função e estado.
 
+## Minérios, pets e ferramentas (3D, só no cliente)
+
+Família, kit de formas e ícone de cada item ficam em `src/client/ArtStyle.luau`, para que modelos 3D e ícones de HUD e loja combinem.
+
+- **Minérios** (`OreArt.client.luau`): a base vira rocha escura e cada tipo ganha um conjunto próprio. Ferro, cobre (com pátina) e ouro (com faíscas) têm pepitas metálicas; prata, lascas espelhadas; cristal, esmeralda e rubi, aglomerados de cristal com pontas brilhantes; obsidiana, espinhos negros com veios violeta; diamante, uma gema grande girando e lascas. Todos têm anel de neon pulsando no chão. Cada golpe faz o conjunto tremer; a quebra dá um clarão, uma onda de choque e o conjunto renasce. As peças decorativas não colidem e não recebem cliques (`CanQuery = false`), e o servidor não as conhece.
+- **Pets** (`Pets.client.luau`): olhos grandes com pupila e brilho, bochechas, pés e acessórios por espécie (antenas, cristais, nuvens, raios, picos de gelo, anel e chamas). Eles quicam, inclinam, piscam, têm sombra no chão e etiqueta com nome e bônus. Aparecem **para todos os jogadores** a partir do atributo `EquippedPet`.
+- **Ferramentas** (`Gear.client.luau`): modelo na mão de cada jogador, a partir do atributo `EquippedTool` publicado pelo servidor. São cinco famílias pelo nome do item (picareta, broca, martelo, lâmina, emissor) na cor do item. Do 5º nível em diante ganham neon, do 10º luz e do 14º faíscas. Balançam a cada golpe aceito e soltam um brilho ao trocar de ferramenta.
+- **Ícones novos:** picareta, martelo, lâmina, emissor, pepita, lasca, diamante e cinco variações de pet.
+
 ## Componentes (`src/client/VisualTheme.luau`)
 
 - **Botão 3D** (`Theme.action`): base sólida escura e face colorida com brilho; a face afunda ao pressionar e cresce no hover/foco. O texto fica em `Face/Label`: use `Theme.setText` e `Theme.setTint`, nunca `button.Text`. Opções: `Size`, `Icon`, `TextSize`, `Radius`, `Depth`, `Silent`.

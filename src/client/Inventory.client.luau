@@ -3,6 +3,7 @@
 -- saldo, carga, poder e posse continuam decididos pelo servidor.
 local Theme = require(script.Parent.VisualTheme)
 local Sound = require(script.Parent.Sound)
+local ArtStyle = require(script.Parent.ArtStyle)
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
@@ -79,10 +80,10 @@ for _, backpack in ipairs(Config.Backpacks) do
 end
 for id, upgrade in pairs(Config.Upgrades) do
 	table.insert(goals, { Kind = "Tool", Id = id, Name = upgrade.Name, Price = upgrade.Price, Power = upgrade.Power,
-		Icon = "drill", Color = Color3.fromHex(upgrade.Color or "#22E1FF"), Detail = "Ferramenta · poder " .. Theme.format(upgrade.Power) })
+		Icon = ArtStyle.ToolIcon[ArtStyle.toolFamily(upgrade.Name)], Color = Color3.fromHex(upgrade.Color or "#22E1FF"), Detail = "Ferramenta · poder " .. Theme.format(upgrade.Power) })
 end
 for _, pet in ipairs(Config.Pets) do
-	table.insert(goals, { Kind = "Pet", Id = pet.Id, Name = pet.Name, Price = pet.Price, Icon = "pet",
+	table.insert(goals, { Kind = "Pet", Id = pet.Id, Name = pet.Name, Price = pet.Price, Icon = ArtStyle.petIcon(pet.Look),
 		Color = Color3.fromHex(pet.Color), Detail = "Pet · +" .. math.round(pet.Bonus * 100) .. "% de poder" })
 end
 table.sort(goals, function(a, b) return a.Price < b.Price end)
@@ -487,7 +488,7 @@ local function buildOres(body)
 		Theme.stroke(slot, C.Ink, 3)
 		Theme.gradient(slot, entry.color:Lerp(C.Plum, 0.55), C.Night)
 		slot.Parent = holder
-		local badge = Theme.badge(slot, "gem", entry.color, 54)
+		local badge = Theme.badge(slot, ArtStyle.oreIcon(entry.id), entry.color, 54)
 		badge.AnchorPoint = Vector2.new(0.5, 0)
 		badge.Position = UDim2.new(0.5, 0, 0, 8)
 		local count = Theme.title(slot, "", 15, C.White)
@@ -558,7 +559,7 @@ local function buildPets(body)
 		Theme.gradient(card, color:Lerp(C.Plum, 0.45), C.Night)
 		card.Parent = holder
 		local rays = Theme.rays(card, { Color = color, Alt = C.Gold, Length = 120, Width = 14, Position = UDim2.new(0.5, 0, 0, 46) })
-		local portrait = Theme.badge(card, "pet", color, 74)
+		local portrait = Theme.badge(card, ArtStyle.petIcon(pet.Look), color, 74)
 		portrait.AnchorPoint = Vector2.new(0.5, 0)
 		portrait.Position = UDim2.new(0.5, 0, 0, 10)
 		portrait.ZIndex = 2
@@ -1001,7 +1002,7 @@ local function celebrate(petId)
 	scale.Parent = holder
 	Theme.rays(holder, { Color = color, Alt = C.Gold, Length = 380, Width = 30, Count = 10,
 		Position = UDim2.fromScale(0.5, 0.4), Transparency = 0.45 })
-	local portrait = Theme.badge(holder, "pet", color, 140)
+	local portrait = Theme.badge(holder, ArtStyle.petIcon(pet.Look), color, 140)
 	portrait.AnchorPoint = Vector2.new(0.5, 0.5)
 	portrait.Position = UDim2.fromScale(0.5, 0.4)
 	portrait.ZIndex = 3

@@ -22,7 +22,8 @@
 5. Estação de pets com OVNI em Terra Nova. Primeiro resgate de Lumini por 75 Créditos, com equipamento e bônus em sessão. Revisão no Studio, Rokko e Nebbi pendentes.
 6. Cinco missões de ORBI e progressão.
 7. Interfaces: Design System 5.1 "Galáxia Profunda" (docs/UI-GUIDE.md): mundo noturno com
-   céu galáctico, interface escura com neon, botões 3D,
+   céu galáctico, arte 3D própria para os 9 minérios, pets visíveis para todos,
+   ferramentas na mão por família, interface escura com neon, botões 3D,
    tela de carregamento, HUD com cartão de próxima meta, prompts holográficos, placas
    de minério com golpes necessários, sons, mundo decorativo animado, Loja e menus
    refeitos; validação visual no Studio pendente. Apresentação da Orion Scout e
