@@ -271,6 +271,24 @@ local function makeCard(item)
 	button.Position = UDim2.new(0.5, 0, 1, -8)
 	button.ZIndex = 3
 
+	-- Ovos: segundo botão para abrir vários de uma vez (lado a lado).
+	local multiButton
+	if item.Kind == "Egg" then
+		button.AnchorPoint = Vector2.new(0, 1)
+		button.Position = UDim2.new(0, 8, 1, -8)
+		button.Size = UDim2.new(0.55, -10, 0, 42)
+		multiButton = Theme.action(face, "", C.Violet, { Size = UDim2.new(0.45, -6, 0, 42), TextSize = 16, Radius = 12 })
+		multiButton.AnchorPoint = Vector2.new(1, 1)
+		multiButton.Position = UDim2.new(1, -8, 1, -8)
+		multiButton.ZIndex = 3
+		multiButton.Activated:Connect(function()
+			if state and state.Credits >= item.Price * Config.MultiOpen then
+				remote:FireServer("HatchEgg", item.Id, Config.MultiOpen)
+			end
+		end)
+		number.Size = UDim2.fromOffset(96, 18)
+	end
+
 	-- Brilho abaixo do botão para não cobrir o preço.
 	local shimmer = Theme.shimmer(face, 18)
 	shimmer.ZIndex = 2
@@ -292,6 +310,7 @@ local function makeCard(item)
 	card.Parent = scroller
 	return {
 		item = item, frame = card, button = button, edge = edge, ribbon = ribbon, rays = rays, shimmer = shimmer,
+		multiButton = multiButton, number = number,
 		primary = primary, secondary = secondary, track = track, fill = fill,
 	}
 end
@@ -353,8 +372,20 @@ local function refresh()
 				end
 				card.primary.Text = table.concat(lines, "\n")
 				card.secondary.Text = ""
-				text = "ABRIR  ✦ " .. Theme.compact(item.Price)
+				text = "ABRIR ✦ " .. Theme.compact(item.Price)
 				color = state.Credits >= item.Price and C.Mint or C.Gray
+				local multiPrice = item.Price * Config.MultiOpen
+				Theme.setText(card.multiButton, "×" .. Config.MultiOpen .. " ✦ " .. Theme.compact(multiPrice))
+				Theme.setTint(card.multiButton, state.Credits >= multiPrice and C.Violet or C.Gray)
+				-- Selo da garantia: quantas aberturas faltam para um Raro+ garantido.
+				local opened = state.Pity and state.Pity[item.Id] or 0
+				local left = math.max(Config.PityOpens - opened, 1)
+				local allRare = true
+				for _, entry in ipairs(item.Odds) do
+					if not Config.PityRarities[petById[entry[1]].Rarity] then allRare = false end
+				end
+				card.number.Text = allRare and "SEMPRE RARO+" or left == 1 and "RARO GARANTIDO!" or ("Raro em " .. left)
+				card.number.TextColor3 = (allRare or left == 1) and C.Gold or C.White
 			else
 				card.primary.Text = "Poder " .. Theme.format(item.Power) .. delta(item.Power, state.ToolPower)
 				card.secondary.Text = "Ferramenta"

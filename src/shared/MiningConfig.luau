@@ -29,6 +29,12 @@ return table.freeze({
 	FirstEggPet = "Lumini",
 	-- Pet repetido devolve esta fração do preço do ovo em Créditos.
 	DuplicateRefund = 0.5,
+	-- Garantia: depois de (PityOpens - 1) aberturas seguidas do mesmo ovo sem pet
+	-- destas raridades, a próxima abertura desse ovo sai com uma delas.
+	PityOpens = 10,
+	PityRarities = table.freeze({ Raro = true, ["Épico"] = true }),
+	-- Abrir vários ovos de uma vez (custa o preço × quantidade, sem desconto).
+	MultiOpen = 3,
 	-- Progressão do explorador. Níveis 1–5 vêm do GDD; o resto são hipóteses
 	-- de balanceamento escolhidas com o usuário para testar (ajustar após testes).
 	Progression = table.freeze({

@@ -1179,9 +1179,10 @@ task.spawn(function()
 	end)
 end)
 
--- ---------- Abertura de ovo (gacha) ----------
+-- ---------- Abertura de ovos (gacha) ----------
 -- O resultado já vem sorteado do servidor; aqui só a apresentação:
--- o ovo treme, racha num clarão e revela o pet com a cor da raridade.
+-- os ovos tremem, racham num clarão e revelam os pets com a cor da raridade.
+-- Funciona para 1 ou 3 ovos (lado a lado).
 local function findEgg(id)
 	for _, egg in ipairs(Config.Eggs) do
 		if egg.Id == id then return egg end
@@ -1193,60 +1194,100 @@ local hatching = false
 local hatchQueue = {}
 local playHatch
 
-local function reveal(holder, hatch, pet, finish)
-	local color = Color3.fromHex(pet.Color)
-	local rarityColor = Color3.fromHex(Config.Rarities[pet.Rarity] or "#FFFFFF")
-	local epic = pet.Rarity == "Épico" or pet.Rarity == "Raro"
-	Sound.play("reward", hatch.Duplicate and 1 or (epic and 1.5 or 1.25))
-	if not hatch.Duplicate then
-		Theme.confetti(stage, epic and 90 or 50)
-	end
-	Theme.rays(holder, { Color = rarityColor, Alt = color, Length = 400, Width = 30, Count = 10,
-		Position = UDim2.fromScale(0.5, 0.4), Transparency = hatch.Duplicate and 0.75 or 0.45 })
-	local portrait = Theme.badge(holder, ArtStyle.petIcon(pet.Look), color, 150)
-	portrait.AnchorPoint = Vector2.new(0.5, 0.5)
-	portrait.Position = UDim2.fromScale(0.5, 0.4)
-	portrait.ZIndex = 3
-	Theme.pop(portrait, 0.5)
-	local rarity = Theme.title(holder, string.upper(pet.Rarity), 18, C.Ink)
-	rarity.TextStrokeTransparency = 1
-	rarity.BackgroundColor3 = rarityColor
-	rarity.AnchorPoint = Vector2.new(0.5, 0)
-	rarity.Position = UDim2.new(0.5, 0, 0.4, 84)
-	rarity.Size = UDim2.fromOffset(120, 28)
-	rarity.ZIndex = 4
-	Theme.round(rarity, 14)
-	Theme.stroke(rarity, C.Ink, 3)
-	local name = Theme.title(holder, pet.Name, 44, color:Lerp(C.White, 0.35))
-	name.AnchorPoint = Vector2.new(0.5, 0)
-	name.Position = UDim2.new(0.5, 0, 0.4, 116)
-	name.Size = UDim2.fromOffset(460, 50)
-	name.ZIndex = 4
-	local detail = Theme.title(holder, hatch.Duplicate and ("REPETIDO  ·  +" .. Theme.format(hatch.Refund) .. " ✦ devolvidos")
-		or ("NOVO!  ·  +" .. math.round(pet.Bonus * 100) .. "% de poder"), 20, hatch.Duplicate and C.Muted or C.Gold)
-	detail.AnchorPoint = Vector2.new(0.5, 0)
-	detail.Position = UDim2.new(0.5, 0, 0.4, 166)
-	detail.Size = UDim2.fromOffset(460, 26)
-	detail.ZIndex = 4
-	task.delay(2.4, finish)
+local function slotX(index, count)
+	if count == 1 then return 0.5 end
+	return 0.5 + (index - (count + 1) / 2) * 0.3
 end
 
-function playHatch(hatch)
-	local egg = findEgg(hatch.Egg)
+local function buildShell(holder, egg, x, size)
+	local eggColor = Color3.fromHex(egg.Color)
+	local shell = Instance.new("Frame")
+	shell.AnchorPoint = Vector2.new(0.5, 0.5)
+	shell.Position = UDim2.fromScale(x, 0.42)
+	shell.Size = UDim2.fromOffset(size, size * 1.27)
+	shell.BackgroundColor3 = C.White
+	shell.BorderSizePixel = 0
+	shell.ZIndex = 3
+	Theme.round(shell, 999)
+	Theme.stroke(shell, C.Ink, 5)
+	Theme.gradient(shell, eggColor:Lerp(C.White, 0.45), eggColor:Lerp(C.Ink, 0.45))
+	shell.Parent = holder
+	for _, spot in ipairs({ { 0.3, 0.35, 0.23 }, { 0.68, 0.55, 0.17 }, { 0.4, 0.75, 0.13 } }) do
+		local dot = Instance.new("Frame")
+		dot.AnchorPoint = Vector2.new(0.5, 0.5)
+		dot.Position = UDim2.fromScale(spot[1], spot[2])
+		dot.Size = UDim2.fromOffset(size * spot[3], size * spot[3])
+		dot.BackgroundColor3 = eggColor:Lerp(C.White, 0.7)
+		dot.BackgroundTransparency = 0.25
+		dot.BorderSizePixel = 0
+		dot.ZIndex = 4
+		Theme.round(dot, 99)
+		dot.Parent = shell
+	end
+	return shell
+end
+
+-- Revela um pet no lugar do ovo; `size` reduz tudo quando são 3.
+local function revealOne(holder, hatch, x, size)
 	local pet = findPet(hatch.PetId)
-	if not egg or not pet then return end
+	if not pet then return end
+	local color = Color3.fromHex(pet.Color)
+	local rarityColor = Color3.fromHex(Config.Rarities[pet.Rarity] or "#FFFFFF")
+	local scale = size / 150
+	Theme.rays(holder, { Color = rarityColor, Alt = color, Length = 380 * scale, Width = 26 * scale, Count = 10,
+		Position = UDim2.fromScale(x, 0.42), Transparency = hatch.Duplicate and 0.78 or 0.45 })
+	local portrait = Theme.badge(holder, ArtStyle.petIcon(pet.Look), color, size)
+	portrait.AnchorPoint = Vector2.new(0.5, 0.5)
+	portrait.Position = UDim2.fromScale(x, 0.42)
+	portrait.ZIndex = 3
+	Theme.pop(portrait, 0.5)
+	local function line(text, textSize, textColor, y, height, background)
+		local label = Theme.title(holder, text, textSize, background and C.Ink or textColor)
+		label.AnchorPoint = Vector2.new(0.5, 0)
+		label.Position = UDim2.new(x, 0, 0.42, y)
+		label.Size = UDim2.fromOffset(math.max(size * 2.6, 150), height)
+		label.ZIndex = 4
+		Theme.fitText(label, textSize, 9)
+		if background then
+			label.TextStrokeTransparency = 1
+			label.BackgroundColor3 = background
+			label.Size = UDim2.fromOffset(size * 0.85, height)
+			Theme.round(label, height // 2)
+			Theme.stroke(label, C.Ink, 3)
+		end
+		return label
+	end
+	local top = size * 0.56
+	line(string.upper(pet.Rarity), 18 * scale + 4, C.Ink, top, 26 * scale + 4, rarityColor)
+	line(pet.Name, 44 * scale + 6, color:Lerp(C.White, 0.35), top + 32 * scale + 4, 48 * scale + 6)
+	local detail = hatch.Duplicate and ("REPETIDO · +" .. Theme.format(hatch.Refund) .. " ✦")
+		or ("NOVO! · +" .. math.round(pet.Bonus * 100) .. "% de poder")
+	line(detail, 20 * scale + 4, hatch.Duplicate and C.Muted or C.Gold, top + 82 * scale + 8, 24 * scale + 6)
+	if hatch.Pity then
+		line("GARANTIA DE RARO", 14 * scale + 4, C.Ink, -size * 0.75, 22 * scale + 4, C.Gold)
+	end
+end
+
+function playHatch(list)
 	if hatching then
-		table.insert(hatchQueue, hatch)
+		table.insert(hatchQueue, list)
 		return
 	end
+	local egg = findEgg(list[1] and list[1].Egg)
+	if not egg then return end
 	hatching = true
+	local count = #list
+	local size = count == 1 and 150 or 104
 	local holder = Instance.new("Frame")
 	holder.Name = "Hatch"
 	holder.AnchorPoint = Vector2.new(0.5, 0.5)
 	holder.Position = UDim2.fromScale(0.5, 0.45)
-	holder.Size = UDim2.fromOffset(420, 420)
+	holder.Size = UDim2.fromOffset(count == 1 and 440 or 720, 440)
 	holder.BackgroundTransparency = 1
 	holder.Parent = stage
+	local limit = Instance.new("UISizeConstraint")
+	limit.MaxSize = Vector2.new(count == 1 and 440 or 720, 440)
+	limit.Parent = holder
 	local scale = Instance.new("UIScale")
 	scale.Parent = holder
 
@@ -1254,8 +1295,8 @@ function playHatch(hatch)
 		local function done()
 			holder:Destroy()
 			hatching = false
-			local nextHatch = table.remove(hatchQueue, 1)
-			if nextHatch then playHatch(nextHatch) end
+			local nextList = table.remove(hatchQueue, 1)
+			if nextList then playHatch(nextList) end
 		end
 		if Theme.reducedMotion(holder) then
 			done()
@@ -1266,40 +1307,35 @@ function playHatch(hatch)
 		out:Play()
 	end
 
+	local function revealAll()
+		local best = 0
+		for index, hatch in ipairs(list) do
+			local pet = findPet(hatch.PetId)
+			local rank = pet and ({ ["Comum"] = 1, ["Incomum"] = 2, ["Raro"] = 3, ["Épico"] = 4 })[pet.Rarity] or 1
+			if not hatch.Duplicate then best = math.max(best, rank) end
+			-- Com 3 ovos, um pequeno atraso entre cada revelação dá suspense.
+			task.delay((index - 1) * (count > 1 and 0.35 or 0), function()
+				if holder.Parent then revealOne(holder, hatch, slotX(index, count), size) end
+			end)
+		end
+		Sound.play("reward", best >= 3 and 1.5 or best > 0 and 1.25 or 1)
+		if best > 0 then Theme.confetti(stage, best >= 3 and 90 or 50) end
+		task.delay(2.6 + (count - 1) * 0.35, finish)
+	end
+
 	if Theme.reducedMotion(holder) then
-		reveal(holder, hatch, pet, finish)
+		revealAll()
 		return
 	end
 
-	-- O ovo: elipse com manchas na cor do ovo.
-	local eggColor = Color3.fromHex(egg.Color)
-	local shell = Instance.new("Frame")
-	shell.AnchorPoint = Vector2.new(0.5, 0.5)
-	shell.Position = UDim2.fromScale(0.5, 0.4)
-	shell.Size = UDim2.fromOffset(150, 190)
-	shell.BackgroundColor3 = C.White
-	shell.BorderSizePixel = 0
-	shell.ZIndex = 3
-	Theme.round(shell, 999)
-	Theme.stroke(shell, C.Ink, 5)
-	Theme.gradient(shell, eggColor:Lerp(C.White, 0.45), eggColor:Lerp(C.Ink, 0.45))
-	shell.Parent = holder
-	for _, spot in ipairs({ { 0.3, 0.35, 34 }, { 0.68, 0.55, 26 }, { 0.4, 0.75, 20 } }) do
-		local dot = Instance.new("Frame")
-		dot.AnchorPoint = Vector2.new(0.5, 0.5)
-		dot.Position = UDim2.fromScale(spot[1], spot[2])
-		dot.Size = UDim2.fromOffset(spot[3], spot[3])
-		dot.BackgroundColor3 = eggColor:Lerp(C.White, 0.7)
-		dot.BackgroundTransparency = 0.25
-		dot.BorderSizePixel = 0
-		dot.ZIndex = 4
-		Theme.round(dot, 99)
-		dot.Parent = shell
+	local shells = {}
+	for index = 1, count do
+		table.insert(shells, buildShell(holder, egg, slotX(index, count), size))
 	end
-	local label = Theme.title(holder, egg.Name, 26, C.White)
+	local label = Theme.title(holder, (count > 1 and (count .. "× ") or "") .. egg.Name, 26, C.White)
 	label.AnchorPoint = Vector2.new(0.5, 0)
-	label.Position = UDim2.new(0.5, 0, 0.4, 110)
-	label.Size = UDim2.fromOffset(360, 30)
+	label.Position = UDim2.new(0.5, 0, 0.42, size * 0.75)
+	label.Size = UDim2.fromOffset(400, 30)
 	scale.Scale = 0.3
 	TweenService:Create(scale, TweenInfo.new(0.35, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
 
@@ -1309,8 +1345,10 @@ function playHatch(hatch)
 		for step = 1, 6 do
 			local angle = (step % 2 == 0 and -1 or 1) * (6 + step * 3)
 			Sound.play("hit", 0.8 + step * 0.08)
-			TweenService:Create(shell, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
-				{ Rotation = angle }):Play()
+			for index, shell in ipairs(shells) do
+				TweenService:Create(shell, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut),
+					{ Rotation = angle * (index % 2 == 0 and -1 or 1) }):Play()
+			end
 			task.wait(0.16 - step * 0.012)
 		end
 		local flash = Instance.new("Frame")
@@ -1321,9 +1359,9 @@ function playHatch(hatch)
 		flash.Parent = stage
 		TweenService:Create(flash, TweenInfo.new(0.5), { BackgroundTransparency = 1 }):Play()
 		Debris:AddItem(flash, 0.55)
-		shell:Destroy()
+		for _, shell in ipairs(shells) do shell:Destroy() end
 		label:Destroy()
-		reveal(holder, hatch, pet, finish)
+		revealAll()
 	end)
 end
 
@@ -1420,8 +1458,8 @@ remote.OnClientEvent:Connect(function(snapshot)
 	updateGoal(snapshot)
 
 	-- Notificações: coletas já aparecem no contador; a loja mostra as próprias mensagens.
-	if snapshot.Hatch then
-		playHatch(snapshot.Hatch)
+	if snapshot.Hatches and #snapshot.Hatches > 0 then
+		playHatch(snapshot.Hatches)
 	elseif snapshot.Message and snapshot.Tone ~= "pickup" and not playerGui:GetAttribute("GalaxyShopOpen") then
 		notify(snapshot.Message, snapshot.Tone)
 	end

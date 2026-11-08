@@ -196,3 +196,43 @@ equal(hatcher.credits, before - 600 + 300, "Repetido devolve 300 de 600")
 equal(select(1, hatcher:HatchEgg("Unknown")), false, "Ovo inválido")
 print("PASS: gacha com chances, garantia inicial, repetidos e equipamento.")
 
+-- Garantia de raro: 9 aberturas sem Raro+ → a 10ª do mesmo ovo é Raro ou Épico.
+local lucky = InventoryModel.new(Config)
+lucky.credits = 100000
+lucky.ownedPets.Rokko = true -- já tem pet: sem a garantia do pet inicial
+local commonRoll = function() return 0 end -- Estelar: 0 → Lumini (Comum)
+for index = 1, Config.PityOpens - 1 do
+	local _, _, result = lucky:HatchEgg("StarEgg", commonRoll)
+	equal(result.Pity, false, "Abertura " .. index .. " sem garantia")
+end
+equal(lucky.pity.StarEgg, Config.PityOpens - 1, "Contador da garantia")
+local _, _, guaranteed = lucky:HatchEgg("StarEgg", commonRoll)
+equal(guaranteed.Pity, true, "10ª abertura usa a garantia")
+equal(guaranteed.PetId, "Nebbi", "Estelar garante Nebbi (único Raro+ do ovo)")
+equal(lucky.pity.StarEgg, 0, "Garantia zera o contador")
+-- Um Raro sorteado naturalmente também zera o contador.
+lucky:HatchEgg("StarEgg", commonRoll)
+lucky:HatchEgg("StarEgg", function() return 0.99 end) -- 99 → Nebbi
+equal(lucky.pity.StarEgg, 0, "Raro natural zera o contador")
+-- Contadores são por ovo e são salvos.
+lucky:HatchEgg("CometEgg", function() return 0 end) -- Rokko (Incomum)
+equal(lucky.pity.CometEgg, 1, "Contador separado por ovo")
+equal(InventoryModel.fromData(Config, lucky:Serialize()).pity.CometEgg, 1, "Garantia salva")
+print("PASS: garantia de raro por ovo.")
+
+-- Abrir 3: cobra 3× o preço, devolve três resultados; quantidade inválida recusada.
+local triple = InventoryModel.new(Config)
+triple.credits = 3 * 600
+local ok, message, results = triple:HatchEggs("CometEgg", Config.MultiOpen, function() return 0.5 end)
+equal(ok, true, "Abre 3 ovos")
+equal(#results, 3, "Três resultados")
+equal(results[1].PetId, "Nebbi", "0,5 no Cometa → Nebbi")
+equal(results[2].Duplicate, true, "Segundo Nebbi é repetido")
+equal(triple.credits, 300 + 300, "Paga 1.800 e recebe 2 reembolsos de 300")
+equal(type(message), "string", "Mensagem resumida")
+equal(select(1, triple:HatchEggs("CometEgg", 2)), false, "Só 1 ou 3")
+triple.credits = 1000
+equal(select(1, triple:HatchEggs("CometEgg", 3)), false, "Sem saldo para 3")
+equal(triple.credits, 1000, "Recusa não cobra")
+print("PASS: abrir 3 ovos.")
+

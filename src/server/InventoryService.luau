@@ -103,7 +103,7 @@ local function publish(player, message, petReveal, tone, extra)
 	if extra then
 		logMissions(player, inventory, extra.Missions)
 		snapshot.LevelUp = extra.LevelUp
-		snapshot.Hatch = extra.Hatch
+		snapshot.Hatches = extra.Hatches
 		if extra.Missions and #extra.Missions > 0 then
 			local list = {}
 			for _, mission in ipairs(extra.Missions) do
@@ -253,11 +253,11 @@ end
 
 -- ---------- Ações do cliente ----------
 local handleAction
-local function trackedAction(player, action, argument)
+local function trackedAction(player, action, argument, extra)
 	local inventory = getInventory(player)
 	if not inventory then return end
 	local before = inventory.credits
-	handleAction(player, action, argument)
+	handleAction(player, action, argument, extra)
 	-- Créditos gastos (compras, resgates e renascimento) entram como "sink".
 	local spent = before - inventory.credits
 	if spent > 0 and inventories[player] == inventory then
@@ -268,7 +268,7 @@ local function trackedAction(player, action, argument)
 	end
 end
 
-function handleAction(player, action, argument)
+function handleAction(player, action, argument, extra)
 	local inventory = getInventory(player)
 	if not inventory then return end
 	local now = os.clock()
@@ -290,11 +290,13 @@ function handleAction(player, action, argument)
 			publish(player, "Vá até o OVNI da Estação de Pets para abrir ovos.", nil, "warning")
 			return
 		end
-		local ok, message, result = inventory:HatchEgg(argument, function()
+		-- Quantidade: 1 ou Config.MultiOpen (validada no modelo).
+		local amount = extra == Config.MultiOpen and Config.MultiOpen or 1
+		local ok, message, results = inventory:HatchEggs(argument, amount, function()
 			return hatchRandom:NextNumber()
 		end)
-		local missions = ok and inventory:Progress("Pet", result.PetId) or nil
-		publish(player, message, nil, ok and "success" or "error", { Missions = missions, Hatch = result })
+		local missions = ok and inventory:Progress("Pet", results[1].PetId) or nil
+		publish(player, message, nil, ok and "success" or "error", { Missions = missions, Hatches = results })
 		return
 	end
 	if action == "EquipPet" or action == "UnequipPet" then
