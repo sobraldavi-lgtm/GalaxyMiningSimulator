@@ -47,6 +47,7 @@ function InventoryModel.new(config)
 		rebirths = 0,
 		lifetimeCredits = 0,
 		purchases = 0,
+		settings = {},
 	}, InventoryModel)
 end
 
@@ -324,6 +325,21 @@ function InventoryModel:Rebirth()
 		math.round((self:GetSaleMultiplier() - 1) * 100))
 end
 
+-- Preferências de interface: só chaves conhecidas e valores booleanos.
+function InventoryModel:SetSettings(values)
+	if type(values) ~= "table" then return false end
+	local allowed = {}
+	for _, key in ipairs(self.config.ClientSettings) do allowed[key] = true end
+	local clean = {}
+	for key, value in pairs(values) do
+		if allowed[key] and type(value) == "boolean" then
+			clean[key] = value
+		end
+	end
+	self.settings = clean
+	return true
+end
+
 -- ---------- Salvamento ----------
 -- O treino de poder é por sessão (GDD) e não é salvo.
 
@@ -348,6 +364,7 @@ function InventoryModel:Serialize()
 		Rebirths = self.rebirths,
 		LifetimeCredits = self.lifetimeCredits,
 		Purchases = self.purchases,
+		Settings = table.clone(self.settings),
 	}
 end
 
@@ -410,6 +427,7 @@ function InventoryModel.fromData(config, data)
 	inventory.rebirths = count(data.Rebirths)
 	inventory.lifetimeCredits = count(data.LifetimeCredits)
 	inventory.purchases = count(data.Purchases)
+	inventory:SetSettings(data.Settings)
 	return inventory
 end
 
@@ -444,6 +462,7 @@ function InventoryModel:Snapshot()
 		RebirthCost = self:RebirthCost(),
 		SaleMultiplier = self:GetSaleMultiplier(),
 		LifetimeCredits = self.lifetimeCredits,
+		Settings = table.clone(self.settings),
 	}
 end
 

@@ -59,7 +59,8 @@ Tudo que anima respeita **Movimento reduzido**.
 - **Notificações:** até três, em pílulas com ícone e cor pelo `Tone` do servidor.
 - **Mochila:** resumo e grade de minérios (cor, quantidade, preço e peso); aba Pets com raios atrás do pet equipado e cadeado nos que faltam resgatar.
 - **Missões:** prévia com ORBI em balão de fala e as cinco missões do GDD como "EM BREVE". O sistema de missões não existe ainda.
-- **Ajustes:** Movimento reduzido, Sons, Números de dano, Placas dos minérios e Poeira cósmica.
+- **Ajustes** (salvos com o progresso): Movimento reduzido, Sons, Números de dano, Placas dos minérios, Poeira cósmica, Guia de objetivo e Efeitos do cenário (modo de desempenho).
+- **Guia de objetivo** (`Guide.client.luau`): feixe ciano e dourado do personagem até o alvo e marcador com nome e distância; some a 14 studs do alvo.
 - **Loja Orion:** cartões 3D na cor do item, com comparação com o equipamento atual, selo **PRÓXIMA** com brilho e raios, progresso até o preço, contadores por categoria e confete nas compras.
 - **Mineração:** painel com esfera grande na cor do minério, barra de resistência com valores, "faltam N golpes", contorno colorido, clarão e números de dano empilhados, além de sons de golpe e de quebra.
 - **Placas dos minérios:** acima de cada grupo de depósitos, com nome, resistência, golpes necessários com o poder atual (⌈resistência ÷ poder⌉, como no GDD) e um selo FÁCIL, MÉDIO, DIFÍCIL ou EXTREMO.

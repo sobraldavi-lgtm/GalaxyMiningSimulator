@@ -26,8 +26,14 @@ local rings = {}
 local spinners = {}
 
 local function reduced()
-	return playerGui:GetAttribute("GalaxyReduceMotion") == true
+	return playerGui:GetAttribute("GalaxyReduceMotion") == true or playerGui:GetAttribute("GalaxyLowGraphics") == true
 end
+
+-- Modo de desempenho: a decoração dos depósitos sai da cena (a base continua mineral).
+local function applyQuality()
+	folder.Parent = playerGui:GetAttribute("GalaxyLowGraphics") and nil or workspace
+end
+playerGui:GetAttributeChangedSignal("GalaxyLowGraphics"):Connect(applyQuality)
 
 local function piece(cframe, size, color, material, shape, transparency)
 	local part = Instance.new("Part")
@@ -267,6 +273,7 @@ RunService.Heartbeat:Connect(function(dt)
 end)
 
 -- Monta a arte quando cada base existe (também com streaming).
+applyQuality()
 local deposits = workspace:WaitForChild("TerraNova"):WaitForChild("OreDeposits")
 local function consider(object)
 	if object:IsA("BasePart") and object.Name:match("^Base%d$") and object.Parent and object.Parent.Parent == deposits then

@@ -41,7 +41,7 @@ RunService.Heartbeat:Connect(function()
 		anchor.Position = camera.CFrame.Position + Vector3.new(0, 4, 0)
 	end
 	dust.Enabled = not playerGui:GetAttribute("GalaxyReduceMotion")
-		and not playerGui:GetAttribute("GalaxyHideDust")
+		and not playerGui:GetAttribute("GalaxyHideDust") and not playerGui:GetAttribute("GalaxyLowGraphics")
 end)
 
 local world = workspace:WaitForChild("TerraNova")
@@ -206,7 +206,9 @@ RunService.Heartbeat:Connect(function(dt)
 	accumulator += dt
 	if accumulator < 1 / 30 then return end
 	accumulator = 0
+	-- Movimento reduzido ou modo de desempenho: tudo volta à posição original.
 	local reduced = playerGui:GetAttribute("GalaxyReduceMotion") == true
+		or playerGui:GetAttribute("GalaxyLowGraphics") == true
 	if reduced then
 		-- Movimento reduzido: tudo volta à posição original uma única vez.
 		if not resting then
@@ -320,10 +322,18 @@ for k = 0, 70 do
 	skyPart(position, random:NextNumber(40, 90), ({ VIOLET, CYAN, PINK })[k % 3 + 1], random:NextNumber(0.92, 0.96))
 end
 
+-- Modo de desempenho: o céu galáctico inteiro sai da cena.
+local function applyQuality()
+	skyFolder.Parent = playerGui:GetAttribute("GalaxyLowGraphics") and nil or workspace
+end
+playerGui:GetAttributeChangedSignal("GalaxyLowGraphics"):Connect(applyQuality)
+applyQuality()
+
 local galaxyClock = 0
 RunService.Heartbeat:Connect(function(dt)
 	galaxyClock += dt
-	if galaxyClock < 1 / 20 or playerGui:GetAttribute("GalaxyReduceMotion") then return end
+	if galaxyClock < 1 / 20 or playerGui:GetAttribute("GalaxyReduceMotion")
+		or playerGui:GetAttribute("GalaxyLowGraphics") then return end
 	galaxyClock = 0
 	local rotation = CFrame.fromAxisAngle(normal, os.clock() * 0.015)
 	local parts, frames = {}, {}
@@ -368,7 +378,7 @@ end
 task.spawn(function()
 	while true do
 		task.wait(random:NextNumber(4, 9))
-		if not playerGui:GetAttribute("GalaxyReduceMotion") then
+		if not playerGui:GetAttribute("GalaxyReduceMotion") and not playerGui:GetAttribute("GalaxyLowGraphics") then
 			shootingStar()
 		end
 	end

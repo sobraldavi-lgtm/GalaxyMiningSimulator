@@ -50,6 +50,11 @@ return table.freeze({
 		BaseCost = 50000, -- custo = BaseCost × (renascimentos + 1)
 		SaleBonus = 0.25, -- +25% de Créditos por venda, por renascimento
 	}),
+	-- Preferências do jogador que o servidor aceita salvar (só booleanos).
+	ClientSettings = table.freeze({
+		"GalaxyReduceMotion", "GalaxyMute", "GalaxyHideDamage", "GalaxyHideOrePlates",
+		"GalaxyHideDust", "GalaxyHideGuide", "GalaxyLowGraphics",
+	}),
 	HitInterval = 0.2,
 	TrainingClicksPerPoint = 10,
 	-- O limite de poder de treino vem da Mochila de Poeira Cósmica equipada (PowerCap).
