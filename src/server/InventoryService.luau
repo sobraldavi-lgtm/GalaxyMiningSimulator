@@ -20,10 +20,13 @@ local function getInventory(player)
 	return inventories[player]
 end
 
-local function publish(player, message, petReveal)
+-- Tone é só apresentação: indica ao cliente a cor e o ícone da notificação
+-- (success, error, warning, sale, power, pickup). Não carrega regras.
+local function publish(player, message, petReveal, tone)
 	local snapshot = getInventory(player):Snapshot()
 	snapshot.Message = message
 	snapshot.PetReveal = petReveal
+	snapshot.Tone = tone
 	remote:FireClient(player, snapshot)
 end
 
@@ -38,14 +41,14 @@ end
 function Service.Train(player)
 	local progressed, gained = getInventory(player):TrainMining()
 	if progressed then
-		publish(player, gained and "Treino • +1 de poder" or nil)
+		publish(player, gained and "Treino • +1 de poder" or nil, nil, "power")
 	end
 end
 
 function Service.Add(player, oreType)
 	local success = getInventory(player):Add(oreType)
 	if success then
-		publish(player, "+1 " .. Config.Ores[oreType].Name)
+		publish(player, "+1 " .. Config.Ores[oreType].Name, nil, "pickup")
 	end
 	return success
 end
@@ -73,7 +76,7 @@ function Service.Init()
 			if action == "BuyPet" then
 				-- Resgate presencial no OVNI da Estação de Pets.
 				if not petTerminal or (root.Position - petTerminal.Position).Magnitude > 40 then
-					publish(player, "Vá até a Estação de Pets para resgatar.")
+					publish(player, "Vá até a Estação de Pets para resgatar.", nil, "warning")
 					return
 				end
 				ok, message = inventory:BuyPet(equipped)
@@ -83,7 +86,7 @@ function Service.Init()
 				ok, message = inventory:EquipPet(nil)
 			end
 			player:SetAttribute("EquippedPet", inventory.equippedPet)
-			publish(player, message, (ok and action == "BuyPet") and equipped or nil)
+			publish(player, message, (ok and action == "BuyPet") and equipped or nil, ok and "success" or "error")
 			return
 		end
 		if action == "BuyBackpack" or action == "EquipBackpack" or action == "BuyUpgrade" then
@@ -99,19 +102,19 @@ function Service.Init()
 			if action == "BuyBackpack" or action == "BuyUpgrade" then
 				-- Compra presencial: exige estar perto da Loja Orion.
 				if not shopFloor or (root.Position - shopFloor.Position).Magnitude > 45 then
-					publish(player, "Vá até a Loja Orion para comprar.")
+					publish(player, "Vá até a Loja Orion para comprar.", nil, "warning")
 					return
 				end
-				local _, message
+				local ok, message
 				if action == "BuyBackpack" then
-					_, message = inventory:BuyBackpack(equipped)
+					ok, message = inventory:BuyBackpack(equipped)
 				else
-					_, message = inventory:Purchase(equipped)
+					ok, message = inventory:Purchase(equipped)
 				end
-				publish(player, message)
+				publish(player, message, nil, ok and "success" or "error")
 			else
-				local _, message = inventory:EquipBackpack(equipped)
-				publish(player, message)
+				local ok, message = inventory:EquipBackpack(equipped)
+				publish(player, message, nil, ok and "success" or "error")
 			end
 			return
 		end
@@ -163,7 +166,8 @@ function Service.Init()
 			return
 		end
 		local earned = getInventory(player):Sell()
-		publish(player, earned > 0 and ("Venda concluída: +" .. earned .. " Créditos.") or "Sua mochila está vazia.")
+		publish(player, earned > 0 and ("Venda concluída: +" .. earned .. " Créditos.") or "Sua mochila está vazia.",
+			nil, earned > 0 and "sale" or "warning")
 	end)
 	prompt.Parent = counter
 

@@ -77,9 +77,11 @@ Mochila, Créditos e equipamento aparecem na HUD. Perto dos expositores: F compr
 Broca de Titânio (250 Créditos, poder 12); G compra Mochila Reforçada (150, capacidade 50).
 As compras equipam imediatamente e não podem ser cobradas duas vezes.
 Minérios recebem contorno ao mirar; golpes e extrações têm feedback visual.
-HUD mostra resistência animada e ocupação da mochila, com botão Detalhes/Recolher
-para reduzir o painel em telas pequenas.
+HUD mostra Créditos, carga e poder com animações; o painel inferior mostra a
+resistência do minério selecionado, e a Mochila abre em janela própria.
 Depósitos renovam imediatamente após quebrar; golpes respeitam intervalo de 0,2 s.
+Atalhos: L Loja, B Mochila, M Missões, P Ajustes; B no controle fecha janelas.
+Design System 4.0 e roteiro de revisão visual: docs/UI-GUIDE.md.
 Viagem e salvamento ainda não estão implementados.
 Mochila e saldo duram apenas esta sessão; parar Play ou sair do servidor reinicia os dados.
 Roteiro de teste e parâmetros provisórios: docs/MINING-TEST.md.

@@ -17,74 +17,87 @@ gui.ResetOnSpawn = false
 local playerGui = player:WaitForChild("PlayerGui")
 gui.Parent = playerGui
 
+local C = Theme.Color
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
 local panel = Instance.new("Frame")
 panel.Name = "MiningPanel"
 panel.Active = true
 panel.Visible = false
 panel.AnchorPoint = Vector2.new(0.5, 1)
-panel.Position = UDim2.new(0.5, 0, 1, -12)
-panel.Size = UDim2.new(0.8, 0, 0, 76)
+panel.Position = UDim2.new(0.5, 0, 1, -14)
+panel.Size = UDim2.new(0.8, 0, 0, 86)
 Theme.panel(panel)
-panel.BackgroundTransparency = 0.1
 panel.Parent = gui
 local constraint = Instance.new("UISizeConstraint")
-constraint.MaxSize = Vector2.new(360, 126)
+constraint.MaxSize = Vector2.new(400, 140)
 constraint.Parent = panel
+local panelStroke = panel:FindFirstChildOfClass("UIStroke")
 
-local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, -16, 0, 20)
-title.Position = UDim2.fromOffset(8, 4)
-title.BackgroundTransparency = 1
-title.Text = "Selecione um minério"
-title.TextColor3 = Theme.Color.Cyan
-title.Font = Enum.Font.GothamBlack
-title.TextSize = 17
-title.TextScaled = true
-local titleLimit = Instance.new("UITextSizeConstraint")
-titleLimit.MinTextSize = 12
-titleLimit.MaxTextSize = 15
-titleLimit.Parent = title
-title.Parent = panel
+-- Distintivo com a cor do minério selecionado (recriado ao trocar de minério).
+local oreBadge
+local badgeColor
+local function setBadge(color)
+	if badgeColor == color and oreBadge then return end
+	badgeColor = color
+	if oreBadge then oreBadge:Destroy() end
+	oreBadge = Theme.badge(panel, "gem", color, 54)
+	oreBadge.Position = UDim2.fromOffset(10, 14)
+end
+setBadge(C.Gray)
+
+local title = Theme.label(panel, "Selecione um minério", 17, C.Cyan)
+title.Font = Theme.Font.Display
+title.TextStrokeTransparency = 0.2
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Position = UDim2.fromOffset(74, 6)
+title.Size = UDim2.new(1, -84, 0, 22)
+Theme.fitText(title, 17, 11)
 
 local track = Instance.new("Frame")
-track.Position = UDim2.fromOffset(10, 41)
-track.Size = UDim2.new(1, -20, 0, 5)
+track.Position = UDim2.fromOffset(74, 30)
+track.Size = UDim2.new(1, -86, 0, 18)
 track.Parent = panel
 local fill = Instance.new("Frame")
 fill.Size = UDim2.fromScale(0, 1)
-fill.BackgroundColor3 = Theme.Color.Cyan
+fill.BackgroundColor3 = C.Cyan
 fill.Parent = track
 Theme.meter(track, fill)
+local hpText = Theme.label(track, "", 13)
+hpText.Font = Theme.Font.Display
+hpText.TextStrokeTransparency = 0
+hpText.Size = UDim2.fromScale(1, 1)
+hpText.ZIndex = 3
 
-local status = Instance.new("TextLabel")
-status.Position = UDim2.fromOffset(8, 49)
-status.Size = UDim2.new(1, -16, 0, 24)
-status.BackgroundTransparency = 1
-status.Text = "Mire em um depósito"
-status.TextColor3 = Theme.Color.Text
-status.Font = Enum.Font.Gotham
-status.TextScaled = true
-Instance.new("UITextSizeConstraint", status).MaxTextSize = 12
-status.TextWrapped = true
-status.Parent = panel
-
-local tool = Theme.label(panel, "", 12, Theme.Color.Amber)
-tool.Position = UDim2.fromOffset(8, 24)
-tool.Size = UDim2.new(1, -16, 0, 15)
+local tool = Theme.label(panel, "", 12, C.Amber)
+tool.TextXAlignment = Enum.TextXAlignment.Left
+tool.Position = UDim2.fromOffset(74, 50)
+tool.Size = UDim2.new(1, -84, 0, 15)
+Theme.fitText(tool, 12, 8)
 local function updateTool()
-	tool.Text = playerGui:GetAttribute("GalaxyToolName") or "Carregando ferramenta…"
+	local name = playerGui:GetAttribute("GalaxyToolName")
+	tool.Text = name and ("Ferramenta: " .. name) or "Carregando ferramenta…"
 end
 playerGui:GetAttributeChangedSignal("GalaxyToolName"):Connect(updateTool)
 updateTool()
 
-local touchButton = Theme.action(panel, "◆  MINERAR")
+local status = Theme.label(panel, "Mire em um depósito", 12, C.Frost)
+status.Font = Theme.Font.Body
+status.TextXAlignment = Enum.TextXAlignment.Left
+status.Position = UDim2.fromOffset(74, 66)
+status.Size = UDim2.new(1, -84, 0, 15)
+Theme.fitText(status, 12, 8)
+
+local touchButton = Theme.action(panel, "◆  MINERAR", C.Blue)
+touchButton.Font = Theme.Font.Display
+touchButton.TextSize = 20
 touchButton.AnchorPoint = Vector2.new(0.5, 1)
 touchButton.Position = UDim2.new(0.5, 0, 1, -8)
-touchButton.Size = UDim2.new(1, -24, 0, 44)
+touchButton.Size = UDim2.new(1, -20, 0, 44)
 local function layout()
 	local touch = UserInputService.TouchEnabled
 	touchButton.Visible = touch
-	panel.Size = touch and UDim2.new(0.53, 0, 0, 126) or UDim2.new(0.8, 0, 0, 76)
+	panel.Size = touch and UDim2.new(0.56, 0, 0, 140) or UDim2.new(0.8, 0, 0, 86)
 end
 layout()
 
@@ -155,16 +168,29 @@ local function setBar(remaining, maximum)
 		barTween:Cancel()
 	end
 	local ratio = maximum > 0 and math.clamp(remaining / maximum, 0, 1) or 0
+	hpText.Text = maximum > 1 and (Theme.format(remaining) .. " / " .. Theme.format(maximum)) or ""
+	local color = ratio <= 0.3 and orange or cyan
 	if playerGui:GetAttribute("GalaxyReduceMotion") then
 		fill.Size = UDim2.fromScale(ratio, 1)
-		fill.BackgroundColor3 = ratio <= 0.3 and orange or cyan
+		fill.BackgroundColor3 = color
 		return
 	end
 	barTween = TweenService:Create(fill, TweenInfo.new(0.12), {
 		Size = UDim2.fromScale(ratio, 1),
-		BackgroundColor3 = ratio <= 0.3 and orange or cyan,
+		BackgroundColor3 = color,
 	})
 	barTween:Play()
+end
+
+-- Clarão rápido no contorno do depósito a cada golpe aceito.
+local function flashOutline()
+	if playerGui:GetAttribute("GalaxyReduceMotion") then return end
+	for _, outline in ipairs(outlines) do
+		if outline.Enabled then
+			outline.FillTransparency = 0.45
+			TweenService:Create(outline, TweenInfo.new(0.25), { FillTransparency = 0.92 }):Play()
+		end
+	end
 end
 
 local function selectPiece(piece)
@@ -181,6 +207,8 @@ local function selectPiece(piece)
 		end
 		if changed then
 			title.Text = "Selecione um minério"
+			title.TextColor3 = cyan
+			setBadge(C.Gray)
 			setBar(0, 1)
 		end
 		if os.clock() > messageUntil then
@@ -201,12 +229,16 @@ local function selectPiece(piece)
 	end
 	if changed then
 		local remaining = remainingByBase[base] or definition.Resistance
-		title.Text = definition.Name .. " • " .. remaining .. "/" .. definition.Resistance
+		local oreColor = Color3.fromHex(definition.Color or "#FFFFFF")
+		title.Text = definition.Name
+		title.TextColor3 = oreColor:Lerp(Color3.new(1, 1, 1), 0.25)
+		setBadge(oreColor)
 		setBar(remaining, definition.Resistance)
 	end
+	panelStroke.Color = inRange and cyan:Lerp(C.Deep, 0.35) or orange
 	if os.clock() > messageUntil then
-		status.Text = inRange and "Clique, toque ou use R2"
-			or "Fora de alcance"
+		status.Text = inRange and "Clique, toque ou use R2 para minerar"
+			or "Fora de alcance • aproxime-se"
 	end
 end
 
@@ -324,15 +356,14 @@ UserInputService.TouchTap:Connect(function(positions, processed)
 	end
 end)
 
-local lastPopup
 remote.OnClientEvent:Connect(function(result)
 	if result.Name and result.Target then
 		-- Uma resposta atrasada não altera a barra de outro depósito selecionado.
 		remainingByBase[result.Target] = result.Remaining == 0 and result.Maximum or result.Remaining
 		if activeBase == result.Target then
 			local ready = remainingByBase[result.Target]
-			title.Text = result.Name .. " • " .. ready .. "/" .. result.Maximum
 			setBar(ready, result.Maximum)
+			flashOutline()
 		end
 		local target = result.Target
 		if target and target.Parent then
@@ -350,31 +381,43 @@ remote.OnClientEvent:Connect(function(result)
 			burst:Emit(result.Remaining == 0 and 30 or 8)
 			Debris:AddItem(burst, 1)
 		end
-		if target and target.Parent then
-			if lastPopup then lastPopup:Destroy() end
+		local broke = result.Remaining == 0
+		local showDamage = not playerGui:GetAttribute("GalaxyHideDamage")
+		if target and target.Parent and (broke or showDamage) then
+			-- Números empilhados com leve desvio lateral; a quebra ganha destaque.
 			local popup = Instance.new("BillboardGui")
-			lastPopup = popup
 			popup.Name = "MiningFeedback"
 			popup.Adornee = target
-			popup.Size = UDim2.fromOffset(260, 44)
-			popup.StudsOffsetWorldSpace = Vector3.new(0, 5, 0)
-			popup.MaxDistance = 55
-			popup.AlwaysOnTop = false
+			popup.Size = UDim2.fromOffset(280, 52)
+			local drift = broke and 0 or (math.random() - 0.5) * 3
+			popup.StudsOffsetWorldSpace = Vector3.new(drift, 5, 0)
+			popup.MaxDistance = 60
+			popup.AlwaysOnTop = true
 			popup.Parent = gui
 			local text = Instance.new("TextLabel")
 			text.Size = UDim2.fromScale(1, 1)
 			text.BackgroundTransparency = 1
-			text.Font = Enum.Font.GothamBold
-			text.TextSize = 19
-			text.TextStrokeTransparency = 0.5
-			text.TextColor3 = result.Remaining == 0 and Theme.Color.Green or cyan
-			text.Text = result.Remaining == 0 and ("+1 " .. result.Name) or ("−" .. result.Damage)
+			text.Font = Theme.Font.Display
+			text.TextSize = broke and 30 or 24
+			text.TextStrokeTransparency = 0
+			text.TextStrokeColor3 = C.Deep
+			local oreColor = target.Color
+			text.TextColor3 = broke and C.Gold or oreColor:Lerp(Color3.new(1, 1, 1), 0.45)
+			text.Text = broke and ("+1 " .. result.Name) or ("-" .. Theme.format(result.Damage))
 			text.Parent = popup
+			local pop = Instance.new("UIScale")
+			pop.Parent = text
 			if not playerGui:GetAttribute("GalaxyReduceMotion") then
-				TweenService:Create(popup, TweenInfo.new(0.65), { StudsOffsetWorldSpace = Vector3.new(0, 8, 0) }):Play()
-				TweenService:Create(text, TweenInfo.new(0.65), { TextTransparency = 1, TextStrokeTransparency = 1 }):Play()
+				pop.Scale = 1.5
+				TweenService:Create(pop, TweenInfo.new(0.2, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
+				TweenService:Create(popup, TweenInfo.new(0.8, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					StudsOffsetWorldSpace = Vector3.new(drift, broke and 9 or 7.5, 0),
+				}):Play()
+				TweenService:Create(text, TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In, 0, false, 0.35), {
+					TextTransparency = 1, TextStrokeTransparency = 1,
+				}):Play()
 			end
-			Debris:AddItem(popup, 0.7)
+			Debris:AddItem(popup, 0.9)
 		end
 	end
 	status.Text = result.Message

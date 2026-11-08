@@ -115,7 +115,26 @@ local function update()
 	if not pet then return end
 	local companion = Instance.new("Model")
 	companion.Name = pet.Name
-	companion.PrimaryPart = builders[pet.Look](companion, Color3.fromHex(pet.Color))
+	local color = Color3.fromHex(pet.Color)
+	companion.PrimaryPart = builders[pet.Look](companion, color)
+	-- Etiqueta com o nome, na cor do pet (só visual).
+	local tag = Instance.new("BillboardGui")
+	tag.Name = "NameTag"
+	tag.Size = UDim2.fromOffset(120, 26)
+	tag.StudsOffset = Vector3.new(0, 1.7, 0)
+	tag.MaxDistance = 45
+	tag.LightInfluence = 0
+	tag.Parent = companion.PrimaryPart
+	local label = Instance.new("TextLabel")
+	label.Size = UDim2.fromScale(1, 1)
+	label.BackgroundTransparency = 1
+	label.Font = Enum.Font.FredokaOne
+	label.TextSize = 18
+	label.Text = pet.Name
+	label.TextColor3 = color:Lerp(Color3.new(1, 1, 1), 0.35)
+	label.TextStrokeColor3 = Color3.fromHex("#0A0630")
+	label.TextStrokeTransparency = 0
+	label.Parent = tag
 	model = companion
 end
 player:GetAttributeChangedSignal("EquippedPet"):Connect(update)
