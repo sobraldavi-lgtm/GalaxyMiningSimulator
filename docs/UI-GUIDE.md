@@ -58,8 +58,10 @@ Tudo que anima respeita **Movimento reduzido**.
 
 - **Carregamento** (`src/first/Loading.client.luau`, em ReplicatedFirst): céu estrelado, planeta com anel e lua orbitando, logotipo, barra de progresso e dicas.
 - **HUD:** três pílulas no topo (Créditos com contagem animada e "+N"; Carga com medidor ciano → âmbar → vermelho pulsando; Poder com treino até o limite), menu 2×2 de botões 3D à esquerda e o cartão **Próxima meta** à direita: o item mais barato que falta, com progresso de Créditos e atalho para a loja. Com a mochila cheia, ele vira o alerta **MOCHILA CHEIA!**, com o botão "IR VENDER". Em telas pequenas, a navegação fica em linha e o cartão só aparece no alerta.
+- **Selos de aviso na navegação:** "!" vermelho pulsando na Loja (há ferramenta ou mochila melhor, ou o primeiro ovo, ao alcance do saldo), no Renascer (já dá para renascer) e na Mochila (cheia). Quando um item melhor passa a caber no saldo, aparece uma vez por sessão o aviso "Já dá para comprar: …".
+- **Combo de mineração:** a partir de 3 golpes seguidos (até 1,2 s entre eles), um selo "COMBO ×N" aparece sobre o painel: ciano, dourado a partir de 10 e rosa a partir de 25. É só visual e não dá bônus.
 - **Notificações:** até três, em pílulas com ícone e cor pelo `Tone` do servidor.
-- **Mochila:** resumo e grade de minérios (cor, quantidade, preço e peso); aba Pets com raios atrás do pet equipado e cadeado nos que faltam resgatar.
+- **Mochila:** resumo e grade de minérios (cor, quantidade, preço e peso); aba Pets com o botão "EQUIPAR MELHOR", raios atrás do pet equipado e cadeado nos que faltam resgatar.
 - **Missões:** prévia com ORBI em balão de fala e as cinco missões do GDD como "EM BREVE". O sistema de missões não existe ainda.
 - **Ajustes** (salvos com o progresso): Movimento reduzido, Sons, Números de dano, Placas dos minérios, Poeira cósmica, Guia de objetivo e Efeitos do cenário (modo de desempenho).
 - **Guia de objetivo** (`Guide.client.luau`): feixe ciano e dourado do personagem até o alvo e marcador com nome e distância; some a 14 studs do alvo.
