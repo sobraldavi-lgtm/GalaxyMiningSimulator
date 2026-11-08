@@ -19,6 +19,7 @@ local lastRebirth = {}
 local lastTransmitter = {}
 local lastSettings = {}
 local lastHatch = {}
+local lastDaily = {}
 local hatchRandom = Random.new() -- sorteio dos ovos só no servidor
 local initialized = false
 local remote
@@ -77,10 +78,17 @@ end
 local function logMissions(player, inventory, missions)
 	if not missions then return end
 	for _, mission in ipairs(missions) do
-		local index = table.find(Config.Missions, mission) or 0
-		logFunnel(player, index + 1, "Missão " .. index .. ": " .. mission.Title)
-		logCredits(player, Enum.AnalyticsEconomyFlowType.Source, mission.Credits, inventory.credits,
-			Enum.AnalyticsEconomyTransactionType.Gameplay.Name, "Mission_" .. mission.Id)
+		if mission.Contract then
+			logCredits(player, Enum.AnalyticsEconomyFlowType.Source, mission.Credits, inventory.credits,
+				Enum.AnalyticsEconomyTransactionType.Gameplay.Name, "Contract_" .. mission.Kind)
+		else
+			local index = table.find(Config.Missions, mission) or 0
+			if index > 0 then
+				logFunnel(player, index + 1, "Missão " .. index .. ": " .. mission.Title)
+			end
+			logCredits(player, Enum.AnalyticsEconomyFlowType.Source, mission.Credits, inventory.credits,
+				Enum.AnalyticsEconomyTransactionType.Gameplay.Name, "Mission_" .. mission.Id)
+		end
 	end
 end
 
@@ -110,19 +118,39 @@ local function publish(player, message, tone, extra)
 		if extra.Missions and #extra.Missions > 0 then
 			local list = {}
 			for _, mission in ipairs(extra.Missions) do
-				table.insert(list, { Title = mission.Title, Credits = mission.Credits, Fragments = mission.Fragments })
+				table.insert(list, { Title = mission.Title, Credits = mission.Credits, Fragments = mission.Fragments,
+					Contract = mission.Contract == true })
 			end
 			snapshot.CompletedMissions = list
 		end
 	end
 	snapshot.SaveMode = DataService.IsAvailable() and "cloud" or "memory"
+	snapshot.ServerDay = today()
+	snapshot.DailyAvailable = inventory:DailyAvailable(today())
+	if extra then snapshot.DailyClaim = extra.DailyClaim end
 	updateLeaderstats(player, inventory)
 	remote:FireClient(player, snapshot)
 end
 
+local function today()
+	return os.time() // 86400
+end
+
+-- Se o minério não cabe e a venda automática está ligada (e liberada),
+-- vende tudo pela taxa reduzida antes de continuar minerando.
 function Service.CanFit(player, oreType)
 	local inventory = getInventory(player)
-	return inventory ~= nil and inventory:CanFit(oreType)
+	if not inventory then return false end
+	if not inventory:CanFit(oreType) and inventory:CanAutoSell() then
+		local earned, levelUp, missions = inventory:AutoSellAll()
+		if earned > 0 then
+			logCredits(player, Enum.AnalyticsEconomyFlowType.Source, earned, inventory.credits,
+				Enum.AnalyticsEconomyTransactionType.Gameplay.Name, "AutoSale")
+			publish(player, "Venda automática: +" .. earned .. " Créditos.", "sale",
+				{ LevelUp = levelUp, Missions = missions })
+		end
+	end
+	return inventory:CanFit(oreType)
 end
 
 function Service.GetPower(player)
@@ -282,6 +310,21 @@ function handleAction(player, action, argument, extra)
 	local inventory = getInventory(player)
 	if not inventory then return end
 	local now = os.clock()
+	if action == "ClaimDaily" then
+		if now - (lastDaily[player] or -math.huge) < 1 then return end
+		lastDaily[player] = now
+		local ok, message, reward = inventory:ClaimDaily(today())
+		publish(player, message, ok and "success" or "warning", { DailyClaim = reward })
+		if ok then task.spawn(save, player, false) end
+		return
+	end
+	if action == "SetAutoSell" then
+		if now - (lastSettings[player] or -math.huge) < 0.5 then return end
+		lastSettings[player] = now
+		local ok, message = inventory:SetAutoSell(argument)
+		publish(player, message, ok and "success" or "warning")
+		return
+	end
 	if action == "SaveSettings" then
 		if now - (lastSettings[player] or -math.huge) < 1 then return end
 		lastSettings[player] = now
@@ -308,6 +351,11 @@ function handleAction(player, action, argument, extra)
 			return hatchRandom:NextNumber()
 		end)
 		local missions = ok and inventory:Progress("Pet", results[1].PetId) or nil
+		if ok then
+			for _, contract in ipairs(inventory:UpdateContracts("Hatch", nil, amount)) do
+				table.insert(missions, contract)
+			end
+		end
 		publish(player, message, ok and "success" or "error", { Missions = missions, Hatches = results })
 		return
 	end
@@ -462,6 +510,7 @@ function Service.Init()
 		lastTransmitter[player] = nil
 		lastSettings[player] = nil
 		lastHatch[player] = nil
+		lastDaily[player] = nil
 	end)
 
 	-- Ao fechar o servidor, salva todos em paralelo e espera terminar.

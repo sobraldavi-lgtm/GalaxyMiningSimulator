@@ -301,7 +301,32 @@ remote.OnClientEvent:Connect(function(s)
 	-- Rastreador de missão (some com a mochila cheia em telas estreitas)
 	cargoFull = s.Weight >= s.Capacity
 	local mission = Config.Missions[s.MissionIndex]
-	tracker.Visible = mission ~= nil and (wideLayout or not cargoFull)
+	-- Depois da campanha, o rastreador mostra o contrato mais perto de terminar.
+	local contract
+	if not mission and s.Contracts then
+		for _, candidate in ipairs(s.Contracts) do
+			if not contract or candidate.Progress / candidate.Count > contract.Progress / contract.Count then
+				contract = candidate
+			end
+		end
+	end
+	tracker.Visible = (mission ~= nil or contract ~= nil) and (wideLayout or not cargoFull)
+	if contract then
+		local text, icon, color = ArtStyle.contract(contract)
+		trackerHeader.Text = "CONTRATO · ORION"
+		trackerTitle.Text = text
+		trackerGoal.Text = (contract.Credits > 0 and ("+" .. Theme.compact(contract.Credits) .. " ✦  ") or "")
+			.. "+" .. contract.Fragments .. " ◆"
+		trackerCount.Text = Theme.compact(contract.Progress) .. " / " .. Theme.compact(contract.Count)
+		Theme.tween(trackerFill, Theme.Motion.Enter, { Size = UDim2.fromScale(math.clamp(contract.Progress / contract.Count, 0, 1), 1) })
+		local key = "contract" .. contract.Kind .. tostring(contract.Target) .. contract.Count
+		if trackerBadgeKey ~= key then
+			trackerBadgeKey = key
+			trackerBadgeHolder:ClearAllChildren()
+			Theme.badge(trackerBadgeHolder, icon, color, 48)
+			Theme.pop(tracker, 0.08)
+		end
+	end
 	if mission then
 		trackerHeader.Text = string.format("MISSÃO %d/%d · ORBI", s.MissionIndex, #Config.Missions)
 		trackerTitle.Text = mission.Title
@@ -326,8 +351,10 @@ remote.OnClientEvent:Connect(function(s)
 	if s.CompletedMissions then
 		for _, done in ipairs(s.CompletedMissions) do
 			celebrate({
-				Title = "MISSÃO CONCLUÍDA!", Detail = done.Title .. "  ·  +" .. done.Credits .. " ✦  +" .. done.Fragments .. " ◆",
-				Icon = "star", Color = C.Mint, Confetti = 50,
+				Title = done.Contract and "CONTRATO CONCLUÍDO!" or "MISSÃO CONCLUÍDA!",
+				Detail = (done.Contract and "Orion Mining Corporation" or done.Title) .. "  ·  +" .. Theme.compact(done.Credits)
+					.. " ✦  +" .. done.Fragments .. " ◆",
+				Icon = done.Contract and "coin" or "star", Color = done.Contract and C.Gold or C.Mint, Confetti = 50,
 			})
 		end
 	end

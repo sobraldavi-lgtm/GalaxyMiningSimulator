@@ -322,6 +322,7 @@ local windowStyles = {
 	["Missões"] = { Title = "MISSÕES", Accent = C.Violet, Icon = "mission" },
 	["Configurações"] = { Title = "AJUSTES", Accent = C.Mint, Icon = "settings" },
 	["Renascer"] = { Title = "RENASCER", Accent = C.Pink, Icon = "rebirth" },
+	["Prêmio"] = { Title = "PRÊMIO DIÁRIO", Accent = C.Gold, Icon = "gift" },
 }
 local windows = {}
 local state
@@ -649,6 +650,171 @@ local function buildPets(body)
 	end
 end
 
+-- ----- Prêmio diário (o servidor valida o dia e a sequência) -----
+local function buildDaily(body)
+	local header = sectionWell(body, 1, 70)
+	local badge = Theme.badge(header, "gift", C.Gold, 56)
+	badge.AnchorPoint = Vector2.new(0, 0.5)
+	badge.Position = UDim2.new(0, 10, 0.5, 0)
+	local streak = Theme.title(header, "", 20, C.Gold)
+	streak.TextXAlignment = Enum.TextXAlignment.Left
+	streak.Position = UDim2.fromOffset(78, 8)
+	streak.Size = UDim2.new(1, -90, 0, 26)
+	Theme.fitText(streak, 20, 10)
+	local hint = Theme.label(header, "", 12, C.Muted)
+	hint.Font = Theme.Font.Body
+	hint.TextXAlignment = Enum.TextXAlignment.Left
+	hint.Position = UDim2.fromOffset(78, 36)
+	hint.Size = UDim2.new(1, -90, 0, 26)
+	Theme.fitText(hint, 12, 8)
+
+	local holder = gridHolder(body, 2, UDim2.fromOffset(116, 136))
+	local cards = {}
+	for day, reward in ipairs(Config.DailyRewards) do
+		local card = Instance.new("Frame")
+		card.LayoutOrder = day
+		Theme.panel(card, C.Gold, 16)
+		card.Parent = holder
+		local edge = card:FindFirstChildOfClass("UIStroke")
+		local title = Theme.title(card, "DIA " .. day, 15, C.White)
+		title.Position = UDim2.fromOffset(4, 6)
+		title.Size = UDim2.new(1, -8, 0, 18)
+		local icon = Theme.badge(card, day == #Config.DailyRewards and "gift" or reward.Fragments > 0 and "star" or "coin",
+			C.Gold, 46)
+		icon.AnchorPoint = Vector2.new(0.5, 0)
+		icon.Position = UDim2.new(0.5, 0, 0, 26)
+		local credits = Theme.title(card, "", 14, C.Gold)
+		credits.Position = UDim2.fromOffset(4, 76)
+		credits.Size = UDim2.new(1, -8, 0, 18)
+		Theme.fitText(credits, 14, 8)
+		local fragments = Theme.title(card, reward.Fragments > 0 and ("+" .. reward.Fragments .. " ◆") or "", 12, C.Cyan)
+		fragments.Position = UDim2.fromOffset(4, 94)
+		fragments.Size = UDim2.new(1, -8, 0, 16)
+		local status = Theme.title(card, "", 11, C.Ink)
+		status.TextStrokeTransparency = 1
+		status.AnchorPoint = Vector2.new(0.5, 1)
+		status.Position = UDim2.new(0.5, 0, 1, -6)
+		status.Size = UDim2.new(1, -16, 0, 18)
+		Theme.round(status, 9)
+		cards[day] = { card = card, edge = edge, credits = credits, status = status, reward = reward }
+	end
+
+	local claim = Theme.action(body, "RESGATAR", C.Gold, { Size = UDim2.new(1, 0, 0, 58), Icon = "gift", TextSize = 22 })
+	claim.LayoutOrder = 3
+	claim.Activated:Connect(function()
+		if state and state.DailyAvailable then
+			remote:FireServer("ClaimDaily")
+		end
+	end)
+
+	view.update = function(s)
+		local continues = (s.DailyLastDay or 0) == (s.ServerDay or 0) - 1
+		local nextStreak = s.DailyAvailable and (continues and s.DailyStreak + 1 or 1) or s.DailyStreak
+		local current = (math.max(nextStreak, 1) - 1) % #Config.DailyRewards + 1
+		for day, entry in ipairs(cards) do
+			local claimed = day < current or (not s.DailyAvailable and day == current)
+			local isToday = day == current
+			entry.credits.Text = "✦ " .. Theme.compact(math.floor(entry.reward.Credits * s.SaleMultiplier))
+			if claimed then
+				entry.status.Text = "✔ RESGATADO"
+				entry.status.BackgroundColor3 = C.Mint
+			elseif isToday then
+				entry.status.Text = "HOJE!"
+				entry.status.BackgroundColor3 = C.Gold
+			else
+				entry.status.Text = "EM BREVE"
+				entry.status.BackgroundColor3 = C.Gray
+			end
+			entry.edge.Color = (isToday and s.DailyAvailable) and C.Gold or C.Ink
+			entry.edge.Thickness = (isToday and s.DailyAvailable) and 5 or 3
+			entry.card.BackgroundTransparency = claimed and 0.35 or 0
+		end
+		streak.Text = "Sequência: " .. s.DailyStreak .. (s.DailyStreak == 1 and " dia" or " dias")
+		if s.DailyAvailable then
+			hint.Text = continues and "Resgate hoje e volte amanhã para manter a sequência!"
+				or "Comece uma sequência: entre todo dia para prêmios maiores."
+			Theme.setText(claim, "RESGATAR DIA " .. current)
+			Theme.setTint(claim, C.Gold)
+		else
+			hint.Text = "Volte amanhã para o próximo prêmio (o dia vira à meia-noite UTC)."
+			Theme.setText(claim, "VOLTE AMANHÃ")
+			Theme.setTint(claim, C.Gray)
+		end
+	end
+end
+
+-- ----- Contratos da Orion na janela de Missões -----
+local function buildContracts(body, order)
+	local title = Theme.title(body, "CONTRATOS DA ORION", 18, C.Gold)
+	title.LayoutOrder = order
+	title.Size = UDim2.new(1, 0, 0, 26)
+	title.TextXAlignment = Enum.TextXAlignment.Left
+	local rows = {}
+	for index = 1, Config.Contracts.Slots do
+		local row = Instance.new("Frame")
+		row.LayoutOrder = order + index
+		row.Size = UDim2.new(1, 0, 0, 66)
+		Theme.well(row, 16)
+		row.Parent = body
+		local holder = Instance.new("Frame")
+		holder.BackgroundTransparency = 1
+		holder.AnchorPoint = Vector2.new(0, 0.5)
+		holder.Position = UDim2.new(0, 10, 0.5, 0)
+		holder.Size = UDim2.fromOffset(46, 46)
+		holder.Parent = row
+		local name = Theme.title(row, "", 16, C.White)
+		name.TextXAlignment = Enum.TextXAlignment.Left
+		name.Position = UDim2.fromOffset(66, 8)
+		name.Size = UDim2.new(1, -190, 0, 22)
+		Theme.fitText(name, 16, 9)
+		local track = Instance.new("Frame")
+		track.Position = UDim2.fromOffset(66, 36)
+		track.Size = UDim2.new(1, -190, 0, 16)
+		track.Parent = row
+		local fill = Instance.new("Frame")
+		fill.BackgroundColor3 = C.Gold
+		fill.Size = UDim2.fromScale(0, 1)
+		fill.Parent = track
+		Theme.meter(track, fill)
+		local amount = Theme.title(track, "", 11, C.White)
+		amount.Size = UDim2.fromScale(1, 1)
+		amount.ZIndex = 3
+		local reward = Theme.title(row, "", 14, C.Gold)
+		reward.TextXAlignment = Enum.TextXAlignment.Right
+		reward.AnchorPoint = Vector2.new(1, 0.5)
+		reward.Position = UDim2.new(1, -12, 0.5, 0)
+		reward.Size = UDim2.fromOffset(110, 22)
+		Theme.fitText(reward, 14, 8)
+		rows[index] = { row = row, holder = holder, name = name, fill = fill, amount = amount, reward = reward }
+	end
+	local locked = Theme.label(body, "Os contratos repetíveis liberam ao concluir a campanha de ORBI.", 13, C.Muted)
+	locked.Font = Theme.Font.Body
+	locked.LayoutOrder = order + Config.Contracts.Slots + 1
+	locked.Size = UDim2.new(1, 0, 0, 22)
+	return function(s)
+		local list = s.Contracts or {}
+		locked.Visible = #list == 0
+		for index, entry in ipairs(rows) do
+			local contract = list[index]
+			entry.row.Visible = contract ~= nil
+			if contract then
+				local text, icon, color = ArtStyle.contract(contract)
+				entry.name.Text = text
+				local key = contract.Kind .. tostring(contract.Target) .. contract.Count
+				if entry.key ~= key then
+					entry.key = key
+					entry.holder:ClearAllChildren()
+					Theme.badge(entry.holder, icon, color, 46)
+				end
+				entry.fill.Size = UDim2.fromScale(math.clamp(contract.Progress / contract.Count, 0, 1), 1)
+				entry.amount.Text = Theme.compact(contract.Progress) .. " / " .. Theme.compact(contract.Count)
+				entry.reward.Text = (contract.Credits > 0 and ("✦ " .. Theme.compact(contract.Credits) .. "  ") or "")
+					.. "◆ " .. contract.Fragments
+			end
+		end
+	end
+end
+
 -- ----- Missões de ORBI (dados do servidor) -----
 local function buildMissions(body)
 	local orbi = sectionWell(body, 1, 104)
@@ -722,7 +888,9 @@ local function buildMissions(body)
 		rows[index] = { holder = holder, track = track, fill = fill, status = status, mission = mission, row = row }
 	end
 
+	local updateContracts = buildContracts(body, 20)
 	view.update = function(s)
+		updateContracts(s)
 		local active = Config.Missions[s.MissionIndex]
 		speech.Text = active and active.Orbi
 			or "Campanha concluída! Você reativou o transmissor. Novos sinais chegarão nas próximas expedições."
@@ -889,9 +1057,30 @@ local function buildSettings(body)
 		end, option[5])
 		row.LayoutOrder = index
 	end
+	-- Venda automática é regra do servidor (liberada por nível), não preferência local.
+	if state and state.AutoSellUnlocked then
+		local row = Theme.toggle(body, "Venda automática",
+			"Vende tudo ao encher a mochila, em qualquer lugar, por " .. math.round(Config.AutoSell.Rate * 100)
+			.. "% do valor.", state.AutoSell == true, function(value)
+				remote:FireServer("SetAutoSell", value)
+			end, "coin")
+		row.LayoutOrder = 15
+	else
+		local lockedRow = sectionWell(body, 15, 56)
+		local lock = Theme.badge(lockedRow, "lock", C.Gray, 40)
+		lock.AnchorPoint = Vector2.new(0, 0.5)
+		lock.Position = UDim2.new(0, 12, 0.5, 0)
+		local text = Theme.label(lockedRow, "Venda automática: libera no nível " .. Config.AutoSell.Level
+			.. " (vende por " .. math.round(Config.AutoSell.Rate * 100) .. "% do valor).", 13, C.Muted)
+		text.Font = Theme.Font.Body
+		text.TextXAlignment = Enum.TextXAlignment.Left
+		text.Position = UDim2.fromOffset(62, 4)
+		text.Size = UDim2.new(1, -74, 1, -8)
+		Theme.fitText(text, 13, 8)
+	end
 	local keys = sectionWell(body, 20, 66)
 	local text = Theme.label(keys,
-		"Atalhos  ·  L Loja  ·  B Mochila  ·  M Missões  ·  R Renascer  ·  P Ajustes\nNo controle, B fecha a janela aberta.", 13, C.Frost)
+		"Atalhos  ·  L Loja  ·  B Mochila  ·  M Missões  ·  G Prêmio  ·  R Renascer  ·  P Ajustes\nNo controle, B fecha a janela aberta.", 13, C.Frost)
 	text.Font = Theme.Font.Body
 	text.Position = UDim2.fromOffset(14, 4)
 	text.Size = UDim2.new(1, -28, 1, -8)
@@ -956,6 +1145,8 @@ local function openMenu(name)
 		buildMissions(body)
 	elseif name == "Renascer" then
 		buildRebirth(body)
+	elseif name == "Prêmio" then
+		buildDaily(body)
 	elseif name == "Configurações" then
 		buildSettings(body)
 	end
@@ -997,6 +1188,7 @@ for index, entry in ipairs({
 	{ "shop", "Loja", C.Gold, "L" },
 	{ "pack", "Mochila", C.Cyan, "B" },
 	{ "mission", "Missões", C.Violet, "M" },
+	{ "gift", "Prêmio", C.Gold, "G" },
 	{ "rebirth", "Renascer", C.Pink, "R" },
 	{ "settings", "Ajustes", C.Mint, "P" },
 }) do
@@ -1054,6 +1246,7 @@ UserInputService.InputBegan:Connect(function(input, processed)
 		[Enum.KeyCode.M] = "Missões",
 		[Enum.KeyCode.P] = "Configurações",
 		[Enum.KeyCode.R] = "Renascer",
+		[Enum.KeyCode.G] = "Prêmio",
 	}
 	local target = shortcuts[input.KeyCode]
 	-- Sem menu da HUD aberto, a própria loja trata a tecla L.
@@ -1446,6 +1639,8 @@ local function updateAlerts(s)
 	alertDots["Loja"].Visible = #upgrades > 0
 	alertDots["Renascer"].Visible = s.RebirthCost ~= nil and s.Credits >= s.RebirthCost
 	alertDots["Mochila"].Visible = s.Weight >= s.Capacity
+	alertDots["Prêmio"].Visible = s.DailyAvailable == true
+	alertDots["Missões"].Visible = false
 	-- Anuncia uma vez por sessão cada item que passa a caber no saldo
 	-- (na primeira mensagem só registra, para não encher a tela ao entrar).
 	local fresh
@@ -1461,8 +1656,22 @@ local function updateAlerts(s)
 	alertsReady = true
 end
 
+local dailyPrompted = false
 local settingsApplied = false
 remote.OnClientEvent:Connect(function(snapshot)
+	-- Prêmio diário: abre sozinho uma vez por sessão, depois da vinheta de entrada.
+	if not dailyPrompted and snapshot.DailyAvailable then
+		dailyPrompted = true
+		task.delay(6, function()
+			if state and state.DailyAvailable and not currentMenu and not playerGui:GetAttribute("GalaxyMenuOpen") then
+				openMenu("Prêmio")
+			end
+		end)
+	end
+	if snapshot.DailyClaim then
+		Theme.confetti(stage, 60)
+		Sound.play("reward", 1.3)
+	end
 	local previous = state
 	state = snapshot
 	-- Primeira mensagem: aplica as preferências salvas (só chaves conhecidas).

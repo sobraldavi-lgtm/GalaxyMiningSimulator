@@ -236,3 +236,63 @@ equal(select(1, triple:HatchEggs("CometEgg", 3)), false, "Sem saldo para 3")
 equal(triple.credits, 1000, "Recusa não cobra")
 print("PASS: abrir 3 ovos.")
 
+-- Prêmio diário: sequência por dia UTC, recomeça se pular um dia, ciclo de 7.
+local daily = InventoryModel.new(Config)
+local today = 20000
+equal(daily:DailyAvailable(today), true, "Prêmio disponível no primeiro dia")
+local _, _, day1 = daily:ClaimDaily(today)
+equal(day1.Day, 1, "Dia 1")
+equal(daily.credits, Config.DailyRewards[1].Credits, "Créditos do dia 1")
+equal(select(1, daily:ClaimDaily(today)), false, "Não resgata duas vezes no mesmo dia")
+local _, _, day2 = daily:ClaimDaily(today + 1)
+equal(day2.Day, 2, "Dia seguinte continua a sequência")
+local _, _, reset = daily:ClaimDaily(today + 3)
+equal(reset.Day, 1, "Pular um dia recomeça a sequência")
+for offset = 4, 9 do daily:ClaimDaily(today + offset) end
+local _, _, cycle = daily:ClaimDaily(today + 10)
+equal(cycle.Day, 1, "Depois do dia 7 o calendário recomeça")
+equal(cycle.Streak, 8, "A sequência total continua contando")
+daily.rebirths = 2
+local _, _, boosted = daily:ClaimDaily(today + 11)
+equal(boosted.Credits, math.floor(Config.DailyRewards[2].Credits * 1.5), "Créditos × bônus de venda")
+print("PASS: prêmio diário.")
+
+-- Venda automática: só a partir do nível configurado, pela taxa reduzida.
+local seller = InventoryModel.new(Config)
+equal(select(1, seller:SetAutoSell(true)), false, "Bloqueada antes do nível")
+seller.xp = Config.Progression.LevelXp[Config.AutoSell.Level]
+equal(select(1, seller:SetAutoSell(true)), true, "Liga no nível de desbloqueio")
+equal(seller:CanAutoSell(), true, "Pode vender automaticamente")
+for _ = 1, 4 do seller:Add("Crystal") end
+local earned = seller:AutoSellAll()
+equal(earned, math.floor(4 * 30 * Config.AutoSell.Rate), "4 cristais a 80%")
+equal(seller.weight, 0, "Mochila esvaziada")
+equal(select(1, seller:SetAutoSell("sim")), false, "Valor inválido recusado")
+print("PASS: venda automática.")
+
+-- Contratos: só depois da campanha; concluir paga e troca por outro.
+local veteran = InventoryModel.new(Config)
+veteran:FillContracts()
+equal(#veteran.contracts, 0, "Sem contratos durante a campanha")
+veteran.missionIndex = #Config.Missions + 1
+veteran:FillContracts(function() return 0 end) -- 0 → contrato de mineração do melhor minério
+equal(#veteran.contracts, Config.Contracts.Slots, "Três contratos ativos")
+local first = veteran.contracts[1]
+equal(first.Kind, "Mine", "Primeiro contrato é de mineração")
+equal(first.Target, "Copper", "Com poder 5, o melhor minério em até 6 golpes é o cobre")
+local creditsBefore = veteran.credits
+for _ = 1, first.Count - 1 do veteran:UpdateContracts("Mine", "Copper", 1) end
+equal(veteran.contracts[1].Progress, first.Count - 1, "Progresso do contrato")
+equal(#veteran:UpdateContracts("Mine", "Iron", 1), 0, "Outro minério não conta")
+local finished = veteran:UpdateContracts("Mine", "Copper", 1, function() return 0.9 end)
+equal(#finished >= 1, true, "Contrato concluído")
+equal(veteran.credits - creditsBefore >= first.Credits, true, "Recompensa paga")
+equal(veteran.contracts[1].Kind, "Hatch", "Contrato concluído é trocado por um novo")
+local reloaded = InventoryModel.fromData(Config, veteran:Serialize())
+equal(#reloaded.contracts, Config.Contracts.Slots, "Contratos salvos")
+equal(reloaded.contracts[1].Kind, "Hatch", "Contrato preservado")
+local tampered = InventoryModel.fromData(Config, { MissionIndex = #Config.Missions + 1,
+	Contracts = { { Kind = "Mine", Target = "Unobtainium", Count = 5 }, { Kind = "Hack", Count = 1 } } })
+equal(#tampered.contracts, Config.Contracts.Slots, "Contratos inválidos descartados e repostos")
+print("PASS: contratos da Orion.")
+

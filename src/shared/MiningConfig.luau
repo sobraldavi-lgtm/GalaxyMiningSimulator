@@ -75,6 +75,31 @@ return table.freeze({
 		BaseCost = 50000, -- custo = BaseCost × (renascimentos + 1)
 		SaleBonus = 0.25, -- +25% de Créditos por venda, por renascimento
 	}),
+	-- Prêmio diário (calendário de 7 dias, dia UTC). Créditos × bônus de venda do
+	-- jogador, para continuar relevante após renascer. Hipótese para testes.
+	DailyRewards = table.freeze({
+		table.freeze({ Credits = 100, Fragments = 0 }),
+		table.freeze({ Credits = 200, Fragments = 0 }),
+		table.freeze({ Credits = 300, Fragments = 1 }),
+		table.freeze({ Credits = 500, Fragments = 0 }),
+		table.freeze({ Credits = 800, Fragments = 0 }),
+		table.freeze({ Credits = 1200, Fragments = 0 }),
+		table.freeze({ Credits = 2000, Fragments = 2 }),
+	}),
+	-- Venda automática ao encher a mochila: liberada no nível indicado e com
+	-- valor reduzido, para a Estação de Venda continuar valendo mais. Hipótese.
+	AutoSell = table.freeze({ Level = 5, Rate = 0.8 }),
+	-- Contratos da Orion: missões repetíveis depois da campanha de ORBI. Hipótese.
+	Contracts = table.freeze({
+		Slots = 3,
+		MineCount = 20, -- quantidade do minério pedido
+		MineMaxHits = 6, -- só pede minérios que quebram em até 6 golpes com o poder atual
+		MineRewardFactor = 1, -- Créditos = valor de venda do lote × fator
+		EarnBackpacks = 2, -- meta de Créditos = 2 mochilas cheias do melhor minério viável
+		EarnRewardFactor = 0.25,
+		HatchCount = 2,
+		HatchFragments = 2,
+	}),
 	-- Preferências do jogador que o servidor aceita salvar (só booleanos).
 	ClientSettings = table.freeze({
 		"GalaxyReduceMotion", "GalaxyMute", "GalaxyHideDamage", "GalaxyHideOrePlates",

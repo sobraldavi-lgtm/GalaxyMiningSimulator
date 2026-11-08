@@ -82,6 +82,24 @@ function ArtStyle.petIcon(look: string?): string
 	return look and ArtStyle.PetIcon[look] or "pet"
 end
 
+-- Texto e ícone de um contrato da Orion (missão repetível).
+local function thousands(n)
+	local text = string.format("%d", math.floor(n))
+	local count = 1
+	while count > 0 do text, count = string.gsub(text, "^(%d+)(%d%d%d)", "%1.%2") end
+	return text
+end
+function ArtStyle.contract(contract)
+	if contract.Kind == "Mine" then
+		local ore = Config.Ores[contract.Target]
+		return "Minerar " .. contract.Count .. " " .. (ore and ore.Name or "minérios"), "pickaxe",
+			ore and Color3.fromHex(ore.Color) or Color3.fromHex("#22E1FF")
+	elseif contract.Kind == "Earn" then
+		return "Ganhar ✦ " .. thousands(contract.Count) .. " em vendas", "coin", Color3.fromHex("#FFC531")
+	end
+	return "Abrir " .. contract.Count .. " ovos de pet", "egg", Color3.fromHex("#FF5FB8")
+end
+
 -- Ícone de cada tipo de missão de ORBI.
 local missionIcons = { Mine = "pickaxe", Sell = "coin", Buy = "shop", Pet = "pet", Transmitter = "robot" }
 function ArtStyle.missionIcon(kind: string?): string
