@@ -130,7 +130,16 @@ local function resolve(origin)
 		return counter, "Mochila cheia: venda aqui"
 	end
 	local mission = Config.Missions[state.MissionIndex]
-	if not mission then return nil end
+	if not mission then
+		-- Depois da campanha: guia até o minério de um contrato de mineração.
+		for _, contract in ipairs(state.Contracts or {}) do
+			if contract.Kind == "Mine" then
+				local ore = Config.Ores[contract.Target]
+				return nearestDeposit(contract.Target, origin), "Contrato: " .. (ore and ore.Name or "minério")
+			end
+		end
+		return nil
+	end
 	if mission.Kind == "Mine" then
 		return nearestDeposit(mission.Target, origin), mission.Goal
 	end

@@ -49,6 +49,10 @@ function InventoryModel.new(config)
 		purchases = 0,
 		settings = {},
 		pity = {},
+		dailyStreak = 0,
+		dailyLastDay = 0,
+		autoSell = false,
+		contracts = {},
 	}, InventoryModel)
 end
 
@@ -257,12 +261,13 @@ function InventoryModel:GetSaleMultiplier()
 	return 1 + self.rebirths * (rebirth and rebirth.SaleBonus or 0)
 end
 
-function InventoryModel:Sell()
+-- rate opcional (ex.: 0,8 na venda automática).
+function InventoryModel:Sell(rate)
 	local earned = 0
 	for oreType, count in pairs(self.items) do
 		earned += self.config.Ores[oreType].Value * count
 	end
-	earned = math.floor(earned * self:GetSaleMultiplier())
+	earned = math.floor(earned * self:GetSaleMultiplier() * (rate or 1))
 	self.credits += earned
 	self.lifetimeCredits += earned
 	table.clear(self.items)
@@ -361,6 +366,8 @@ function InventoryModel:Progress(kind, target, amount)
 		self.missionProgress = 0
 		table.insert(completed, mission)
 	end
+	-- Ao terminar a campanha, os contratos repetíveis aparecem.
+	self:FillContracts()
 	return completed
 end
 
@@ -370,23 +377,31 @@ function InventoryModel:Mine(oreType)
 		return false, nil, {}
 	end
 	local levelUp = self:AddXp(self.config.Progression.XpPerOre)
-	return true, levelUp, self:Progress("Mine", oreType)
+	local completed = self:Progress("Mine", oreType)
+	for _, contract in ipairs(self:UpdateContracts("Mine", oreType, 1)) do
+		table.insert(completed, contract)
+	end
+	return true, levelUp, completed
 end
 
 -- Venda com progressão. Devolve Créditos ganhos, nível novo e missões.
 -- A XP da venda é limitada à quantidade de minérios vendidos: vender um
 -- minério por vez não rende mais XP do que minerar (evita farm de XP).
-function InventoryModel:SellAll()
+function InventoryModel:SellAll(rate)
 	local units = 0
 	for _, amount in pairs(self.items) do
 		units += amount
 	end
-	local earned = self:Sell()
+	local earned = self:Sell(rate)
 	if earned <= 0 then
 		return 0, nil, {}
 	end
 	local levelUp = self:AddXp(math.min(self.config.Progression.XpPerSale, units))
-	return earned, levelUp, self:Progress("Sell")
+	local completed = self:Progress("Sell")
+	for _, contract in ipairs(self:UpdateContracts("Earn", nil, earned)) do
+		table.insert(completed, contract)
+	end
+	return earned, levelUp, completed
 end
 
 function InventoryModel:CanUseTransmitter()
@@ -438,6 +453,131 @@ function InventoryModel:SetSettings(values)
 	return true
 end
 
+-- ---------- Prêmio diário ----------
+-- `today` é o número do dia UTC (os.time() // 86400), calculado no servidor.
+function InventoryModel:DailyAvailable(today)
+	return self.dailyLastDay < today
+end
+
+function InventoryModel:ClaimDaily(today)
+	if self.dailyLastDay >= today then
+		return false, "Prêmio de hoje já resgatado. Volte amanhã!"
+	end
+	-- Sequência continua se o último resgate foi ontem; senão recomeça.
+	self.dailyStreak = (self.dailyLastDay == today - 1) and self.dailyStreak + 1 or 1
+	self.dailyLastDay = today
+	local rewards = self.config.DailyRewards
+	local day = (self.dailyStreak - 1) % #rewards + 1
+	local reward = rewards[day]
+	local credits = math.floor(reward.Credits * self:GetSaleMultiplier())
+	self.credits += credits
+	self.rewardedCredits = (self.rewardedCredits or 0) + credits
+	self.fragments += reward.Fragments
+	local extra = reward.Fragments > 0 and (" e +" .. reward.Fragments .. " Fragmento" .. (reward.Fragments > 1 and "s" or "")) or ""
+	return true, "Prêmio do dia " .. day .. ": +" .. credits .. " Créditos" .. extra .. "!",
+		{ Day = day, Credits = credits, Fragments = reward.Fragments, Streak = self.dailyStreak }
+end
+
+-- ---------- Venda automática ----------
+function InventoryModel:AutoSellUnlocked()
+	return self:GetLevel() >= self.config.AutoSell.Level
+end
+
+function InventoryModel:CanAutoSell()
+	return self.autoSell and self:AutoSellUnlocked()
+end
+
+function InventoryModel:SetAutoSell(on)
+	if type(on) ~= "boolean" then
+		return false, "Valor inválido."
+	end
+	if on and not self:AutoSellUnlocked() then
+		return false, "A venda automática libera no nível " .. self.config.AutoSell.Level .. "."
+	end
+	self.autoSell = on
+	return true, on and ("Venda automática ligada (" .. math.round(self.config.AutoSell.Rate * 100) .. "% do valor).")
+		or "Venda automática desligada."
+end
+
+-- Vende tudo pela taxa reduzida (ao encher a mochila em qualquer lugar).
+function InventoryModel:AutoSellAll()
+	return self:SellAll(self.config.AutoSell.Rate)
+end
+
+-- ---------- Contratos da Orion (missões repetíveis) ----------
+
+-- Minérios que quebram em poucos golpes com o poder atual, do mais valioso ao menos.
+local function viableOres(self)
+	local power = math.max(self:GetMiningPower(), 0.01)
+	local list = {}
+	for id, ore in pairs(self.config.Ores) do
+		if math.ceil(ore.Resistance / power) <= self.config.Contracts.MineMaxHits then
+			table.insert(list, { id = id, ore = ore })
+		end
+	end
+	table.sort(list, function(a, b) return a.ore.Value > b.ore.Value end)
+	if #list == 0 then
+		table.insert(list, { id = "Iron", ore = self.config.Ores.Iron })
+	end
+	return list
+end
+
+function InventoryModel:NewContract(roll)
+	local settings = self.config.Contracts
+	local random = roll or math.random
+	local value = random()
+	local multiplier = self:GetSaleMultiplier()
+	if value < 0.45 then
+		-- Minerar um dos 3 melhores minérios viáveis.
+		local list = viableOres(self)
+		local choice = list[math.min(#list, 1 + math.floor(random() * math.min(3, #list)))]
+		return { Kind = "Mine", Target = choice.id, Count = settings.MineCount, Progress = 0,
+			Credits = math.floor(choice.ore.Value * settings.MineCount * settings.MineRewardFactor * multiplier),
+			Fragments = 1 }
+	elseif value < 0.8 then
+		-- Ganhar Créditos em vendas: meta proporcional à mochila e ao melhor minério viável.
+		local best = viableOres(self)[1].ore
+		local perBackpack = math.floor(self.capacity / best.Weight) * best.Value * multiplier
+		local target = math.max(100, math.floor(perBackpack * settings.EarnBackpacks / 50 + 0.5) * 50)
+		return { Kind = "Earn", Count = target, Progress = 0,
+			Credits = math.floor(target * settings.EarnRewardFactor), Fragments = 1 }
+	end
+	return { Kind = "Hatch", Count = settings.HatchCount, Progress = 0, Credits = 0, Fragments = settings.HatchFragments }
+end
+
+-- Contratos só existem depois da campanha de ORBI.
+function InventoryModel:FillContracts(roll)
+	if self:CurrentMission() then return end
+	while #self.contracts < self.config.Contracts.Slots do
+		table.insert(self.contracts, self:NewContract(roll))
+	end
+end
+
+-- Avança contratos do tipo do evento; concluídos pagam e são trocados por novos.
+function InventoryModel:UpdateContracts(kind, target, amount, roll)
+	local done = {}
+	for index, contract in ipairs(self.contracts) do
+		if contract.Kind == kind and (contract.Target == nil or contract.Target == target) then
+			contract.Progress = math.min(contract.Count, contract.Progress + (amount or 1))
+			if contract.Progress >= contract.Count then
+				self.credits += contract.Credits
+				self.rewardedCredits = (self.rewardedCredits or 0) + contract.Credits
+				self.fragments += contract.Fragments
+				table.insert(done, { Title = "Contrato concluído", Credits = contract.Credits,
+					Fragments = contract.Fragments, Contract = true, Kind = contract.Kind })
+				self.contracts[index] = self:NewContract(roll)
+			end
+		end
+	end
+	return done
+end
+
+local function cloneContracts(list)
+	local copy = {}
+	for index, contract in ipairs(list) do copy[index] = table.clone(contract) end
+	return copy
+end
+
 -- ---------- Salvamento ----------
 -- O treino de poder é por sessão (GDD) e não é salvo.
 
@@ -464,6 +604,10 @@ function InventoryModel:Serialize()
 		Purchases = self.purchases,
 		Settings = table.clone(self.settings),
 		Pity = table.clone(self.pity),
+		DailyStreak = self.dailyStreak,
+		DailyLastDay = self.dailyLastDay,
+		AutoSell = self.autoSell,
+		Contracts = cloneContracts(self.contracts),
 	}
 end
 
@@ -527,6 +671,27 @@ function InventoryModel.fromData(config, data)
 	inventory.lifetimeCredits = count(data.LifetimeCredits)
 	inventory.purchases = count(data.Purchases)
 	inventory:SetSettings(data.Settings)
+	inventory.dailyStreak = count(data.DailyStreak)
+	inventory.dailyLastDay = count(data.DailyLastDay)
+	inventory.autoSell = data.AutoSell == true
+	if type(data.Contracts) == "table" then
+		local kinds = { Mine = true, Earn = true, Hatch = true }
+		for _, contract in ipairs(data.Contracts) do
+			if #inventory.contracts >= config.Contracts.Slots then break end
+			if type(contract) == "table" and kinds[contract.Kind] and count(contract.Count) > 0
+				and (contract.Kind ~= "Mine" or config.Ores[contract.Target]) then
+				table.insert(inventory.contracts, {
+					Kind = contract.Kind,
+					Target = contract.Kind == "Mine" and contract.Target or nil,
+					Count = count(contract.Count),
+					Progress = math.min(count(contract.Progress), count(contract.Count)),
+					Credits = count(contract.Credits),
+					Fragments = count(contract.Fragments),
+				})
+			end
+		end
+	end
+	inventory:FillContracts()
 	if type(data.Pity) == "table" then
 		for eggId, value in pairs(data.Pity) do
 			if findEgg(config, eggId) then inventory.pity[eggId] = count(value) end
@@ -568,6 +733,11 @@ function InventoryModel:Snapshot()
 		LifetimeCredits = self.lifetimeCredits,
 		Settings = table.clone(self.settings),
 		Pity = table.clone(self.pity),
+		DailyStreak = self.dailyStreak,
+		DailyLastDay = self.dailyLastDay,
+		AutoSell = self.autoSell,
+		AutoSellUnlocked = self:AutoSellUnlocked(),
+		Contracts = cloneContracts(self.contracts),
 	}
 end
 
