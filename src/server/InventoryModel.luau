@@ -169,6 +169,7 @@ function InventoryModel:Snapshot()
 		PowerCap = self:GetPowerCap(),
 		BackpackId = self.backpackId,
 		OwnedBackpacks = table.clone(self.ownedBackpacks),
+		OwnedUpgrades = table.clone(self.ownedUpgrades),
 		TrainingClicks = self.trainingClicks,
 		ToolName = self.toolName,
 		BackpackName = self.backpackName,
