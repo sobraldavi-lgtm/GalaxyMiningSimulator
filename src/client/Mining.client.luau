@@ -1,5 +1,6 @@
 local Theme = require(script.Parent.VisualTheme)
 local Sound = require(script.Parent.Sound)
+local ArtStyle = require(script.Parent.ArtStyle)
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -41,11 +42,11 @@ local panelStroke = panel:FindFirstChildOfClass("UIStroke")
 -- Distintivo grande com a cor do minério, saindo pela borda esquerda.
 local oreBadge
 local badgeColor
-local function setBadge(color)
+local function setBadge(color, kind)
 	if badgeColor == color and oreBadge then return end
 	badgeColor = color
 	if oreBadge then oreBadge:Destroy() end
-	oreBadge = Theme.badge(panel, "gem", color, 78)
+	oreBadge = Theme.badge(panel, kind or "gem", color, 78)
 	oreBadge.AnchorPoint = Vector2.new(0, 0)
 	oreBadge.Position = UDim2.fromOffset(-16, 9)
 	oreBadge.ZIndex = 4
@@ -149,7 +150,7 @@ local function makePlate(anchor, oreType)
 	card.Size = UDim2.new(1, -30, 1, -12)
 	Theme.panel(card, color, 20)
 	card.Parent = billboard
-	local badge = Theme.badge(card, "gem", color, 60)
+	local badge = Theme.badge(card, ArtStyle.oreIcon(oreType), color, 60)
 	badge.AnchorPoint = Vector2.new(0, 0.5)
 	badge.Position = UDim2.new(0, -24, 0.5, 0)
 	badge.ZIndex = 3
@@ -343,7 +344,7 @@ local function selectPiece(piece)
 		local oreColor = Color3.fromHex(definition.Color or "#FFFFFF")
 		title.Text = definition.Name
 		title.TextColor3 = oreColor:Lerp(Color3.new(1, 1, 1), 0.25)
-		setBadge(oreColor)
+		setBadge(oreColor, ArtStyle.oreIcon(piece:GetAttribute("OreType")))
 		setBar(remaining, definition.Resistance)
 	end
 	panelStroke.Color = inRange and C.Ink or orange
@@ -434,7 +435,7 @@ player.CharacterAdded:Connect(function()
 end)
 
 -- Camadas só visuais que nunca devem bloquear a mineração.
-local passThrough = { GalaxyVignette = true, GalaxyCelebration = true, GalaxyLoading = true }
+local passThrough = { GalaxyVignette = true, GalaxyCelebration = true, GalaxyLoading = true, GalaxyProgressStage = true }
 local function overHud(position)
 	local inset = GuiService:GetGuiInset()
 	local point = position - inset
@@ -499,6 +500,10 @@ remote.OnClientEvent:Connect(function(result)
 			Debris:AddItem(burst, 1)
 		end
 		local broke = result.Remaining == 0
+		-- Arte do minério treme/renasce e a ferramenta balança (só visual).
+		local oreHit = playerGui:FindFirstChild("GalaxyOreHit")
+		if oreHit then oreHit:Fire(result.Target, broke) end
+		playerGui:SetAttribute("GalaxySwing", os.clock())
 		if broke then
 			Sound.play("reward", 1.35)
 		else

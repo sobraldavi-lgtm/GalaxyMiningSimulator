@@ -10,6 +10,46 @@ return table.freeze({
 		table.freeze({ Id = "Glacio", Name = "Glacio", Bonus = 0.32, Price = 1800, Color = "#8FE8FF", Look = "ice" }),
 		table.freeze({ Id = "Solari", Name = "Solari", Bonus = 0.4, Price = 3500, Color = "#FF9A2E", Look = "sun" }),
 	}),
+	-- Progressão do explorador. Níveis 1–5 vêm do GDD; o resto são hipóteses
+	-- de balanceamento escolhidas com o usuário para testar (ajustar após testes).
+	Progression = table.freeze({
+		XpPerOre = 1,
+		XpPerSale = 10, -- máximo por venda; limitado à quantidade de minérios vendidos
+		LevelXp = table.freeze({ 0, 100, 250, 450, 700 }),
+		LevelStepAfter = 300, -- hipótese: XP extra por nível depois do 5
+		CaveLevel = 3, -- GDD: nível 3 dá acesso à caverna azul
+		LevelRewards = table.freeze({
+			[2] = "Primeira missão de exploração",
+			[3] = "Acesso à caverna azul",
+			[4] = "Segundo espaço de criatura (em breve)",
+			[5] = "Missão do transmissor",
+		}),
+	}),
+	-- Campanha introdutória de ORBI (GDD §10). Recompensas: hipótese modesta.
+	Missions = table.freeze({
+		table.freeze({ Id = "FirstContact", Title = "Primeiro contato", Kind = "Mine", Target = "Iron", Count = 5,
+			Goal = "Minere 5 ferro espacial", Credits = 50, Fragments = 1,
+			Orbi = "Olá, explorador! Sou ORBI. Clique nos depósitos de ferro espacial e extraia cinco unidades." }),
+		table.freeze({ Id = "FirstSale", Title = "Primeira venda", Kind = "Sell", Count = 1,
+			Goal = "Venda minérios na Estação de Venda", Credits = 75, Fragments = 1,
+			Orbi = "Ótimo trabalho! Leve sua carga até a Estação de Venda e troque por Créditos." }),
+		table.freeze({ Id = "BetterTech", Title = "Tecnologia aprimorada", Kind = "Buy", Count = 1,
+			Goal = "Compre uma melhoria na Loja Orion", Credits = 100, Fragments = 1,
+			Orbi = "Com Créditos você melhora o equipamento. Visite a Loja Orion e compre sua primeira melhoria." }),
+		table.freeze({ Id = "AlienFriend", Title = "Amigo alienígena", Kind = "Pet", Target = "Lumini", Count = 1,
+			Goal = "Resgate e equipe Lumini no OVNI", Credits = 150, Fragments = 1,
+			Orbi = "Detectei uma criatura azul perto do OVNI! Resgate Lumini e equipe-a para minerar mais forte." }),
+		table.freeze({ Id = "UnknownSignal", Title = "Sinal desconhecido", Kind = "Transmitter", Count = 1,
+			Goal = "Reative o transmissor da caverna azul", Credits = 250, Fragments = 1,
+			Orbi = "Um sinal estranho vem da caverna azul. Ao chegar ao nível 3, reative o transmissor lá dentro." }),
+	}),
+	-- Renascimento (pedido do usuário; valores são hipótese para testes).
+	-- Reinicia Créditos, carga, ferramentas, mochilas e treino; mantém pets,
+	-- nível, XP, missões e Fragmentos. Cada renascimento soma bônus na venda.
+	Rebirth = table.freeze({
+		BaseCost = 50000, -- custo = BaseCost × (renascimentos + 1)
+		SaleBonus = 0.25, -- +25% de Créditos por venda, por renascimento
+	}),
 	HitInterval = 0.2,
 	TrainingClicksPerPoint = 10,
 	-- O limite de poder de treino vem da Mochila de Poeira Cósmica equipada (PowerCap).
