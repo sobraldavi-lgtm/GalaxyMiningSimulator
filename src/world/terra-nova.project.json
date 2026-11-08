@@ -1330,6 +1330,1680 @@
             }
           }
         }
+      },
+      "Silver": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              49,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              49,
+              5,
+              -57
+            ],
+            "Color": [
+              0.82,
+              0.87,
+              0.95
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              52,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              52,
+              5,
+              -64
+            ],
+            "Color": [
+              0.82,
+              0.87,
+              0.95
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              49,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              49,
+              5,
+              -71
+            ],
+            "Color": [
+              0.82,
+              0.87,
+              0.95
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              49,
+              10,
+              -63
+            ],
+            "Color": [
+              0.82,
+              0.87,
+              0.95
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false,
+            "CastShadow": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.1,
+                  0.07,
+                  0.3
+                ],
+                "BackgroundTransparency": 0.1,
+                "Text": "Prata cósmica\nClique para minerar",
+                "TextColor3": [
+                  0.82,
+                  0.87,
+                  0.95
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBlack"
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      10
+                    ]
+                  }
+                }
+              },
+              "Stroke": {
+                "$className": "UIStroke",
+                "$properties": {
+                  "Thickness": 3,
+                  "Color": [
+                    0.03,
+                    0.02,
+                    0.18
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "Gold": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              60,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              60,
+              5,
+              -57
+            ],
+            "Color": [
+              1.0,
+              0.78,
+              0.2
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              63,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              63,
+              5,
+              -64
+            ],
+            "Color": [
+              1.0,
+              0.78,
+              0.2
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              60,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              60,
+              5,
+              -71
+            ],
+            "Color": [
+              1.0,
+              0.78,
+              0.2
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              60,
+              10,
+              -63
+            ],
+            "Color": [
+              1.0,
+              0.78,
+              0.2
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false,
+            "CastShadow": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.1,
+                  0.07,
+                  0.3
+                ],
+                "BackgroundTransparency": 0.1,
+                "Text": "Ouro estelar\nClique para minerar",
+                "TextColor3": [
+                  1.0,
+                  0.78,
+                  0.2
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBlack"
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      10
+                    ]
+                  }
+                }
+              },
+              "Stroke": {
+                "$className": "UIStroke",
+                "$properties": {
+                  "Thickness": 3,
+                  "Color": [
+                    0.03,
+                    0.02,
+                    0.18
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "Emerald": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              71,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              71,
+              5,
+              -57
+            ],
+            "Color": [
+              0.15,
+              0.95,
+              0.5
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              74,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              74,
+              5,
+              -64
+            ],
+            "Color": [
+              0.15,
+              0.95,
+              0.5
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              71,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              71,
+              5,
+              -71
+            ],
+            "Color": [
+              0.15,
+              0.95,
+              0.5
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              71,
+              10,
+              -63
+            ],
+            "Color": [
+              0.15,
+              0.95,
+              0.5
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false,
+            "CastShadow": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.1,
+                  0.07,
+                  0.3
+                ],
+                "BackgroundTransparency": 0.1,
+                "Text": "Esmeralda alienígena\nClique para minerar",
+                "TextColor3": [
+                  0.15,
+                  0.95,
+                  0.5
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBlack"
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      10
+                    ]
+                  }
+                }
+              },
+              "Stroke": {
+                "$className": "UIStroke",
+                "$properties": {
+                  "Thickness": 3,
+                  "Color": [
+                    0.03,
+                    0.02,
+                    0.18
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "Ruby": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -71,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              -71,
+              5,
+              -57
+            ],
+            "Color": [
+              1.0,
+              0.18,
+              0.3
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -68,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              -68,
+              5,
+              -64
+            ],
+            "Color": [
+              1.0,
+              0.18,
+              0.3
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -71,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              -71,
+              5,
+              -71
+            ],
+            "Color": [
+              1.0,
+              0.18,
+              0.3
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              -71,
+              10,
+              -63
+            ],
+            "Color": [
+              1.0,
+              0.18,
+              0.3
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false,
+            "CastShadow": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.1,
+                  0.07,
+                  0.3
+                ],
+                "BackgroundTransparency": 0.1,
+                "Text": "Rubi solar\nClique para minerar",
+                "TextColor3": [
+                  1.0,
+                  0.18,
+                  0.3
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBlack"
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      10
+                    ]
+                  }
+                }
+              },
+              "Stroke": {
+                "$className": "UIStroke",
+                "$properties": {
+                  "Thickness": 3,
+                  "Color": [
+                    0.03,
+                    0.02,
+                    0.18
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "Obsidian": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -60,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              -60,
+              5,
+              -57
+            ],
+            "Color": [
+              0.45,
+              0.2,
+              0.8
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -57,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              -57,
+              5,
+              -64
+            ],
+            "Color": [
+              0.45,
+              0.2,
+              0.8
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -60,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              -60,
+              5,
+              -71
+            ],
+            "Color": [
+              0.45,
+              0.2,
+              0.8
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              -60,
+              10,
+              -63
+            ],
+            "Color": [
+              0.45,
+              0.2,
+              0.8
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false,
+            "CastShadow": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.1,
+                  0.07,
+                  0.3
+                ],
+                "BackgroundTransparency": 0.1,
+                "Text": "Obsidiana negra\nClique para minerar",
+                "TextColor3": [
+                  0.45,
+                  0.2,
+                  0.8
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBlack"
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      10
+                    ]
+                  }
+                }
+              },
+              "Stroke": {
+                "$className": "UIStroke",
+                "$properties": {
+                  "Thickness": 3,
+                  "Color": [
+                    0.03,
+                    0.02,
+                    0.18
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "Diamond": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -49,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              -49,
+              5,
+              -57
+            ],
+            "Color": [
+              0.7,
+              0.95,
+              1.0
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -46,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              -46,
+              5,
+              -64
+            ],
+            "Color": [
+              0.7,
+              0.95,
+              1.0
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -49,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.22,
+              0.2,
+              0.3
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              -49,
+              5,
+              -71
+            ],
+            "Color": [
+              0.7,
+              0.95,
+              1.0
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              -49,
+              10,
+              -63
+            ],
+            "Color": [
+              0.7,
+              0.95,
+              1.0
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false,
+            "CastShadow": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.1,
+                  0.07,
+                  0.3
+                ],
+                "BackgroundTransparency": 0.1,
+                "Text": "Diamante galáctico\nClique para minerar",
+                "TextColor3": [
+                  0.7,
+                  0.95,
+                  1.0
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBlack"
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      10
+                    ]
+                  }
+                }
+              },
+              "Stroke": {
+                "$className": "UIStroke",
+                "$properties": {
+                  "Thickness": 3,
+                  "Color": [
+                    0.03,
+                    0.02,
+                    0.18
+                  ]
+                }
+              }
+            }
+          }
+        }
       }
     },
     "Shop": {
@@ -4103,6 +5777,9 @@
       "Architecture": {
         "$path": "sale-station.project.json"
       }
+    },
+    "Expansion": {
+      "$path": "terra-nova-expansion.project.json"
     }
   }
 }

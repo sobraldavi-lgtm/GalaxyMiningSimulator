@@ -3,6 +3,12 @@ local looks = {
 	Iron = { color = Color3.fromRGB(190, 215, 255), neon = false },
 	Copper = { color = Color3.fromRGB(255, 150, 80), neon = false },
 	Crystal = { color = Color3.fromRGB(60, 170, 255), neon = true },
+	Silver = { color = Color3.fromRGB(210, 222, 242), neon = false },
+	Gold = { color = Color3.fromRGB(255, 200, 50), neon = false },
+	Emerald = { color = Color3.fromRGB(40, 240, 130), neon = true },
+	Ruby = { color = Color3.fromRGB(255, 45, 75), neon = true },
+	Obsidian = { color = Color3.fromRGB(115, 50, 205), neon = true },
+	Diamond = { color = Color3.fromRGB(180, 240, 255), neon = true },
 }
 
 local deposits = workspace:WaitForChild("TerraNova"):WaitForChild("OreDeposits")

@@ -37,6 +37,7 @@ end
 local categories = {
 	{ Id = "Backpacks", Name = "Mochilas", Icon = "pack", Accent = C.Violet },
 	{ Id = "Tools", Name = "Ferramentas", Icon = "drill", Accent = C.Cyan },
+	{ Id = "Pets", Name = "Pets", Icon = "mission", Accent = C.Green },
 }
 
 local items = {}
@@ -56,9 +57,18 @@ table.sort(tools, function(a, b) return a.upgrade.Price < b.upgrade.Price end)
 for index, entry in ipairs(tools) do
 	table.insert(items, {
 		Id = entry.id, Category = "Tools", Kind = "Tool", Order = index,
-		Name = entry.upgrade.Name, Color = C.Cyan, Icon = "drill",
+		Name = entry.upgrade.Name, Color = Color3.fromHex(entry.upgrade.Color or "#00D8FF"), Icon = "drill",
 		Lines = string.format("Poder %d\nFerramenta", entry.upgrade.Power),
-		Price = entry.upgrade.Price,
+		Price = entry.upgrade.Price, Power = entry.upgrade.Power,
+	})
+end
+
+for index, pet in ipairs(Config.Pets) do
+	table.insert(items, {
+		Id = pet.Id, Category = "Pets", Kind = "Pet", Order = index,
+		Name = pet.Name, Color = Color3.fromHex(pet.Color), Icon = "mission",
+		Lines = string.format("+%d%% de poder\nPet", math.round(pet.Bonus * 100)),
+		Price = pet.Price,
 	})
 end
 
@@ -253,6 +263,14 @@ local function makeCard(item)
 		if item.Kind == "Backpack" then
 			if state.BackpackId == item.Id then return end
 			remote:FireServer(state.OwnedBackpacks[item.Id] and "EquipBackpack" or "BuyBackpack", item.Id)
+		elseif item.Kind == "Pet" then
+			if state.EquippedPet == item.Id then
+				remote:FireServer("UnequipPet")
+			elseif state.OwnedPets[item.Id] then
+				remote:FireServer("EquipPet", item.Id)
+			else
+				remote:FireServer("BuyPet", item.Id)
+			end
 		elseif not state.OwnedUpgrades[item.Id] then
 			remote:FireServer("BuyUpgrade", item.Id)
 		end
@@ -274,8 +292,16 @@ local function refresh()
 				elseif state.OwnedBackpacks[item.Id] then
 					text, color = "EQUIPAR", C.Blue
 				end
+			elseif item.Kind == "Pet" then
+				if state.EquippedPet == item.Id then
+					text, color = "✔ GUARDAR", GOLD
+				elseif state.OwnedPets[item.Id] then
+					text, color = "EQUIPAR", C.Blue
+				end
 			elseif state.OwnedUpgrades[item.Id] then
 				text, color = "✔ ADQUIRIDA", GOLD
+			elseif item.Power and item.Power <= state.ToolPower then
+				text, color = "SUPERADA", GRAY
 			end
 			if not text then
 				text = "✦ " .. item.Price
@@ -331,7 +357,14 @@ end
 closeButton.Activated:Connect(close)
 playerGui:GetAttributeChangedSignal("GalaxyShopRequest"):Connect(open)
 ProximityPromptService.PromptTriggered:Connect(function(prompt, triggeringPlayer)
-	if prompt.Name == "OpenShop" and triggeringPlayer == player then open() end
+	if triggeringPlayer ~= player then return end
+	if prompt.Name == "OpenShop" then
+		selected = "Backpacks"
+		open()
+	elseif prompt.Name == "OpenPets" then
+		selected = "Pets"
+		open()
+	end
 end)
 
 remote.OnClientEvent:Connect(function(snapshot)

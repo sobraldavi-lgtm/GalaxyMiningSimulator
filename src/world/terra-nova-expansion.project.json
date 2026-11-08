@@ -1,0 +1,7260 @@
+{
+  "name": "TerraNovaExpansion",
+  "tree": {
+    "$className": "Model",
+    "DeepMines": {
+      "$className": "Folder",
+      "PlatformEast": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            42,
+            0.4,
+            32
+          ],
+          "Position": [
+            60,
+            0.7,
+            -64
+          ],
+          "Color": [
+            0.1,
+            0.09,
+            0.22
+          ],
+          "Material": "Slate",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "RimEast": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            43.4,
+            0.12,
+            33.4
+          ],
+          "Position": [
+            60,
+            0.95,
+            -64
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "BridgeEast": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            10,
+            0.4,
+            8
+          ],
+          "Position": [
+            35.5,
+            0.7,
+            -64
+          ],
+          "Color": [
+            0.16,
+            0.14,
+            0.34
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BridgeGlowEast": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            10,
+            0.1,
+            0.35
+          ],
+          "Position": [
+            35.5,
+            0.95,
+            -64
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "PillarEast-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.4,
+            12,
+            2.4
+          ],
+          "Position": [
+            40,
+            6,
+            -50
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "PillarGlowEast-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            9,
+            2.6
+          ],
+          "Position": [
+            40,
+            6,
+            -50
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.35
+        }
+      },
+      "PillarEast1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.4,
+            12,
+            2.4
+          ],
+          "Position": [
+            80,
+            6,
+            -50
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "PillarGlowEast1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            9,
+            2.6
+          ],
+          "Position": [
+            80,
+            6,
+            -50
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.35
+        }
+      },
+      "ArchEast": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            44,
+            2,
+            2.6
+          ],
+          "Position": [
+            60,
+            12.5,
+            -50
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "ArchGlowEast": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            40,
+            0.3,
+            2.8
+          ],
+          "Position": [
+            60,
+            11.3,
+            -50
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "SignEast": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            1,
+            1
+          ],
+          "Position": [
+            60,
+            17,
+            -50
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Label": {
+          "$className": "BillboardGui",
+          "$properties": {
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  290
+                ],
+                [
+                  0,
+                  66
+                ]
+              ]
+            },
+            "AlwaysOnTop": false,
+            "MaxDistance": 110
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundColor3": [
+                0.1,
+                0.07,
+                0.3
+              ],
+              "BackgroundTransparency": 0.1,
+              "Text": "MINA PROFUNDA\nLESTE",
+              "TextColor3": [
+                1.0,
+                0.8,
+                0.25
+              ],
+              "TextScaled": true,
+              "TextWrapped": true,
+              "Font": "GothamBlack"
+            },
+            "Corner": {
+              "$className": "UICorner",
+              "$properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0,
+                    10
+                  ]
+                }
+              }
+            },
+            "Stroke": {
+              "$className": "UIStroke",
+              "$properties": {
+                "Thickness": 3,
+                "Color": [
+                  0.03,
+                  0.02,
+                  0.18
+                ]
+              }
+            }
+          }
+        }
+      },
+      "LampEast-17_-52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            7,
+            1
+          ],
+          "Position": [
+            43,
+            4.2,
+            -52
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LampOrbEast-17_-52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            2,
+            2
+          ],
+          "Position": [
+            43,
+            8,
+            -52
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 18,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "LampEast-17_-76": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            7,
+            1
+          ],
+          "Position": [
+            43,
+            4.2,
+            -76
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LampOrbEast-17_-76": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            2,
+            2
+          ],
+          "Position": [
+            43,
+            8,
+            -76
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 18,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "LampEast17_-52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            7,
+            1
+          ],
+          "Position": [
+            77,
+            4.2,
+            -52
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LampOrbEast17_-52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            2,
+            2
+          ],
+          "Position": [
+            77,
+            8,
+            -52
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 18,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "LampEast17_-76": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            7,
+            1
+          ],
+          "Position": [
+            77,
+            4.2,
+            -76
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LampOrbEast17_-76": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            2,
+            2
+          ],
+          "Position": [
+            77,
+            8,
+            -76
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 18,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "PlatformWest": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            42,
+            0.4,
+            32
+          ],
+          "Position": [
+            -60,
+            0.7,
+            -64
+          ],
+          "Color": [
+            0.1,
+            0.09,
+            0.22
+          ],
+          "Material": "Slate",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "RimWest": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            43.4,
+            0.12,
+            33.4
+          ],
+          "Position": [
+            -60,
+            0.95,
+            -64
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "BridgeWest": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            10,
+            0.4,
+            8
+          ],
+          "Position": [
+            -35.5,
+            0.7,
+            -64
+          ],
+          "Color": [
+            0.16,
+            0.14,
+            0.34
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BridgeGlowWest": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            10,
+            0.1,
+            0.35
+          ],
+          "Position": [
+            -35.5,
+            0.95,
+            -64
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "PillarWest-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.4,
+            12,
+            2.4
+          ],
+          "Position": [
+            -80,
+            6,
+            -50
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "PillarGlowWest-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            9,
+            2.6
+          ],
+          "Position": [
+            -80,
+            6,
+            -50
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.35
+        }
+      },
+      "PillarWest1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.4,
+            12,
+            2.4
+          ],
+          "Position": [
+            -40,
+            6,
+            -50
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "PillarGlowWest1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            9,
+            2.6
+          ],
+          "Position": [
+            -40,
+            6,
+            -50
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.35
+        }
+      },
+      "ArchWest": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            44,
+            2,
+            2.6
+          ],
+          "Position": [
+            -60,
+            12.5,
+            -50
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "ArchGlowWest": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            40,
+            0.3,
+            2.8
+          ],
+          "Position": [
+            -60,
+            11.3,
+            -50
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "SignWest": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            1,
+            1
+          ],
+          "Position": [
+            -60,
+            17,
+            -50
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Label": {
+          "$className": "BillboardGui",
+          "$properties": {
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  290
+                ],
+                [
+                  0,
+                  66
+                ]
+              ]
+            },
+            "AlwaysOnTop": false,
+            "MaxDistance": 110
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundColor3": [
+                0.1,
+                0.07,
+                0.3
+              ],
+              "BackgroundTransparency": 0.1,
+              "Text": "MINA PROFUNDA\nOESTE",
+              "TextColor3": [
+                0.75,
+                0.4,
+                1.0
+              ],
+              "TextScaled": true,
+              "TextWrapped": true,
+              "Font": "GothamBlack"
+            },
+            "Corner": {
+              "$className": "UICorner",
+              "$properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0,
+                    10
+                  ]
+                }
+              }
+            },
+            "Stroke": {
+              "$className": "UIStroke",
+              "$properties": {
+                "Thickness": 3,
+                "Color": [
+                  0.03,
+                  0.02,
+                  0.18
+                ]
+              }
+            }
+          }
+        }
+      },
+      "LampWest-17_-52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            7,
+            1
+          ],
+          "Position": [
+            -77,
+            4.2,
+            -52
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LampOrbWest-17_-52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            2,
+            2
+          ],
+          "Position": [
+            -77,
+            8,
+            -52
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.75,
+              0.4,
+              1.0
+            ],
+            "Range": 18,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "LampWest-17_-76": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            7,
+            1
+          ],
+          "Position": [
+            -77,
+            4.2,
+            -76
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LampOrbWest-17_-76": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            2,
+            2
+          ],
+          "Position": [
+            -77,
+            8,
+            -76
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.75,
+              0.4,
+              1.0
+            ],
+            "Range": 18,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "LampWest17_-52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            7,
+            1
+          ],
+          "Position": [
+            -43,
+            4.2,
+            -52
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LampOrbWest17_-52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            2,
+            2
+          ],
+          "Position": [
+            -43,
+            8,
+            -52
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.75,
+              0.4,
+              1.0
+            ],
+            "Range": 18,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "LampWest17_-76": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            7,
+            1
+          ],
+          "Position": [
+            -43,
+            4.2,
+            -76
+          ],
+          "Color": [
+            0.14,
+            0.12,
+            0.3
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LampOrbWest17_-76": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            2,
+            2
+          ],
+          "Position": [
+            -43,
+            8,
+            -76
+          ],
+          "Color": [
+            0.75,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.75,
+              0.4,
+              1.0
+            ],
+            "Range": 18,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      }
+    },
+    "RouteLamps": {
+      "$className": "Folder",
+      "ShopPole0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -14,
+            3.4,
+            -6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "ShopOrb0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -14,
+            7,
+            -6.5
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "ShopPole0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -14,
+            3.4,
+            6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "ShopOrb0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -14,
+            7,
+            6.5
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "ShopPole1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -24,
+            3.4,
+            -6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "ShopOrb1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -24,
+            7,
+            -6.5
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "ShopPole1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -24,
+            3.4,
+            6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "ShopOrb1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -24,
+            7,
+            6.5
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "ShopPole2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -34,
+            3.4,
+            -6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "ShopOrb2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -34,
+            7,
+            -6.5
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "ShopPole2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -34,
+            3.4,
+            6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "ShopOrb2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -34,
+            7,
+            6.5
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "ShopPole3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -44,
+            3.4,
+            -6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "ShopOrb3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -44,
+            7,
+            -6.5
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "ShopPole3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -44,
+            3.4,
+            6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "ShopOrb3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -44,
+            7,
+            6.5
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "HangarPole0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            14,
+            3.4,
+            -6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "HangarOrb0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            14,
+            7,
+            -6.5
+          ],
+          "Color": [
+            1.0,
+            0.55,
+            0.2
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.55,
+              0.2
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "HangarPole0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            14,
+            3.4,
+            6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "HangarOrb0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            14,
+            7,
+            6.5
+          ],
+          "Color": [
+            1.0,
+            0.55,
+            0.2
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.55,
+              0.2
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "HangarPole1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            24,
+            3.4,
+            -6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "HangarOrb1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            24,
+            7,
+            -6.5
+          ],
+          "Color": [
+            1.0,
+            0.55,
+            0.2
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.55,
+              0.2
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "HangarPole1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            24,
+            3.4,
+            6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "HangarOrb1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            24,
+            7,
+            6.5
+          ],
+          "Color": [
+            1.0,
+            0.55,
+            0.2
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.55,
+              0.2
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "HangarPole2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            34,
+            3.4,
+            -6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "HangarOrb2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            34,
+            7,
+            -6.5
+          ],
+          "Color": [
+            1.0,
+            0.55,
+            0.2
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.55,
+              0.2
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "HangarPole2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            34,
+            3.4,
+            6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "HangarOrb2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            34,
+            7,
+            6.5
+          ],
+          "Color": [
+            1.0,
+            0.55,
+            0.2
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.55,
+              0.2
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "HangarPole3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            44,
+            3.4,
+            -6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "HangarOrb3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            44,
+            7,
+            -6.5
+          ],
+          "Color": [
+            1.0,
+            0.55,
+            0.2
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.55,
+              0.2
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "HangarPole3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            44,
+            3.4,
+            6.5
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "HangarOrb3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            44,
+            7,
+            6.5
+          ],
+          "Color": [
+            1.0,
+            0.55,
+            0.2
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.55,
+              0.2
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "MinePole0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -6.5,
+            3.4,
+            -14
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "MineOrb0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -6.5,
+            7,
+            -14
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "MinePole0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            6.5,
+            3.4,
+            -14
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "MineOrb0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            6.5,
+            7,
+            -14
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "MinePole1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -6.5,
+            3.4,
+            -22
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "MineOrb1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -6.5,
+            7,
+            -22
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "MinePole1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            6.5,
+            3.4,
+            -22
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "MineOrb1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            6.5,
+            7,
+            -22
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "MinePole2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -6.5,
+            3.4,
+            -30
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "MineOrb2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -6.5,
+            7,
+            -30
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "MinePole2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            6.5,
+            3.4,
+            -30
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "MineOrb2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            6.5,
+            7,
+            -30
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "MinePole3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            -6.5,
+            3.4,
+            -38
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "MineOrb3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            -6.5,
+            7,
+            -38
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      },
+      "MinePole3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.7,
+            6.4,
+            0.7
+          ],
+          "Position": [
+            6.5,
+            3.4,
+            -38
+          ],
+          "Color": [
+            0.12,
+            0.1,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "MineOrb3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.8,
+            1.8,
+            1.8
+          ],
+          "Position": [
+            6.5,
+            7,
+            -38
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 1.0,
+            "Shadows": false
+          }
+        }
+      }
+    },
+    "GlowFlora": {
+      "$className": "Folder",
+      "Trunk1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.289745146670171,
+            0.9
+          ],
+          "Position": [
+            19.293469660927823,
+            3.1448725733350855,
+            26.85534415137792
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap1_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            19.293469660927823,
+            6.289745146670171,
+            26.85534415137792
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            17.69346966092782,
+            5.289745146670171,
+            27.65534415137792
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap1_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            20.793469660927823,
+            5.589745146670171,
+            25.85534415137792
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.9626520005081005,
+            0.9
+          ],
+          "Position": [
+            -22.904154467487412,
+            3.4813260002540503,
+            10.143772365676906
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap2_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -22.904154467487412,
+            6.9626520005081005,
+            10.143772365676906
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -24.504154467487414,
+            5.9626520005081005,
+            10.943772365676907
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap2_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -21.404154467487412,
+            6.2626520005081,
+            9.143772365676906
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.495207844598582,
+            0.9
+          ],
+          "Position": [
+            36.741006191748745,
+            3.247603922299291,
+            14.309786323623038
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap3_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            36.741006191748745,
+            6.495207844598582,
+            14.309786323623038
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.75,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            35.141006191748744,
+            5.495207844598582,
+            15.10978632362304
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap3_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            38.241006191748745,
+            5.795207844598582,
+            13.309786323623038
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            7.308411794469995,
+            0.9
+          ],
+          "Position": [
+            -21.06095591776093,
+            4.154205897234998,
+            -21.714981979083174
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap4_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -21.06095591776093,
+            8.308411794469995,
+            -21.714981979083174
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap4_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -22.66095591776093,
+            7.308411794469995,
+            -20.914981979083173
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap4_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -19.56095591776093,
+            7.608411794469995,
+            -22.714981979083174
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            6.676556174285861,
+            0.9
+          ],
+          "Position": [
+            15.94121180631521,
+            3.8382780871429305,
+            -19.651618932422668
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap5_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            15.94121180631521,
+            7.676556174285861,
+            -19.651618932422668
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.65,
+              0.4,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap5_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            14.34121180631521,
+            6.676556174285861,
+            -18.851618932422667
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap5_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            17.44121180631521,
+            6.976556174285861,
+            -20.651618932422668
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.264505436480125,
+            0.9
+          ],
+          "Position": [
+            -35.31795839911847,
+            4.632252718240062,
+            -16.867695945067886
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap6_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -35.31795839911847,
+            9.264505436480125,
+            -16.867695945067886
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.75,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap6_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -36.91795839911847,
+            8.264505436480125,
+            -16.067695945067886
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap6_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -33.81795839911847,
+            8.564505436480125,
+            -17.867695945067886
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            6.489590170902925,
+            0.9
+          ],
+          "Position": [
+            -25.32372715348851,
+            3.7447950854514627,
+            -14.255249026353882
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap7_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -25.32372715348851,
+            7.489590170902925,
+            -14.255249026353882
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.25,
+              0.9,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap7_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -26.92372715348851,
+            6.489590170902925,
+            -13.455249026353881
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap7_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -23.82372715348851,
+            6.789590170902925,
+            -15.255249026353882
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk8": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            6.7103692226776115,
+            0.9
+          ],
+          "Position": [
+            7.012763375467056,
+            3.8551846113388057,
+            24.69230902633486
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap8_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            7.012763375467056,
+            7.7103692226776115,
+            24.69230902633486
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.75,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap8_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            5.4127633754670565,
+            6.7103692226776115,
+            25.492309026334862
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap8_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            8.512763375467056,
+            7.010369222677611,
+            23.69230902633486
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk9": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            6.1517510595607465,
+            0.9
+          ],
+          "Position": [
+            27.39255708352122,
+            3.5758755297803733,
+            -27.345268507721546
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap9_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            27.39255708352122,
+            7.1517510595607465,
+            -27.345268507721546
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.4,
+              1.0,
+              0.6
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap9_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            25.792557083521217,
+            6.1517510595607465,
+            -26.545268507721545
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap9_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            28.89255708352122,
+            6.451751059560746,
+            -28.345268507721546
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk10": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.659848414574293,
+            0.9
+          ],
+          "Position": [
+            37.926923242611906,
+            3.3299242072871467,
+            34.75810394711178
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap10_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            37.926923242611906,
+            6.659848414574293,
+            34.75810394711178
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.4,
+              1.0,
+              0.6
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap10_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            36.326923242611905,
+            5.659848414574293,
+            35.558103947111775
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap10_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            39.426923242611906,
+            5.959848414574293,
+            33.75810394711178
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk11": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.156829028189751,
+            0.9
+          ],
+          "Position": [
+            30.66921087307867,
+            3.0784145140948755,
+            -13.669389625406676
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap11_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            30.66921087307867,
+            6.156829028189751,
+            -13.669389625406676
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.4,
+              1.0,
+              0.6
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap11_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            29.069210873078667,
+            5.156829028189751,
+            -12.869389625406676
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap11_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            32.16921087307867,
+            5.456829028189751,
+            -14.669389625406676
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk12": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            6.9866991811959505,
+            0.9
+          ],
+          "Position": [
+            -11.048233442844113,
+            3.9933495905979752,
+            -30.86726739583312
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap12_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -11.048233442844113,
+            7.9866991811959505,
+            -30.86726739583312
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.75,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap12_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -12.648233442844113,
+            6.9866991811959505,
+            -30.06726739583312
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap12_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -9.548233442844113,
+            7.28669918119595,
+            -31.86726739583312
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk13": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.77872438043175,
+            0.9
+          ],
+          "Position": [
+            42.057234671793736,
+            4.889362190215875,
+            19.392800082270416
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap13_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            42.057234671793736,
+            9.77872438043175,
+            19.392800082270416
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap13_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            40.457234671793735,
+            8.77872438043175,
+            20.192800082270416
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap13_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            43.557234671793736,
+            9.078724380431751,
+            18.392800082270416
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk14": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            7.924637338563562,
+            0.9
+          ],
+          "Position": [
+            -19.14502963240514,
+            4.462318669281781,
+            -31.982418372675994
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap14_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -19.14502963240514,
+            8.924637338563562,
+            -31.982418372675994
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap14_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -20.745029632405142,
+            7.924637338563562,
+            -31.182418372675993
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap14_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -17.64502963240514,
+            8.224637338563562,
+            -32.982418372675994
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk15": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.548161168952367,
+            0.9
+          ],
+          "Position": [
+            -40.58651691385118,
+            4.7740805844761836,
+            14.427727916195751
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap15_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -40.58651691385118,
+            9.548161168952367,
+            14.427727916195751
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.4,
+              1.0,
+              0.6
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap15_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -42.18651691385118,
+            8.548161168952367,
+            15.227727916195752
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap15_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -39.08651691385118,
+            8.848161168952368,
+            13.427727916195751
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk16": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.517360888074737,
+            0.9
+          ],
+          "Position": [
+            7.505321550959026,
+            3.2586804440373687,
+            37.071283050833436
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap16_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            7.505321550959026,
+            6.517360888074737,
+            37.071283050833436
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.65,
+              0.4,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap16_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            5.905321550959027,
+            5.517360888074737,
+            37.87128305083343
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap16_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            9.005321550959026,
+            5.817360888074737,
+            36.071283050833436
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk17": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.945868324004744,
+            0.9
+          ],
+          "Position": [
+            -8.560134361096608,
+            4.972934162002372,
+            47.4252153550922
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap17_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -8.560134361096608,
+            9.945868324004744,
+            47.4252153550922
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.4,
+              1.0,
+              0.6
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap17_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -10.160134361096608,
+            8.945868324004744,
+            48.225215355092196
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap17_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -7.060134361096608,
+            9.245868324004745,
+            46.4252153550922
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk18": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.927827467278143,
+            0.9
+          ],
+          "Position": [
+            26.413336466000114,
+            3.4639137336390715,
+            15.172697528507298
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap18_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            26.413336466000114,
+            6.927827467278143,
+            15.172697528507298
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.25,
+              0.9,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap18_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            24.813336466000113,
+            5.927827467278143,
+            15.972697528507299
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap18_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            27.913336466000114,
+            6.227827467278143,
+            14.172697528507298
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk19": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.582705569831923,
+            0.9
+          ],
+          "Position": [
+            -3.239789676958273,
+            3.2913527849159614,
+            40.365652353735655
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap19_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -3.239789676958273,
+            6.582705569831923,
+            40.365652353735655
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap19_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -4.839789676958273,
+            5.582705569831923,
+            41.16565235373565
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap19_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -1.739789676958273,
+            5.882705569831923,
+            39.365652353735655
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk20": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.812391702100381,
+            0.9
+          ],
+          "Position": [
+            -30.055034049963368,
+            4.906195851050191,
+            -24.80408392208177
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap20_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -30.055034049963368,
+            9.812391702100381,
+            -24.80408392208177
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.65,
+              0.4,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap20_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -31.65503404996337,
+            8.812391702100381,
+            -24.00408392208177
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap20_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -28.555034049963368,
+            9.112391702100382,
+            -25.80408392208177
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk21": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            6.569515627565075,
+            0.9
+          ],
+          "Position": [
+            32.31387539731107,
+            3.7847578137825373,
+            -32.51216293879772
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap21_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            32.31387539731107,
+            7.569515627565075,
+            -32.51216293879772
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.75,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap21_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            30.71387539731107,
+            6.569515627565075,
+            -31.71216293879772
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap21_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            33.81387539731107,
+            6.869515627565074,
+            -33.51216293879772
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk22": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            7.537638314135604,
+            0.9
+          ],
+          "Position": [
+            -36.553290928035594,
+            4.268819157067802,
+            -31.847982804600704
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap22_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -36.553290928035594,
+            8.537638314135604,
+            -31.847982804600704
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.25,
+              0.9,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap22_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -38.153290928035595,
+            7.537638314135604,
+            -31.047982804600704
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap22_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -35.053290928035594,
+            7.837638314135604,
+            -32.847982804600704
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk23": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.972410886818857,
+            0.9
+          ],
+          "Position": [
+            27.906496585124138,
+            4.986205443409428,
+            24.713267473857773
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap23_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            27.906496585124138,
+            9.972410886818857,
+            24.713267473857773
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.4,
+              1.0,
+              0.6
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap23_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            26.306496585124137,
+            8.972410886818857,
+            25.513267473857773
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap23_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            29.406496585124138,
+            9.272410886818857,
+            23.713267473857773
+          ],
+          "Color": [
+            0.4,
+            1.0,
+            0.6
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk24": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.820860026806162,
+            0.9
+          ],
+          "Position": [
+            24.933968731683265,
+            3.410430013403081,
+            40.086005063490546
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap24_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            24.933968731683265,
+            6.820860026806162,
+            40.086005063490546
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap24_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            23.333968731683264,
+            5.820860026806162,
+            40.88600506349054
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap24_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            26.433968731683265,
+            6.120860026806162,
+            39.086005063490546
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk25": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.65658313116558,
+            0.9
+          ],
+          "Position": [
+            -32.71753496452666,
+            4.82829156558279,
+            38.673668866342226
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap25_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -32.71753496452666,
+            9.65658313116558,
+            38.673668866342226
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.75,
+              0.25
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap25_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -34.317534964526665,
+            8.65658313116558,
+            39.47366886634222
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap25_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -31.217534964526664,
+            8.95658313116558,
+            37.673668866342226
+          ],
+          "Color": [
+            1.0,
+            0.75,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk26": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            7.073587428531044,
+            0.9
+          ],
+          "Position": [
+            35.31957663731854,
+            4.036793714265523,
+            22.730342777279983
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap26_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            35.31957663731854,
+            8.073587428531045,
+            22.730342777279983
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.65,
+              0.4,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap26_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            33.71957663731854,
+            7.073587428531044,
+            23.530342777279984
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap26_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            36.81957663731854,
+            7.373587428531044,
+            21.730342777279983
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk27": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.22431433914267,
+            0.9
+          ],
+          "Position": [
+            9.837077434408185,
+            4.612157169571335,
+            -39.97790564753009
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap27_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            9.837077434408185,
+            9.22431433914267,
+            -39.97790564753009
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.25,
+              0.9,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap27_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            8.237077434408185,
+            8.22431433914267,
+            -39.177905647530096
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap27_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            11.337077434408185,
+            8.52431433914267,
+            -40.97790564753009
+          ],
+          "Color": [
+            0.25,
+            0.9,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk28": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.774579784051237,
+            0.9
+          ],
+          "Position": [
+            -4.554761181057401,
+            3.3872898920256187,
+            24.360079565025387
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap28_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            -4.554761181057401,
+            6.774579784051237,
+            24.360079565025387
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.65,
+              0.4,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap28_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            -6.154761181057401,
+            5.774579784051237,
+            25.160079565025388
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap28_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            -3.054761181057401,
+            6.074579784051237,
+            23.360079565025387
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk29": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            8.639108550206892,
+            0.9
+          ],
+          "Position": [
+            21.303834643532483,
+            4.819554275103446,
+            -36.204913111266805
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap29_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            21.303834643532483,
+            9.639108550206892,
+            -36.204913111266805
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap29_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            19.70383464353248,
+            8.639108550206892,
+            -35.40491311126681
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap29_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            22.803834643532483,
+            8.939108550206893,
+            -37.204913111266805
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Trunk30": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.9,
+            5.346999430680977,
+            0.9
+          ],
+          "Position": [
+            16.231227108434624,
+            3.1734997153404887,
+            33.67757821360595
+          ],
+          "Color": [
+            0.2,
+            0.15,
+            0.35
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cap30_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            4.6,
+            3.2199999999999998,
+            4.6
+          ],
+          "Position": [
+            16.231227108434624,
+            6.346999430680977,
+            33.67757821360595
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.65,
+              0.4,
+              1.0
+            ],
+            "Range": 16,
+            "Brightness": 0.9,
+            "Shadows": false
+          }
+        }
+      },
+      "Cap30_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.0,
+            2.0999999999999996,
+            3.0
+          ],
+          "Position": [
+            14.631227108434624,
+            5.346999430680977,
+            34.477578213605945
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      },
+      "Cap30_2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.4,
+            2.38,
+            3.4
+          ],
+          "Position": [
+            17.731227108434624,
+            5.646999430680977,
+            32.67757821360595
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.12
+        }
+      }
+    },
+    "PlazaOrbs": {
+      "$className": "Folder",
+      "Orb0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            2.6,
+            2.6
+          ],
+          "Position": [
+            21.0,
+            11,
+            0.0
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.1
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 20,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "Orb1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            2.6,
+            2.6
+          ],
+          "Position": [
+            14.849242404917499,
+            13,
+            14.849242404917497
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.1
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 20,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "Orb2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            2.6,
+            2.6
+          ],
+          "Position": [
+            1.2858791391047208e-15,
+            11,
+            21.0
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.1
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 20,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "Orb3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            2.6,
+            2.6
+          ],
+          "Position": [
+            -14.849242404917497,
+            13,
+            14.849242404917499
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.1
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.65,
+              0.4,
+              1.0
+            ],
+            "Range": 20,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "Orb4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            2.6,
+            2.6
+          ],
+          "Position": [
+            -21.0,
+            11,
+            2.5717582782094417e-15
+          ],
+          "Color": [
+            0.2,
+            0.85,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.1
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.2,
+              0.85,
+              1.0
+            ],
+            "Range": 20,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "Orb5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            2.6,
+            2.6
+          ],
+          "Position": [
+            -14.8492424049175,
+            13,
+            -14.849242404917497
+          ],
+          "Color": [
+            1.0,
+            0.35,
+            0.75
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.1
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.35,
+              0.75
+            ],
+            "Range": 20,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "Orb6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            2.6,
+            2.6
+          ],
+          "Position": [
+            -3.857637417314163e-15,
+            11,
+            -21.0
+          ],
+          "Color": [
+            1.0,
+            0.8,
+            0.25
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.1
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              1.0,
+              0.8,
+              0.25
+            ],
+            "Range": 20,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      },
+      "Orb7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            2.6,
+            2.6
+          ],
+          "Position": [
+            14.849242404917494,
+            13,
+            -14.8492424049175
+          ],
+          "Color": [
+            0.65,
+            0.4,
+            1.0
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Shape": "Ball",
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false,
+          "Transparency": 0.1
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.65,
+              0.4,
+              1.0
+            ],
+            "Range": 20,
+            "Brightness": 1.2,
+            "Shadows": false
+          }
+        }
+      }
+    }
+  }
+}

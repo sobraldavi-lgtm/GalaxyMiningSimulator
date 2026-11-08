@@ -11,6 +11,15 @@ local function findBackpack(config, id)
 	return nil
 end
 
+local function findPet(config, id)
+	for _, pet in ipairs(config.Pets) do
+		if pet.Id == id then
+			return pet
+		end
+	end
+	return nil
+end
+
 function InventoryModel.new(config)
 	local starting = findBackpack(config, config.StartingBackpack)
 	return setmetatable({
@@ -27,6 +36,8 @@ function InventoryModel.new(config)
 		toolName = "Extrator Básico",
 		backpackName = starting.Name,
 		ownedUpgrades = {},
+		ownedPets = {},
+		equippedPet = nil,
 	}, InventoryModel)
 end
 
@@ -36,7 +47,8 @@ function InventoryModel:CanFit(oreType)
 end
 
 function InventoryModel:GetMiningPower()
-	local multiplier = self.luminiEquipped and (1 + self.config.LuminiBonus) or 1
+	local pet = self.equippedPet and findPet(self.config, self.equippedPet)
+	local multiplier = pet and (1 + pet.Bonus) or 1
 	return math.round(self.power * multiplier * 100) / 100 + self:GetTrainingPower()
 end
 
@@ -93,25 +105,35 @@ function InventoryModel:TrainMining()
 	return true, gained
 end
 
-function InventoryModel:SetLuminiEquipped(equipped)
-	if not self.luminiDiscovered then
-		return false
+function InventoryModel:BuyPet(id)
+	local pet = findPet(self.config, id)
+	if not pet then
+		return false, "Pet inválido."
 	end
-	self.luminiEquipped = equipped
-	return true
+	if self.ownedPets[id] then
+		return false, "Você já possui " .. pet.Name .. "."
+	end
+	if self.credits < pet.Price then
+		return false, "Faltam " .. (pet.Price - self.credits) .. " Créditos para resgatar " .. pet.Name .. "."
+	end
+	self.credits -= pet.Price
+	self.ownedPets[id] = true
+	self.equippedPet = id
+	return true, pet.Name .. " resgatado e equipado!"
 end
 
-function InventoryModel:InteractWithLumini(price)
-	local discovered = not self.luminiDiscovered
-	if discovered then
-		if self.credits < price then
-			return false, self.luminiEquipped, "Faltam " .. (price - self.credits) .. " Créditos para resgatar Lumini."
-		end
-		self.credits -= price
+-- id = nil guarda o pet atual.
+function InventoryModel:EquipPet(id)
+	if id == nil then
+		self.equippedPet = nil
+		return true, "Pet guardado."
 	end
-	self.luminiDiscovered = true
-	self.luminiEquipped = not self.luminiEquipped
-	return discovered, self.luminiEquipped
+	local pet = findPet(self.config, id)
+	if not pet or not self.ownedPets[id] then
+		return false, "Você não possui esse pet."
+	end
+	self.equippedPet = id
+	return true, pet.Name .. " equipado • +" .. math.round(pet.Bonus * 100) .. "% de poder."
 end
 
 function InventoryModel:Add(oreType)
@@ -142,6 +164,9 @@ function InventoryModel:Purchase(upgradeId)
 	if self.ownedUpgrades[upgradeId] then
 		return false, "Você já possui " .. upgrade.Name .. "."
 	end
+	if upgrade.Kind == "Tool" and upgrade.Power <= self.power then
+		return false, "Você já tem uma ferramenta melhor."
+	end
 	if self.credits < upgrade.Price then
 		return false, "Créditos insuficientes: faltam " .. (upgrade.Price - self.credits) .. "."
 	end
@@ -162,8 +187,9 @@ function InventoryModel:Snapshot()
 		Weight = self.weight,
 		Capacity = self.capacity,
 		Credits = self.credits,
-		LuminiDiscovered = self.luminiDiscovered == true,
-		LuminiEquipped = self.luminiEquipped == true,
+		OwnedPets = table.clone(self.ownedPets),
+		EquippedPet = self.equippedPet,
+		ToolPower = self.power,
 		Power = self:GetMiningPower(),
 		TrainingPower = self:GetTrainingPower(),
 		PowerCap = self:GetPowerCap(),
