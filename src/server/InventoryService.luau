@@ -11,6 +11,7 @@ local lastBackpack = {}
 local initialized = false
 local remote
 local shopFloor
+local petTerminal
 
 local function getInventory(player)
 	if not inventories[player] then
@@ -58,17 +59,31 @@ function Service.Init()
 	remote.Name = "InventoryState"
 	remote.OnServerEvent:Connect(function(player, action, equipped)
 		local now = os.clock()
-		if action == "SetLuminiEquipped" then
-			local humanoid = player.Character and player.Character:FindFirstChildOfClass("Humanoid")
-			if typeof(equipped) ~= "boolean" or not humanoid or humanoid.Health <= 0
-				or now - (lastPetChange[player] or -math.huge) < 0.6 then
+		if action == "BuyPet" or action == "EquipPet" or action == "UnequipPet" then
+			local character = player.Character
+			local root = character and character:FindFirstChild("HumanoidRootPart")
+			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+			if (action ~= "UnequipPet" and typeof(equipped) ~= "string") or not root or not humanoid
+				or humanoid.Health <= 0 or now - (lastPetChange[player] or -math.huge) < 0.6 then
 				return
 			end
 			lastPetChange[player] = now
-			if getInventory(player):SetLuminiEquipped(equipped) then
-				player:SetAttribute("LuminiEquipped", equipped)
-				publish(player, equipped and "Lumini equipada." or "Lumini guardada.")
+			local inventory = getInventory(player)
+			local ok, message
+			if action == "BuyPet" then
+				-- Resgate presencial no OVNI da Estação de Pets.
+				if not petTerminal or (root.Position - petTerminal.Position).Magnitude > 40 then
+					publish(player, "Vá até a Estação de Pets para resgatar.")
+					return
+				end
+				ok, message = inventory:BuyPet(equipped)
+			elseif action == "EquipPet" then
+				ok, message = inventory:EquipPet(equipped)
+			else
+				ok, message = inventory:EquipPet(nil)
 			end
+			player:SetAttribute("EquippedPet", inventory.equippedPet)
+			publish(player, message, (ok and action == "BuyPet") and equipped or nil)
 			return
 		end
 		if action == "BuyBackpack" or action == "EquipBackpack" or action == "BuyUpgrade" then
@@ -113,37 +128,15 @@ function Service.Init()
 
 	local world = workspace:WaitForChild("TerraNova")
 	local counter = world:WaitForChild("SaleStation"):WaitForChild("Counter")
-	local discovery = world:WaitForChild("PetShop"):WaitForChild("Terminal")
-	local price = 75
-	local encounter = Instance.new("ProximityPrompt")
-	encounter.ActionText = "Resgatar / equipar"
-	encounter.ObjectText = "Lumini • primeiro resgate: " .. price .. " Créditos"
-	encounter.MaxActivationDistance = 9
-	encounter.HoldDuration = 0.35
-	encounter.RequiresLineOfSight = false
-	encounter.Triggered:Connect(function(player)
-		local character = player.Character
-		local root = character and character:FindFirstChild("HumanoidRootPart")
-		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-		if not encounter.Enabled or not root or not humanoid or humanoid.Health <= 0
-			or (root.Position - discovery.Position).Magnitude > encounter.MaxActivationDistance then
-			return
-		end
-		local now = os.clock()
-		if now - (lastPetChange[player] or -math.huge) < 0.6 then
-			return
-		end
-		lastPetChange[player] = now
-		local discovered, equipped, errorMessage = getInventory(player):InteractWithLumini(price)
-		if errorMessage then
-			publish(player, errorMessage)
-			return
-		end
-		player:SetAttribute("LuminiEquipped", equipped)
-		local message = equipped and "Lumini equipada • +10% de poder." or "Lumini guardada na coleção."
-		publish(player, discovered and "Lumini resgatada e equipada!" or message, discovered and "Lumini" or nil)
-	end)
-	encounter.Parent = discovery
+	petTerminal = world:WaitForChild("PetShop"):WaitForChild("Terminal")
+	local openPets = Instance.new("ProximityPrompt")
+	openPets.Name = "OpenPets"
+	openPets.ActionText = "Resgatar / equipar pets"
+	openPets.ObjectText = "OVNI de resgate"
+	openPets.HoldDuration = 0
+	openPets.MaxActivationDistance = 10
+	openPets.RequiresLineOfSight = false
+	openPets.Parent = petTerminal
 	local prompt = Instance.new("ProximityPrompt")
 	prompt.Name = "SellMinerals"
 	prompt.ActionText = "Vender minerais"

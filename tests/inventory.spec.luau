@@ -86,3 +86,31 @@ trainer:Sell()
 equal(trainer:EquipBackpack("Dust01"), true, "Troca para mochila inicial vazia")
 equal(trainer:Snapshot().TrainingPower, 3, "Poder efetivo cai ao limite da mochila equipada")
 print("PASS: 20 mochilas, compra, equipar e limite de poder por mochila.")
+
+-- Ferramentas, minérios e pets ampliados.
+equal(#Config.Backpacks, 20, "20 mochilas")
+local count = 0
+for id, upgrade in pairs(Config.Upgrades) do
+	if upgrade.Kind == "Tool" then count += 1 end
+end
+equal(count, 20, "Broca de Titânio + 19 novas ferramentas")
+local oreCount = 0
+for _ in pairs(Config.Ores) do oreCount += 1 end
+equal(oreCount, 9, "3 minérios originais + 6 novos")
+equal(#Config.Pets, 6, "Lumini + 5 novos pets")
+local pets = InventoryModel.new(Config)
+pets.credits = 100
+equal(pets:BuyPet("Rokko"), false, "Rokko sem saldo")
+equal(pets:BuyPet("Lumini"), true, "Compra Lumini por 75")
+equal(pets:Snapshot().Credits, 25, "Desconta 75")
+equal(pets:Snapshot().EquippedPet, "Lumini", "Lumini equipada ao resgatar")
+equal(pets:Snapshot().Power, 5.5, "Bônus de +10% sobre poder 5")
+equal(pets:BuyPet("Lumini"), false, "Pet duplicado rejeitado")
+equal(pets:EquipPet(nil), true, "Guarda pet")
+equal(pets:Snapshot().Power, 5, "Sem pet, sem bônus")
+equal(pets:EquipPet("Solari"), false, "Não equipa pet não possuído")
+pets.credits = 5000
+equal(pets:Purchase("Tool03"), true, "Compra ferramenta nova")
+equal(pets:Purchase("TitaniumDrill"), false, "Não compra ferramenta inferior")
+equal(pets:Snapshot().ToolPower, 50, "Ferramenta nova equipada")
+print("PASS: 20 ferramentas, 9 minérios, 6 pets.")

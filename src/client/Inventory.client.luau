@@ -194,34 +194,38 @@ end
 local infoLabels = {}
 local motionButton
 local backpackTab = "Minérios"
-local petCatalog = {
-	{
-		Name = "Lumini",
-		Bonus = string.format("+%d%% de poder da ferramenta", math.round(Config.LuminiBonus * 100)),
-		OwnedField = "LuminiDiscovered",
-		EquippedField = "LuminiEquipped",
-		Action = "SetLuminiEquipped",
-	},
-}
+local oreList = {}
+for id, ore in pairs(Config.Ores) do
+	table.insert(oreList, { id = id, ore = ore })
+end
+table.sort(oreList, function(a, b) return a.ore.Value < b.ore.Value end)
 local petCards = {}
 local function renderState()
 	if not state then return end
 	if infoLabels.inventory then
-		infoLabels.inventory.Text = string.format("Ferro  %d   •   Cobre  %d   •   Cristal  %d\nCarga: %d / %d\n%s  •  %s",
-			state.Items.Iron or 0, state.Items.Copper or 0, state.Items.Crystal or 0,
-			state.Weight, state.Capacity, state.ToolName, state.BackpackName)
+		local lines = {}
+		for _, entry in ipairs(oreList) do
+			local count = state.Items[entry.id] or 0
+			if count > 0 then
+				table.insert(lines, entry.ore.Name .. "  ×" .. count)
+			end
+		end
+		if #lines == 0 then lines[1] = "Nenhum minério na mochila." end
+		table.insert(lines, string.format("Carga: %d / %d", state.Weight, state.Capacity))
+		table.insert(lines, state.ToolName .. "  •  " .. state.BackpackName)
+		infoLabels.inventory.Text = table.concat(lines, "\n")
 	elseif infoLabels.emptyPets then
 		local hasPets = false
 		for _, petCard in ipairs(petCards) do
 			local pet = petCard.pet
-			local owned = state[pet.OwnedField] == true
-			local equipped = state[pet.EquippedField] == true
+			local owned = state.OwnedPets[pet.Id] == true
+			local equipped = state.EquippedPet == pet.Id
 			petCard.frame.Visible = owned
-			petCard.status.Text = equipped and "EQUIPADA" or "GUARDADA"
+			petCard.status.Text = equipped and "EQUIPADO" or "GUARDADO"
 			petCard.button.Text = equipped and "Guardar" or "Equipar"
 			hasPets = hasPets or owned
 		end
-		infoLabels.emptyPets.Text = "Nenhum pet na coleção. Visite o OVNI para resgatar Lumini."
+		infoLabels.emptyPets.Text = "Nenhum pet na coleção. Visite o OVNI para resgatar seu primeiro pet."
 		infoLabels.emptyPets.Visible = not hasPets
 	end
 end
@@ -272,14 +276,14 @@ local function openMenu(name)
 			row("Localizar Estação de Venda", function() locate("SaleStation", "Counter") end)
 		else
 			infoLabels.emptyPets = row("Carregando coleção…", nil, 62)
-			for _, pet in ipairs(petCatalog) do
+			for _, pet in ipairs(Config.Pets) do
 				order += 1
 				local frame = surface(body, pet.Name, Theme.Color.Violet)
 				frame.Size = UDim2.new(1, -9, 0, 132)
 				frame.LayoutOrder = order
 				frame.ZIndex = 6
 				frame.Visible = false
-				local nameLabel = Theme.label(frame, "✦  " .. pet.Name .. "  •  " .. pet.Bonus, 15, Theme.Color.Cyan)
+				local nameLabel = Theme.label(frame, "✦  " .. pet.Name .. "  •  +" .. math.round(pet.Bonus * 100) .. "% de poder", 15, Color3.fromHex(pet.Color))
 				nameLabel.Size = UDim2.new(1, -12, 0, 42)
 				nameLabel.Position = UDim2.fromOffset(6, 4)
 				nameLabel.ZIndex = 7
@@ -292,8 +296,12 @@ local function openMenu(name)
 				button.Size = UDim2.new(1, -20, 0, 44)
 				button.ZIndex = 7
 				button.Activated:Connect(function()
-					if state and state[pet.OwnedField] then
-						remote:FireServer(pet.Action, not state[pet.EquippedField])
+					if state and state.OwnedPets[pet.Id] then
+						if state.EquippedPet == pet.Id then
+							remote:FireServer("UnequipPet")
+						else
+							remote:FireServer("EquipPet", pet.Id)
+						end
 					end
 				end)
 				table.insert(petCards, { pet = pet, frame = frame, status = status, button = button })
@@ -380,7 +388,7 @@ remote.OnClientEvent:Connect(function(snapshot)
 	end
 	fill.BackgroundColor3 = ratio >= 1 and Theme.Color.Amber or Theme.Color.Cyan
 	if snapshot.PetReveal then
-		notify("✦  LUMINI RESGATADA  •  Equipada")
+		notify("✦  " .. string.upper(tostring(snapshot.PetReveal)) .. " RESGATADO  •  Equipado")
 	elseif snapshot.Message then
 		notify(snapshot.Message)
 	end
