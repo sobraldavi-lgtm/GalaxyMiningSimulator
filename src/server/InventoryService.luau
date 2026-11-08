@@ -71,7 +71,7 @@ function Service.Init()
 			end
 			return
 		end
-		if action == "BuyBackpack" or action == "EquipBackpack" then
+		if action == "BuyBackpack" or action == "EquipBackpack" or action == "BuyUpgrade" then
 			local character = player.Character
 			local root = character and character:FindFirstChild("HumanoidRootPart")
 			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
@@ -81,13 +81,18 @@ function Service.Init()
 			end
 			lastBackpack[player] = now
 			local inventory = getInventory(player)
-			if action == "BuyBackpack" then
+			if action == "BuyBackpack" or action == "BuyUpgrade" then
 				-- Compra presencial: exige estar perto da Loja Orion.
 				if not shopFloor or (root.Position - shopFloor.Position).Magnitude > 45 then
-					publish(player, "Vá até a Loja Orion para comprar mochilas.")
+					publish(player, "Vá até a Loja Orion para comprar.")
 					return
 				end
-				local _, message = inventory:BuyBackpack(equipped)
+				local _, message
+				if action == "BuyBackpack" then
+					_, message = inventory:BuyBackpack(equipped)
+				else
+					_, message = inventory:Purchase(equipped)
+				end
 				publish(player, message)
 			else
 				local _, message = inventory:EquipBackpack(equipped)
@@ -169,45 +174,20 @@ function Service.Init()
 	end)
 	prompt.Parent = counter
 
-	-- Compra presencial em expositores separados. IDs, preços e efeitos são do servidor.
+	-- A loja é um menu: o prompt só pede ao cliente para abrir a interface.
+	-- Preços, saldo e efeitos continuam validados pelo servidor nas compras.
 	local shop = world:WaitForChild("Shop")
 	shopFloor = shop:WaitForChild("Floor")
-	local offers = {
-		{ Id = "TitaniumDrill", Display = "Display-74", Key = Enum.KeyCode.F, GamepadKey = Enum.KeyCode.ButtonY },
-	}
-	for _, offer in ipairs(offers) do
-		local display = shop:WaitForChild(offer.Display)
-		local upgrade = Config.Upgrades[offer.Id]
-		local buyPrompt = Instance.new("ProximityPrompt")
-		buyPrompt.Name = "Buy" .. offer.Id
-		buyPrompt.ActionText = "Comprar • " .. upgrade.Price .. " Créditos"
-		buyPrompt.ObjectText = upgrade.Name
-		buyPrompt.KeyboardKeyCode = offer.Key
-		buyPrompt.GamepadKeyCode = offer.GamepadKey
-		buyPrompt.HoldDuration = 0.4
-		buyPrompt.MaxActivationDistance = 10
-		buyPrompt.RequiresLineOfSight = false
-		buyPrompt.Exclusivity = Enum.ProximityPromptExclusivity.OnePerButton
-		buyPrompt.Triggered:Connect(function(player)
-			local now = os.clock()
-			if now - (lastSale[player] or -math.huge) < 0.5 then
-				return
-			end
-			lastSale[player] = now
-			local character = player.Character
-			local root = character and character:FindFirstChild("HumanoidRootPart")
-			local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-			if not buyPrompt.Enabled or not root or not humanoid or humanoid.Health <= 0 then
-				return
-			end
-			if (root.Position - display.Position).Magnitude > buyPrompt.MaxActivationDistance then
-				return
-			end
-			local _, message = getInventory(player):Purchase(offer.Id)
-			publish(player, message)
-		end)
-		buyPrompt.Parent = display
-	end
+	local openShop = Instance.new("ProximityPrompt")
+	openShop.Name = "OpenShop"
+	openShop.ActionText = "Abrir loja"
+	openShop.ObjectText = "Loja Orion"
+	openShop.KeyboardKeyCode = Enum.KeyCode.E
+	openShop.GamepadKeyCode = Enum.KeyCode.ButtonX
+	openShop.HoldDuration = 0
+	openShop.MaxActivationDistance = 14
+	openShop.RequiresLineOfSight = false
+	openShop.Parent = shop:WaitForChild("PurchaseDesk")
 
 	Players.PlayerRemoving:Connect(function(player)
 		inventories[player] = nil

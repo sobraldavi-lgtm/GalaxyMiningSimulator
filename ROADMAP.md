@@ -21,7 +21,7 @@
    pendentes no Studio.
 2. Mineração por cliques e depósitos independentes por jogador: protótipo implementado; testes no Studio pendentes (docs/MINING-TEST.md).
 3. Inventário por peso, venda e Créditos: implementados em memória; teste integrado no Studio pendente.
-4. Ferramentas, mochilas e loja: Broca de Titânio e Mochila Reforçada implementadas; teste no Studio pendente.
+4. Ferramentas, mochilas e loja: Broca de Titânio e 20 Mochilas de Poeira Cósmica (limite de poder por mochila) em menu de loja; teste no Studio pendente.
 5. Estação de pets com OVNI em Terra Nova. Primeiro resgate de Lumini por 75 Créditos, com equipamento e bônus em sessão. Revisão no Studio, Rokko e Nebbi pendentes.
 6. Cinco missões de ORBI e progressão.
 7. Interfaces: contorno de seleção, barras animadas, feedback de dano/coleta e painel

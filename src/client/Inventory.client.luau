@@ -204,19 +204,8 @@ local petCatalog = {
 	},
 }
 local petCards = {}
-local backpackCards = {}
 local function renderState()
 	if not state then return end
-	for _, card in ipairs(backpackCards) do
-		local backpack = card.backpack
-		if state.BackpackId == backpack.Id then
-			card.button.Text = "✔ EQUIPADA"
-		elseif state.OwnedBackpacks[backpack.Id] then
-			card.button.Text = "Equipar"
-		else
-			card.button.Text = "Comprar • " .. backpack.Price .. " Créditos"
-		end
-	end
 	if infoLabels.inventory then
 		infoLabels.inventory.Text = string.format("Ferro  %d   •   Cobre  %d   •   Cristal  %d\nCarga: %d / %d\n%s  •  %s",
 			state.Items.Iron or 0, state.Items.Copper or 0, state.Items.Crystal or 0,
@@ -239,6 +228,11 @@ end
 
 local function openMenu(name)
 	if closing then return end
+	if name == "Loja" then
+		-- A loja tem interface própria (Shop.client.luau).
+		playerGui:SetAttribute("GalaxyShopRequest", os.clock())
+		return
+	end
 	title.Text = name
 	body.CanvasPosition = Vector2.zero
 	for _, child in ipairs(body:GetChildren()) do
@@ -246,7 +240,6 @@ local function openMenu(name)
 	end
 	table.clear(infoLabels)
 	table.clear(petCards)
-	table.clear(backpackCards)
 	local order = 0
 	local function row(text, action, height)
 		order += 1
@@ -257,65 +250,7 @@ local function openMenu(name)
 		if action then item.Activated:Connect(action) end
 		return item
 	end
-	if name == "Loja" then
-		row("LOJA ORION  /  Equipamentos\nCompre melhorias nos expositores da loja.", nil, 64)
-		local function offerCard(offer, detail, display, accent, illustration)
-			order += 1
-			local offerPanel = surface(body, offer.Name, accent)
-			offerPanel.LayoutOrder = order
-			offerPanel.Size = UDim2.new(1, -9, 0, 116)
-			offerPanel.ZIndex = 6
-			local badge = Theme.illustration(offerPanel, illustration, accent)
-			badge.Position = UDim2.fromOffset(10, 13)
-			local summary = Theme.label(offerPanel, offer.Name .. "\n" .. detail, 14)
-			summary.Size = UDim2.new(1, -65, 0, 42)
-			summary.Position = UDim2.fromOffset(53, 5)
-			summary.TextXAlignment = Enum.TextXAlignment.Left
-			summary.ZIndex = 7
-			local price = Theme.label(offerPanel, offer.Price .. " CRÉDITOS", 14, Theme.Color.Amber)
-			price.Size = UDim2.new(1, 0, 0, 20)
-			price.Position = UDim2.fromOffset(0, 43)
-			price.ZIndex = 7
-			local find = Theme.action(offerPanel, "Localizar expositor")
-			find.Position = UDim2.fromOffset(10, 66)
-			find.Size = UDim2.new(1, -20, 0, 42)
-			find.ZIndex = 7
-			find.Activated:Connect(function() locate("Shop", display) end)
-		end
-		local drill = Config.Upgrades.TitaniumDrill
-		offerCard(drill, drill.Power .. " poder", "Display-74", Theme.Color.Cyan, "drill")
-		row("MOCHILAS DE POEIRA CÓSMICA\nCarga maior e limite de poder de treino maior. Compre perto da loja.", nil, 70)
-		for index, backpack in ipairs(Config.Backpacks) do
-			order += 1
-			local tint = Color3.fromHex(backpack.Color)
-			local frame = surface(body, backpack.Id, tint)
-			frame.LayoutOrder = order
-			frame.Size = UDim2.new(1, -9, 0, 112)
-			frame.ZIndex = 6
-			local badge = Theme.illustration(frame, "pack", tint)
-			badge.Position = UDim2.fromOffset(10, 10)
-			local info = Theme.label(frame, string.format("%d. %s\nCarga %d  •  Limite de poder +%d",
-				index, backpack.Name, backpack.Capacity, backpack.PowerCap), 14)
-			info.Position = UDim2.fromOffset(52, 4)
-			info.Size = UDim2.new(1, -62, 0, 44)
-			info.TextXAlignment = Enum.TextXAlignment.Left
-			info.ZIndex = 7
-			local button = Theme.action(frame, "")
-			button.Position = UDim2.fromOffset(10, 56)
-			button.Size = UDim2.new(1, -20, 0, 44)
-			button.ZIndex = 7
-			button.Activated:Connect(function()
-				if not state then return end
-				if state.OwnedBackpacks[backpack.Id] then
-					remote:FireServer("EquipBackpack", backpack.Id)
-				else
-					remote:FireServer("BuyBackpack", backpack.Id)
-				end
-			end)
-			table.insert(backpackCards, { backpack = backpack, button = button })
-		end
-		row("Localizar Estação de Venda", function() locate("SaleStation", "Counter") end)
-	elseif name == "Mochila" then
+	if name == "Mochila" then
 		local tabs = Instance.new("Frame", body)
 		tabs.BackgroundTransparency = 1
 		tabs.Size = UDim2.new(1, -9, 0, 44)
@@ -334,6 +269,7 @@ local function openMenu(name)
 		end
 		if backpackTab == "Minérios" then
 			infoLabels.inventory = row("Carregando inventário…", nil, 98)
+			row("Localizar Estação de Venda", function() locate("SaleStation", "Counter") end)
 		else
 			infoLabels.emptyPets = row("Carregando coleção…", nil, 62)
 			for _, pet in ipairs(petCatalog) do
