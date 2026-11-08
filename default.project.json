@@ -1,0 +1,84 @@
+{
+  "name": "GalaxyMiningSimulator",
+  "serveAddress": "127.0.0.1",
+  "servePort": 34872,
+  "tree": {
+    "$className": "DataModel",
+    "$ignoreUnknownInstances": true,
+    "Workspace": {
+      "$className": "Workspace",
+      "$ignoreUnknownInstances": true,
+      "TerraNova": { "$path": "src/world/terra-nova.project.json" },
+      "SpawnLocation": {
+        "$className": "SpawnLocation",
+        "$ignoreUnknownInstances": true,
+        "$properties": {
+          "Anchored": true,
+          "Position": [0, 1.5, 0],
+          "Size": [8, 1, 8],
+          "Neutral": true,
+          "Duration": 0,
+          "Color": [0.15, 0.85, 0.95],
+          "Material": "Metal"
+        }
+      }
+    },
+    "Lighting": {
+      "$className": "Lighting",
+      "$ignoreUnknownInstances": true,
+      "$properties": {
+        "ClockTime": 15.0,
+        "Brightness": 2.25,
+        "Ambient": [0.37, 0.39, 0.52],
+        "OutdoorAmbient": [0.57, 0.62, 0.73],
+        "EnvironmentDiffuseScale": 0.45,
+        "EnvironmentSpecularScale": 0.5
+      },
+      "TerraNovaAtmosphere": {
+        "$className": "Atmosphere",
+        "$properties": {
+          "Density": 0.255,
+          "Haze": 1.55,
+          "Offset": 0.08,
+          "Glare": 0,
+          "Color": [0.63, 0.81, 1.0],
+          "Decay": [0.52, 0.43, 0.73]
+        }
+      },
+      "TerraNovaColor": {
+        "$className": "ColorCorrectionEffect",
+        "$properties": {
+          "Contrast": 0.06,
+          "Saturation": 0.06,
+          "TintColor": [0.98, 0.97, 1.0]
+        }
+      }
+    },
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "$ignoreUnknownInstances": true,
+      "Shared": {
+        "$path": "src/shared"
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "$ignoreUnknownInstances": true,
+      "Server": {
+        "$path": "src/server"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "$ignoreUnknownInstances": true,
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "$ignoreUnknownInstances": true,
+        "Client": {
+          "$path": "src/client"
+        }
+      }
+    }
+  }
+}
+

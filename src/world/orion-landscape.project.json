@@ -1,0 +1,4367 @@
+{
+  "name": "OrionLandscape",
+  "tree": {
+    "$className": "Model",
+    "OrionPlaza": {
+      "$className": "Folder",
+      "Foundation": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.6,
+            36,
+            36
+          ],
+          "Position": [
+            0,
+            0.65,
+            0
+          ],
+          "Color": [
+            0.045,
+            0.09,
+            0.22
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "SilverCollar": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.12,
+            35.2,
+            35.2
+          ],
+          "Position": [
+            0,
+            0.99,
+            0
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "FlightDeck": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.18,
+            33.6,
+            33.6
+          ],
+          "Position": [
+            0,
+            1.04,
+            0
+          ],
+          "Color": [
+            0.18,
+            0.33,
+            0.54
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "CenterInlay": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.04,
+            12,
+            12
+          ],
+          "Position": [
+            0,
+            1.15,
+            0
+          ],
+          "Color": [
+            0.045,
+            0.09,
+            0.22
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "RingInlay0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            15.5,
+            1.15,
+            0
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -90,
+            0
+          ]
+        }
+      },
+      "RingInlay1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            14.320132753924945,
+            1.15,
+            5.931593201658892
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -112.5,
+            0
+          ]
+        }
+      },
+      "RingInlay2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            10.960155108391488,
+            1.15,
+            10.960155108391486
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -135,
+            0
+          ]
+        }
+      },
+      "RingInlay3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            5.931593201658893,
+            1.15,
+            14.320132753924945
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -157.5,
+            0
+          ]
+        }
+      },
+      "RingInlay4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            9.491012693391988E-16,
+            1.15,
+            15.5
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -180,
+            0
+          ]
+        }
+      },
+      "RingInlay5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            -5.931593201658891,
+            1.15,
+            14.320132753924945
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -202.5,
+            0
+          ]
+        }
+      },
+      "RingInlay6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            -10.960155108391486,
+            1.15,
+            10.960155108391488
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -225,
+            0
+          ]
+        }
+      },
+      "RingInlay7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            -14.320132753924945,
+            1.15,
+            5.9315932016588935
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -247.5,
+            0
+          ]
+        }
+      },
+      "RingInlay8": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            -15.5,
+            1.15,
+            1.8982025386783976E-15
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -270,
+            0
+          ]
+        }
+      },
+      "RingInlay9": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            -14.320132753924947,
+            1.15,
+            -5.93159320165889
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -292.5,
+            0
+          ]
+        }
+      },
+      "RingInlay10": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            -10.96015510839149,
+            1.15,
+            -10.960155108391486
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -315,
+            0
+          ]
+        }
+      },
+      "RingInlay11": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            -5.931593201658901,
+            1.15,
+            -14.320132753924941
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -337.5,
+            0
+          ]
+        }
+      },
+      "RingInlay12": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            -2.847303808017596E-15,
+            1.15,
+            -15.5
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -360,
+            0
+          ]
+        }
+      },
+      "RingInlay13": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            5.931593201658895,
+            1.15,
+            -14.320132753924943
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -382.5,
+            0
+          ]
+        }
+      },
+      "RingInlay14": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            10.960155108391485,
+            1.15,
+            -10.96015510839149
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -405,
+            0
+          ]
+        }
+      },
+      "RingInlay15": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.055,
+            0.34
+          ],
+          "Position": [
+            14.320132753924941,
+            1.15,
+            -5.9315932016589015
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -427.5,
+            0
+          ]
+        }
+      },
+      "GateFoot-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3,
+            0.65,
+            3
+          ],
+          "Position": [
+            -10,
+            1.45,
+            -8
+          ],
+          "Color": [
+            0.045,
+            0.09,
+            0.22
+          ],
+          "Material": "SmoothPlastic"
+        }
+      },
+      "GatePylon-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            1.9,
+            7.2,
+            2.8
+          ],
+          "Position": [
+            -10,
+            5,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            -10
+          ]
+        }
+      },
+      "GatePylonLight-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.42,
+            5.7,
+            2.93
+          ],
+          "Position": [
+            -10,
+            5,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            -10
+          ]
+        }
+      },
+      "GateFoot1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3,
+            0.65,
+            3
+          ],
+          "Position": [
+            10,
+            1.45,
+            -8
+          ],
+          "Color": [
+            0.045,
+            0.09,
+            0.22
+          ],
+          "Material": "SmoothPlastic"
+        }
+      },
+      "GatePylon1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            1.9,
+            7.2,
+            2.8
+          ],
+          "Position": [
+            10,
+            5,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            10
+          ]
+        }
+      },
+      "GatePylonLight1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.42,
+            5.7,
+            2.93
+          ],
+          "Position": [
+            10,
+            5,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            10
+          ]
+        }
+      },
+      "OrbitFrame0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            9.678833994094857,
+            8.420201433256686,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            110
+          ]
+        }
+      },
+      "OrbitCore0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            9.678833994094857,
+            8.420201433256686,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            110
+          ]
+        }
+      },
+      "OrbitFrame1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            8.171539404999724,
+            11.087614290087206,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            127.5
+          ]
+        }
+      },
+      "OrbitCore1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            8.171539404999724,
+            11.087614290087206,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            127.5
+          ]
+        }
+      },
+      "OrbitFrame2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            5.907837294415776,
+            13.191520442889917,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            145
+          ]
+        }
+      },
+      "OrbitCore2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            5.907837294415776,
+            13.191520442889917,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            145
+          ]
+        }
+      },
+      "OrbitFrame3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            3.0972697348940152,
+            14.537169507482268,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            162.5
+          ]
+        }
+      },
+      "OrbitCore3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            3.0972697348940152,
+            14.537169507482268,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            162.5
+          ]
+        }
+      },
+      "OrbitFrame4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            6.30693101560887E-16,
+            15,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            180
+          ]
+        }
+      },
+      "OrbitCore4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            6.30693101560887E-16,
+            15,
+            -8
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            180
+          ]
+        }
+      },
+      "OrbitFrame5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            -3.0972697348940117,
+            14.53716950748227,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            197.5
+          ]
+        }
+      },
+      "OrbitCore5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            -3.0972697348940117,
+            14.53716950748227,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            197.5
+          ]
+        }
+      },
+      "OrbitFrame6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            -5.907837294415772,
+            13.19152044288992,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            215
+          ]
+        }
+      },
+      "OrbitCore6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            -5.907837294415772,
+            13.19152044288992,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            215
+          ]
+        }
+      },
+      "OrbitFrame7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            -8.171539404999724,
+            11.087614290087204,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            232.50000000000003
+          ]
+        }
+      },
+      "OrbitCore7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            -8.171539404999724,
+            11.087614290087204,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            232.50000000000003
+          ]
+        }
+      },
+      "OrbitFrame8": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.4,
+            1.6,
+            2.6
+          ],
+          "Position": [
+            -9.678833994094857,
+            8.42020143325669,
+            -8
+          ],
+          "Color": [
+            0.56,
+            0.72,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Orientation": [
+            0,
+            0,
+            250
+          ]
+        }
+      },
+      "OrbitCore8": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.2,
+            0.34,
+            2.68
+          ],
+          "Position": [
+            -9.678833994094857,
+            8.42020143325669,
+            -8
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            250
+          ]
+        }
+      }
+    },
+    "RouteNetwork": {
+      "$className": "Folder",
+      "MineDeck0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            8.43010988928052
+          ],
+          "Position": [
+            -1,
+            0.67,
+            -19.5
+          ],
+          "Color": [
+            0.2,
+            0.38,
+            0.53
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            -164.05460409907712,
+            0
+          ]
+        }
+      },
+      "MineRail0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            4.659270329139532
+          ],
+          "Position": [
+            2.4134100141249215,
+            0.82,
+            -20.475260004035693
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -164.05460409907712,
+            0
+          ]
+        }
+      },
+      "MineRail0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            4.659270329139532
+          ],
+          "Position": [
+            -4.4134100141249215,
+            0.82,
+            -18.524739995964307
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -164.05460409907712,
+            0
+          ]
+        }
+      },
+      "MineDeck1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            8.43010988928052
+          ],
+          "Position": [
+            -3,
+            0.67,
+            -26.5
+          ],
+          "Color": [
+            0.2,
+            0.38,
+            0.53
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            -164.05460409907712,
+            0
+          ]
+        }
+      },
+      "MineRail1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            4.659270329139532
+          ],
+          "Position": [
+            0.4134100141249215,
+            0.82,
+            -27.475260004035693
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -164.05460409907712,
+            0
+          ]
+        }
+      },
+      "MineRail1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            4.659270329139532
+          ],
+          "Position": [
+            -6.4134100141249215,
+            0.82,
+            -25.524739995964307
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -164.05460409907712,
+            0
+          ]
+        }
+      },
+      "MineDeck2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            9.396211251235322
+          ],
+          "Position": [
+            -3,
+            0.67,
+            -34
+          ],
+          "Color": [
+            0.2,
+            0.38,
+            0.53
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            165.96375653207352,
+            0
+          ]
+        }
+      },
+      "MineRail2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            5.277575200790606
+          ],
+          "Position": [
+            0.44400587551592796,
+            0.82,
+            -33.13899853112102
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            165.96375653207352,
+            0
+          ]
+        }
+      },
+      "MineRail2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            5.277575200790606
+          ],
+          "Position": [
+            -6.444005875515928,
+            0.82,
+            -34.86100146887898
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            165.96375653207352,
+            0
+          ]
+        }
+      },
+      "MineDeck3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            8.43010988928052
+          ],
+          "Position": [
+            -1,
+            0.67,
+            -41.5
+          ],
+          "Color": [
+            0.2,
+            0.38,
+            0.53
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            164.05460409907712,
+            0
+          ]
+        }
+      },
+      "MineRail3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            4.659270329139532
+          ],
+          "Position": [
+            2.4134100141249215,
+            0.82,
+            -40.52473999596431
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            164.05460409907712,
+            0
+          ]
+        }
+      },
+      "MineRail3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            4.659270329139532
+          ],
+          "Position": [
+            -4.4134100141249215,
+            0.82,
+            -42.47526000403569
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            164.05460409907712,
+            0
+          ]
+        }
+      },
+      "CommerceDeck0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            8.43010988928052
+          ],
+          "Position": [
+            -19.5,
+            0.67,
+            1
+          ],
+          "Color": [
+            0.3,
+            0.29,
+            0.46
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            -74.05460409907715,
+            0
+          ]
+        }
+      },
+      "CommerceRail0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            4.659270329139532
+          ],
+          "Position": [
+            -20.475260004035693,
+            0.82,
+            -2.4134100141249215
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -74.05460409907715,
+            0
+          ]
+        }
+      },
+      "CommerceRail0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            4.659270329139532
+          ],
+          "Position": [
+            -18.524739995964307,
+            0.82,
+            4.4134100141249215
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -74.05460409907715,
+            0
+          ]
+        }
+      },
+      "CommerceDeck1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            11.348039027185571
+          ],
+          "Position": [
+            -28,
+            0.67,
+            3
+          ],
+          "Color": [
+            0.3,
+            0.29,
+            0.46
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            -78.69006752597979,
+            0
+          ]
+        }
+      },
+      "CommerceRail1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            6.526744977398765
+          ],
+          "Position": [
+            -28.696212279740553,
+            0.82,
+            -0.4810613987027663
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -78.69006752597979,
+            0
+          ]
+        }
+      },
+      "CommerceRail1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            6.526744977398765
+          ],
+          "Position": [
+            -27.303787720259447,
+            0.82,
+            6.481061398702766
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -78.69006752597979,
+            0
+          ]
+        }
+      },
+      "CommerceDeck2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            11.19987562112089
+          ],
+          "Position": [
+            -38,
+            0.67,
+            3.5
+          ],
+          "Color": [
+            0.3,
+            0.29,
+            0.46
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            -95.71059313749964,
+            0
+          ]
+        }
+      },
+      "CommerceRail2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            6.43192039751737
+          ],
+          "Position": [
+            -37.646761797475456,
+            0.82,
+            -0.03238202524546141
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -95.71059313749964,
+            0
+          ]
+        }
+      },
+      "CommerceRail2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            6.43192039751737
+          ],
+          "Position": [
+            -38.353238202524544,
+            0.82,
+            7.032382025245461
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -95.71059313749964,
+            0
+          ]
+        }
+      },
+      "CommerceDeck3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            12.55175425099138
+          ],
+          "Position": [
+            -48.5,
+            0.67,
+            1.5
+          ],
+          "Color": [
+            0.3,
+            0.29,
+            0.46
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            -105.25511870305778,
+            0
+          ]
+        }
+      },
+      "CommerceRail3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            7.297122720634483
+          ],
+          "Position": [
+            -47.565933209438015,
+            0.82,
+            -1.9249115653939488
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -105.25511870305778,
+            0
+          ]
+        }
+      },
+      "CommerceRail3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            7.297122720634483
+          ],
+          "Position": [
+            -49.434066790561985,
+            0.82,
+            4.924911565393948
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            -105.25511870305778,
+            0
+          ]
+        }
+      },
+      "HangarDeck0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            9.396211251235322
+          ],
+          "Position": [
+            20,
+            0.67,
+            -1
+          ],
+          "Color": [
+            0.38,
+            0.34,
+            0.28
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            104.0362434679265,
+            0
+          ]
+        }
+      },
+      "HangarRail0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            5.277575200790606
+          ],
+          "Position": [
+            20.86100146887898,
+            0.82,
+            2.444005875515928
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            104.0362434679265,
+            0
+          ]
+        }
+      },
+      "HangarRail0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            5.277575200790606
+          ],
+          "Position": [
+            19.13899853112102,
+            0.82,
+            -4.444005875515928
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            104.0362434679265,
+            0
+          ]
+        }
+      },
+      "HangarDeck1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            12.195361017187262
+          ],
+          "Position": [
+            29.5,
+            0.67,
+            -2.5
+          ],
+          "Color": [
+            0.38,
+            0.34,
+            0.28
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            95.19442890773482,
+            0
+          ]
+        }
+      },
+      "HangarRail1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            7.069031050999847
+          ],
+          "Position": [
+            29.82140189845094,
+            0.82,
+            1.0354208829603482
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            95.19442890773482,
+            0
+          ]
+        }
+      },
+      "HangarRail1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            7.069031050999847
+          ],
+          "Position": [
+            29.17859810154906,
+            0.82,
+            -6.035420882960349
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            95.19442890773482,
+            0
+          ]
+        }
+      },
+      "HangarDeck2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            12.330339887498948
+          ],
+          "Position": [
+            40.5,
+            0.67,
+            -2
+          ],
+          "Color": [
+            0.38,
+            0.34,
+            0.28
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            79.69515353123397,
+            0
+          ]
+        }
+      },
+      "HangarRail2_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            7.155417527999326
+          ],
+          "Position": [
+            39.86495669439006,
+            0.82,
+            1.4927381808546718
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            79.69515353123397,
+            0
+          ]
+        }
+      },
+      "HangarRail2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            7.155417527999326
+          ],
+          "Position": [
+            41.13504330560994,
+            0.82,
+            -5.492738180854672
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            79.69515353123397,
+            0
+          ]
+        }
+      },
+      "HangarDeck3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            8,
+            0.24,
+            10.998857801796104
+          ],
+          "Position": [
+            50.5,
+            0.67,
+            1
+          ],
+          "Color": [
+            0.38,
+            0.34,
+            0.28
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            66.03751102542182,
+            0
+          ]
+        }
+      },
+      "HangarRail3_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            6.303268993149507
+          ],
+          "Position": [
+            49.05820844551026,
+            0.82,
+            4.244030997601913
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            66.03751102542182,
+            0
+          ]
+        }
+      },
+      "HangarRail3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.25,
+            0.06,
+            6.303268993149507
+          ],
+          "Position": [
+            51.94179155448974,
+            0.82,
+            -2.244030997601913
+          ],
+          "Color": [
+            1,
+            0.792,
+            0.227
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            66.03751102542182,
+            0
+          ]
+        }
+      },
+      "PetDeck0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            4.7,
+            0.21,
+            4.35555127546399
+          ],
+          "Position": [
+            -13.5,
+            0.61,
+            13
+          ],
+          "Orientation": [
+            0,
+            -56.309932474020215,
+            0
+          ],
+          "Color": [
+            0.3,
+            0.29,
+            0.46
+          ],
+          "Material": "Slate"
+        }
+      },
+      "PetGuide0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.27,
+            0.032,
+            3.2555512754639895
+          ],
+          "Position": [
+            -13.5,
+            0.723,
+            13
+          ],
+          "Orientation": [
+            0,
+            -56.309932474020215,
+            0
+          ],
+          "Color": [
+            0.66,
+            0.33,
+            0.97
+          ],
+          "Material": "Neon"
+        }
+      },
+      "PetDeck1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            4.7,
+            0.21,
+            4.655124837953328
+          ],
+          "Position": [
+            -16.5,
+            0.616,
+            15.25
+          ],
+          "Orientation": [
+            0,
+            -50.19442890773481,
+            0
+          ],
+          "Color": [
+            0.3,
+            0.29,
+            0.46
+          ],
+          "Material": "Slate"
+        }
+      },
+      "PetGuide1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.27,
+            0.032,
+            3.555124837953328
+          ],
+          "Position": [
+            -16.5,
+            0.729,
+            15.25
+          ],
+          "Orientation": [
+            0,
+            -50.19442890773481,
+            0
+          ],
+          "Color": [
+            0.66,
+            0.33,
+            0.97
+          ],
+          "Material": "Neon"
+        }
+      },
+      "PetDeck2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            4.7,
+            0.21,
+            4.104101966249685
+          ],
+          "Position": [
+            -19.5,
+            0.622,
+            17.25
+          ],
+          "Orientation": [
+            0,
+            -63.43494882292201,
+            0
+          ],
+          "Color": [
+            0.3,
+            0.29,
+            0.46
+          ],
+          "Material": "Slate"
+        }
+      },
+      "PetGuide2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.27,
+            0.032,
+            3.0041019662496846
+          ],
+          "Position": [
+            -19.5,
+            0.735,
+            17.25
+          ],
+          "Orientation": [
+            0,
+            -63.43494882292201,
+            0
+          ],
+          "Color": [
+            0.66,
+            0.33,
+            0.97
+          ],
+          "Material": "Neon"
+        }
+      }
+    },
+    "SculptedLandscape": {
+      "$className": "Folder",
+      "Terrace0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            2.4,
+            16,
+            13.2
+          ],
+          "Position": [
+            -24,
+            1.75,
+            -31
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            14.88,
+            12.16
+          ],
+          "Position": [
+            -24,
+            3.1799999999999997,
+            -31
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder0_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            -28.32,
+            3.4,
+            -29
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            0,
+            19
+          ]
+        }
+      },
+      "Boulder0_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            -26.72,
+            3.4,
+            -27.9
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            45,
+            0
+          ]
+        }
+      },
+      "Crystal0_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            -21,
+            4.65,
+            -28
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            0,
+            -12
+          ]
+        }
+      },
+      "Crystal0_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            -22.4,
+            5.13,
+            -28
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            0,
+            11
+          ]
+        }
+      },
+      "Terrace1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.0999999999999996,
+            16,
+            13.2
+          ],
+          "Position": [
+            25,
+            2.0999999999999996,
+            -18
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            22,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            14.88,
+            12.16
+          ],
+          "Position": [
+            25,
+            3.88,
+            -18
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            22,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder1_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            20.68,
+            4.1,
+            -16
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            36,
+            19
+          ]
+        }
+      },
+      "Boulder1_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            22.28,
+            4.1,
+            -14.9
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            81,
+            0
+          ]
+        }
+      },
+      "Crystal1_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            28,
+            5.35,
+            -15
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            29,
+            -12
+          ]
+        }
+      },
+      "Crystal1_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            26.6,
+            5.829999999999999,
+            -15
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            29,
+            11
+          ]
+        }
+      },
+      "Terrace2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.8,
+            16,
+            13.2
+          ],
+          "Position": [
+            -40,
+            2.45,
+            18
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            44,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            14.88,
+            12.16
+          ],
+          "Position": [
+            -40,
+            4.58,
+            18
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            44,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder2_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            -44.32,
+            4.8,
+            20
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            72,
+            19
+          ]
+        }
+      },
+      "Boulder2_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            -42.72,
+            4.8,
+            21.1
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            117,
+            0
+          ]
+        }
+      },
+      "Crystal2_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            -37,
+            6.05,
+            21
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            58,
+            -12
+          ]
+        }
+      },
+      "Crystal2_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            -38.4,
+            6.529999999999999,
+            21
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            58,
+            11
+          ]
+        }
+      },
+      "Terrace3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            2.4,
+            16,
+            13.2
+          ],
+          "Position": [
+            30,
+            1.75,
+            19
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            66,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            14.88,
+            12.16
+          ],
+          "Position": [
+            30,
+            3.1799999999999997,
+            19
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            66,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder3_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            25.68,
+            3.4,
+            21
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            108,
+            19
+          ]
+        }
+      },
+      "Boulder3_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            27.28,
+            3.4,
+            22.1
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            153,
+            0
+          ]
+        }
+      },
+      "Crystal3_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            33,
+            4.65,
+            22
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            87,
+            -12
+          ]
+        }
+      },
+      "Crystal3_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            31.6,
+            5.13,
+            22
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            87,
+            11
+          ]
+        }
+      },
+      "Terrace4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.0999999999999996,
+            16,
+            13.2
+          ],
+          "Position": [
+            2,
+            2.0999999999999996,
+            31
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            88,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            14.88,
+            12.16
+          ],
+          "Position": [
+            2,
+            3.88,
+            31
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            88,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder4_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            -2.3200000000000003,
+            4.1,
+            33
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            144,
+            19
+          ]
+        }
+      },
+      "Boulder4_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            -0.7200000000000002,
+            4.1,
+            34.1
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            189,
+            0
+          ]
+        }
+      },
+      "Crystal4_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            5,
+            5.35,
+            34
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            116,
+            -12
+          ]
+        }
+      },
+      "Crystal4_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            3.6,
+            5.829999999999999,
+            34
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            116,
+            11
+          ]
+        }
+      },
+      "Terrace5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.8,
+            22,
+            18.15
+          ],
+          "Position": [
+            47,
+            2.45,
+            -35
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            110,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            20.46,
+            16.72
+          ],
+          "Position": [
+            47,
+            4.58,
+            -35
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            110,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder5_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            41.06,
+            4.8,
+            -33
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            180,
+            19
+          ]
+        }
+      },
+      "Boulder5_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            42.660000000000004,
+            4.8,
+            -31.9
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            225,
+            0
+          ]
+        }
+      },
+      "Crystal5_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            50,
+            6.05,
+            -32
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            145,
+            -12
+          ]
+        }
+      },
+      "Crystal5_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            48.6,
+            6.529999999999999,
+            -32
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            145,
+            11
+          ]
+        }
+      },
+      "Terrace6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            2.4,
+            22,
+            18.15
+          ],
+          "Position": [
+            -48,
+            1.75,
+            -34
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            132,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            20.46,
+            16.72
+          ],
+          "Position": [
+            -48,
+            3.1799999999999997,
+            -34
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            132,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder6_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            -53.94,
+            3.4,
+            -32
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            216,
+            19
+          ]
+        }
+      },
+      "Boulder6_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            -52.339999999999996,
+            3.4,
+            -30.9
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            261,
+            0
+          ]
+        }
+      },
+      "Crystal6_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            -45,
+            4.65,
+            -31
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            174,
+            -12
+          ]
+        }
+      },
+      "Crystal6_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            -46.4,
+            5.13,
+            -31
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            174,
+            11
+          ]
+        }
+      },
+      "Terrace7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.0999999999999996,
+            22,
+            18.15
+          ],
+          "Position": [
+            66,
+            2.0999999999999996,
+            35
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            154,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            20.46,
+            16.72
+          ],
+          "Position": [
+            66,
+            3.88,
+            35
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            154,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder7_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            60.06,
+            4.1,
+            37
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            252,
+            19
+          ]
+        }
+      },
+      "Boulder7_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            61.660000000000004,
+            4.1,
+            38.1
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            297,
+            0
+          ]
+        }
+      },
+      "Crystal7_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            69,
+            5.35,
+            38
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            203,
+            -12
+          ]
+        }
+      },
+      "Crystal7_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            67.6,
+            5.829999999999999,
+            38
+          ],
+          "Color": [
+            0.659,
+            0.333,
+            0.969
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            203,
+            11
+          ]
+        }
+      },
+      "Terrace8": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            3.8,
+            22,
+            18.15
+          ],
+          "Position": [
+            -65,
+            2.45,
+            43
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            176,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "TerraceCrown8": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.55,
+            20.46,
+            16.72
+          ],
+          "Position": [
+            -65,
+            4.58,
+            43
+          ],
+          "Color": [
+            0.13,
+            0.39,
+            0.34
+          ],
+          "Material": "Ground",
+          "Orientation": [
+            0,
+            176,
+            90
+          ],
+          "Shape": "Cylinder"
+        }
+      },
+      "Boulder8_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            4,
+            3.4,
+            5
+          ],
+          "Position": [
+            -70.94,
+            4.8,
+            45
+          ],
+          "Color": [
+            0.21,
+            0.27,
+            0.39
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            288,
+            19
+          ]
+        }
+      },
+      "Boulder8_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6,
+            4.4,
+            5
+          ],
+          "Position": [
+            -69.34,
+            4.8,
+            46.1
+          ],
+          "Color": [
+            0.3,
+            0.39,
+            0.5
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            333,
+            0
+          ]
+        }
+      },
+      "Crystal8_0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            2.5,
+            1.1
+          ],
+          "Position": [
+            -62,
+            6.05,
+            46
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            0,
+            232,
+            -12
+          ]
+        }
+      },
+      "Crystal8_1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.2,
+            3.5,
+            1.1
+          ],
+          "Position": [
+            -63.4,
+            6.529999999999999,
+            46
+          ],
+          "Color": [
+            0,
+            0.847,
+            1
+          ],
+          "Material": "Neon",
+          "Orientation": [
+            14,
+            232,
+            11
+          ]
+        }
+      }
+    }
+  }
+}

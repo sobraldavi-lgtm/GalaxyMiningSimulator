@@ -1,0 +1,4108 @@
+{
+  "name": "TerraNova",
+  "tree": {
+    "$className": "Model",
+    "Ground": {
+      "$className": "Folder",
+      "RouteToMine": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            12,
+            0.15,
+            34
+          ],
+          "Position": [
+            0,
+            0.58,
+            -30
+          ],
+          "Color": [
+            0.16,
+            0.22,
+            0.3
+          ],
+          "Material": "Concrete",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        }
+      },
+      "RouteToShop": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            40,
+            0.15,
+            10
+          ],
+          "Position": [
+            -33,
+            0.58,
+            0
+          ],
+          "Color": [
+            0.16,
+            0.22,
+            0.3
+          ],
+          "Material": "Concrete",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        }
+      },
+      "RouteToHangar": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            40,
+            0.15,
+            10
+          ],
+          "Position": [
+            33,
+            0.58,
+            0
+          ],
+          "Color": [
+            0.16,
+            0.22,
+            0.3
+          ],
+          "Material": "Concrete",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        }
+      }
+    },
+    "Arrival": {
+      "$className": "Folder",
+      "LandingPad": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            26,
+            0.5,
+            26
+          ],
+          "Position": [
+            0,
+            0.75,
+            0
+          ],
+          "Color": [
+            0.12,
+            0.19,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        }
+      },
+      "Strip-12": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.5,
+            0.12,
+            24
+          ],
+          "Position": [
+            -12,
+            1.06,
+            0
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "Transparency": 1,
+          "CanTouch": false,
+          "CanQuery": false
+        }
+      },
+      "Strip12": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.5,
+            0.12,
+            24
+          ],
+          "Position": [
+            12,
+            1.06,
+            0
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false,
+          "Transparency": 1,
+          "CanTouch": false,
+          "CanQuery": false
+        }
+      },
+      "Welcome": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            1,
+            1
+          ],
+          "Position": [
+            0,
+            17,
+            -8
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        },
+        "Label": {
+          "$className": "BillboardGui",
+          "$properties": {
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  290
+                ],
+                [
+                  0,
+                  66
+                ]
+              ]
+            },
+            "AlwaysOnTop": false,
+            "MaxDistance": 47
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundColor3": [
+                0.08,
+                0.12,
+                0.18
+              ],
+              "BackgroundTransparency": 0.15,
+              "Text": "PRAÇA ORION\nTERRA NOVA",
+              "TextColor3": [
+                0.15,
+                0.85,
+                0.95
+              ],
+              "TextScaled": true,
+              "TextWrapped": true,
+              "Font": "GothamBold"
+            },
+            "Padding": {
+              "$className": "UIPadding",
+              "$properties": {
+                "PaddingLeft": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingRight": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingTop": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                },
+                "PaddingBottom": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                }
+              }
+            },
+            "Corner": {
+              "$className": "UICorner",
+              "$properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "MiningAreas": {
+      "$className": "Folder",
+      "MiningPlatform": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            62,
+            0.4,
+            38
+          ],
+          "Position": [
+            0,
+            0.7,
+            -62
+          ],
+          "Color": [
+            0.09,
+            0.15,
+            0.2
+          ],
+          "Material": "Slate",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "MiningSign": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            1,
+            1
+          ],
+          "Position": [
+            0,
+            10,
+            -43
+          ],
+          "Color": [
+            1,
+            0.53,
+            0.17
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        },
+        "Label": {
+          "$className": "BillboardGui",
+          "$properties": {
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  290
+                ],
+                [
+                  0,
+                  66
+                ]
+              ]
+            },
+            "AlwaysOnTop": false,
+            "MaxDistance": 110
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundColor3": [
+                0.08,
+                0.12,
+                0.18
+              ],
+              "BackgroundTransparency": 0.15,
+              "Text": "MINERAÇÃO\nClique nos depósitos",
+              "TextColor3": [
+                1,
+                0.53,
+                0.17
+              ],
+              "TextScaled": true,
+              "TextWrapped": true,
+              "Font": "GothamBold"
+            },
+            "Padding": {
+              "$className": "UIPadding",
+              "$properties": {
+                "PaddingLeft": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingRight": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingTop": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                },
+                "PaddingBottom": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                }
+              }
+            },
+            "Corner": {
+              "$className": "UICorner",
+              "$properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "OreDeposits": {
+      "$className": "Folder",
+      "Iron": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -20,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              -20,
+              5,
+              -57
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -17,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              -17,
+              5,
+              -64
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              -20,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              -20,
+              5,
+              -71
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              -20,
+              10,
+              -63
+            ],
+            "Color": [
+              0.84,
+              0.93,
+              1
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.08,
+                  0.12,
+                  0.18
+                ],
+                "BackgroundTransparency": 0.15,
+                "Text": "Ferro espacial\nClique para minerar",
+                "TextColor3": [
+                  0.84,
+                  0.93,
+                  1
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBold"
+              },
+              "Padding": {
+                "$className": "UIPadding",
+                "$properties": {
+                  "PaddingLeft": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  },
+                  "PaddingRight": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  },
+                  "PaddingTop": {
+                    "UDim": [
+                      0,
+                      6
+                    ]
+                  },
+                  "PaddingBottom": {
+                    "UDim": [
+                      0,
+                      6
+                    ]
+                  }
+                }
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Copper": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              0,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              0,
+              5,
+              -57
+            ],
+            "Color": [
+              0.67,
+              0.35,
+              0.19
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              3,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              3,
+              5,
+              -64
+            ],
+            "Color": [
+              0.67,
+              0.35,
+              0.19
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              0,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              0,
+              5,
+              -71
+            ],
+            "Color": [
+              0.67,
+              0.35,
+              0.19
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              0,
+              10,
+              -63
+            ],
+            "Color": [
+              0.67,
+              0.35,
+              0.19
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.08,
+                  0.12,
+                  0.18
+                ],
+                "BackgroundTransparency": 0.15,
+                "Text": "Cobre lunar\nClique para minerar",
+                "TextColor3": [
+                  0.67,
+                  0.35,
+                  0.19
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBold"
+              },
+              "Padding": {
+                "$className": "UIPadding",
+                "$properties": {
+                  "PaddingLeft": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  },
+                  "PaddingRight": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  },
+                  "PaddingTop": {
+                    "UDim": [
+                      0,
+                      6
+                    ]
+                  },
+                  "PaddingBottom": {
+                    "UDim": [
+                      0,
+                      6
+                    ]
+                  }
+                }
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Crystal": {
+        "$className": "Folder",
+        "Base0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              20,
+              2.4,
+              -57
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "Sample0": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              5,
+              2.5
+            ],
+            "Position": [
+              20,
+              5,
+              -57
+            ],
+            "Color": [
+              0.2,
+              0.55,
+              1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              0,
+              15
+            ]
+          }
+        },
+        "Base1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              23,
+              2.4,
+              -64
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              25,
+              0
+            ]
+          }
+        },
+        "Sample1": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              6,
+              2.5
+            ],
+            "Position": [
+              23,
+              5,
+              -64
+            ],
+            "Color": [
+              0.2,
+              0.55,
+              1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              30,
+              15
+            ]
+          }
+        },
+        "Base2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              6
+            ],
+            "Position": [
+              20,
+              2.4,
+              -71
+            ],
+            "Color": [
+              0.27,
+              0.31,
+              0.37
+            ],
+            "Material": "Rock",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              0,
+              50,
+              0
+            ]
+          }
+        },
+        "Sample2": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              2.5,
+              7,
+              2.5
+            ],
+            "Position": [
+              20,
+              5,
+              -71
+            ],
+            "Color": [
+              0.2,
+              0.55,
+              1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Orientation": [
+              12,
+              60,
+              15
+            ]
+          }
+        },
+        "Name": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1,
+              1,
+              1
+            ],
+            "Position": [
+              20,
+              10,
+              -63
+            ],
+            "Color": [
+              0.2,
+              0.55,
+              1
+            ],
+            "Material": "SmoothPlastic",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 1,
+            "CanCollide": false,
+            "CanTouch": false,
+            "CanQuery": false
+          },
+          "Label": {
+            "$className": "BillboardGui",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    0,
+                    290
+                  ],
+                  [
+                    0,
+                    66
+                  ]
+                ]
+              },
+              "AlwaysOnTop": false,
+              "MaxDistance": 110
+            },
+            "Text": {
+              "$className": "TextLabel",
+              "$properties": {
+                "Size": {
+                  "UDim2": [
+                    [
+                      1,
+                      0
+                    ],
+                    [
+                      1,
+                      0
+                    ]
+                  ]
+                },
+                "BackgroundColor3": [
+                  0.08,
+                  0.12,
+                  0.18
+                ],
+                "BackgroundTransparency": 0.15,
+                "Text": "Cristal azul\nClique para minerar",
+                "TextColor3": [
+                  0.2,
+                  0.55,
+                  1
+                ],
+                "TextScaled": true,
+                "TextWrapped": true,
+                "Font": "GothamBold"
+              },
+              "Padding": {
+                "$className": "UIPadding",
+                "$properties": {
+                  "PaddingLeft": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  },
+                  "PaddingRight": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  },
+                  "PaddingTop": {
+                    "UDim": [
+                      0,
+                      6
+                    ]
+                  },
+                  "PaddingBottom": {
+                    "UDim": [
+                      0,
+                      6
+                    ]
+                  }
+                }
+              },
+              "Corner": {
+                "$className": "UICorner",
+                "$properties": {
+                  "CornerRadius": {
+                    "UDim": [
+                      0,
+                      8
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Shop": {
+      "$className": "Folder",
+      "Floor": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            32,
+            0.5,
+            30
+          ],
+          "Position": [
+            -68,
+            0.75,
+            0
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Display-74": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            5,
+            1,
+            4
+          ],
+          "Position": [
+            -74,
+            5.5,
+            -5
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Display-62": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            5,
+            1,
+            4
+          ],
+          "Position": [
+            -62,
+            5.5,
+            -5
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Architecture": {
+        "$path": "orion-shop.project.json"
+      },
+      "PurchaseDesk": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            22,
+            4,
+            4
+          ],
+          "Position": [
+            -68,
+            3,
+            -5
+          ],
+          "Color": [
+            0.16,
+            0.29,
+            0.54
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      }
+    },
+    "Hangar": {
+      "$className": "Folder",
+      "LandingPad": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            42,
+            0.5,
+            42
+          ],
+          "Position": [
+            72,
+            0.75,
+            4
+          ],
+          "Color": [
+            0.12,
+            0.19,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Edge53": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.6,
+            0.12,
+            40
+          ],
+          "Position": [
+            53,
+            1.06,
+            4
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false
+        }
+      },
+      "Edge91": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.6,
+            0.12,
+            40
+          ],
+          "Position": [
+            91,
+            1.06,
+            4
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "CanCollide": false
+        }
+      },
+      "BackBeam": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            42,
+            1.5,
+            2
+          ],
+          "Position": [
+            72,
+            16,
+            -16
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Support52": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            16,
+            2
+          ],
+          "Position": [
+            52,
+            8,
+            -16
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Support92": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2,
+            16,
+            2
+          ],
+          "Position": [
+            92,
+            8,
+            -16
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "HangarSign": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            1,
+            1
+          ],
+          "Position": [
+            72,
+            14,
+            20
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        },
+        "Label": {
+          "$className": "BillboardGui",
+          "$properties": {
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  290
+                ],
+                [
+                  0,
+                  66
+                ]
+              ]
+            },
+            "AlwaysOnTop": false,
+            "MaxDistance": 110
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundColor3": [
+                0.08,
+                0.12,
+                0.18
+              ],
+              "BackgroundTransparency": 0.15,
+              "Text": "HANGAR ORION",
+              "TextColor3": [
+                0.15,
+                0.85,
+                0.95
+              ],
+              "TextScaled": true,
+              "TextWrapped": true,
+              "Font": "GothamBold"
+            },
+            "Padding": {
+              "$className": "UIPadding",
+              "$properties": {
+                "PaddingLeft": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingRight": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingTop": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                },
+                "PaddingBottom": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                }
+              }
+            },
+            "Corner": {
+              "$className": "UICorner",
+              "$properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "OrionScout": {
+        "$className": "Folder",
+        "Hull": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              10,
+              5,
+              19
+            ],
+            "Position": [
+              72,
+              6,
+              3
+            ],
+            "Color": [
+              0.84,
+              0.93,
+              1
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "Nose": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              8,
+              3,
+              6
+            ],
+            "Position": [
+              72,
+              5.5,
+              -9
+            ],
+            "Color": [
+              1,
+              0.53,
+              0.17
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "Cockpit": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              7,
+              3,
+              7
+            ],
+            "Position": [
+              72,
+              9,
+              0
+            ],
+            "Color": [
+              0.2,
+              0.55,
+              1
+            ],
+            "Material": "Glass",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth",
+            "Transparency": 0.25
+          }
+        },
+        "Wing62": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              10,
+              1,
+              12
+            ],
+            "Position": [
+              62,
+              4.2,
+              5
+            ],
+            "Color": [
+              1,
+              0.53,
+              0.17
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "Engine62": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              4,
+              4,
+              8
+            ],
+            "Position": [
+              62,
+              5,
+              11
+            ],
+            "Color": [
+              0.23,
+              0.3,
+              0.38
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "Exhaust62": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              3,
+              3,
+              0.3
+            ],
+            "Position": [
+              62,
+              5,
+              15.1
+            ],
+            "Color": [
+              0.15,
+              0.85,
+              0.95
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "Wing82": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              10,
+              1,
+              12
+            ],
+            "Position": [
+              82,
+              4.2,
+              5
+            ],
+            "Color": [
+              1,
+              0.53,
+              0.17
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "Engine82": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              4,
+              4,
+              8
+            ],
+            "Position": [
+              82,
+              5,
+              11
+            ],
+            "Color": [
+              0.23,
+              0.3,
+              0.38
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "Exhaust82": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              3,
+              3,
+              0.3
+            ],
+            "Position": [
+              82,
+              5,
+              15.1
+            ],
+            "Color": [
+              0.15,
+              0.85,
+              0.95
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "LandingGear68": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1.5,
+              3,
+              2
+            ],
+            "Position": [
+              68,
+              2.5,
+              6
+            ],
+            "Color": [
+              0.23,
+              0.3,
+              0.38
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        },
+        "LandingGear76": {
+          "$className": "Part",
+          "$properties": {
+            "Anchored": true,
+            "Size": [
+              1.5,
+              3,
+              2
+            ],
+            "Position": [
+              76,
+              2.5,
+              6
+            ],
+            "Color": [
+              0.23,
+              0.3,
+              0.38
+            ],
+            "Material": "Metal",
+            "TopSurface": "Smooth",
+            "BottomSurface": "Smooth"
+          }
+        }
+      }
+    },
+    "Cave": {
+      "$className": "Folder",
+      "LeftRock": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            12,
+            18,
+            10
+          ],
+          "Position": [
+            -14,
+            9,
+            -84
+          ],
+          "Color": [
+            0.27,
+            0.31,
+            0.37
+          ],
+          "Material": "Rock",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "RightRock": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            12,
+            18,
+            10
+          ],
+          "Position": [
+            14,
+            9,
+            -84
+          ],
+          "Color": [
+            0.27,
+            0.31,
+            0.37
+          ],
+          "Material": "Rock",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Arch": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            38,
+            7,
+            10
+          ],
+          "Position": [
+            0,
+            19,
+            -84
+          ],
+          "Color": [
+            0.27,
+            0.31,
+            0.37
+          ],
+          "Material": "Rock",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BackWall": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            16,
+            16,
+            2
+          ],
+          "Position": [
+            0,
+            8,
+            -89
+          ],
+          "Color": [
+            0.08,
+            0.12,
+            0.18
+          ],
+          "Material": "Slate",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "CaveSign": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            1,
+            1
+          ],
+          "Position": [
+            0,
+            12,
+            -78
+          ],
+          "Color": [
+            0.2,
+            0.55,
+            1
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        },
+        "Label": {
+          "$className": "BillboardGui",
+          "$properties": {
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  290
+                ],
+                [
+                  0,
+                  66
+                ]
+              ]
+            },
+            "AlwaysOnTop": false,
+            "MaxDistance": 110
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundColor3": [
+                0.08,
+                0.12,
+                0.18
+              ],
+              "BackgroundTransparency": 0.15,
+              "Text": "CAVERNA AZUL\nÁrea futura",
+              "TextColor3": [
+                0.2,
+                0.55,
+                1
+              ],
+              "TextScaled": true,
+              "TextWrapped": true,
+              "Font": "GothamBold"
+            },
+            "Padding": {
+              "$className": "UIPadding",
+              "$properties": {
+                "PaddingLeft": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingRight": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingTop": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                },
+                "PaddingBottom": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                }
+              }
+            },
+            "Corner": {
+              "$className": "UICorner",
+              "$properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Decorations": {
+      "$className": "Folder",
+      "Beacon0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            4,
+            1
+          ],
+          "Position": [
+            -17,
+            2.5,
+            15
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BeaconCap0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.4,
+            0.6,
+            1.4
+          ],
+          "Position": [
+            -17,
+            4.8,
+            15
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.15,
+              0.85,
+              0.95
+            ],
+            "Brightness": 0.6,
+            "Range": 10,
+            "Shadows": false
+          }
+        }
+      },
+      "Beacon1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            4,
+            1
+          ],
+          "Position": [
+            17,
+            2.5,
+            15
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BeaconCap1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.4,
+            0.6,
+            1.4
+          ],
+          "Position": [
+            17,
+            4.8,
+            15
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.15,
+              0.85,
+              0.95
+            ],
+            "Brightness": 0.6,
+            "Range": 10,
+            "Shadows": false
+          }
+        }
+      },
+      "Beacon2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            4,
+            1
+          ],
+          "Position": [
+            -17,
+            2.5,
+            -30
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BeaconCap2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.4,
+            0.6,
+            1.4
+          ],
+          "Position": [
+            -17,
+            4.8,
+            -30
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.15,
+              0.85,
+              0.95
+            ],
+            "Brightness": 0.6,
+            "Range": 10,
+            "Shadows": false
+          }
+        }
+      },
+      "Beacon3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            4,
+            1
+          ],
+          "Position": [
+            17,
+            2.5,
+            -30
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BeaconCap3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.4,
+            0.6,
+            1.4
+          ],
+          "Position": [
+            17,
+            4.8,
+            -30
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.15,
+              0.85,
+              0.95
+            ],
+            "Brightness": 0.6,
+            "Range": 10,
+            "Shadows": false
+          }
+        }
+      },
+      "Beacon4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            4,
+            1
+          ],
+          "Position": [
+            -45,
+            2.5,
+            8
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BeaconCap4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.4,
+            0.6,
+            1.4
+          ],
+          "Position": [
+            -45,
+            4.8,
+            8
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.15,
+              0.85,
+              0.95
+            ],
+            "Brightness": 0.6,
+            "Range": 10,
+            "Shadows": false
+          }
+        }
+      },
+      "Beacon5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            4,
+            1
+          ],
+          "Position": [
+            45,
+            2.5,
+            8
+          ],
+          "Color": [
+            0.23,
+            0.3,
+            0.38
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "BeaconCap5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.4,
+            0.6,
+            1.4
+          ],
+          "Position": [
+            45,
+            4.8,
+            8
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        },
+        "Light": {
+          "$className": "PointLight",
+          "$properties": {
+            "Color": [
+              0.15,
+              0.85,
+              0.95
+            ],
+            "Brightness": 0.6,
+            "Range": 10,
+            "Shadows": false
+          }
+        }
+      },
+      "MineSetDressing": {
+        "MineFrontTrim": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.12,
+              0.84,
+              1
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              62,
+              0.35,
+              0.6
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              0,
+              1.0,
+              -43.05
+            ]
+          },
+          "$className": "Part"
+        },
+        "MineFloorMark2": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.19,
+              0.5,
+              0.72
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              3,
+              0.08,
+              0.22
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              -5,
+              0.94,
+              -45
+            ]
+          },
+          "$className": "Part"
+        },
+        "$className": "Folder",
+        "MineFloorMark1": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.19,
+              0.5,
+              0.72
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              3,
+              0.08,
+              0.22
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              -15,
+              0.94,
+              -45
+            ]
+          },
+          "$className": "Part"
+        },
+        "MineBackTrim": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.12,
+              0.84,
+              1
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              62,
+              0.35,
+              0.6
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              0,
+              1.0,
+              -80.95
+            ]
+          },
+          "$className": "Part"
+        },
+        "MineFloorMark5": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.19,
+              0.5,
+              0.72
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              3,
+              0.08,
+              0.22
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              25,
+              0.94,
+              -45
+            ]
+          },
+          "$className": "Part"
+        },
+        "MineFloorMark3": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.19,
+              0.5,
+              0.72
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              3,
+              0.08,
+              0.22
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              5,
+              0.94,
+              -45
+            ]
+          },
+          "$className": "Part"
+        },
+        "MineSideTrim28.7": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.12,
+              0.84,
+              1
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              0.6,
+              0.35,
+              38
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              28.7,
+              1.0,
+              -62
+            ]
+          },
+          "$className": "Part"
+        },
+        "MineFloorMark4": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.19,
+              0.5,
+              0.72
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              3,
+              0.08,
+              0.22
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              15,
+              0.94,
+              -45
+            ]
+          },
+          "$className": "Part"
+        },
+        "MineSideTrim-28.7": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.12,
+              0.84,
+              1
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              0.6,
+              0.35,
+              38
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              -28.7,
+              1.0,
+              -62
+            ]
+          },
+          "$className": "Part"
+        },
+        "MineFloorMark0": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.19,
+              0.5,
+              0.72
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              3,
+              0.08,
+              0.22
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              -25,
+              0.94,
+              -45
+            ]
+          },
+          "$className": "Part"
+        }
+      },
+      "HangarLighting": {
+        "PadLightBack80": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              80,
+              1.08,
+              -11
+            ]
+          },
+          "$className": "Part"
+        },
+        "HangarBeamGlow": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.52,
+              0.16
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              38,
+              0.5,
+              0.6
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              72,
+              15.8,
+              -15.65
+            ]
+          },
+          "$className": "Part"
+        },
+        "PadLight64": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              64,
+              1.08,
+              19
+            ]
+          },
+          "$className": "Part"
+        },
+        "$className": "Folder",
+        "PadLightBack72": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              72,
+              1.08,
+              -11
+            ]
+          },
+          "$className": "Part"
+        },
+        "PadLightBack64": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              64,
+              1.08,
+              -11
+            ]
+          },
+          "$className": "Part"
+        },
+        "PadLight80": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              80,
+              1.08,
+              19
+            ]
+          },
+          "$className": "Part"
+        },
+        "PadLight88": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              88,
+              1.08,
+              19
+            ]
+          },
+          "$className": "Part"
+        },
+        "PadLightBack56": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              56,
+              1.08,
+              -11
+            ]
+          },
+          "$className": "Part"
+        },
+        "HangarFloorStripe": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.52,
+              0.16
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              0.4,
+              0.12,
+              30
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Position": [
+              72,
+              1.08,
+              4
+            ]
+          },
+          "$className": "Part"
+        },
+        "PadLightBack88": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              88,
+              1.08,
+              -11
+            ]
+          },
+          "$className": "Part"
+        },
+        "PadLight72": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              72,
+              1.08,
+              19
+            ]
+          },
+          "$className": "Part"
+        },
+        "PadLight56": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              1,
+              0.75,
+              0.3
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.1,
+              0.18,
+              1.1
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Ball",
+            "Position": [
+              56,
+              1.08,
+              19
+            ]
+          },
+          "$className": "Part"
+        }
+      },
+      "CaveCrystals": {
+        "$className": "Folder",
+        "Shard1": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.12,
+              0.76,
+              1
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.4,
+              5.5,
+              1.4
+            ],
+            "Orientation": [
+              0,
+              0,
+              12
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Block",
+            "Position": [
+              -19,
+              4,
+              -77
+            ]
+          },
+          "$className": "Part"
+        },
+        "Shard4": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.75,
+              0.34,
+              1
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.4,
+              5.5,
+              1.4
+            ],
+            "Orientation": [
+              0,
+              0,
+              12
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Block",
+            "Position": [
+              21,
+              5,
+              -82
+            ]
+          },
+          "$className": "Part"
+        },
+        "Shard2": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.12,
+              0.76,
+              1
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.4,
+              5.5,
+              1.4
+            ],
+            "Orientation": [
+              0,
+              0,
+              12
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Block",
+            "Position": [
+              -21,
+              5,
+              -82
+            ]
+          },
+          "$className": "Part"
+        },
+        "Shard3": {
+          "$properties": {
+            "CanCollide": false,
+            "Color": [
+              0.75,
+              0.34,
+              1
+            ],
+            "BottomSurface": "Smooth",
+            "Anchored": true,
+            "Size": [
+              1.4,
+              5.5,
+              1.4
+            ],
+            "Orientation": [
+              0,
+              0,
+              12
+            ],
+            "Material": "Neon",
+            "TopSurface": "Smooth",
+            "Shape": "Block",
+            "Position": [
+              19,
+              4,
+              -77
+            ]
+          },
+          "$className": "Part"
+        }
+      }
+    },
+    "PetShop": {
+      "$className": "Model",
+      "Plaza": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.5,
+            19,
+            19
+          ],
+          "Position": [
+            -22,
+            0.75,
+            23
+          ],
+          "Color": [
+            0.043,
+            0.082,
+            0.188
+          ],
+          "Material": "Metal",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Transparency": 0,
+          "CanCollide": true,
+          "CanTouch": false,
+          "CanQuery": true,
+          "CastShadow": true
+        }
+      },
+      "LandingRim": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.18,
+            17,
+            17
+          ],
+          "Position": [
+            -22,
+            1.06,
+            23
+          ],
+          "Color": [
+            0.545,
+            0.361,
+            0.965
+          ],
+          "Material": "Neon",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "LandingDeck": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.24,
+            16,
+            16
+          ],
+          "Position": [
+            -22,
+            1.15,
+            23
+          ],
+          "Color": [
+            0.043,
+            0.082,
+            0.188
+          ],
+          "Material": "Metal",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Transparency": 0,
+          "CanCollide": true,
+          "CanTouch": false,
+          "CanQuery": true,
+          "CastShadow": true
+        }
+      },
+      "Beam": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            5.6,
+            4.4,
+            4.4
+          ],
+          "Position": [
+            -22,
+            4.1,
+            24
+          ],
+          "Color": [
+            0.133,
+            0.827,
+            0.933
+          ],
+          "Material": "Neon",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Transparency": 0.78,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "SaucerHull": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            12,
+            2.8,
+            12
+          ],
+          "Position": [
+            -22,
+            7,
+            24
+          ],
+          "Color": [
+            0.545,
+            0.361,
+            0.965
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "SaucerTrim": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.25,
+            11.1,
+            11.1
+          ],
+          "Position": [
+            -22,
+            7.25,
+            24
+          ],
+          "Color": [
+            0.133,
+            0.827,
+            0.933
+          ],
+          "Material": "Neon",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            90
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Cockpit": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            5.4,
+            3.9,
+            5.4
+          ],
+          "Position": [
+            -22,
+            8.2,
+            24
+          ],
+          "Color": [
+            0.145,
+            0.388,
+            0.922
+          ],
+          "Material": "Glass",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0.15,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Terminal": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            3.1,
+            2.1,
+            1.4
+          ],
+          "Position": [
+            -22,
+            2.31,
+            18.4
+          ],
+          "Color": [
+            0.043,
+            0.082,
+            0.188
+          ],
+          "Material": "Metal",
+          "Shape": "Block",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": true,
+          "CanTouch": false,
+          "CanQuery": true,
+          "CastShadow": true
+        }
+      },
+      "TerminalScreen": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            2.6,
+            0.45,
+            0.15
+          ],
+          "Position": [
+            -22,
+            3,
+            17.65
+          ],
+          "Color": [
+            0.133,
+            0.827,
+            0.933
+          ],
+          "Material": "Neon",
+          "Shape": "Block",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Window0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.85,
+            0.55,
+            0.85
+          ],
+          "Position": [
+            -17.0,
+            6.45,
+            24.0
+          ],
+          "Color": [
+            1,
+            0.722,
+            0.302
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Window1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.85,
+            0.55,
+            0.85
+          ],
+          "Position": [
+            -18.464466094067262,
+            6.45,
+            27.535533905932738
+          ],
+          "Color": [
+            1,
+            0.722,
+            0.302
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Window2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.85,
+            0.55,
+            0.85
+          ],
+          "Position": [
+            -22.0,
+            6.45,
+            29.0
+          ],
+          "Color": [
+            1,
+            0.722,
+            0.302
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Window3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.85,
+            0.55,
+            0.85
+          ],
+          "Position": [
+            -25.535533905932738,
+            6.45,
+            27.535533905932738
+          ],
+          "Color": [
+            1,
+            0.722,
+            0.302
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Window4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.85,
+            0.55,
+            0.85
+          ],
+          "Position": [
+            -27.0,
+            6.45,
+            24.0
+          ],
+          "Color": [
+            1,
+            0.722,
+            0.302
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Window5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.85,
+            0.55,
+            0.85
+          ],
+          "Position": [
+            -25.535533905932738,
+            6.45,
+            20.464466094067262
+          ],
+          "Color": [
+            1,
+            0.722,
+            0.302
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Window6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.85,
+            0.55,
+            0.85
+          ],
+          "Position": [
+            -22.0,
+            6.45,
+            19.0
+          ],
+          "Color": [
+            1,
+            0.722,
+            0.302
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Window7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            0.85,
+            0.55,
+            0.85
+          ],
+          "Position": [
+            -18.464466094067262,
+            6.45,
+            20.464466094067262
+          ],
+          "Color": [
+            1,
+            0.722,
+            0.302
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Trail0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.3,
+            0.15,
+            1.3
+          ],
+          "Position": [
+            -11.0,
+            0.59,
+            12.0
+          ],
+          "Color": [
+            0.545,
+            0.361,
+            0.965
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Trail1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.3,
+            0.15,
+            1.3
+          ],
+          "Position": [
+            -13.2,
+            0.59,
+            13.2
+          ],
+          "Color": [
+            0.545,
+            0.361,
+            0.965
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Trail2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.3,
+            0.15,
+            1.3
+          ],
+          "Position": [
+            -15.4,
+            0.59,
+            14.4
+          ],
+          "Color": [
+            0.545,
+            0.361,
+            0.965
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Trail3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1.3,
+            0.15,
+            1.3
+          ],
+          "Position": [
+            -17.6,
+            0.59,
+            15.6
+          ],
+          "Color": [
+            0.545,
+            0.361,
+            0.965
+          ],
+          "Material": "Neon",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ],
+          "Transparency": 0,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false,
+          "CastShadow": false
+        }
+      },
+      "Sign": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            1,
+            1,
+            1
+          ],
+          "Position": [
+            -22,
+            11.4,
+            23
+          ],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth",
+          "Transparency": 1,
+          "CanCollide": false,
+          "CanTouch": false,
+          "CanQuery": false
+        },
+        "Label": {
+          "$className": "BillboardGui",
+          "$properties": {
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  290
+                ],
+                [
+                  0,
+                  66
+                ]
+              ]
+            },
+            "AlwaysOnTop": false,
+            "MaxDistance": 75
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundColor3": [
+                0.043,
+                0.082,
+                0.188
+              ],
+              "BackgroundTransparency": 0.15,
+              "Text": "ESTAÇÃO DE PETS\nOVNI DE RESGATE",
+              "TextColor3": [
+                0.133,
+                0.827,
+                0.933
+              ],
+              "TextScaled": true,
+              "TextWrapped": true,
+              "Font": "GothamBold"
+            },
+            "Padding": {
+              "$className": "UIPadding",
+              "$properties": {
+                "PaddingLeft": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingRight": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                },
+                "PaddingTop": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                },
+                "PaddingBottom": {
+                  "UDim": [
+                    0,
+                    6
+                  ]
+                }
+              }
+            },
+            "Corner": {
+              "$className": "UICorner",
+              "$properties": {
+                "CornerRadius": {
+                  "UDim": [
+                    0,
+                    8
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "OrionWayfinding": {
+      "$path": "orion-wayfinding.project.json"
+    },
+    "OrionLandscape": {
+      "$path": "orion-landscape.project.json"
+    },
+    "TerraNovaLandform": {
+      "$path": "terra-nova-landform.project.json"
+    },
+    "SaleStation": {
+      "$className": "Model",
+      "Counter": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            9.2,
+            2.1,
+            3.2
+          ],
+          "Position": [
+            69.4,
+            2.05,
+            -25
+          ],
+          "Color": [
+            0.11,
+            0.31,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Architecture": {
+        "$path": "sale-station.project.json"
+      }
+    }
+  }
+}

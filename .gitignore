@@ -1,0 +1,13 @@
+# Builds e arquivos locais
+build/
+*.rbxl
+*.rbxlx
+*.rbxl.lock
+*.rbxlx.lock
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+

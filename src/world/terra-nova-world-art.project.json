@@ -1,0 +1,3103 @@
+{
+  "name": "TerraNovaWorldArt",
+  "tree": {
+    "$className": "Model",
+    "OrionAstrolabe": {
+      "$className": "Folder",
+      "Mast": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.35,
+            3.8,
+            1.35
+          ],
+          "Position": [
+            0,
+            16.4,
+            -8
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Core": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.45,
+            3.45,
+            3.45
+          ],
+          "Position": [
+            0,
+            21.3,
+            -8
+          ],
+          "Color": [
+            0.24,
+            0.44,
+            0.79
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "Meridian": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.16,
+            3.58,
+            3.58
+          ],
+          "Position": [
+            0,
+            21.3,
+            -8
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "Neon",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            70
+          ]
+        }
+      },
+      "Orbit0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            4.6,
+            21.3,
+            -8
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            90
+          ]
+        }
+      },
+      "Orbit1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            3.983716857408418,
+            23.6,
+            -7.55
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            120
+          ]
+        }
+      },
+      "Orbit2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            2.3000000000000003,
+            25.283716857408418,
+            -7.220577136594005
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            150
+          ]
+        }
+      },
+      "Orbit3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            2.816687638038912E-16,
+            25.9,
+            -7.1
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            180
+          ]
+        }
+      },
+      "Orbit4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            -2.299999999999999,
+            25.283716857408418,
+            -7.220577136594005
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            210
+          ]
+        }
+      },
+      "Orbit5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            -3.983716857408418,
+            23.6,
+            -7.55
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            240
+          ]
+        }
+      },
+      "Orbit6": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            -4.6,
+            21.3,
+            -8
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            270
+          ]
+        }
+      },
+      "Orbit7": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            -3.9837168574084183,
+            19.000000000000004,
+            -8.45
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            300
+          ]
+        }
+      },
+      "Orbit8": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            -2.300000000000002,
+            17.316283142591583,
+            -8.779422863405994
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            330
+          ]
+        }
+      },
+      "Orbit9": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            -8.450062914116736E-16,
+            16.700000000000003,
+            -8.9
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            360
+          ]
+        }
+      },
+      "Orbit10": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            2.3000000000000003,
+            17.316283142591583,
+            -8.779422863405994
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            390
+          ]
+        }
+      },
+      "Orbit11": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.55,
+            0.42,
+            0.55
+          ],
+          "Position": [
+            3.983716857408416,
+            19,
+            -8.450000000000001
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            0,
+            0,
+            420
+          ]
+        }
+      }
+    },
+    "SouthOverlook": {
+      "$className": "Folder",
+      "Approach0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            5.4,
+            0.24,
+            9.344003745317531
+          ],
+          "Position": [
+            11.5,
+            0.65,
+            18
+          ],
+          "Color": [
+            0.24,
+            0.44,
+            0.79
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            20.556045219583464,
+            0
+          ]
+        }
+      },
+      "Approach1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            5.4,
+            0.24,
+            12.841594578792295
+          ],
+          "Position": [
+            13.5,
+            0.662,
+            28
+          ],
+          "Color": [
+            0.24,
+            0.44,
+            0.79
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            4.763641690726178,
+            0
+          ]
+        }
+      },
+      "Approach2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            5.4,
+            0.24,
+            11.845361017187262
+          ],
+          "Position": [
+            14.5,
+            0.674,
+            39.5
+          ],
+          "Color": [
+            0.24,
+            0.44,
+            0.79
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            5.194428907734806,
+            0
+          ]
+        }
+      },
+      "Ramp": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            6.4,
+            0.46,
+            13
+          ],
+          "Position": [
+            15,
+            2.15,
+            51
+          ],
+          "Color": [
+            0.08,
+            0.13,
+            0.25
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            -14.931417178137556,
+            0,
+            0
+          ]
+        }
+      },
+      "Deck": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            14,
+            0.6,
+            11
+          ],
+          "Position": [
+            15,
+            3.66,
+            61.6
+          ],
+          "Color": [
+            0.24,
+            0.44,
+            0.79
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Foundation": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            13.5,
+            3.05,
+            10.5
+          ],
+          "Position": [
+            15,
+            1.85,
+            61.6
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate"
+        }
+      },
+      "RampGuard-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.35,
+            1.16,
+            12.7
+          ],
+          "Position": [
+            11.83,
+            2.89,
+            51
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            -14.931417178137556,
+            0,
+            0
+          ]
+        }
+      },
+      "Guard-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.32,
+            1.18,
+            10.75
+          ],
+          "Position": [
+            8.17,
+            4.55,
+            61.6
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal"
+        }
+      },
+      "RampGuard1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.35,
+            1.16,
+            12.7
+          ],
+          "Position": [
+            18.17,
+            2.89,
+            51
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal",
+          "Orientation": [
+            -14.931417178137556,
+            0,
+            0
+          ]
+        }
+      },
+      "Guard1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            0.32,
+            1.18,
+            10.75
+          ],
+          "Position": [
+            21.83,
+            4.55,
+            61.6
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal"
+        }
+      },
+      "VistaGuard": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "CanQuery": true,
+          "CanTouch": false,
+          "CastShadow": true,
+          "Size": [
+            13.5,
+            1.18,
+            0.32
+          ],
+          "Position": [
+            15,
+            4.55,
+            66.93
+          ],
+          "Color": [
+            0.61,
+            0.76,
+            0.88
+          ],
+          "Material": "Metal"
+        }
+      },
+      "VistaAccent": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            11,
+            0.085,
+            0.4
+          ],
+          "Position": [
+            15,
+            4,
+            66.45
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "Neon"
+        }
+      }
+    },
+    "Skyline": {
+      "$className": "Folder",
+      "IslandCap0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3,
+            36,
+            22
+          ],
+          "Position": [
+            -135,
+            15,
+            -126
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "Ground",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            21,
+            90
+          ]
+        }
+      },
+      "IslandCliff0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            7.4,
+            34.92,
+            20.9
+          ],
+          "Position": [
+            -135,
+            10.3,
+            -126
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            21,
+            90
+          ]
+        }
+      },
+      "IslandKeel0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            29.88,
+            22,
+            18.919999999999998
+          ],
+          "Position": [
+            -132.48,
+            -3.1000000000000014,
+            -126
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            21,
+            180
+          ]
+        }
+      },
+      "IslandSpur0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            19.080000000000002,
+            14.3,
+            13.64
+          ],
+          "Position": [
+            -141.84,
+            1.5199999999999996,
+            -124.02
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            79,
+            180
+          ]
+        }
+      },
+      "IslandPeak0": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            13.68,
+            12.32,
+            10.78
+          ],
+          "Position": [
+            -139.32,
+            19.84,
+            -125
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            65,
+            0
+          ]
+        }
+      },
+      "IslandCap1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3,
+            27,
+            22
+          ],
+          "Position": [
+            -65,
+            33,
+            -164
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "Ground",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            103,
+            90
+          ]
+        }
+      },
+      "IslandCliff1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            7.4,
+            26.189999999999998,
+            20.9
+          ],
+          "Position": [
+            -65,
+            28.3,
+            -164
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            103,
+            90
+          ]
+        }
+      },
+      "IslandKeel1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            22.41,
+            33,
+            18.919999999999998
+          ],
+          "Position": [
+            -63.11,
+            8.849999999999998,
+            -164
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            103,
+            180
+          ]
+        }
+      },
+      "IslandSpur1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            14.31,
+            21.45,
+            13.64
+          ],
+          "Position": [
+            -70.13,
+            15.780000000000001,
+            -162.02
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            161,
+            180
+          ]
+        }
+      },
+      "IslandPeak1": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            10.26,
+            18.48,
+            10.78
+          ],
+          "Position": [
+            -68.24,
+            40.26,
+            -163
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            147,
+            0
+          ]
+        }
+      },
+      "IslandCap2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3,
+            49,
+            22
+          ],
+          "Position": [
+            51,
+            19,
+            -175
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "Ground",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            63,
+            90
+          ]
+        }
+      },
+      "IslandCliff2": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            7.4,
+            47.53,
+            20.9
+          ],
+          "Position": [
+            51,
+            14.3,
+            -175
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            63,
+            90
+          ]
+        }
+      },
+      "IslandKeel2": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            40.669999999999995,
+            30,
+            18.919999999999998
+          ],
+          "Position": [
+            54.43,
+            -3.5,
+            -175
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            63,
+            180
+          ]
+        }
+      },
+      "IslandSpur2": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            25.970000000000002,
+            19.5,
+            13.64
+          ],
+          "Position": [
+            41.69,
+            2.799999999999999,
+            -173.02
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            121,
+            180
+          ]
+        }
+      },
+      "IslandPeak2": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            18.62,
+            16.8,
+            10.78
+          ],
+          "Position": [
+            45.12,
+            25.6,
+            -174
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            107,
+            0
+          ]
+        }
+      },
+      "IslandCap3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3,
+            33,
+            30
+          ],
+          "Position": [
+            138,
+            27,
+            -100
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "Ground",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            132,
+            90
+          ]
+        }
+      },
+      "IslandCliff3": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            7.4,
+            32.01,
+            28.5
+          ],
+          "Position": [
+            138,
+            22.3,
+            -100
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            132,
+            90
+          ]
+        }
+      },
+      "IslandKeel3": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            27.389999999999997,
+            24,
+            25.8
+          ],
+          "Position": [
+            140.31,
+            7.799999999999999,
+            -100
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            132,
+            180
+          ]
+        }
+      },
+      "IslandSpur3": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            17.490000000000002,
+            15.600000000000001,
+            18.6
+          ],
+          "Position": [
+            131.73,
+            12.84,
+            -97.3
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            190,
+            180
+          ]
+        }
+      },
+      "IslandPeak3": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            12.540000000000001,
+            13.440000000000001,
+            14.7
+          ],
+          "Position": [
+            134.04,
+            32.28,
+            -99
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            176,
+            0
+          ]
+        }
+      },
+      "IslandCap4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3,
+            41,
+            27
+          ],
+          "Position": [
+            90,
+            13,
+            122
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "Ground",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            45,
+            90
+          ]
+        }
+      },
+      "IslandCliff4": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            7.4,
+            39.769999999999996,
+            25.65
+          ],
+          "Position": [
+            90,
+            8.3,
+            122
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            45,
+            90
+          ]
+        }
+      },
+      "IslandKeel4": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            34.03,
+            28,
+            23.22
+          ],
+          "Position": [
+            92.87,
+            -8.400000000000002,
+            122
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            45,
+            180
+          ]
+        }
+      },
+      "IslandSpur4": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            21.73,
+            18.2,
+            16.74
+          ],
+          "Position": [
+            82.21,
+            -2.5200000000000014,
+            124.43
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            103,
+            180
+          ]
+        }
+      },
+      "IslandPeak4": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            15.58,
+            15.680000000000001,
+            13.23
+          ],
+          "Position": [
+            85.08,
+            19.16,
+            123
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            89,
+            0
+          ]
+        }
+      },
+      "IslandCap5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3,
+            35,
+            17
+          ],
+          "Position": [
+            -96,
+            9,
+            131
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "Ground",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            96,
+            90
+          ]
+        }
+      },
+      "IslandCliff5": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            7.4,
+            33.949999999999996,
+            16.15
+          ],
+          "Position": [
+            -96,
+            4.3,
+            131
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            96,
+            90
+          ]
+        }
+      },
+      "IslandKeel5": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            29.049999999999997,
+            23,
+            14.62
+          ],
+          "Position": [
+            -93.55,
+            -9.65,
+            131
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            96,
+            180
+          ]
+        }
+      },
+      "IslandSpur5": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            18.55,
+            14.950000000000001,
+            10.54
+          ],
+          "Position": [
+            -102.65,
+            -4.82,
+            132.53
+          ],
+          "Color": [
+            0.3,
+            0.37,
+            0.53
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            154,
+            180
+          ]
+        }
+      },
+      "IslandPeak5": {
+        "$className": "WedgePart",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            13.3,
+            12.88,
+            8.33
+          ],
+          "Position": [
+            -100.2,
+            14.059999999999999,
+            132
+          ],
+          "Color": [
+            0.15,
+            0.21,
+            0.35
+          ],
+          "Material": "Slate",
+          "Orientation": [
+            0,
+            140,
+            0
+          ]
+        }
+      },
+      "FarPlanet": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            51,
+            51,
+            51
+          ],
+          "Position": [
+            99,
+            80,
+            -201
+          ],
+          "Color": [
+            0.4,
+            0.56,
+            0.88
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "PlanetHalo": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.7,
+            78,
+            78
+          ],
+          "Position": [
+            99,
+            80,
+            -201
+          ],
+          "Color": [
+            0.58,
+            0.71,
+            0.94
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Cylinder",
+          "Orientation": [
+            22,
+            0,
+            71
+          ],
+          "Transparency": 0.7
+        }
+      }
+    },
+    "Biomes": {
+      "$className": "Folder",
+      "SporeStem0_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.08,
+            0.45,
+            0.45
+          ],
+          "Position": [
+            -22,
+            4.94,
+            -32
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            84
+          ]
+        }
+      },
+      "SporeCrown0_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3000000000000003,
+            1.4300000000000002,
+            2.9700000000000006
+          ],
+          "Position": [
+            -22,
+            6.535000000000001,
+            -32
+          ],
+          "Color": [
+            0.92,
+            0.38,
+            0.64
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "SporeStem0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.9599999999999997,
+            0.45,
+            0.45
+          ],
+          "Position": [
+            -20.25,
+            4.38,
+            -32.8
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            84
+          ]
+        }
+      },
+      "SporeCrown0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.0999999999999996,
+            0.9099999999999999,
+            1.89
+          ],
+          "Position": [
+            -20.25,
+            5.3950000000000005,
+            -32.8
+          ],
+          "Color": [
+            0.92,
+            0.38,
+            0.64
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "Ribbon1_0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            26.46,
+            5.640000000000001,
+            -19
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            -25,
+            32
+          ]
+        }
+      },
+      "Ribbon1_0_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            27,
+            5.640000000000001,
+            -19
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "Ribbon1_0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            27.54,
+            5.640000000000001,
+            -19
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            25,
+            -32
+          ]
+        }
+      },
+      "Ribbon1_1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            28.21,
+            5.08,
+            -19.8
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            -25,
+            32
+          ]
+        }
+      },
+      "Ribbon1_1_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            28.75,
+            5.08,
+            -19.8
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "Ribbon1_1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            29.29,
+            5.08,
+            -19.8
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            25,
+            -32
+          ]
+        }
+      },
+      "CoralBase2_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.9800000000000002,
+            1.2100000000000002,
+            1.7050000000000003
+          ],
+          "Position": [
+            -38,
+            5.394,
+            17
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "CoralSpire2_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.1330000000000002,
+            2.4200000000000004,
+            1.1330000000000002
+          ],
+          "Position": [
+            -37.78,
+            6.527,
+            17
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            -20
+          ]
+        }
+      },
+      "CoralBase2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.26,
+            0.77,
+            1.085
+          ],
+          "Position": [
+            -36.25,
+            5.178,
+            16.2
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "CoralSpire2_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.721,
+            1.54,
+            0.721
+          ],
+          "Position": [
+            -36.03,
+            5.899,
+            16.2
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            -20
+          ]
+        }
+      },
+      "SporeStem3_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.08,
+            0.45,
+            0.45
+          ],
+          "Position": [
+            32,
+            4.94,
+            18
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            84
+          ]
+        }
+      },
+      "SporeCrown3_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3000000000000003,
+            1.4300000000000002,
+            2.9700000000000006
+          ],
+          "Position": [
+            32,
+            6.535000000000001,
+            18
+          ],
+          "Color": [
+            0.92,
+            0.38,
+            0.64
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "SporeStem3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.9599999999999997,
+            0.45,
+            0.45
+          ],
+          "Position": [
+            33.75,
+            4.38,
+            17.2
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            84
+          ]
+        }
+      },
+      "SporeCrown3_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.0999999999999996,
+            0.9099999999999999,
+            1.89
+          ],
+          "Position": [
+            33.75,
+            5.3950000000000005,
+            17.2
+          ],
+          "Color": [
+            0.92,
+            0.38,
+            0.64
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "Ribbon4_0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            3.46,
+            5.640000000000001,
+            30
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            -25,
+            32
+          ]
+        }
+      },
+      "Ribbon4_0_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            4,
+            5.640000000000001,
+            30
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "Ribbon4_0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            4.54,
+            5.640000000000001,
+            30
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            25,
+            -32
+          ]
+        }
+      },
+      "Ribbon4_1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            5.21,
+            5.08,
+            29.2
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            -25,
+            32
+          ]
+        }
+      },
+      "Ribbon4_1_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            5.75,
+            5.08,
+            29.2
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "Ribbon4_1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            6.29,
+            5.08,
+            29.2
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            25,
+            -32
+          ]
+        }
+      },
+      "CoralBase5_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.9800000000000002,
+            1.2100000000000002,
+            1.7050000000000003
+          ],
+          "Position": [
+            49,
+            5.394,
+            -36
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "CoralSpire5_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.1330000000000002,
+            2.4200000000000004,
+            1.1330000000000002
+          ],
+          "Position": [
+            49.22,
+            6.527,
+            -36
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            -20
+          ]
+        }
+      },
+      "CoralBase5_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.26,
+            0.77,
+            1.085
+          ],
+          "Position": [
+            50.75,
+            5.178,
+            -36.8
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "CoralSpire5_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.721,
+            1.54,
+            0.721
+          ],
+          "Position": [
+            50.97,
+            5.899,
+            -36.8
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            -20
+          ]
+        }
+      },
+      "SporeStem6_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.08,
+            0.45,
+            0.45
+          ],
+          "Position": [
+            -46,
+            4.94,
+            -35
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            84
+          ]
+        }
+      },
+      "SporeCrown6_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            3.3000000000000003,
+            1.4300000000000002,
+            2.9700000000000006
+          ],
+          "Position": [
+            -46,
+            6.535000000000001,
+            -35
+          ],
+          "Color": [
+            0.92,
+            0.38,
+            0.64
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "SporeStem6_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.9599999999999997,
+            0.45,
+            0.45
+          ],
+          "Position": [
+            -44.25,
+            4.38,
+            -35.8
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Cylinder",
+          "Orientation": [
+            0,
+            0,
+            84
+          ]
+        }
+      },
+      "SporeCrown6_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            2.0999999999999996,
+            0.9099999999999999,
+            1.89
+          ],
+          "Position": [
+            -44.25,
+            5.3950000000000005,
+            -35.8
+          ],
+          "Color": [
+            0.92,
+            0.38,
+            0.64
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "Ribbon7_0_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            67.46,
+            5.640000000000001,
+            34
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            -25,
+            32
+          ]
+        }
+      },
+      "Ribbon7_0_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            68,
+            5.640000000000001,
+            34
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "Ribbon7_0_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            3.63,
+            0.88
+          ],
+          "Position": [
+            68.54,
+            5.640000000000001,
+            34
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            25,
+            -32
+          ]
+        }
+      },
+      "Ribbon7_1_-1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            69.21,
+            5.08,
+            33.2
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            -25,
+            32
+          ]
+        }
+      },
+      "Ribbon7_1_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            69.75,
+            5.08,
+            33.2
+          ],
+          "Color": [
+            0.26,
+            0.67,
+            0.52
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "Ribbon7_1_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.58,
+            2.3099999999999996,
+            0.88
+          ],
+          "Position": [
+            70.29,
+            5.08,
+            33.2
+          ],
+          "Color": [
+            0.04,
+            0.82,
+            0.95
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            25,
+            -32
+          ]
+        }
+      },
+      "CoralBase8_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.9800000000000002,
+            1.2100000000000002,
+            1.7050000000000003
+          ],
+          "Position": [
+            -63,
+            5.394,
+            42
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "CoralSpire8_0": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.1330000000000002,
+            2.4200000000000004,
+            1.1330000000000002
+          ],
+          "Position": [
+            -62.78,
+            6.527,
+            42
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            -20
+          ]
+        }
+      },
+      "CoralBase8_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.26,
+            0.77,
+            1.085
+          ],
+          "Position": [
+            -61.25,
+            5.178,
+            41.2
+          ],
+          "Color": [
+            0.6,
+            0.3,
+            0.85
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball"
+        }
+      },
+      "CoralSpire8_1": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.721,
+            1.54,
+            0.721
+          ],
+          "Position": [
+            -61.03,
+            5.899,
+            41.2
+          ],
+          "Color": [
+            1,
+            0.74,
+            0.24
+          ],
+          "Material": "SmoothPlastic",
+          "Shape": "Ball",
+          "Orientation": [
+            0,
+            0,
+            -20
+          ]
+        }
+      }
+    }
+  }
+}
