@@ -25,9 +25,9 @@
    salvamento com DataStore e apresentação da Orion Scout no hangar: implementados
    (decisões no GDD, 08/11/2026); testes de regra em tests/progression.spec.luau;
    validação no Studio pendente.
-7. Interfaces: Design System 5.1 "Galáxia Profunda" (docs/UI-GUIDE.md): mundo noturno com
+7. Interfaces: Design System 6.0 "Elegância Cósmica" (docs/UI-GUIDE.md): mundo noturno com
    céu galáctico, arte 3D própria para os 9 minérios, pets visíveis para todos,
-   ferramentas na mão por família, interface escura com neon, botões 3D,
+   ferramentas na mão por família, interface escura com neon só como acento, botões 3D,
    tela de carregamento, HUD com cartão de próxima meta, prompts holográficos, placas
    de minério com golpes necessários, sons, mundo decorativo animado, Loja e menus
    refeitos; validação visual no Studio pendente. 

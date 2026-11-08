@@ -1,4 +1,5 @@
--- Design System 5.1 do Galaxy Mining Simulator — "Galáxia Profunda".
+-- Design System 6.0 do Galaxy Mining Simulator — "Elegância Cósmica".
+-- Fundo fosco e profundo; o brilho fica para ações, progresso e estados.
 -- Botões 3D com profundidade, vidro escuro com brilho, contornos grossos,
 -- céu estrelado nas janelas e efeitos animados compartilhados.
 -- Só apresentação: nenhuma regra de jogo vive aqui.
@@ -200,7 +201,7 @@ function Theme.panel(object: GuiObject, accent: Color3?, radius: number?)
 	local gradient = Instance.new("UIGradient")
 	gradient.Rotation = 90
 	gradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, C.Plum:Lerp(tint, 0.2)),
+		ColorSequenceKeypoint.new(0, C.Plum:Lerp(tint, 0.1)),
 		ColorSequenceKeypoint.new(0.5, C.Night),
 		ColorSequenceKeypoint.new(1, C.Void),
 	})
@@ -212,14 +213,14 @@ function Theme.panel(object: GuiObject, accent: Color3?, radius: number?)
 	glow.Size = UDim2.new(1, -4, 1, -4)
 	glow.BackgroundTransparency = 1
 	Theme.round(glow, math.max((radius or 14) - 2, 2))
-	Theme.stroke(glow, tint, 1.5, 0.35)
+	Theme.stroke(glow, tint, 1, 0.78)
 	glow.Parent = object
 	local gloss = Instance.new("Frame")
 	gloss.Name = "Gloss"
 	gloss.Position = UDim2.fromOffset(8, 3)
 	gloss.Size = UDim2.new(0.5, -8, 0, 2)
 	gloss.BackgroundColor3 = tint:Lerp(C.White, 0.4)
-	gloss.BackgroundTransparency = 0.25
+	gloss.BackgroundTransparency = 0.6
 	gloss.BorderSizePixel = 0
 	Theme.round(gloss, 2)
 	gloss.Parent = object
@@ -385,7 +386,7 @@ function Theme.nebula(parent: GuiObject, accent: Color3?)
 			local size = spot[3] * (1 - (layer - 1) * 0.28)
 			blob.Size = UDim2.fromScale(size, size * 0.8)
 			blob.BackgroundColor3 = colors[index]
-			blob.BackgroundTransparency = 0.93
+			blob.BackgroundTransparency = 0.965
 			blob.BorderSizePixel = 0
 			Theme.round(blob, 999)
 			blob.Parent = holder
@@ -652,7 +653,7 @@ function Theme.badge(parent, kind, accent, size)
 	badge.BorderSizePixel = 0
 	Theme.round(badge, size // 2)
 	Theme.stroke(badge, C.Ink, size >= 56 and 4 or 3)
-	Theme.gradient(badge, accent:Lerp(C.White, 0.15):Lerp(C.Plum, 0.4), accent:Lerp(C.Ink, 0.72))
+	Theme.gradient(badge, accent:Lerp(C.Plum, 0.45), accent:Lerp(C.Ink, 0.78))
 	badge.Parent = parent
 	local ring = Instance.new("Frame")
 	ring.Name = "NeonEdge"
@@ -660,7 +661,7 @@ function Theme.badge(parent, kind, accent, size)
 	ring.Size = UDim2.new(1, -4, 1, -4)
 	ring.BackgroundTransparency = 1
 	Theme.round(ring, 999)
-	Theme.stroke(ring, accent, 1.5, 0.3)
+	Theme.stroke(ring, accent, 1, 0.72)
 	ring.Parent = badge
 	local gloss = Instance.new("Frame")
 	gloss.Name = "Gloss"
@@ -977,7 +978,7 @@ function Theme.window(parent: Instance, titleText: string, options)
 	fill.Parent = window
 	window.Parent = holder
 	Theme.nebula(window, accent)
-	Theme.starfield(window, 70)
+	Theme.starfield(window, 45)
 
 	-- Borda interna clara: dá acabamento de "moldura" à janela.
 	local inset = Instance.new("Frame")
@@ -986,7 +987,7 @@ function Theme.window(parent: Instance, titleText: string, options)
 	inset.Size = UDim2.new(1, -10, 1, -10)
 	inset.BackgroundTransparency = 1
 	Theme.round(inset, 20)
-	Theme.stroke(inset, accent, 2, 0.55)
+	Theme.stroke(inset, C.White, 1.5, 0.9)
 	inset.Parent = window
 
 	local header = Instance.new("Frame")
@@ -998,14 +999,14 @@ function Theme.window(parent: Instance, titleText: string, options)
 	header.BorderSizePixel = 0
 	Theme.round(header, 16)
 	Theme.stroke(header, C.Ink, 3)
-	Theme.gradient(header, accent:Lerp(C.Ink, 0.25), accent:Lerp(C.Ink, 0.7))
+	Theme.gradient(header, accent:Lerp(C.Ink, 0.5), accent:Lerp(C.Ink, 0.82))
 	local headerEdge = Instance.new("Frame")
 	headerEdge.Name = "NeonEdge"
 	headerEdge.Position = UDim2.fromOffset(2, 2)
 	headerEdge.Size = UDim2.new(1, -4, 1, -4)
 	headerEdge.BackgroundTransparency = 1
 	Theme.round(headerEdge, 14)
-	Theme.stroke(headerEdge, accent, 2, 0.2)
+	Theme.stroke(headerEdge, accent, 1.5, 0.65)
 	headerEdge.Parent = header
 	header.Parent = window
 	local headerGloss = Instance.new("Frame")

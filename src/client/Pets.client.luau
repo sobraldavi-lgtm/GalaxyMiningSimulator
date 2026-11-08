@@ -122,10 +122,10 @@ function builders.rock(k, color)
 end
 
 function builders.cloud(k, color)
-	local body = k.part("Corpo", Ball, Vector3.new(1.55, 1.3, 1.35), CFrame.new(), color, Neon, 0.2)
+	local body = k.part("Corpo", Ball, Vector3.new(1.55, 1.3, 1.35), CFrame.new(), color:Lerp(WHITE, 0.15), Smooth, 0.05)
 	for _, spec in ipairs({ { -0.7, -0.1, 1.0 }, { 0.7, -0.1, 1.0 }, { -0.35, 0.45, 0.85 }, { 0.4, 0.5, 0.8 } }) do
 		k.part("Nuvem", Ball, Vector3.new(spec[3], spec[3] * 0.85, spec[3] * 0.85), CFrame.new(spec[1], spec[2], 0.1),
-			color:Lerp(WHITE, 0.25), Neon, 0.3)
+			color:Lerp(WHITE, 0.3), Smooth, 0.1)
 	end
 	k.face(0.08, -0.66, 0.3)
 	k.emit(body, color:Lerp(WHITE, 0.4), 6, 0.3)
@@ -151,7 +151,7 @@ end
 
 function builders.ice(k, color)
 	local body = k.part("Corpo", Block, Vector3.new(1.4, 1.4, 1.4), CFrame.new(), color, Glass, 0.25)
-	k.part("Nucleo", Ball, Vector3.new(0.8, 0.8, 0.8), CFrame.new(0, 0, 0.1), color:Lerp(WHITE, 0.3), Neon, 0.1)
+	k.part("Nucleo", Ball, Vector3.new(0.8, 0.8, 0.8), CFrame.new(0, 0, 0.1), color:Lerp(WHITE, 0.3), Smooth, 0.1)
 	k.face(0.12, -0.72, 0.3)
 	for index, spec in ipairs({ { 0, 0.75 }, { -0.4, 0.55 }, { 0.4, 0.55 } }) do
 		k.part("Pico", Block, Vector3.new(0.28, spec[2], 0.28),
@@ -164,10 +164,10 @@ function builders.ice(k, color)
 end
 
 function builders.sun(k, color)
-	local body = k.part("Corpo", Ball, Vector3.new(1.55, 1.55, 1.55), CFrame.new(), color, Neon)
+	local body = k.part("Corpo", Ball, Vector3.new(1.55, 1.55, 1.55), CFrame.new(), color, Smooth)
 	k.face(0.1, -0.74, 0.32)
 	local ring = k.part("Anel", Cylinder, Vector3.new(0.1, 2.5, 2.5), CFrame.Angles(math.rad(70), 0, math.rad(90)),
-		Color3.fromHex("#FFE278"), Neon, 0.2)
+		Color3.fromHex("#FFE278"), Smooth, 0.25)
 	ring:SetAttribute("Spin", true)
 	for index = 0, 7 do
 		local angle = index * math.pi / 4

@@ -99,7 +99,8 @@ function kits.crystal(top, rng, color, style, add)
 			local part = add(frame, Vector3.new(width, height, width), color, Enum.Material.Glass, nil, 0.2)
 			part.Reflectance = 0.3
 		else
-			add(frame, Vector3.new(width, height, width), color:Lerp(WHITE, 0.1), Enum.Material.Neon, nil, 0.12)
+			local part = add(frame, Vector3.new(width, height, width), color:Lerp(WHITE, 0.05), Enum.Material.SmoothPlastic)
+			part.Reflectance = 0.15
 		end
 		-- Ponta mais clara no topo do cristal.
 		add(frame * CFrame.new(0, height / 2, 0) * CFrame.Angles(math.rad(45), 0, math.rad(45)),
@@ -165,7 +166,7 @@ local function build(base, oreType)
 	local top = base.CFrame * CFrame.new(0, base.Size.Y / 2, 0)
 	local floor = base.CFrame * CFrame.new(0, -base.Size.Y / 2 + 0.08, 0)
 	local ring = piece(floor * CFrame.Angles(0, 0, math.rad(90)), Vector3.new(0.12, 9.6, 9.6), color,
-		Enum.Material.Neon, Enum.PartType.Cylinder, 0.55)
+		Enum.Material.SmoothPlastic, Enum.PartType.Cylinder, 0.7)
 	table.insert(rings, { part = ring, phase = rng:NextNumber(0, 6.28) })
 	entry.ring = ring
 	entry.floor = floor
@@ -250,7 +251,7 @@ RunService.Heartbeat:Connect(function(dt)
 	for index = #rings, 1, -1 do
 		local ring = rings[index]
 		if ring.part.Parent then
-			ring.part.Transparency = 0.5 + math.sin(t * 2 + ring.phase) * 0.15
+			ring.part.Transparency = 0.72 + math.sin(t * 2 + ring.phase) * 0.08
 		else
 			table.remove(rings, index)
 		end
