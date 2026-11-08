@@ -8,17 +8,31 @@
     "Workspace": {
       "$className": "Workspace",
       "$ignoreUnknownInstances": true,
-      "TerraNova": { "$path": "src/world/terra-nova.project.json" },
+      "TerraNova": {
+        "$path": "src/world/terra-nova.project.json"
+      },
       "SpawnLocation": {
         "$className": "SpawnLocation",
         "$ignoreUnknownInstances": true,
         "$properties": {
           "Anchored": true,
-          "Position": [0, 1.5, 0],
-          "Size": [8, 1, 8],
+          "Position": [
+            0,
+            1.5,
+            0
+          ],
+          "Size": [
+            8,
+            1,
+            8
+          ],
           "Neutral": true,
           "Duration": 0,
-          "Color": [0.15, 0.85, 0.95],
+          "Color": [
+            0.15,
+            0.85,
+            0.95
+          ],
           "Material": "Metal"
         }
       }
@@ -27,47 +41,88 @@
       "$className": "Lighting",
       "$ignoreUnknownInstances": true,
       "$properties": {
-        "ClockTime": 17.6,
-        "Brightness": 2.6,
-        "ExposureCompensation": 0.15,
-        "Ambient": [0.37, 0.39, 0.52],
-        "OutdoorAmbient": [0.57, 0.62, 0.73],
-        "EnvironmentDiffuseScale": 0.45,
-        "EnvironmentSpecularScale": 0.5
+        "ClockTime": 0.5,
+        "Brightness": 3.0,
+        "ExposureCompensation": 0.35,
+        "Ambient": [
+          0.34,
+          0.38,
+          0.62
+        ],
+        "OutdoorAmbient": [
+          0.4,
+          0.45,
+          0.75
+        ],
+        "EnvironmentDiffuseScale": 0.6,
+        "EnvironmentSpecularScale": 0.6,
+        "ColorShift_Top": [
+          0.5,
+          0.6,
+          1.0
+        ]
       },
       "TerraNovaAtmosphere": {
         "$className": "Atmosphere",
         "$properties": {
-          "Density": 0.255,
-          "Haze": 1.55,
+          "Density": 0.12,
+          "Haze": 0.9,
           "Offset": 0.08,
           "Glare": 0,
-          "Color": [0.63, 0.81, 1.0],
-          "Decay": [0.52, 0.43, 0.73]
+          "Color": [
+            0.45,
+            0.5,
+            0.9
+          ],
+          "Decay": [
+            0.25,
+            0.15,
+            0.5
+          ]
         }
       },
       "TerraNovaBloom": {
         "$className": "BloomEffect",
-        "$properties": { "Intensity": 0.6, "Size": 28, "Threshold": 1.6 }
+        "$properties": {
+          "Intensity": 1.1,
+          "Size": 36,
+          "Threshold": 1.1
+        }
       },
       "TerraNovaSunRays": {
         "$className": "SunRaysEffect",
-        "$properties": { "Intensity": 0.12, "Spread": 0.8 }
+        "$properties": {
+          "Intensity": 0.0,
+          "Spread": 0.8
+        }
       },
       "TerraNovaDepth": {
         "$className": "DepthOfFieldEffect",
-        "$properties": { "FarIntensity": 0.12, "FocusDistance": 60, "InFocusRadius": 40, "NearIntensity": 0 }
+        "$properties": {
+          "FarIntensity": 0.12,
+          "FocusDistance": 60,
+          "InFocusRadius": 40,
+          "NearIntensity": 0
+        }
       },
       "TerraNovaSky": {
         "$className": "Sky",
-        "$properties": { "StarCount": 4000, "SunAngularSize": 14, "MoonAngularSize": 0 }
+        "$properties": {
+          "StarCount": 5000,
+          "SunAngularSize": 8,
+          "MoonAngularSize": 0
+        }
       },
       "TerraNovaColor": {
         "$className": "ColorCorrectionEffect",
         "$properties": {
-          "Contrast": 0.06,
-          "Saturation": 0.06,
-          "TintColor": [0.98, 0.97, 1.0]
+          "Contrast": 0.12,
+          "Saturation": 0.25,
+          "TintColor": [
+            0.95,
+            0.95,
+            1.0
+          ]
         }
       }
     },
@@ -98,4 +153,3 @@
     }
   }
 }
-

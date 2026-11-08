@@ -15,7 +15,7 @@
 
 ## Próximas etapas — Uma por vez, após definir cada entrega
 
-1. Cenário Terra Nova: primeira estrutura criada; caminhos com sinalização luminosa,
+1. Cenário Terra Nova: mapa ampliado (raio 250) com estética espacial, instalações afastadas, caminhos neon, portais, minas profundas e cenário gerado por tools/build_space_map.py (parte do commit af17020). Validação visual pendente no Studio.
    plataforma de chegada destacada, fachada da loja, iluminação do hangar, cristais
    na caverna e vegetação alienígena adicionados. Validação visual e circulação
    pendentes no Studio.

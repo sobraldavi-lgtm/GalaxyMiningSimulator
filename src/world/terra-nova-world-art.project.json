@@ -196,7 +196,7 @@
             0.55
           ],
           "Position": [
-            2.816687638038912E-16,
+            2.816687638038912e-16,
             25.9,
             -7.1
           ],
@@ -382,7 +382,7 @@
             0.55
           ],
           "Position": [
-            -8.450062914116736E-16,
+            -8.450062914116736e-16,
             16.700000000000003,
             -8.9
           ],
@@ -462,351 +462,6 @@
         }
       }
     },
-    "SouthOverlook": {
-      "$className": "Folder",
-      "Approach0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            5.4,
-            0.24,
-            9.344003745317531
-          ],
-          "Position": [
-            11.5,
-            0.65,
-            18
-          ],
-          "Color": [
-            0.24,
-            0.44,
-            0.79
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            20.556045219583464,
-            0
-          ]
-        }
-      },
-      "Approach1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            5.4,
-            0.24,
-            12.841594578792295
-          ],
-          "Position": [
-            13.5,
-            0.662,
-            28
-          ],
-          "Color": [
-            0.24,
-            0.44,
-            0.79
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            4.763641690726178,
-            0
-          ]
-        }
-      },
-      "Approach2": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            5.4,
-            0.24,
-            11.845361017187262
-          ],
-          "Position": [
-            14.5,
-            0.674,
-            39.5
-          ],
-          "Color": [
-            0.24,
-            0.44,
-            0.79
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            5.194428907734806,
-            0
-          ]
-        }
-      },
-      "Ramp": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            6.4,
-            0.46,
-            13
-          ],
-          "Position": [
-            15,
-            2.15,
-            51
-          ],
-          "Color": [
-            0.08,
-            0.13,
-            0.25
-          ],
-          "Material": "Metal",
-          "Orientation": [
-            -14.931417178137556,
-            0,
-            0
-          ]
-        }
-      },
-      "Deck": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            14,
-            0.6,
-            11
-          ],
-          "Position": [
-            15,
-            3.66,
-            61.6
-          ],
-          "Color": [
-            0.24,
-            0.44,
-            0.79
-          ],
-          "Material": "Metal"
-        }
-      },
-      "Foundation": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            13.5,
-            3.05,
-            10.5
-          ],
-          "Position": [
-            15,
-            1.85,
-            61.6
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate"
-        }
-      },
-      "RampGuard-1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            0.35,
-            1.16,
-            12.7
-          ],
-          "Position": [
-            11.83,
-            2.89,
-            51
-          ],
-          "Color": [
-            0.61,
-            0.76,
-            0.88
-          ],
-          "Material": "Metal",
-          "Orientation": [
-            -14.931417178137556,
-            0,
-            0
-          ]
-        }
-      },
-      "Guard-1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            0.32,
-            1.18,
-            10.75
-          ],
-          "Position": [
-            8.17,
-            4.55,
-            61.6
-          ],
-          "Color": [
-            0.61,
-            0.76,
-            0.88
-          ],
-          "Material": "Metal"
-        }
-      },
-      "RampGuard1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            0.35,
-            1.16,
-            12.7
-          ],
-          "Position": [
-            18.17,
-            2.89,
-            51
-          ],
-          "Color": [
-            0.61,
-            0.76,
-            0.88
-          ],
-          "Material": "Metal",
-          "Orientation": [
-            -14.931417178137556,
-            0,
-            0
-          ]
-        }
-      },
-      "Guard1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            0.32,
-            1.18,
-            10.75
-          ],
-          "Position": [
-            21.83,
-            4.55,
-            61.6
-          ],
-          "Color": [
-            0.61,
-            0.76,
-            0.88
-          ],
-          "Material": "Metal"
-        }
-      },
-      "VistaGuard": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": true,
-          "CanQuery": true,
-          "CanTouch": false,
-          "CastShadow": true,
-          "Size": [
-            13.5,
-            1.18,
-            0.32
-          ],
-          "Position": [
-            15,
-            4.55,
-            66.93
-          ],
-          "Color": [
-            0.61,
-            0.76,
-            0.88
-          ],
-          "Material": "Metal"
-        }
-      },
-      "VistaAccent": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            11,
-            0.085,
-            0.4
-          ],
-          "Position": [
-            15,
-            4,
-            66.45
-          ],
-          "Color": [
-            1,
-            0.74,
-            0.24
-          ],
-          "Material": "Neon"
-        }
-      }
-    },
     "Skyline": {
       "$className": "Folder",
       "IslandCap0": {
@@ -818,14 +473,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            3.3,
-            36,
-            22
+            5.28,
+            57.6,
+            35.2
           ],
           "Position": [
-            -135,
+            -351.0,
             15,
-            -126
+            -327.6
           ],
           "Color": [
             0.26,
@@ -850,14 +505,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            7.4,
-            34.92,
-            20.9
+            11.840000000000002,
+            55.87200000000001,
+            33.44
           ],
           "Position": [
-            -135,
+            -351.0,
             10.3,
-            -126
+            -327.6
           ],
           "Color": [
             0.3,
@@ -882,14 +537,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            29.88,
-            22,
-            18.919999999999998
+            47.808,
+            35.2,
+            30.272
           ],
           "Position": [
-            -132.48,
+            -344.448,
             -3.1000000000000014,
-            -126
+            -327.6
           ],
           "Color": [
             0.15,
@@ -913,14 +568,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            19.080000000000002,
-            14.3,
-            13.64
+            30.528000000000006,
+            22.880000000000003,
+            21.824
           ],
           "Position": [
-            -141.84,
+            -368.78400000000005,
             1.5199999999999996,
-            -124.02
+            -322.452
           ],
           "Color": [
             0.3,
@@ -944,14 +599,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            13.68,
-            12.32,
-            10.78
+            21.888,
+            19.712000000000003,
+            17.248
           ],
           "Position": [
-            -139.32,
+            -362.23199999999997,
             19.84,
-            -125
+            -325.0
           ],
           "Color": [
             0.15,
@@ -975,14 +630,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            3.3,
-            27,
-            22
+            5.28,
+            43.2,
+            35.2
           ],
           "Position": [
-            -65,
+            -169.0,
             33,
-            -164
+            -426.40000000000003
           ],
           "Color": [
             0.26,
@@ -1007,14 +662,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            7.4,
-            26.189999999999998,
-            20.9
+            11.840000000000002,
+            41.903999999999996,
+            33.44
           ],
           "Position": [
-            -65,
+            -169.0,
             28.3,
-            -164
+            -426.40000000000003
           ],
           "Color": [
             0.3,
@@ -1039,14 +694,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            22.41,
-            33,
-            18.919999999999998
+            35.856,
+            52.800000000000004,
+            30.272
           ],
           "Position": [
-            -63.11,
+            -164.086,
             8.849999999999998,
-            -164
+            -426.40000000000003
           ],
           "Color": [
             0.15,
@@ -1070,14 +725,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            14.31,
-            21.45,
-            13.64
+            22.896,
+            34.32,
+            21.824
           ],
           "Position": [
-            -70.13,
+            -182.338,
             15.780000000000001,
-            -162.02
+            -421.25200000000007
           ],
           "Color": [
             0.3,
@@ -1101,14 +756,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            10.26,
-            18.48,
-            10.78
+            16.416,
+            29.568,
+            17.248
           ],
           "Position": [
-            -68.24,
+            -177.424,
             40.26,
-            -163
+            -423.8
           ],
           "Color": [
             0.15,
@@ -1132,14 +787,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            3.3,
-            49,
-            22
+            5.28,
+            78.4,
+            35.2
           ],
           "Position": [
-            51,
+            132.6,
             19,
-            -175
+            -455.0
           ],
           "Color": [
             0.26,
@@ -1164,14 +819,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            7.4,
-            47.53,
-            20.9
+            11.840000000000002,
+            76.048,
+            33.44
           ],
           "Position": [
-            51,
+            132.6,
             14.3,
-            -175
+            -455.0
           ],
           "Color": [
             0.3,
@@ -1196,14 +851,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            40.669999999999995,
-            30,
-            18.919999999999998
+            65.07199999999999,
+            48.0,
+            30.272
           ],
           "Position": [
-            54.43,
+            141.518,
             -3.5,
-            -175
+            -455.0
           ],
           "Color": [
             0.15,
@@ -1227,14 +882,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            25.970000000000002,
-            19.5,
-            13.64
+            41.55200000000001,
+            31.200000000000003,
+            21.824
           ],
           "Position": [
-            41.69,
+            108.39399999999999,
             2.799999999999999,
-            -173.02
+            -449.85200000000003
           ],
           "Color": [
             0.3,
@@ -1258,14 +913,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            18.62,
-            16.8,
-            10.78
+            29.792,
+            26.880000000000003,
+            17.248
           ],
           "Position": [
-            45.12,
+            117.312,
             25.6,
-            -174
+            -452.40000000000003
           ],
           "Color": [
             0.15,
@@ -1289,14 +944,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            3.3,
-            33,
-            30
+            5.28,
+            52.800000000000004,
+            48.0
           ],
           "Position": [
-            138,
+            358.8,
             27,
-            -100
+            -260.0
           ],
           "Color": [
             0.26,
@@ -1321,14 +976,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            7.4,
-            32.01,
-            28.5
+            11.840000000000002,
+            51.216,
+            45.6
           ],
           "Position": [
-            138,
+            358.8,
             22.3,
-            -100
+            -260.0
           ],
           "Color": [
             0.3,
@@ -1353,14 +1008,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            27.389999999999997,
-            24,
-            25.8
+            43.824,
+            38.400000000000006,
+            41.28
           ],
           "Position": [
-            140.31,
+            364.80600000000004,
             7.799999999999999,
-            -100
+            -260.0
           ],
           "Color": [
             0.15,
@@ -1384,14 +1039,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            17.490000000000002,
-            15.600000000000001,
-            18.6
+            27.984000000000005,
+            24.960000000000004,
+            29.760000000000005
           ],
           "Position": [
-            131.73,
+            342.498,
             12.84,
-            -97.3
+            -252.98
           ],
           "Color": [
             0.3,
@@ -1415,14 +1070,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            12.540000000000001,
-            13.440000000000001,
-            14.7
+            20.064000000000004,
+            21.504000000000005,
+            23.52
           ],
           "Position": [
-            134.04,
+            348.504,
             32.28,
-            -99
+            -257.40000000000003
           ],
           "Color": [
             0.15,
@@ -1446,14 +1101,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            3.3,
-            41,
-            27
+            5.28,
+            65.60000000000001,
+            43.2
           ],
           "Position": [
-            90,
+            234.0,
             13,
-            122
+            317.2
           ],
           "Color": [
             0.26,
@@ -1478,14 +1133,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            7.4,
-            39.769999999999996,
-            25.65
+            11.840000000000002,
+            63.632,
+            41.04
           ],
           "Position": [
-            90,
+            234.0,
             8.3,
-            122
+            317.2
           ],
           "Color": [
             0.3,
@@ -1510,14 +1165,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            34.03,
-            28,
-            23.22
+            54.44800000000001,
+            44.800000000000004,
+            37.152
           ],
           "Position": [
-            92.87,
+            241.46200000000002,
             -8.400000000000002,
-            122
+            317.2
           ],
           "Color": [
             0.15,
@@ -1541,14 +1196,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            21.73,
-            18.2,
-            16.74
+            34.768,
+            29.12,
+            26.784
           ],
           "Position": [
-            82.21,
+            213.74599999999998,
             -2.5200000000000014,
-            124.43
+            323.51800000000003
           ],
           "Color": [
             0.3,
@@ -1572,14 +1227,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            15.58,
-            15.680000000000001,
-            13.23
+            24.928,
+            25.088000000000005,
+            21.168000000000003
           ],
           "Position": [
-            85.08,
+            221.208,
             19.16,
-            123
+            319.8
           ],
           "Color": [
             0.15,
@@ -1603,14 +1258,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            3.3,
-            35,
-            17
+            5.28,
+            56.0,
+            27.200000000000003
           ],
           "Position": [
-            -96,
+            -249.60000000000002,
             9,
-            131
+            340.6
           ],
           "Color": [
             0.26,
@@ -1635,14 +1290,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            7.4,
-            33.949999999999996,
-            16.15
+            11.840000000000002,
+            54.31999999999999,
+            25.84
           ],
           "Position": [
-            -96,
+            -249.60000000000002,
             4.3,
-            131
+            340.6
           ],
           "Color": [
             0.3,
@@ -1667,14 +1322,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            29.049999999999997,
-            23,
-            14.62
+            46.48,
+            36.800000000000004,
+            23.392
           ],
           "Position": [
-            -93.55,
+            -243.23,
             -9.65,
-            131
+            340.6
           ],
           "Color": [
             0.15,
@@ -1698,14 +1353,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            18.55,
-            14.950000000000001,
-            10.54
+            29.680000000000003,
+            23.92,
+            16.864
           ],
           "Position": [
-            -102.65,
+            -266.89000000000004,
             -4.82,
-            132.53
+            344.57800000000003
           ],
           "Color": [
             0.3,
@@ -1729,14 +1384,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            13.3,
-            12.88,
-            8.33
+            21.28,
+            20.608000000000004,
+            13.328000000000001
           ],
           "Position": [
-            -100.2,
+            -260.52000000000004,
             14.059999999999999,
-            132
+            343.2
           ],
           "Color": [
             0.15,
@@ -1760,14 +1415,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            51,
-            51,
-            51
+            81.60000000000001,
+            81.60000000000001,
+            81.60000000000001
           ],
           "Position": [
-            99,
+            257.40000000000003,
             80,
-            -201
+            -522.6
           ],
           "Color": [
             0.4,
@@ -1787,14 +1442,14 @@
           "CanTouch": false,
           "CastShadow": false,
           "Size": [
-            0.7,
-            78,
-            78
+            1.1199999999999999,
+            124.80000000000001,
+            124.80000000000001
           ],
           "Position": [
-            99,
+            257.40000000000003,
             80,
-            -201
+            -522.6
           ],
           "Color": [
             0.58,
@@ -1809,1293 +1464,6 @@
             71
           ],
           "Transparency": 0.7
-        }
-      }
-    },
-    "Biomes": {
-      "$className": "Folder",
-      "SporeStem0_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            3.08,
-            0.45,
-            0.45
-          ],
-          "Position": [
-            -22,
-            4.94,
-            -32
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            0,
-            84
-          ]
-        }
-      },
-      "SporeCrown0_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            3.3000000000000003,
-            1.4300000000000002,
-            2.9700000000000006
-          ],
-          "Position": [
-            -22,
-            6.535000000000001,
-            -32
-          ],
-          "Color": [
-            0.92,
-            0.38,
-            0.64
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "SporeStem0_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.9599999999999997,
-            0.45,
-            0.45
-          ],
-          "Position": [
-            -20.25,
-            4.38,
-            -32.8
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            0,
-            84
-          ]
-        }
-      },
-      "SporeCrown0_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            2.0999999999999996,
-            0.9099999999999999,
-            1.89
-          ],
-          "Position": [
-            -20.25,
-            5.3950000000000005,
-            -32.8
-          ],
-          "Color": [
-            0.92,
-            0.38,
-            0.64
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "Ribbon1_0_-1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            26.46,
-            5.640000000000001,
-            -19
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            -25,
-            32
-          ]
-        }
-      },
-      "Ribbon1_0_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            27,
-            5.640000000000001,
-            -19
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "Ribbon1_0_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            27.54,
-            5.640000000000001,
-            -19
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            25,
-            -32
-          ]
-        }
-      },
-      "Ribbon1_1_-1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            28.21,
-            5.08,
-            -19.8
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            -25,
-            32
-          ]
-        }
-      },
-      "Ribbon1_1_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            28.75,
-            5.08,
-            -19.8
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "Ribbon1_1_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            29.29,
-            5.08,
-            -19.8
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            25,
-            -32
-          ]
-        }
-      },
-      "CoralBase2_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.9800000000000002,
-            1.2100000000000002,
-            1.7050000000000003
-          ],
-          "Position": [
-            -38,
-            5.394,
-            17
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "CoralSpire2_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.1330000000000002,
-            2.4200000000000004,
-            1.1330000000000002
-          ],
-          "Position": [
-            -37.78,
-            6.527,
-            17
-          ],
-          "Color": [
-            1,
-            0.74,
-            0.24
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            -20
-          ]
-        }
-      },
-      "CoralBase2_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.26,
-            0.77,
-            1.085
-          ],
-          "Position": [
-            -36.25,
-            5.178,
-            16.2
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "CoralSpire2_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.721,
-            1.54,
-            0.721
-          ],
-          "Position": [
-            -36.03,
-            5.899,
-            16.2
-          ],
-          "Color": [
-            1,
-            0.74,
-            0.24
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            -20
-          ]
-        }
-      },
-      "SporeStem3_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            3.08,
-            0.45,
-            0.45
-          ],
-          "Position": [
-            32,
-            4.94,
-            18
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            0,
-            84
-          ]
-        }
-      },
-      "SporeCrown3_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            3.3000000000000003,
-            1.4300000000000002,
-            2.9700000000000006
-          ],
-          "Position": [
-            32,
-            6.535000000000001,
-            18
-          ],
-          "Color": [
-            0.92,
-            0.38,
-            0.64
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "SporeStem3_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.9599999999999997,
-            0.45,
-            0.45
-          ],
-          "Position": [
-            33.75,
-            4.38,
-            17.2
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            0,
-            84
-          ]
-        }
-      },
-      "SporeCrown3_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            2.0999999999999996,
-            0.9099999999999999,
-            1.89
-          ],
-          "Position": [
-            33.75,
-            5.3950000000000005,
-            17.2
-          ],
-          "Color": [
-            0.92,
-            0.38,
-            0.64
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "Ribbon4_0_-1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            3.46,
-            5.640000000000001,
-            30
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            -25,
-            32
-          ]
-        }
-      },
-      "Ribbon4_0_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            4,
-            5.640000000000001,
-            30
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "Ribbon4_0_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            4.54,
-            5.640000000000001,
-            30
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            25,
-            -32
-          ]
-        }
-      },
-      "Ribbon4_1_-1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            5.21,
-            5.08,
-            29.2
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            -25,
-            32
-          ]
-        }
-      },
-      "Ribbon4_1_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            5.75,
-            5.08,
-            29.2
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "Ribbon4_1_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            6.29,
-            5.08,
-            29.2
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            25,
-            -32
-          ]
-        }
-      },
-      "CoralBase5_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.9800000000000002,
-            1.2100000000000002,
-            1.7050000000000003
-          ],
-          "Position": [
-            49,
-            5.394,
-            -36
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "CoralSpire5_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.1330000000000002,
-            2.4200000000000004,
-            1.1330000000000002
-          ],
-          "Position": [
-            49.22,
-            6.527,
-            -36
-          ],
-          "Color": [
-            1,
-            0.74,
-            0.24
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            -20
-          ]
-        }
-      },
-      "CoralBase5_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.26,
-            0.77,
-            1.085
-          ],
-          "Position": [
-            50.75,
-            5.178,
-            -36.8
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "CoralSpire5_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.721,
-            1.54,
-            0.721
-          ],
-          "Position": [
-            50.97,
-            5.899,
-            -36.8
-          ],
-          "Color": [
-            1,
-            0.74,
-            0.24
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            -20
-          ]
-        }
-      },
-      "SporeStem6_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            3.08,
-            0.45,
-            0.45
-          ],
-          "Position": [
-            -46,
-            4.94,
-            -35
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            0,
-            84
-          ]
-        }
-      },
-      "SporeCrown6_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            3.3000000000000003,
-            1.4300000000000002,
-            2.9700000000000006
-          ],
-          "Position": [
-            -46,
-            6.535000000000001,
-            -35
-          ],
-          "Color": [
-            0.92,
-            0.38,
-            0.64
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "SporeStem6_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.9599999999999997,
-            0.45,
-            0.45
-          ],
-          "Position": [
-            -44.25,
-            4.38,
-            -35.8
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            0,
-            84
-          ]
-        }
-      },
-      "SporeCrown6_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            2.0999999999999996,
-            0.9099999999999999,
-            1.89
-          ],
-          "Position": [
-            -44.25,
-            5.3950000000000005,
-            -35.8
-          ],
-          "Color": [
-            0.92,
-            0.38,
-            0.64
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "Ribbon7_0_-1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            67.46,
-            5.640000000000001,
-            34
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            -25,
-            32
-          ]
-        }
-      },
-      "Ribbon7_0_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            68,
-            5.640000000000001,
-            34
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "Ribbon7_0_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            3.63,
-            0.88
-          ],
-          "Position": [
-            68.54,
-            5.640000000000001,
-            34
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            25,
-            -32
-          ]
-        }
-      },
-      "Ribbon7_1_-1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            69.21,
-            5.08,
-            33.2
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            -25,
-            32
-          ]
-        }
-      },
-      "Ribbon7_1_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            69.75,
-            5.08,
-            33.2
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "Ribbon7_1_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.58,
-            2.3099999999999996,
-            0.88
-          ],
-          "Position": [
-            70.29,
-            5.08,
-            33.2
-          ],
-          "Color": [
-            0.04,
-            0.82,
-            0.95
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            25,
-            -32
-          ]
-        }
-      },
-      "CoralBase8_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.9800000000000002,
-            1.2100000000000002,
-            1.7050000000000003
-          ],
-          "Position": [
-            -63,
-            5.394,
-            42
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "CoralSpire8_0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.1330000000000002,
-            2.4200000000000004,
-            1.1330000000000002
-          ],
-          "Position": [
-            -62.78,
-            6.527,
-            42
-          ],
-          "Color": [
-            1,
-            0.74,
-            0.24
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            -20
-          ]
-        }
-      },
-      "CoralBase8_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            1.26,
-            0.77,
-            1.085
-          ],
-          "Position": [
-            -61.25,
-            5.178,
-            41.2
-          ],
-          "Color": [
-            0.6,
-            0.3,
-            0.85
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball"
-        }
-      },
-      "CoralSpire8_1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            0.721,
-            1.54,
-            0.721
-          ],
-          "Position": [
-            -61.03,
-            5.899,
-            41.2
-          ],
-          "Color": [
-            1,
-            0.74,
-            0.24
-          ],
-          "Material": "SmoothPlastic",
-          "Shape": "Ball",
-          "Orientation": [
-            0,
-            0,
-            -20
-          ]
         }
       }
     }
