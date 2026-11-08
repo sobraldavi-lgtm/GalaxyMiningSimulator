@@ -16,12 +16,9 @@
 ## Próximas etapas — Uma por vez, após definir cada entrega
 
 1. Cenário Terra Nova: mapa ampliado (raio 250) com estética espacial, instalações afastadas, caminhos neon, portais, minas profundas e cenário gerado por tools/build_space_map.py (parte do commit af17020). Validação visual pendente no Studio.
-   plataforma de chegada destacada, fachada da loja, iluminação do hangar, cristais
-   na caverna e vegetação alienígena adicionados. Validação visual e circulação
-   pendentes no Studio.
 2. Mineração por cliques e depósitos independentes por jogador: protótipo implementado; testes no Studio pendentes (docs/MINING-TEST.md).
 3. Inventário por peso, venda e Créditos: implementados em memória; teste integrado no Studio pendente.
-4. Ferramentas, mochilas e loja: 20 ferramentas, 20 Mochilas de Poeira Cósmica, 9 minérios e 6 pets em menu de loja; mapa ampliado com Minas Profundas (gerador em tools/gen_expansion.py); teste no Studio pendente.
+4. Ferramentas, mochilas e loja: 20 ferramentas, 20 Mochilas de Poeira Cósmica, 9 minérios e 6 pets em menu de loja; Minas Profundas no mapa (gerador em tools/build_space_map.py); teste no Studio pendente.
 5. Estação de pets com OVNI em Terra Nova. Primeiro resgate de Lumini por 75 Créditos, com equipamento e bônus em sessão. Revisão no Studio, Rokko e Nebbi pendentes.
 6. Cinco missões de ORBI e progressão.
 7. Interfaces: contorno de seleção, barras animadas, feedback de dano/coleta e painel
