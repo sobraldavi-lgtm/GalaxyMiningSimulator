@@ -1,4 +1,4 @@
--- Loja Orion: janela com categorias e grade de itens (estilo loja de simulador).
+-- Loja Orion v5: janela com categorias e grade de cartões 3D.
 -- O cliente só apresenta e pede ações; saldo, preços e posse são validados no servidor.
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -6,6 +6,7 @@ local ProximityPromptService = game:GetService("ProximityPromptService")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local Theme = require(script.Parent.VisualTheme)
+local Sound = require(script.Parent.Sound)
 local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("MiningConfig"))
 local remote = ReplicatedStorage:WaitForChild("InventoryState")
 local player = Players.LocalPlayer
@@ -17,7 +18,7 @@ local C = Theme.Color
 local categories = {
 	{ Id = "Backpacks", Name = "Mochilas", Icon = "pack", Accent = C.Violet },
 	{ Id = "Tools", Name = "Ferramentas", Icon = "drill", Accent = C.Cyan },
-	{ Id = "Pets", Name = "Pets", Icon = "pet", Accent = C.Green },
+	{ Id = "Pets", Name = "Pets", Icon = "pet", Accent = C.Mint },
 }
 
 local items = {}
@@ -36,7 +37,7 @@ table.sort(tools, function(a, b) return a.upgrade.Price < b.upgrade.Price end)
 for index, entry in ipairs(tools) do
 	table.insert(items, {
 		Id = entry.id, Category = "Tools", Kind = "Tool", Order = index,
-		Name = entry.upgrade.Name, Color = Color3.fromHex(entry.upgrade.Color or "#00D8FF"), Icon = "drill",
+		Name = entry.upgrade.Name, Color = Color3.fromHex(entry.upgrade.Color or "#22E1FF"), Icon = "drill",
 		Price = entry.upgrade.Price, Power = entry.upgrade.Power,
 	})
 end
@@ -58,45 +59,47 @@ gui.DisplayOrder = 20
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.Parent = playerGui
 
-local shop = Theme.window(gui, "LOJA ORION", { MaxSize = Vector2.new(820, 500) })
-local window = shop.Window
+local shop = Theme.window(gui, "LOJA ORION", { MaxSize = Vector2.new(860, 520), Accent = C.Gold, Icon = "shop" })
+local header = shop.Header
 local body = shop.Body
 
--- Saldo
+-- Saldo no cabeçalho
 local pill = Instance.new("Frame")
-pill.Position = UDim2.fromOffset(14, 14)
-pill.Size = UDim2.fromOffset(160, 38)
-pill.BackgroundColor3 = C.Deep
+pill.AnchorPoint = Vector2.new(1, 0.5)
+pill.Position = UDim2.new(1, -62, 0.5, 0)
+pill.Size = UDim2.fromOffset(170, 38)
+pill.BackgroundColor3 = C.Ink
+pill.BackgroundTransparency = 0.15
 pill.BorderSizePixel = 0
 pill.ZIndex = 3
 Theme.round(pill, 19)
-Theme.stroke(pill, C.Gold, 2)
-pill.Parent = window
-local coin = Theme.badge(pill, "coin", C.Gold, 30)
+Theme.stroke(pill, C.Ink, 3)
+pill.Parent = header
+local coin = Theme.badge(pill, "coin", C.Gold, 42)
 coin.AnchorPoint = Vector2.new(0, 0.5)
-coin.Position = UDim2.new(0, 4, 0.5, 0)
-local creditsLabel = Theme.label(pill, "0", 20, C.Gold)
-creditsLabel.Font = Theme.Font.Display
+coin.Position = UDim2.new(0, -10, 0.5, 0)
+local creditsLabel = Theme.title(pill, "0", 22, C.Gold)
 creditsLabel.TextXAlignment = Enum.TextXAlignment.Left
-creditsLabel.Position = UDim2.fromOffset(40, 0)
-creditsLabel.Size = UDim2.new(1, -48, 1, 0)
-Theme.fitText(creditsLabel, 20, 10)
+creditsLabel.Position = UDim2.fromOffset(38, 0)
+creditsLabel.Size = UDim2.new(1, -46, 1, 0)
+Theme.fitText(creditsLabel, 22, 10)
+shop.Title.Size = UDim2.new(1, -300, 1, -4)
 
 -- Categorias
 local sidebar = Instance.new("Frame")
 sidebar.BackgroundTransparency = 1
-sidebar.Size = UDim2.new(0, 108, 1, 0)
+sidebar.Size = UDim2.new(0, 112, 1, 0)
 sidebar.Parent = body
 local sideList = Instance.new("UIListLayout")
-sideList.Padding = UDim.new(0, 10)
+sideList.Padding = UDim.new(0, 12)
 sideList.SortOrder = Enum.SortOrder.LayoutOrder
 sideList.Parent = sidebar
 
 -- Grade de itens
 local panel = Instance.new("Frame")
-panel.Position = UDim2.fromOffset(118, 0)
-panel.Size = UDim2.new(1, -118, 1, -40)
-Theme.well(panel)
+panel.Position = UDim2.fromOffset(124, 0)
+panel.Size = UDim2.new(1, -124, 1, -42)
+Theme.well(panel, 18)
 panel.Parent = body
 
 local scroller = Instance.new("ScrollingFrame")
@@ -108,36 +111,33 @@ scroller.AutomaticCanvasSize = Enum.AutomaticSize.Y
 scroller.ScrollBarThickness = 6
 scroller.ScrollBarImageColor3 = C.Frost
 scroller.Parent = panel
-Theme.padding(scroller, 8)
+Theme.padding(scroller, 10)
 local grid = Instance.new("UIGridLayout")
-grid.CellSize = UDim2.fromOffset(150, 212)
-grid.CellPadding = UDim2.fromOffset(10, 10)
+grid.CellSize = UDim2.fromOffset(156, 226)
+grid.CellPadding = UDim2.fromOffset(12, 12)
 grid.SortOrder = Enum.SortOrder.LayoutOrder
 grid.HorizontalAlignment = Enum.HorizontalAlignment.Center
 grid.Parent = scroller
 
--- Mensagem de retorno do servidor (faixa inferior)
+-- Faixa inferior: mensagem do servidor ou dica
 local toast = Instance.new("Frame")
 toast.AnchorPoint = Vector2.new(0, 1)
-toast.Position = UDim2.new(0, 118, 1, 0)
-toast.Size = UDim2.new(1, -118, 0, 32)
-toast.BackgroundColor3 = C.Deep
-toast.BackgroundTransparency = 0.3
-toast.BorderSizePixel = 0
+toast.Position = UDim2.new(0, 124, 1, 0)
+toast.Size = UDim2.new(1, -124, 0, 34)
 toast.Visible = false
-Theme.round(toast, 10)
-local toastStroke = Theme.stroke(toast, C.Gold, 2)
+Theme.panel(toast, C.Gold, 17)
+local toastStroke = toast:FindFirstChildOfClass("UIStroke")
 toast.Parent = body
-local toastText = Theme.label(toast, "", 14, C.Gold)
-toastText.Position = UDim2.fromOffset(10, 0)
-toastText.Size = UDim2.new(1, -20, 1, 0)
-Theme.fitText(toastText, 14, 9)
+local toastText = Theme.title(toast, "", 15, C.Gold)
+toastText.Position = UDim2.fromOffset(12, 0)
+toastText.Size = UDim2.new(1, -24, 1, 0)
+Theme.fitText(toastText, 15, 9)
 
-local hint = Theme.label(body, "Compras só no balcão da Loja Orion · pets no OVNI de resgate", 12, C.Muted)
+local hint = Theme.label(body, "Compras no balcão da Loja Orion  ·  pets no OVNI de resgate", 12, C.Muted)
 hint.Font = Theme.Font.Body
 hint.AnchorPoint = Vector2.new(0, 1)
-hint.Position = UDim2.new(0, 118, 1, 0)
-hint.Size = UDim2.new(1, -118, 0, 32)
+hint.Position = UDim2.new(0, 124, 1, 0)
+hint.Size = UDim2.new(1, -124, 0, 34)
 Theme.fitText(hint, 12, 8)
 
 -- ---------- Estado ----------
@@ -158,6 +158,10 @@ local function say(message, tone)
 	toast.Visible = true
 	hint.Visible = false
 	Theme.pop(toast, 0.08)
+	if tone == "success" then
+		Sound.play("reward", 1.1)
+		Theme.confetti(gui, 30)
+	end
 	task.delay(2.8, function()
 		if id == toastId then
 			toast.Visible = false
@@ -168,6 +172,8 @@ end
 
 local function textLine(parent, y, size, color)
 	local label = Theme.label(parent, "", size, color)
+	label.Font = Theme.Font.Display
+	label.TextStrokeTransparency = 0.2
 	label.Position = UDim2.fromOffset(6, y)
 	label.Size = UDim2.new(1, -12, 0, size + 4)
 	label.RichText = true
@@ -175,65 +181,89 @@ local function textLine(parent, y, size, color)
 	return label
 end
 
+-- Cartão 3D: base escura + face colorida que recebe o conteúdo.
 local function makeCard(item)
 	local card = Instance.new("Frame")
 	card.Name = item.Id
 	card.LayoutOrder = item.Order
-	card.BackgroundColor3 = Color3.new(1, 1, 1)
-	card.BorderSizePixel = 0
-	Theme.round(card, 14)
-	local edge = Theme.stroke(card, C.Deep, 3)
-	Theme.gradient(card, item.Color:Lerp(Color3.new(1, 1, 1), 0.3), item.Color:Lerp(C.Deep, 0.65))
+	card.BackgroundTransparency = 1
+	local base = Instance.new("Frame")
+	base.Name = "Base"
+	base.Size = UDim2.fromScale(1, 1)
+	base.BackgroundColor3 = item.Color:Lerp(C.Ink, 0.6)
+	base.BorderSizePixel = 0
+	base.ZIndex = 1
+	Theme.round(base, 18)
+	Theme.stroke(base, C.Ink, 3)
+	base.Parent = card
+	local face = Instance.new("Frame")
+	face.Name = "Face"
+	face.Size = UDim2.new(1, 0, 1, -6)
+	face.BackgroundColor3 = Color3.new(1, 1, 1)
+	face.BorderSizePixel = 0
+	face.ZIndex = 2
+	Theme.round(face, 18)
+	local edge = Theme.stroke(face, C.Ink, 3)
+	Theme.gradient(face, item.Color:Lerp(C.White, 0.15):Lerp(C.Royal, 0.35), item.Color:Lerp(C.Ink, 0.7))
+	face.Parent = card
 
-	local number = Theme.label(card, "Nº " .. item.Order, 10, C.Frost)
-	number.Font = Theme.Font.Display
-	number.BackgroundColor3 = C.Deep
-	number.BackgroundTransparency = 0.35
-	number.Position = UDim2.fromOffset(6, 6)
-	number.Size = UDim2.fromOffset(34, 16)
-	Theme.round(number, 8)
+	local rays = Theme.rays(face, { Color = item.Color:Lerp(C.White, 0.4), Alt = C.Gold, Length = 130, Width = 14,
+		Position = UDim2.new(0.5, 0, 0, 62), Transparency = 0.55 })
+	rays.Visible = false
 
-	local ribbon = Theme.label(card, "PRÓXIMA", 10, C.Navy)
-	ribbon.Font = Theme.Font.Display
+	local number = Theme.title(face, "Nº " .. item.Order, 11, C.White)
+	number.BackgroundColor3 = C.Ink
+	number.BackgroundTransparency = 0.3
+	number.Position = UDim2.fromOffset(7, 7)
+	number.Size = UDim2.fromOffset(38, 18)
+	number.ZIndex = 3
+	Theme.round(number, 9)
+
+	local ribbon = Theme.title(face, "PRÓXIMA", 11, C.Ink)
+	ribbon.TextStrokeTransparency = 1
 	ribbon.BackgroundColor3 = C.Gold
 	ribbon.AnchorPoint = Vector2.new(1, 0)
-	ribbon.Position = UDim2.new(1, -6, 0, 6)
-	ribbon.Size = UDim2.fromOffset(62, 16)
+	ribbon.Position = UDim2.new(1, -7, 0, 7)
+	ribbon.Size = UDim2.fromOffset(68, 18)
 	ribbon.Visible = false
-	Theme.round(ribbon, 8)
+	ribbon.ZIndex = 3
+	Theme.round(ribbon, 9)
+	Theme.stroke(ribbon, C.Ink, 2)
 
-	local badge = Theme.badge(card, item.Icon, item.Color:Lerp(Color3.new(1, 1, 1), 0.2), 62)
-	badge.AnchorPoint = Vector2.new(0.5, 0)
-	badge.Position = UDim2.new(0.5, 0, 0, 26)
+	local badge = Theme.badge(face, item.Icon, item.Color:Lerp(C.White, 0.2), 76)
+	badge.AnchorPoint = Vector2.new(0.5, 0.5)
+	badge.Position = UDim2.new(0.5, 0, 0, 62)
+	badge.ZIndex = 2
 
-	local name = Theme.label(card, item.Name, 15, Color3.new(1, 1, 1))
-	name.Font = Theme.Font.Display
-	name.TextStrokeTransparency = 0
-	name.Position = UDim2.fromOffset(4, 92)
+	local name = Theme.title(face, item.Name, 16, C.White)
+	name.Position = UDim2.fromOffset(4, 104)
 	name.Size = UDim2.new(1, -8, 0, 22)
-	Theme.fitText(name, 15, 9)
+	Theme.fitText(name, 16, 9)
 
-	local primary = textLine(card, 116, 13, C.Text)
-	local secondary = textLine(card, 134, 11, C.Frost)
+	local primary = textLine(face, 128, 14, C.White)
+	local secondary = textLine(face, 147, 12, C.Muted)
 
 	-- Progresso até poder comprar (só quando falta saldo).
 	local track = Instance.new("Frame")
-	track.Position = UDim2.new(0, 10, 1, -54)
-	track.Size = UDim2.new(1, -20, 0, 6)
+	track.Position = UDim2.new(0, 12, 1, -60)
+	track.Size = UDim2.new(1, -24, 0, 8)
 	track.Visible = false
-	track.Parent = card
+	track.Parent = face
 	local fill = Instance.new("Frame")
 	fill.BackgroundColor3 = C.Gold
 	fill.Size = UDim2.fromScale(0, 1)
 	fill.Parent = track
 	Theme.meter(track, fill)
 
-	local button = Theme.action(card, "", C.Blue)
+	local button = Theme.action(face, "", C.Blue, { Size = UDim2.new(1, -16, 0, 42), TextSize = 17, Radius = 12 })
 	button.AnchorPoint = Vector2.new(0.5, 1)
 	button.Position = UDim2.new(0.5, 0, 1, -8)
-	button.Size = UDim2.new(1, -16, 0, 36)
-	button.Font = Theme.Font.Display
-	Theme.fitText(button, 16, 9)
+	button.ZIndex = 3
+
+	-- Brilho abaixo do botão para não cobrir o preço.
+	local shimmer = Theme.shimmer(face, 18)
+	shimmer.ZIndex = 2
+	shimmer.Visible = false
 
 	button.Activated:Connect(function()
 		if not state then return end
@@ -254,7 +284,7 @@ local function makeCard(item)
 	end)
 	card.Parent = scroller
 	return {
-		item = item, frame = card, button = button, edge = edge, ribbon = ribbon,
+		item = item, frame = card, button = button, edge = edge, ribbon = ribbon, rays = rays, shimmer = shimmer,
 		primary = primary, secondary = secondary, track = track, fill = fill,
 	}
 end
@@ -329,12 +359,15 @@ local function refresh()
 				text = item.Price == 0 and "GRÁTIS" or ("✦ " .. Theme.compact(item.Price))
 				color = affordable and C.Mint or C.Gray
 			end
-			card.button.Text = text
+			Theme.setText(card.button, text)
 			Theme.setTint(card.button, color)
-			card.ribbon.Visible = card == goal
-			card.edge.Color = highlight and C.Gold or card == goal and C.Frost or C.Deep
-			card.edge.Thickness = (highlight or card == goal) and 4 or 3
-			local showProgress = not text:find("✔") and not isOwned(item) and not affordable
+			local isGoal = card == goal
+			card.ribbon.Visible = isGoal
+			card.shimmer.Visible = isGoal or highlight
+			card.rays.Visible = isGoal or highlight
+			card.edge.Color = highlight and C.Gold or isGoal and C.White or C.Ink
+			card.edge.Thickness = (highlight or isGoal) and 4 or 3
+			local showProgress = not highlight and not isOwned(item) and not affordable
 			card.track.Visible = showProgress
 			if showProgress then
 				card.fill.Size = UDim2.fromScale(math.clamp(state.Credits / math.max(item.Price, 1), 0, 1), 1)
@@ -342,9 +375,7 @@ local function refresh()
 		end
 	end
 	for id, tab in pairs(tabs) do
-		local edge = tab.button:FindFirstChildOfClass("UIStroke")
-		edge.Color = id == selected and Color3.new(1, 1, 1) or tab.accent
-		edge.Thickness = id == selected and 4 or 2
+		Theme.setTint(tab.button, id == selected and tab.accent or tab.accent:Lerp(C.Plum, 0.65))
 		if state then
 			local owned, total = 0, 0
 			for _, card in ipairs(cards) do
@@ -369,7 +400,7 @@ local function scrollToGoal()
 	if not goal then return end
 	task.defer(function()
 		local offset = goal.frame.AbsolutePosition.Y - scroller.AbsolutePosition.Y + scroller.CanvasPosition.Y
-		scroller.CanvasPosition = Vector2.new(0, math.max(0, offset - 12))
+		scroller.CanvasPosition = Vector2.new(0, math.max(0, offset - 14))
 	end)
 end
 
@@ -379,17 +410,21 @@ end
 for index, category in ipairs(categories) do
 	local button = Theme.navigationAction(sidebar, category.Name, category.Icon, category.Accent)
 	button.LayoutOrder = index
-	button.Size = UDim2.new(1, 0, 0, 72)
-	local count = Theme.label(button, "", 11, C.Navy)
+	button.Size = UDim2.new(1, 0, 0, 92)
+	local face = button:FindFirstChild("Face")
+	local icon = face and face:FindFirstChild("Illustration")
+	local iconScale = icon and icon:FindFirstChild("IconScale")
+	if iconScale then iconScale.Scale = 1.5 end
+	local count = Theme.title(button, "", 12, C.Ink)
 	count.Name = "Count"
-	count.Font = Theme.Font.Display
+	count.TextStrokeTransparency = 1
 	count.BackgroundColor3 = C.Frost
 	count.AnchorPoint = Vector2.new(1, 0)
-	count.Position = UDim2.new(1, 4, 0, -4)
-	count.Size = UDim2.fromOffset(40, 18)
-	count.ZIndex = 5
-	Theme.round(count, 9)
-	Theme.stroke(count, C.Deep, 2)
+	count.Position = UDim2.new(1, 6, 0, -6)
+	count.Size = UDim2.fromOffset(44, 20)
+	count.ZIndex = 10
+	Theme.round(count, 10)
+	Theme.stroke(count, C.Ink, 2)
 	tabs[category.Id] = { button = button, accent = category.Accent, count = count }
 	button.Activated:Connect(function()
 		selected = category.Id

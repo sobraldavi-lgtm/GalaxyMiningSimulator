@@ -9,6 +9,7 @@ Projeto Roblox/Luau com Rojo. Fase atual: Terra Nova, mineração por cliques, m
 | src/client | StarterPlayer/StarterPlayerScripts/Client | Entrada, interfaces e efeitos |
 | src/server | ServerScriptService/Server | Regras e dados do jogo |
 | src/shared | ReplicatedStorage/Shared | Módulos e configurações compartilhados |
+| src/first/Loading.client.luau | ReplicatedFirst/GalaxyLoading | Tela de carregamento |
 | src/world/terra-nova.project.json | Workspace/TerraNova | Cenário estático inicial |
 | docs/GDD.md | Documentação | Design e balanceamento |
 | ROADMAP.md | Documentação | Entregas e progresso |
@@ -81,7 +82,8 @@ HUD mostra Créditos, carga e poder com animações; o painel inferior mostra a
 resistência do minério selecionado, e a Mochila abre em janela própria.
 Depósitos renovam imediatamente após quebrar; golpes respeitam intervalo de 0,2 s.
 Atalhos: L Loja, B Mochila, M Missões, P Ajustes; B no controle fecha janelas.
-Design System 4.0 e roteiro de revisão visual: docs/UI-GUIDE.md.
+Design System 5.0, telas e roteiro de revisão visual: docs/UI-GUIDE.md.
+A tela de carregamento fica em src/first (ReplicatedFirst).
 Viagem e salvamento ainda não estão implementados.
 Mochila e saldo duram apenas esta sessão; parar Play ou sair do servidor reinicia os dados.
 Roteiro de teste e parâmetros provisórios: docs/MINING-TEST.md.
