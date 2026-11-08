@@ -1,0 +1,922 @@
+{
+  "name": "OrionWayfinding",
+  "tree": {
+    "$className": "Model",
+    "Mine": {
+      "$className": "Model",
+      "Foot": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.45,
+            0.25,
+            1.05
+          ],
+          "Position": [
+            6.5,
+            0.65,
+            -18
+          ],
+          "Orientation": [
+            0,
+            -20,
+            0
+          ],
+          "Color": [
+            0.15,
+            0.23,
+            0.32
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Stem": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.28,
+            3.1,
+            0.3
+          ],
+          "Position": [
+            6.5,
+            2.17,
+            -18
+          ],
+          "Orientation": [
+            0,
+            -20,
+            0
+          ],
+          "Color": [
+            0.4,
+            0.52,
+            0.66
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Face": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.5,
+            0.88,
+            0.24
+          ],
+          "Position": [
+            6.5,
+            3.36,
+            -18
+          ],
+          "Orientation": [
+            0,
+            -20,
+            0
+          ],
+          "Color": [
+            0.055,
+            0.1,
+            0.2
+          ],
+          "Material": "Metal"
+        },
+        "Lettering": {
+          "$className": "SurfaceGui",
+          "$properties": {
+            "Face": "Back",
+            "SizingMode": "PixelsPerStud",
+            "PixelsPerStud": 48,
+            "MaxDistance": 38,
+            "LightInfluence": 0.15
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundTransparency": 1,
+              "Text": "MINA",
+              "TextColor3": [
+                0.08,
+                0.86,
+                1
+              ],
+              "Font": "GothamBold",
+              "TextScaled": true
+            }
+          }
+        }
+      },
+      "Trim": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.48,
+            0.08,
+            0.25
+          ],
+          "Position": [
+            6.5,
+            2.9,
+            -18
+          ],
+          "Orientation": [
+            0,
+            -20,
+            0
+          ],
+          "Color": [
+            0.08,
+            0.86,
+            1
+          ],
+          "Material": "Neon"
+        }
+      }
+    },
+    "Commerce": {
+      "$className": "Model",
+      "Foot": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.45,
+            0.25,
+            1.05
+          ],
+          "Position": [
+            -18,
+            0.65,
+            -5
+          ],
+          "Orientation": [
+            0,
+            75,
+            0
+          ],
+          "Color": [
+            0.15,
+            0.23,
+            0.32
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Stem": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.28,
+            3.1,
+            0.3
+          ],
+          "Position": [
+            -18,
+            2.17,
+            -5
+          ],
+          "Orientation": [
+            0,
+            75,
+            0
+          ],
+          "Color": [
+            0.4,
+            0.52,
+            0.66
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Face": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.5,
+            0.88,
+            0.24
+          ],
+          "Position": [
+            -18,
+            3.36,
+            -5
+          ],
+          "Orientation": [
+            0,
+            75,
+            0
+          ],
+          "Color": [
+            0.055,
+            0.1,
+            0.2
+          ],
+          "Material": "Metal"
+        },
+        "Lettering": {
+          "$className": "SurfaceGui",
+          "$properties": {
+            "Face": "Back",
+            "SizingMode": "PixelsPerStud",
+            "PixelsPerStud": 48,
+            "MaxDistance": 38,
+            "LightInfluence": 0.15
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundTransparency": 1,
+              "Text": "LOJA ORION",
+              "TextColor3": [
+                0.72,
+                0.43,
+                1
+              ],
+              "Font": "GothamBold",
+              "TextScaled": true
+            }
+          }
+        }
+      },
+      "Trim": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.48,
+            0.08,
+            0.25
+          ],
+          "Position": [
+            -18,
+            2.9,
+            -5
+          ],
+          "Orientation": [
+            0,
+            75,
+            0
+          ],
+          "Color": [
+            0.72,
+            0.43,
+            1
+          ],
+          "Material": "Neon"
+        }
+      }
+    },
+    "Pets": {
+      "$className": "Model",
+      "Foot": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.45,
+            0.25,
+            1.05
+          ],
+          "Position": [
+            -8.5,
+            0.65,
+            16
+          ],
+          "Orientation": [
+            0,
+            152,
+            0
+          ],
+          "Color": [
+            0.15,
+            0.23,
+            0.32
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Stem": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.28,
+            3.1,
+            0.3
+          ],
+          "Position": [
+            -8.5,
+            2.17,
+            16
+          ],
+          "Orientation": [
+            0,
+            152,
+            0
+          ],
+          "Color": [
+            0.4,
+            0.52,
+            0.66
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Face": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.5,
+            0.88,
+            0.24
+          ],
+          "Position": [
+            -8.5,
+            3.36,
+            16
+          ],
+          "Orientation": [
+            0,
+            152,
+            0
+          ],
+          "Color": [
+            0.055,
+            0.1,
+            0.2
+          ],
+          "Material": "Metal"
+        },
+        "Lettering": {
+          "$className": "SurfaceGui",
+          "$properties": {
+            "Face": "Back",
+            "SizingMode": "PixelsPerStud",
+            "PixelsPerStud": 48,
+            "MaxDistance": 38,
+            "LightInfluence": 0.15
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundTransparency": 1,
+              "Text": "ESTAÇÃO DE PETS",
+              "TextColor3": [
+                0.78,
+                0.52,
+                1
+              ],
+              "Font": "GothamBold",
+              "TextScaled": true
+            }
+          }
+        }
+      },
+      "Trim": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.48,
+            0.08,
+            0.25
+          ],
+          "Position": [
+            -8.5,
+            2.9,
+            16
+          ],
+          "Orientation": [
+            0,
+            152,
+            0
+          ],
+          "Color": [
+            0.78,
+            0.52,
+            1
+          ],
+          "Material": "Neon"
+        }
+      }
+    },
+    "East": {
+      "$className": "Model",
+      "Foot": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.45,
+            0.25,
+            1.05
+          ],
+          "Position": [
+            17,
+            0.65,
+            6
+          ],
+          "Orientation": [
+            0,
+            -110,
+            0
+          ],
+          "Color": [
+            0.15,
+            0.23,
+            0.32
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Stem": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.28,
+            3.1,
+            0.3
+          ],
+          "Position": [
+            17,
+            2.17,
+            6
+          ],
+          "Orientation": [
+            0,
+            -110,
+            0
+          ],
+          "Color": [
+            0.4,
+            0.52,
+            0.66
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Face": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.5,
+            0.88,
+            0.24
+          ],
+          "Position": [
+            17,
+            3.36,
+            6
+          ],
+          "Orientation": [
+            0,
+            -110,
+            0
+          ],
+          "Color": [
+            0.055,
+            0.1,
+            0.2
+          ],
+          "Material": "Metal"
+        },
+        "Lettering": {
+          "$className": "SurfaceGui",
+          "$properties": {
+            "Face": "Back",
+            "SizingMode": "PixelsPerStud",
+            "PixelsPerStud": 48,
+            "MaxDistance": 38,
+            "LightInfluence": 0.15
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundTransparency": 1,
+              "Text": "VENDA  /  HANGAR",
+              "TextColor3": [
+                0.98,
+                0.75,
+                0.3
+              ],
+              "Font": "GothamBold",
+              "TextScaled": true
+            }
+          }
+        }
+      },
+      "Trim": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.48,
+            0.08,
+            0.25
+          ],
+          "Position": [
+            17,
+            2.9,
+            6
+          ],
+          "Orientation": [
+            0,
+            -110,
+            0
+          ],
+          "Color": [
+            0.98,
+            0.75,
+            0.3
+          ],
+          "Material": "Neon"
+        }
+      }
+    },
+    "SaleFork": {
+      "$className": "Model",
+      "Foot": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            1.45,
+            0.25,
+            1.05
+          ],
+          "Position": [
+            39,
+            0.65,
+            -7.4
+          ],
+          "Orientation": [
+            0,
+            -90,
+            0
+          ],
+          "Color": [
+            0.15,
+            0.23,
+            0.32
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Stem": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            0.28,
+            3.1,
+            0.3
+          ],
+          "Position": [
+            39,
+            2.17,
+            -7.4
+          ],
+          "Orientation": [
+            0,
+            -90,
+            0
+          ],
+          "Color": [
+            0.4,
+            0.52,
+            0.66
+          ],
+          "Material": "Metal"
+        }
+      },
+      "Face": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.5,
+            0.88,
+            0.24
+          ],
+          "Position": [
+            39,
+            3.36,
+            -7.4
+          ],
+          "Orientation": [
+            0,
+            -90,
+            0
+          ],
+          "Color": [
+            0.055,
+            0.1,
+            0.2
+          ],
+          "Material": "Metal"
+        },
+        "Lettering": {
+          "$className": "SurfaceGui",
+          "$properties": {
+            "Face": "Back",
+            "SizingMode": "PixelsPerStud",
+            "PixelsPerStud": 48,
+            "MaxDistance": 38,
+            "LightInfluence": 0.15
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundTransparency": 1,
+              "Text": "↖  VENDA",
+              "TextColor3": [
+                0.3,
+                0.96,
+                0.68
+              ],
+              "Font": "GothamBold",
+              "TextScaled": true
+            }
+          }
+        }
+      },
+      "Trim": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.48,
+            0.08,
+            0.25
+          ],
+          "Position": [
+            39,
+            2.9,
+            -7.4
+          ],
+          "Orientation": [
+            0,
+            -90,
+            0
+          ],
+          "Color": [
+            0.3,
+            0.96,
+            0.68
+          ],
+          "Material": "Neon"
+        }
+      }
+    },
+    "HangarFork": {
+      "$className": "Model",
+      "Face": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.5,
+            0.88,
+            0.24
+          ],
+          "Position": [
+            39,
+            2.37,
+            -7.4
+          ],
+          "Orientation": [
+            0,
+            -90,
+            0
+          ],
+          "Color": [
+            0.055,
+            0.1,
+            0.2
+          ],
+          "Material": "Metal"
+        },
+        "Lettering": {
+          "$className": "SurfaceGui",
+          "$properties": {
+            "Face": "Back",
+            "SizingMode": "PixelsPerStud",
+            "PixelsPerStud": 48,
+            "MaxDistance": 38,
+            "LightInfluence": 0.15
+          },
+          "Text": {
+            "$className": "TextLabel",
+            "$properties": {
+              "Size": {
+                "UDim2": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    1,
+                    0
+                  ]
+                ]
+              },
+              "BackgroundTransparency": 1,
+              "Text": "→  HANGAR",
+              "TextColor3": [
+                1,
+                0.78,
+                0.34
+              ],
+              "Font": "GothamBold",
+              "TextScaled": true
+            }
+          }
+        }
+      },
+      "Trim": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "CanQuery": false,
+          "CanTouch": false,
+          "CastShadow": false,
+          "Size": [
+            5.48,
+            0.08,
+            0.25
+          ],
+          "Position": [
+            39,
+            1.9100000000000001,
+            -7.4
+          ],
+          "Orientation": [
+            0,
+            -90,
+            0
+          ],
+          "Color": [
+            1,
+            0.78,
+            0.34
+          ],
+          "Material": "Neon"
+        }
+      }
+    }
+  }
+}

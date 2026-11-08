@@ -1358,293 +1358,6 @@
           "BottomSurface": "Smooth"
         }
       },
-      "Pillar-82_-13": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.5,
-            13,
-            1.5
-          ],
-          "Position": [
-            -82,
-            7,
-            -13
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "Pillar-82_13": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.5,
-            13,
-            1.5
-          ],
-          "Position": [
-            -82,
-            7,
-            13
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "Pillar-54_-13": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.5,
-            13,
-            1.5
-          ],
-          "Position": [
-            -54,
-            7,
-            -13
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "Pillar-54_13": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.5,
-            13,
-            1.5
-          ],
-          "Position": [
-            -54,
-            7,
-            13
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "Roof": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            34,
-            1,
-            32
-          ],
-          "Position": [
-            -68,
-            14,
-            0
-          ],
-          "Color": [
-            0.12,
-            0.2,
-            0.29
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "RoofTrim": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            34,
-            0.4,
-            1
-          ],
-          "Position": [
-            -68,
-            13.6,
-            16
-          ],
-          "Color": [
-            1,
-            0.53,
-            0.17
-          ],
-          "Material": "Neon",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "Counter": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            22,
-            4,
-            4
-          ],
-          "Position": [
-            -68,
-            3,
-            -5
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "ShopSign": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1,
-            1,
-            1
-          ],
-          "Position": [
-            -68,
-            11,
-            9
-          ],
-          "Color": [
-            1,
-            0.53,
-            0.17
-          ],
-          "Material": "SmoothPlastic",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth",
-          "Transparency": 1,
-          "CanCollide": false,
-          "CanTouch": false,
-          "CanQuery": false
-        },
-        "Label": {
-          "$className": "BillboardGui",
-          "$properties": {
-            "Size": {
-              "UDim2": [
-                [
-                  0,
-                  290
-                ],
-                [
-                  0,
-                  66
-                ]
-              ]
-            },
-            "AlwaysOnTop": false,
-            "MaxDistance": 110
-          },
-          "Text": {
-            "$className": "TextLabel",
-            "$properties": {
-              "Size": {
-                "UDim2": [
-                  [
-                    1,
-                    0
-                  ],
-                  [
-                    1,
-                    0
-                  ]
-                ]
-              },
-              "BackgroundColor3": [
-                0.08,
-                0.12,
-                0.18
-              ],
-              "BackgroundTransparency": 0.15,
-              "Text": "LOJA & VENDA\nVenda no balcão",
-              "TextColor3": [
-                1,
-                0.53,
-                0.17
-              ],
-              "TextScaled": true,
-              "TextWrapped": true,
-              "Font": "GothamBold"
-            },
-            "Padding": {
-              "$className": "UIPadding",
-              "$properties": {
-                "PaddingLeft": {
-                  "UDim": [
-                    0,
-                    8
-                  ]
-                },
-                "PaddingRight": {
-                  "UDim": [
-                    0,
-                    8
-                  ]
-                },
-                "PaddingTop": {
-                  "UDim": [
-                    0,
-                    6
-                  ]
-                },
-                "PaddingBottom": {
-                  "UDim": [
-                    0,
-                    6
-                  ]
-                }
-              }
-            },
-            "Corner": {
-              "$className": "UICorner",
-              "$properties": {
-                "CornerRadius": {
-                  "UDim": [
-                    0,
-                    8
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
       "Display-74": {
         "$className": "Part",
         "$properties": {
@@ -1689,6 +1402,33 @@
             0.95
           ],
           "Material": "Neon",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Architecture": {
+        "$path": "orion-shop.project.json"
+      },
+      "PurchaseDesk": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            22,
+            4,
+            4
+          ],
+          "Position": [
+            -68,
+            3,
+            -5
+          ],
+          "Color": [
+            0.16,
+            0.29,
+            0.54
+          ],
+          "Material": "Metal",
           "TopSurface": "Smooth",
           "BottomSurface": "Smooth"
         }
@@ -1908,7 +1648,7 @@
                 0.18
               ],
               "BackgroundTransparency": 0.15,
-              "Text": "HANGAR ORION\nOrion Scout • modelo provisório",
+              "Text": "HANGAR ORION",
               "TextColor3": [
                 0.15,
                 0.85,
@@ -3064,134 +2804,6 @@
               -25,
               0.94,
               -45
-            ]
-          },
-          "$className": "Part"
-        }
-      },
-      "ShopFascia": {
-        "ShopDisplayGlow-68": {
-          "$properties": {
-            "CanCollide": false,
-            "Color": [
-              0.545,
-              0.361,
-              0.965
-            ],
-            "BottomSurface": "Smooth",
-            "Anchored": true,
-            "Size": [
-              0.25,
-              3,
-              5
-            ],
-            "Material": "Neon",
-            "TopSurface": "Smooth",
-            "Position": [
-              -68,
-              5.2,
-              -5
-            ]
-          },
-          "$className": "Part"
-        },
-        "ShopDisplayGlow-56": {
-          "$properties": {
-            "CanCollide": false,
-            "Color": [
-              0.545,
-              0.361,
-              0.965
-            ],
-            "BottomSurface": "Smooth",
-            "Anchored": true,
-            "Size": [
-              0.25,
-              3,
-              5
-            ],
-            "Material": "Neon",
-            "TopSurface": "Smooth",
-            "Position": [
-              -56,
-              5.2,
-              -5
-            ]
-          },
-          "$className": "Part"
-        },
-        "$className": "Folder",
-        "EntranceGlow": {
-          "$properties": {
-            "CanCollide": false,
-            "Color": [
-              0.545,
-              0.361,
-              0.965
-            ],
-            "BottomSurface": "Smooth",
-            "Anchored": true,
-            "Size": [
-              18,
-              0.22,
-              0.3
-            ],
-            "Material": "Neon",
-            "TopSurface": "Smooth",
-            "Position": [
-              -68,
-              1.05,
-              10.2
-            ]
-          },
-          "$className": "Part"
-        },
-        "ShopDisplayGlow-80": {
-          "$properties": {
-            "CanCollide": false,
-            "Color": [
-              0.545,
-              0.361,
-              0.965
-            ],
-            "BottomSurface": "Smooth",
-            "Anchored": true,
-            "Size": [
-              0.25,
-              3,
-              5
-            ],
-            "Material": "Neon",
-            "TopSurface": "Smooth",
-            "Position": [
-              -80,
-              5.2,
-              -5
-            ]
-          },
-          "$className": "Part"
-        },
-        "CanopyFront": {
-          "$properties": {
-            "CanCollide": false,
-            "Color": [
-              0.545,
-              0.361,
-              0.965
-            ],
-            "BottomSurface": "Smooth",
-            "Anchored": true,
-            "Size": [
-              30,
-              0.45,
-              0.55
-            ],
-            "Material": "Neon",
-            "TopSurface": "Smooth",
-            "Position": [
-              -68,
-              13.15,
-              16.25
             ]
           },
           "$className": "Part"
@@ -4453,11 +4065,44 @@
         }
       }
     },
+    "OrionWayfinding": {
+      "$path": "orion-wayfinding.project.json"
+    },
     "OrionLandscape": {
       "$path": "orion-landscape.project.json"
     },
     "TerraNovaLandform": {
       "$path": "terra-nova-landform.project.json"
+    },
+    "SaleStation": {
+      "$className": "Model",
+      "Counter": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [
+            9.2,
+            2.1,
+            3.2
+          ],
+          "Position": [
+            69.4,
+            2.05,
+            -25
+          ],
+          "Color": [
+            0.11,
+            0.31,
+            0.28
+          ],
+          "Material": "Metal",
+          "TopSurface": "Smooth",
+          "BottomSurface": "Smooth"
+        }
+      },
+      "Architecture": {
+        "$path": "sale-station.project.json"
+      }
     }
   }
 }

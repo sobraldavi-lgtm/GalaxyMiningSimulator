@@ -80,8 +80,9 @@ function Service.Init()
 	end)
 	remote.Parent = ReplicatedStorage
 
-	local counter = workspace:WaitForChild("TerraNova"):WaitForChild("Shop"):WaitForChild("Counter")
-	local discovery = counter.Parent.Parent:WaitForChild("PetShop"):WaitForChild("Terminal")
+	local world = workspace:WaitForChild("TerraNova")
+	local counter = world:WaitForChild("SaleStation"):WaitForChild("Counter")
+	local discovery = world:WaitForChild("PetShop"):WaitForChild("Terminal")
 	local price = 75
 	local encounter = Instance.new("ProximityPrompt")
 	encounter.ActionText = "Resgatar / equipar"
@@ -115,7 +116,7 @@ function Service.Init()
 	local prompt = Instance.new("ProximityPrompt")
 	prompt.Name = "SellMinerals"
 	prompt.ActionText = "Vender minerais"
-	prompt.ObjectText = "Balcão ORION"
+	prompt.ObjectText = "Estação de Venda"
 	prompt.KeyboardKeyCode = Enum.KeyCode.E
 	prompt.GamepadKeyCode = Enum.KeyCode.ButtonX
 	prompt.HoldDuration = 0.2
@@ -143,7 +144,7 @@ function Service.Init()
 	prompt.Parent = counter
 
 	-- Compra presencial em expositores separados. IDs, preços e efeitos são do servidor.
-	local shop = counter.Parent
+	local shop = world:WaitForChild("Shop")
 	local offers = {
 		{ Id = "TitaniumDrill", Display = "Display-74", Key = Enum.KeyCode.F, GamepadKey = Enum.KeyCode.ButtonY },
 		{ Id = "ReinforcedBackpack", Display = "Display-62", Key = Enum.KeyCode.G, GamepadKey = Enum.KeyCode.ButtonB },

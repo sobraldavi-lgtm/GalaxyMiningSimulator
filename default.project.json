@@ -27,8 +27,8 @@
       "$className": "Lighting",
       "$ignoreUnknownInstances": true,
       "$properties": {
-        "ClockTime": 13.8,
-        "Brightness": 2.4,
+        "ClockTime": 15.0,
+        "Brightness": 2.25,
         "Ambient": [0.37, 0.39, 0.52],
         "OutdoorAmbient": [0.57, 0.62, 0.73],
         "EnvironmentDiffuseScale": 0.45,
@@ -37,11 +37,20 @@
       "TerraNovaAtmosphere": {
         "$className": "Atmosphere",
         "$properties": {
-          "Density": 0.29,
-          "Haze": 1.7,
+          "Density": 0.255,
+          "Haze": 1.55,
+          "Offset": 0.08,
           "Glare": 0,
-          "Color": [0.65, 0.83, 1.0],
-          "Decay": [0.56, 0.48, 0.81]
+          "Color": [0.63, 0.81, 1.0],
+          "Decay": [0.52, 0.43, 0.73]
+        }
+      },
+      "TerraNovaColor": {
+        "$className": "ColorCorrectionEffect",
+        "$properties": {
+          "Contrast": 0.06,
+          "Saturation": 0.06,
+          "TintColor": [0.98, 0.97, 1.0]
         }
       }
     },

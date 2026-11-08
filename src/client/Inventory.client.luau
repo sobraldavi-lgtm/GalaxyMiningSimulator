@@ -246,8 +246,7 @@ local function openMenu(name)
 		return item
 	end
 	if name == "Loja" then
-		row("ORION  /  Venda e equipamento\nAs transações são feitas nos terminais de Terra Nova.", nil, 64)
-		row("Localizar balcão de venda", function() locate("Shop", "Counter") end)
+		row("LOJA ORION  /  Equipamentos\nCompre melhorias nos expositores da loja.", nil, 64)
 		local function offerCard(offer, detail, display, accent, illustration)
 			order += 1
 			local offerPanel = surface(body, offer.Name, accent)
@@ -275,6 +274,7 @@ local function openMenu(name)
 		local backpack = Config.Upgrades.ReinforcedBackpack
 		offerCard(drill, drill.Power .. " poder", "Display-74", Theme.Color.Cyan, "drill")
 		offerCard(backpack, backpack.Capacity .. " carga", "Display-62", Theme.Color.Violet, "pack")
+		row("Localizar Estação de Venda", function() locate("SaleStation", "Counter") end)
 	elseif name == "Mochila" then
 		local tabs = Instance.new("Frame", body)
 		tabs.BackgroundTransparency = 1

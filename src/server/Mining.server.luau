@@ -71,7 +71,7 @@ remote.OnServerEvent:Connect(function(player, action, target)
 	end
 
 	if not Inventory.CanFit(player, deposit.OreType) then
-		remote:FireClient(player, { Message = "Sem espaço para este minério. Venda no balcão da loja à esquerda." })
+		remote:FireClient(player, { Message = "Mochila cheia para este minério. Siga a rota verde até a Estação de Venda." })
 		return
 	end
 	local playerStates = states[player]
