@@ -1,12 +1,12 @@
--- HUD principal: telemetria, navegação, notificações, menus (Mochila, Missões e
--- Configurações) e celebração de resgate. Só apresenta e pede ações:
+-- HUD principal v5: moedas, navegação, próxima meta, notificações, menus
+-- (Mochila, Missões e Ajustes) e celebrações. Só apresenta e pede ações:
 -- saldo, carga, poder e posse continuam decididos pelo servidor.
 local Theme = require(script.Parent.VisualTheme)
+local Sound = require(script.Parent.Sound)
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
-local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local Debris = game:GetService("Debris")
 local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("MiningConfig"))
@@ -29,6 +29,7 @@ stage.DisplayOrder = 30
 stage.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 stage.Parent = playerGui
 
+-- ---------- Catálogo para apresentação ----------
 local oreList = {}
 for id, ore in pairs(Config.Ores) do
 	table.insert(oreList, { id = id, ore = ore, color = Color3.fromHex(ore.Color or "#FFFFFF") })
@@ -42,61 +43,97 @@ local function findPet(id)
 	return nil
 end
 
+local goals = {}
+for _, backpack in ipairs(Config.Backpacks) do
+	if backpack.Price > 0 then
+		table.insert(goals, { Kind = "Backpack", Id = backpack.Id, Name = backpack.Name, Price = backpack.Price,
+			Icon = "pack", Color = Color3.fromHex(backpack.Color), Detail = "Mochila · carga " .. Theme.format(backpack.Capacity) })
+	end
+end
+for id, upgrade in pairs(Config.Upgrades) do
+	table.insert(goals, { Kind = "Tool", Id = id, Name = upgrade.Name, Price = upgrade.Price, Power = upgrade.Power,
+		Icon = "drill", Color = Color3.fromHex(upgrade.Color or "#22E1FF"), Detail = "Ferramenta · poder " .. Theme.format(upgrade.Power) })
+end
+for _, pet in ipairs(Config.Pets) do
+	table.insert(goals, { Kind = "Pet", Id = pet.Id, Name = pet.Name, Price = pet.Price, Icon = "pet",
+		Color = Color3.fromHex(pet.Color), Detail = "Pet · +" .. math.round(pet.Bonus * 100) .. "% de poder" })
+end
+table.sort(goals, function(a, b) return a.Price < b.Price end)
+
+-- Item mais barato ainda não obtido (ferramentas só se forem melhores).
+local function nextGoal(s)
+	for _, goal in ipairs(goals) do
+		local owned
+		if goal.Kind == "Backpack" then
+			owned = s.OwnedBackpacks[goal.Id]
+		elseif goal.Kind == "Pet" then
+			owned = s.OwnedPets[goal.Id]
+		else
+			owned = s.OwnedUpgrades[goal.Id] or goal.Power <= s.ToolPower
+		end
+		if not owned then return goal end
+	end
+	return nil
+end
+
 local function isGamepad()
 	return UserInputService:GetLastInputType().Name:match("^Gamepad") ~= nil
 end
 
--- ---------- Telemetria (topo) ----------
-local header = Instance.new("Frame")
-header.Name = "Telemetry"
-header.BackgroundTransparency = 1
-header.AnchorPoint = Vector2.new(0.5, 0)
-header.Position = UDim2.new(0.5, 0, 0, 8)
-header.Size = UDim2.new(1, -24, 0, 58)
-header.Parent = gui
-local headerLimit = Instance.new("UISizeConstraint")
-headerLimit.MaxSize = Vector2.new(500, 58)
-headerLimit.Parent = header
-local counters = Instance.new("UIListLayout")
-counters.FillDirection = Enum.FillDirection.Horizontal
-counters.SortOrder = Enum.SortOrder.LayoutOrder
-counters.HorizontalAlignment = Enum.HorizontalAlignment.Center
-counters.Padding = UDim.new(0, 6)
-counters.Parent = header
+-- ---------- Moedas (topo) ----------
+local currencies = Instance.new("Frame")
+currencies.Name = "Currencies"
+currencies.BackgroundTransparency = 1
+currencies.AnchorPoint = Vector2.new(0.5, 0)
+currencies.Position = UDim2.new(0.5, 0, 0, 10)
+currencies.Size = UDim2.new(1, -24, 0, 54)
+currencies.Parent = gui
+local currencyLimit = Instance.new("UISizeConstraint")
+currencyLimit.MaxSize = Vector2.new(640, 54)
+currencyLimit.Parent = currencies
+local currencyPadding = Instance.new("UIPadding")
+currencyPadding.PaddingLeft = UDim.new(0, 18)
+currencyPadding.Parent = currencies
+local currencyLayout = Instance.new("UIListLayout")
+currencyLayout.FillDirection = Enum.FillDirection.Horizontal
+currencyLayout.SortOrder = Enum.SortOrder.LayoutOrder
+currencyLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+currencyLayout.Padding = UDim.new(0, 24)
+currencyLayout.Parent = currencies
 
-local tiles = {}
-local function counter(order, name, accent, kind)
-	local tile = Instance.new("Frame")
-	tile.Name = name
-	Theme.panel(tile, accent)
-	tile.LayoutOrder = order
-	tile.Size = UDim2.new(1 / 3, -4, 1, 0)
-	tile.Parent = header
-	local badge = Theme.badge(tile, kind, accent, 34)
+local pills = {}
+local function pill(order, name, accent, kind)
+	local frame = Instance.new("Frame")
+	frame.Name = name
+	frame.LayoutOrder = order
+	frame.Size = UDim2.new(1 / 3, -18, 1, 0)
+	Theme.panel(frame, accent, 27)
+	frame.Parent = currencies
+	local badge = Theme.badge(frame, kind, accent, 56)
 	badge.AnchorPoint = Vector2.new(0, 0.5)
-	badge.Position = UDim2.new(0, 7, 0.5, -1)
-	local caption = Theme.label(tile, name, 11, accent)
+	badge.Position = UDim2.new(0, -18, 0.5, 0)
+	badge.ZIndex = 3
+	local caption = Theme.label(frame, name, 10, accent:Lerp(C.White, 0.2))
+	caption.Font = Theme.Font.Display
 	caption.TextXAlignment = Enum.TextXAlignment.Left
-	caption.Position = UDim2.fromOffset(48, 6)
-	caption.Size = UDim2.new(1, -54, 0, 13)
+	caption.Position = UDim2.fromOffset(44, 5)
+	caption.Size = UDim2.new(1, -52, 0, 12)
 	Theme.fitText(caption, 11, 7)
-	local value = Theme.label(tile, "…", 22)
-	value.Font = Theme.Font.Display
+	local value = Theme.title(frame, "…", 26, C.White)
 	value.TextXAlignment = Enum.TextXAlignment.Left
-	value.TextStrokeTransparency = 0.2
-	value.Position = UDim2.fromOffset(48, 19)
-	value.Size = UDim2.new(1, -54, 0, 24)
-	Theme.fitText(value, 22, 10)
-	local entry = { tile = tile, badge = badge, caption = caption, value = value, accent = accent }
-	table.insert(tiles, entry)
+	value.Position = UDim2.fromOffset(44, 16)
+	value.Size = UDim2.new(1, -52, 0, 26)
+	Theme.fitText(value, 26, 11)
+	local entry = { frame = frame, badge = badge, caption = caption, value = value, accent = accent }
+	table.insert(pills, entry)
 	return entry
 end
 
-local function meter(entry, color)
+local function pillMeter(entry, color)
 	local track = Instance.new("Frame")
-	track.Position = UDim2.new(0, 48, 1, -11)
-	track.Size = UDim2.new(1, -56, 0, 6)
-	track.Parent = entry.tile
+	track.Position = UDim2.new(0, 44, 1, -11)
+	track.Size = UDim2.new(1, -60, 0, 7)
+	track.Parent = entry.frame
 	local fill = Instance.new("Frame")
 	fill.BackgroundColor3 = color
 	fill.Size = UDim2.fromScale(0, 1)
@@ -106,26 +143,57 @@ local function meter(entry, color)
 	return fill
 end
 
-local creditsTile = counter(1, "CRÉDITOS", C.Gold, "coin")
-local cargoTile = counter(2, "CARGA", C.Cyan, "pack")
-local powerTile = counter(3, "PODER", C.Violet, "bolt")
-local cargoFill = meter(cargoTile, C.Cyan)
-local trainingFill = meter(powerTile, C.Violet)
-local cargoStroke = cargoTile.tile:FindFirstChildOfClass("UIStroke")
+local creditsPill = pill(1, "CRÉDITOS", C.Gold, "coin")
+local cargoPill = pill(2, "CARGA", C.Cyan, "pack")
+local powerPill = pill(3, "PODER", C.Violet, "bolt")
+local cargoFill = pillMeter(cargoPill, C.Cyan)
+local trainingFill = pillMeter(powerPill, C.Violet)
+local cargoStroke = cargoPill.frame:FindFirstChildOfClass("UIStroke")
 
 -- ---------- Navegação ----------
 local navigation = Instance.new("Frame")
 navigation.Name = "Navigation"
 navigation.BackgroundTransparency = 1
 navigation.Parent = gui
-local navLayout = Instance.new("UIListLayout")
-navLayout.Padding = UDim.new(0, 8)
-navLayout.SortOrder = Enum.SortOrder.LayoutOrder
-navLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-navLayout.Parent = navigation
-local navLimit = Instance.new("UISizeConstraint")
-navLimit.MaxSize = Vector2.new(660, 300)
-navLimit.Parent = navigation
+local navGrid = Instance.new("UIGridLayout")
+navGrid.SortOrder = Enum.SortOrder.LayoutOrder
+navGrid.HorizontalAlignment = Enum.HorizontalAlignment.Center
+navGrid.Parent = navigation
+
+-- ---------- Próxima meta ----------
+local goalCard = Instance.new("Frame")
+goalCard.Name = "NextGoal"
+Theme.panel(goalCard, C.Gold, 18)
+goalCard.Visible = false
+goalCard.Parent = gui
+local goalStroke = goalCard:FindFirstChildOfClass("UIStroke")
+local goalHeader = Theme.title(goalCard, "PRÓXIMA META", 13, C.Gold)
+goalHeader.TextXAlignment = Enum.TextXAlignment.Left
+local goalBadgeHolder = Instance.new("Frame")
+goalBadgeHolder.BackgroundTransparency = 1
+goalBadgeHolder.Size = UDim2.fromOffset(52, 52)
+goalBadgeHolder.Parent = goalCard
+local goalName = Theme.title(goalCard, "", 17, C.White)
+goalName.TextXAlignment = Enum.TextXAlignment.Left
+Theme.fitText(goalName, 17, 9)
+local goalDetail = Theme.label(goalCard, "", 11, C.Muted)
+goalDetail.Font = Theme.Font.Body
+goalDetail.TextXAlignment = Enum.TextXAlignment.Left
+Theme.fitText(goalDetail, 11, 7)
+local goalTrack = Instance.new("Frame")
+goalTrack.Parent = goalCard
+local goalFill = Instance.new("Frame")
+goalFill.BackgroundColor3 = C.Gold
+goalFill.Size = UDim2.fromScale(0, 1)
+goalFill.Parent = goalTrack
+Theme.meter(goalTrack, goalFill)
+local goalAmount = Theme.title(goalTrack, "", 12, C.White)
+goalAmount.Size = UDim2.fromScale(1, 1)
+goalAmount.ZIndex = 3
+local goalButton = Theme.action(goalCard, "ABRIR LOJA", C.Gold, { Size = UDim2.new(1, -24, 0, 38), TextSize = 16 })
+local goalBadge
+local goalBadgeKey
+local goalMode = "goal"
 
 -- ---------- Notificações empilhadas ----------
 local toasts = Instance.new("Frame")
@@ -170,21 +238,21 @@ local function notify(message, tone)
 	local toast = Instance.new("Frame")
 	toast.Name = "Toast"
 	toast.LayoutOrder = toastOrder
-	toast.Size = UDim2.new(1, 0, 0, 44)
-	Theme.panel(toast, style[1])
+	toast.Size = UDim2.new(1, -20, 0, 46)
+	Theme.panel(toast, style[1], 23)
 	toast.Parent = toasts
-	local badge = Theme.badge(toast, style[2], style[1], 30)
+	local badge = Theme.badge(toast, style[2], style[1], 48)
 	badge.AnchorPoint = Vector2.new(0, 0.5)
-	badge.Position = UDim2.new(0, 7, 0.5, 0)
-	local text = Theme.label(toast, message, 14)
+	badge.Position = UDim2.new(0, -12, 0.5, 0)
+	local text = Theme.title(toast, message, 15, C.White)
 	text.TextXAlignment = Enum.TextXAlignment.Left
 	text.Position = UDim2.fromOffset(44, 4)
-	text.Size = UDim2.new(1, -52, 1, -8)
-	Theme.fitText(text, 14, 9)
+	text.Size = UDim2.new(1, -56, 1, -8)
+	Theme.fitText(text, 15, 9)
 	local scale = Instance.new("UIScale")
 	scale.Parent = toast
 	if not Theme.reducedMotion(toast) then
-		scale.Scale = 0.6
+		scale.Scale = 0.5
 		TweenService:Create(scale, Theme.Motion.Pop, { Scale = 1 }):Play()
 	end
 	table.insert(liveToasts, toast)
@@ -198,55 +266,36 @@ local function notify(message, tone)
 	end)
 end
 
--- Texto que sobe e some a partir de um elemento (ganhos de Créditos e coletas).
+-- Texto que sobe e some a partir de uma pílula (ganhos e coletas).
 local function floatFrom(entry, text, color)
-	local label = Theme.label(entry.tile, text, 16, color)
-	label.Font = Theme.Font.Display
-	label.TextStrokeTransparency = 0
+	local label = Theme.title(entry.frame, text, 18, color)
 	label.AnchorPoint = Vector2.new(0.5, 0)
-	label.Position = UDim2.new(0.5, 0, 1, 4)
-	label.Size = UDim2.new(1.4, 0, 0, 20)
-	label.ZIndex = entry.tile.ZIndex + 5
+	label.Position = UDim2.new(0.5, 0, 1, 2)
+	label.Size = UDim2.new(1.5, 0, 0, 22)
+	label.ZIndex = 8
 	if Theme.reducedMotion(label) then
 		Debris:AddItem(label, 1.2)
 		return
 	end
+	local scale = Instance.new("UIScale")
+	scale.Scale = 1.4
+	scale.Parent = label
+	TweenService:Create(scale, Theme.Motion.Pop, { Scale = 1 }):Play()
 	TweenService:Create(label, Theme.Motion.Float, {
-		Position = UDim2.new(0.5, 0, 1, 30),
+		Position = UDim2.new(0.5, 0, 1, 34),
 		TextTransparency = 1,
 		TextStrokeTransparency = 1,
 	}):Play()
 	Debris:AddItem(label, 1)
 end
 
--- ---------- Janela de menus ----------
-local menu = Theme.window(gui, "MOCHILA", { MaxSize = Vector2.new(640, 450), ZIndex = 5 })
-local tabsBar = Instance.new("Frame")
-tabsBar.Name = "Tabs"
-tabsBar.BackgroundTransparency = 1
-tabsBar.Size = UDim2.new(1, 0, 0, 42)
-tabsBar.Parent = menu.Body
-local body = Instance.new("ScrollingFrame")
-body.Name = "Content"
-body.BackgroundTransparency = 1
-body.BorderSizePixel = 0
-body.CanvasSize = UDim2.new()
-body.AutomaticCanvasSize = Enum.AutomaticSize.Y
-body.ScrollBarThickness = 6
-body.ScrollBarImageColor3 = C.Frost
-body.Parent = menu.Body
-local bodyPadding = Instance.new("UIPadding")
-bodyPadding.PaddingTop = UDim.new(0, 4)
-bodyPadding.PaddingBottom = UDim.new(0, 8)
-bodyPadding.PaddingLeft = UDim.new(0, 4)
-bodyPadding.PaddingRight = UDim.new(0, 10)
-bodyPadding.Parent = body
-local rows = Instance.new("UIListLayout")
-rows.Padding = UDim.new(0, 10)
-rows.SortOrder = Enum.SortOrder.LayoutOrder
-rows.HorizontalAlignment = Enum.HorizontalAlignment.Center
-rows.Parent = body
-
+-- ---------- Janelas de menu ----------
+local windowStyles = {
+	["Mochila"] = { Title = "MOCHILA", Accent = C.Cyan, Icon = "pack" },
+	["Missões"] = { Title = "MISSÕES", Accent = C.Violet, Icon = "mission" },
+	["Configurações"] = { Title = "AJUSTES", Accent = C.Mint, Icon = "settings" },
+}
+local windows = {}
 local state
 local currentMenu
 local view = {}
@@ -254,18 +303,56 @@ local marker
 local backpackTab = "Minérios"
 
 local function closeMenu(onClosed)
-	if not menu.Overlay.Visible then
+	local parts = currentMenu and windows[currentMenu]
+	if not parts or not parts.Overlay.Visible then
 		if onClosed then onClosed() end
 		return
 	end
-	Theme.closeWindow(menu, function()
+	Theme.closeWindow(parts, function()
 		currentMenu = nil
 		playerGui:SetAttribute("GalaxyMenuOpen", false)
 		if onClosed then onClosed() end
 	end)
 end
-menu.Close.Activated:Connect(function() closeMenu() end)
-menu.Overlay.Activated:Connect(function() closeMenu() end)
+
+local function getWindow(name)
+	if windows[name] then return windows[name] end
+	local style = windowStyles[name]
+	local parts = Theme.window(gui, style.Title, {
+		MaxSize = Vector2.new(660, 460), ZIndex = 5, Accent = style.Accent, Icon = style.Icon,
+	})
+	local tabsBar = Instance.new("Frame")
+	tabsBar.Name = "Tabs"
+	tabsBar.BackgroundTransparency = 1
+	tabsBar.Size = UDim2.new(1, 0, 0, 46)
+	tabsBar.Parent = parts.Body
+	local content = Instance.new("ScrollingFrame")
+	content.Name = "Content"
+	content.BackgroundTransparency = 1
+	content.BorderSizePixel = 0
+	content.CanvasSize = UDim2.new()
+	content.AutomaticCanvasSize = Enum.AutomaticSize.Y
+	content.ScrollBarThickness = 6
+	content.ScrollBarImageColor3 = C.Frost
+	content.Parent = parts.Body
+	local padding = Instance.new("UIPadding")
+	padding.PaddingTop = UDim.new(0, 6)
+	padding.PaddingBottom = UDim.new(0, 10)
+	padding.PaddingLeft = UDim.new(0, 4)
+	padding.PaddingRight = UDim.new(0, 12)
+	padding.Parent = content
+	local list = Instance.new("UIListLayout")
+	list.Padding = UDim.new(0, 10)
+	list.SortOrder = Enum.SortOrder.LayoutOrder
+	list.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	list.Parent = content
+	parts.Tabs = tabsBar
+	parts.Content = content
+	parts.Close.Activated:Connect(function() closeMenu() end)
+	parts.Overlay.Activated:Connect(function() closeMenu() end)
+	windows[name] = parts
+	return parts
+end
 
 local function locate(groupName, partName, label)
 	local world = workspace:FindFirstChild("TerraNova")
@@ -279,36 +366,27 @@ local function locate(groupName, partName, label)
 	local highlight = Instance.new("Highlight")
 	highlight.Adornee = target
 	highlight.FillColor = C.Cyan
-	highlight.OutlineColor = C.Cyan
-	highlight.FillTransparency = 0.72
+	highlight.OutlineColor = C.White
+	highlight.FillTransparency = 0.6
 	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 	highlight.Parent = target
 	marker = highlight
 	Debris:AddItem(highlight, 18)
 	closeMenu()
-	notify("Siga o destaque ciano até " .. label .. ".", "warning")
+	notify("Siga o destaque até " .. label .. ".", "warning")
 end
 
-local function clearBody()
-	for _, child in ipairs(body:GetChildren()) do
-		if child:IsA("GuiObject") then child:Destroy() end
-	end
-	for _, child in ipairs(tabsBar:GetChildren()) do
-		if child:IsA("GuiObject") then child:Destroy() end
-	end
-	table.clear(view)
-end
-
-local function sectionWell(order, height)
+-- Construtores de conteúdo (recebem o ScrollingFrame da janela).
+local function sectionWell(body, order, height)
 	local frame = Instance.new("Frame")
 	frame.LayoutOrder = order
 	frame.Size = UDim2.new(1, 0, 0, height)
-	Theme.well(frame)
+	Theme.panel(frame, C.Violet, 16)
 	frame.Parent = body
 	return frame
 end
 
-local function gridHolder(order, cell)
+local function gridHolder(body, order, cell)
 	local holder = Instance.new("Frame")
 	holder.LayoutOrder = order
 	holder.BackgroundTransparency = 1
@@ -317,22 +395,16 @@ local function gridHolder(order, cell)
 	holder.Parent = body
 	local grid = Instance.new("UIGridLayout")
 	grid.CellSize = cell
-	grid.CellPadding = UDim2.fromOffset(8, 8)
+	grid.CellPadding = UDim2.fromOffset(10, 10)
 	grid.SortOrder = Enum.SortOrder.LayoutOrder
 	grid.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	grid.Parent = holder
 	return holder
 end
 
-local function wideAction(order, text, kind, tint, callback)
-	local button = Theme.action(body, text, tint)
+local function wideAction(body, order, text, kind, tint, callback)
+	local button = Theme.action(body, text, tint, { Size = UDim2.new(1, 0, 0, 54), Icon = kind, TextSize = 19 })
 	button.LayoutOrder = order
-	button.Size = UDim2.new(1, 0, 0, 48)
-	button.Font = Theme.Font.Display
-	button.TextSize = 17
-	local icon = Theme.illustration(button, kind, C.Frost)
-	icon.AnchorPoint = Vector2.new(0, 0.5)
-	icon.Position = UDim2.new(0, 12, 0.5, 0)
 	button.Activated:Connect(callback)
 	return button
 end
@@ -340,84 +412,96 @@ end
 local function statBox(parent, order, caption, kind, accent)
 	local box = Instance.new("Frame")
 	box.LayoutOrder = order
-	box.Size = UDim2.new(1 / 3, -6, 1, 0)
-	Theme.panel(box, accent)
+	box.Size = UDim2.new(1 / 3, -7, 1, 0)
+	Theme.panel(box, accent, 16)
 	box.Parent = parent
-	local badge = Theme.badge(box, kind, accent, 34)
+	local badge = Theme.badge(box, kind, accent, 42)
 	badge.AnchorPoint = Vector2.new(0, 0.5)
 	badge.Position = UDim2.new(0, 8, 0.5, 0)
-	local cap = Theme.label(box, caption, 11, accent)
+	local cap = Theme.label(box, caption, 10, accent:Lerp(C.White, 0.2))
+	cap.Font = Theme.Font.Display
 	cap.TextXAlignment = Enum.TextXAlignment.Left
-	cap.Position = UDim2.fromOffset(50, 8)
-	cap.Size = UDim2.new(1, -56, 0, 14)
+	cap.Position = UDim2.fromOffset(56, 9)
+	cap.Size = UDim2.new(1, -62, 0, 13)
 	Theme.fitText(cap, 11, 7)
-	local value = Theme.label(box, "…", 20)
-	value.Font = Theme.Font.Display
+	local value = Theme.title(box, "…", 21, C.White)
 	value.TextXAlignment = Enum.TextXAlignment.Left
-	value.Position = UDim2.fromOffset(50, 24)
-	value.Size = UDim2.new(1, -56, 0, 30)
-	Theme.fitText(value, 20, 9)
+	value.Position = UDim2.fromOffset(56, 24)
+	value.Size = UDim2.new(1, -62, 0, 30)
+	Theme.fitText(value, 21, 9)
 	return value, cap
 end
 
 -- ----- Mochila: Minérios -----
-local function buildOres()
+local function buildOres(body)
 	local summary = Instance.new("Frame")
 	summary.LayoutOrder = 1
 	summary.BackgroundTransparency = 1
-	summary.Size = UDim2.new(1, 0, 0, 64)
+	summary.Size = UDim2.new(1, 0, 0, 66)
 	summary.Parent = body
 	local list = Instance.new("UIListLayout")
 	list.FillDirection = Enum.FillDirection.Horizontal
-	list.Padding = UDim.new(0, 8)
+	list.Padding = UDim.new(0, 10)
 	list.SortOrder = Enum.SortOrder.LayoutOrder
 	list.Parent = summary
 	local cargoValue, cargoCaption = statBox(summary, 1, "CARGA", "pack", C.Cyan)
 	local worthValue = statBox(summary, 2, "VALOR NA VENDA", "coin", C.Gold)
 	local gearValue = statBox(summary, 3, "FERRAMENTA", "drill", C.Violet)
 
-	local holder = gridHolder(2, UDim2.fromOffset(108, 128))
+	local holder = gridHolder(body, 2, UDim2.fromOffset(112, 136))
 	local slots = {}
 	for index, entry in ipairs(oreList) do
 		local slot = Instance.new("Frame")
 		slot.Name = entry.id
 		slot.LayoutOrder = index
-		Theme.well(slot)
+		slot.BackgroundColor3 = Color3.new(1, 1, 1)
+		slot.BorderSizePixel = 0
+		Theme.round(slot, 16)
+		Theme.stroke(slot, C.Ink, 3)
+		Theme.gradient(slot, entry.color:Lerp(C.Plum, 0.55), C.Night)
 		slot.Parent = holder
-		local badge = Theme.badge(slot, "gem", entry.color, 46)
+		local badge = Theme.badge(slot, "gem", entry.color, 54)
 		badge.AnchorPoint = Vector2.new(0.5, 0)
 		badge.Position = UDim2.new(0.5, 0, 0, 8)
-		local name = Theme.label(slot, entry.ore.Name, 12)
-		name.Position = UDim2.fromOffset(4, 57)
-		name.Size = UDim2.new(1, -8, 0, 26)
-		Theme.fitText(name, 12, 8)
-		local count = Theme.label(slot, "—", 18, C.Gold)
-		count.Font = Theme.Font.Display
-		count.Position = UDim2.fromOffset(4, 83)
-		count.Size = UDim2.new(1, -8, 0, 22)
-		local price = Theme.label(slot, "✦ " .. Theme.format(entry.ore.Value) .. " cada", 10, C.Muted)
-		price.Font = Theme.Font.Body
-		price.Position = UDim2.fromOffset(4, 106)
-		price.Size = UDim2.new(1, -8, 0, 14)
+		local count = Theme.title(slot, "", 15, C.White)
+		count.BackgroundColor3 = C.Ink
+		count.BackgroundTransparency = 0.2
+		count.AnchorPoint = Vector2.new(1, 0)
+		count.Position = UDim2.new(1, -6, 0, 6)
+		count.Size = UDim2.fromOffset(42, 20)
+		count.ZIndex = 4
+		Theme.round(count, 10)
+		local name = Theme.title(slot, entry.ore.Name, 13, C.White)
+		name.Position = UDim2.fromOffset(4, 66)
+		name.Size = UDim2.new(1, -8, 0, 32)
+		Theme.fitText(name, 13, 8)
+		local price = Theme.label(slot, "✦ " .. Theme.format(entry.ore.Value) .. " cada", 11, C.Gold)
+		price.Font = Theme.Font.Display
+		price.Position = UDim2.fromOffset(4, 100)
+		price.Size = UDim2.new(1, -8, 0, 16)
+		local weight = Theme.label(slot, "Peso " .. entry.ore.Weight, 10, C.Muted)
+		weight.Font = Theme.Font.Body
+		weight.Position = UDim2.fromOffset(4, 116)
+		weight.Size = UDim2.new(1, -8, 0, 14)
 		slots[entry.id] = { frame = slot, count = count, badge = badge }
 	end
-	wideAction(3, "Ir até a Estação de Venda", "pin", C.Blue, function()
+	wideAction(body, 3, "IR ATÉ A ESTAÇÃO DE VENDA", "pin", C.Blue, function()
 		locate("SaleStation", "Counter", "a Estação de Venda")
 	end)
 
 	view.update = function(s)
 		cargoValue.Text = Theme.compact(s.Weight) .. "/" .. Theme.compact(s.Capacity)
-		cargoValue.TextColor3 = s.Weight >= s.Capacity and C.Red or C.Text
+		cargoValue.TextColor3 = s.Weight >= s.Capacity and C.Red or C.White
 		cargoCaption.Text = string.upper(s.BackpackName or "CARGA")
 		local worth = 0
 		for _, entry in ipairs(oreList) do
 			local amount = s.Items[entry.id] or 0
 			worth += amount * entry.ore.Value
 			local slot = slots[entry.id]
-			slot.count.Text = amount > 0 and ("×" .. Theme.format(amount)) or "—"
-			slot.count.TextColor3 = amount > 0 and C.Gold or C.Muted
-			slot.frame.BackgroundTransparency = amount > 0 and 0.3 or 0.7
-			slot.badge.BackgroundTransparency = amount > 0 and 0 or 0.6
+			slot.count.Visible = amount > 0
+			slot.count.Text = "×" .. Theme.compact(amount)
+			slot.frame.BackgroundTransparency = amount > 0 and 0 or 0.45
+			slot.badge.BackgroundTransparency = amount > 0 and 0 or 0.5
 		end
 		worthValue.Text = "✦ " .. Theme.compact(worth)
 		gearValue.Text = s.ToolName
@@ -425,44 +509,45 @@ local function buildOres()
 end
 
 -- ----- Mochila: Pets -----
-local function buildPets()
-	local intro = sectionWell(1, 46)
-	local introText = Theme.label(intro, "Um pet equipado por vez. O bônus é somado ao poder da ferramenta.", 13, C.Frost)
+local function buildPets(body)
+	local intro = sectionWell(body, 1, 50)
+	local introText = Theme.label(intro, "Um pet equipado por vez. O bônus é somado ao poder da ferramenta.", 14, C.Frost)
 	introText.Font = Theme.Font.Body
-	introText.Position = UDim2.fromOffset(12, 4)
-	introText.Size = UDim2.new(1, -24, 1, -8)
-	Theme.fitText(introText, 13, 9)
+	introText.Position = UDim2.fromOffset(14, 4)
+	introText.Size = UDim2.new(1, -28, 1, -8)
+	Theme.fitText(introText, 14, 9)
 
-	local holder = gridHolder(2, UDim2.fromOffset(150, 178))
+	local holder = gridHolder(body, 2, UDim2.fromOffset(156, 196))
 	local cards = {}
 	for index, pet in ipairs(Config.Pets) do
 		local color = Color3.fromHex(pet.Color)
 		local card = Instance.new("Frame")
 		card.Name = pet.Id
 		card.LayoutOrder = index
-		Theme.well(card)
+		card.BackgroundColor3 = Color3.new(1, 1, 1)
+		card.BorderSizePixel = 0
+		Theme.round(card, 18)
+		local edge = Theme.stroke(card, C.Ink, 3)
+		Theme.gradient(card, color:Lerp(C.Plum, 0.45), C.Night)
 		card.Parent = holder
-		local edge = card:FindFirstChildOfClass("UIStroke")
-		local portrait = Theme.badge(card, "pet", color, 64)
+		local rays = Theme.rays(card, { Color = color, Alt = C.Gold, Length = 120, Width = 14, Position = UDim2.new(0.5, 0, 0, 46) })
+		local portrait = Theme.badge(card, "pet", color, 74)
 		portrait.AnchorPoint = Vector2.new(0.5, 0)
-		portrait.Position = UDim2.new(0.5, 0, 0, 8)
-		local locked = Theme.badge(card, "lock", C.Gray, 64)
+		portrait.Position = UDim2.new(0.5, 0, 0, 10)
+		portrait.ZIndex = 2
+		local locked = Theme.badge(card, "lock", C.Gray, 74)
 		locked.AnchorPoint = Vector2.new(0.5, 0)
-		locked.Position = UDim2.new(0.5, 0, 0, 8)
-		local name = Theme.label(card, pet.Name, 17, color)
-		name.Font = Theme.Font.Display
-		name.TextStrokeTransparency = 0
-		name.Position = UDim2.fromOffset(4, 76)
-		name.Size = UDim2.new(1, -8, 0, 22)
-		local bonus = Theme.label(card, "+" .. math.round(pet.Bonus * 100) .. "% de poder", 12, C.Mint)
-		bonus.Position = UDim2.fromOffset(4, 98)
+		locked.Position = UDim2.new(0.5, 0, 0, 10)
+		locked.ZIndex = 2
+		local name = Theme.title(card, pet.Name, 19, color:Lerp(C.White, 0.3))
+		name.Position = UDim2.fromOffset(4, 88)
+		name.Size = UDim2.new(1, -8, 0, 24)
+		local bonus = Theme.title(card, "+" .. math.round(pet.Bonus * 100) .. "% de poder", 13, C.Mint)
+		bonus.Position = UDim2.fromOffset(4, 112)
 		bonus.Size = UDim2.new(1, -8, 0, 18)
-		local button = Theme.action(card, "", C.Blue)
+		local button = Theme.action(card, "", C.Blue, { Size = UDim2.new(1, -16, 0, 44), TextSize = 15 })
 		button.AnchorPoint = Vector2.new(0.5, 1)
 		button.Position = UDim2.new(0.5, 0, 1, -8)
-		button.Size = UDim2.new(1, -16, 0, 40)
-		button.Font = Theme.Font.Display
-		Theme.fitText(button, 15, 9)
 		button.Activated:Connect(function()
 			if not state then return end
 			if not state.OwnedPets[pet.Id] then
@@ -473,9 +558,9 @@ local function buildPets()
 				remote:FireServer("EquipPet", pet.Id)
 			end
 		end)
-		cards[pet.Id] = { pet = pet, portrait = portrait, locked = locked, button = button, edge = edge, name = name }
+		cards[pet.Id] = { pet = pet, portrait = portrait, locked = locked, button = button, edge = edge, name = name, rays = rays }
 	end
-	wideAction(3, "Ir até o OVNI de resgate", "pin", C.Violet, function()
+	wideAction(body, 3, "IR ATÉ O OVNI DE RESGATE", "pin", C.Violet, function()
 		locate("PetShop", "Terminal", "o OVNI de resgate")
 	end)
 
@@ -485,17 +570,18 @@ local function buildPets()
 			local equipped = s.EquippedPet == id
 			entry.portrait.Visible = owned
 			entry.locked.Visible = not owned
+			entry.rays.Visible = equipped
 			entry.name.Text = owned and entry.pet.Name or "???"
-			entry.edge.Color = equipped and C.Gold or C.Deep
-			entry.edge.Thickness = equipped and 4 or 3
+			entry.edge.Color = equipped and C.Gold or C.Ink
+			entry.edge.Thickness = equipped and 5 or 3
 			if equipped then
-				entry.button.Text = "✔ GUARDAR"
-				Theme.setTint(entry.button, C.Gold:Lerp(C.Deep, 0.15))
+				Theme.setText(entry.button, "✔ GUARDAR")
+				Theme.setTint(entry.button, C.Gold)
 			elseif owned then
-				entry.button.Text = "EQUIPAR"
+				Theme.setText(entry.button, "EQUIPAR")
 				Theme.setTint(entry.button, C.Blue)
 			else
-				entry.button.Text = "✦ " .. Theme.format(entry.pet.Price) .. " no OVNI"
+				Theme.setText(entry.button, "✦ " .. Theme.format(entry.pet.Price) .. " no OVNI")
 				Theme.setTint(entry.button, C.Gray)
 			end
 		end
@@ -510,71 +596,84 @@ local missionTitles = {
 	{ "Amigo alienígena", "Descobrir e equipar Lumini." },
 	{ "Sinal desconhecido", "Encontrar a caverna azul e reativar o transmissor." },
 }
-local function buildMissions()
-	local orbi = sectionWell(1, 92)
-	local badge = Theme.badge(orbi, "robot", C.Cyan, 64)
+local function buildMissions(body)
+	local orbi = sectionWell(body, 1, 104)
+	local badge = Theme.badge(orbi, "robot", C.Cyan, 76)
 	badge.AnchorPoint = Vector2.new(0, 0.5)
 	badge.Position = UDim2.new(0, 12, 0.5, 0)
-	local name = Theme.label(orbi, "ORBI · Assistente de exploração", 17, C.Cyan)
-	name.Font = Theme.Font.Display
+	local name = Theme.title(orbi, "ORBI · Assistente de exploração", 19, C.Cyan)
 	name.TextXAlignment = Enum.TextXAlignment.Left
-	name.Position = UDim2.fromOffset(88, 10)
-	name.Size = UDim2.new(1, -100, 0, 22)
-	Theme.fitText(name, 17, 10)
-	local speech = Theme.label(orbi,
-		"“Transmissões chegando em breve! Enquanto isso: minere, venda e melhore seu equipamento.”", 13, C.Frost)
-	speech.Font = Theme.Font.Body
-	speech.TextXAlignment = Enum.TextXAlignment.Left
-	speech.Position = UDim2.fromOffset(88, 34)
-	speech.Size = UDim2.new(1, -100, 0, 50)
-	Theme.fitText(speech, 13, 9)
+	name.Position = UDim2.fromOffset(100, 10)
+	name.Size = UDim2.new(1, -112, 0, 24)
+	Theme.fitText(name, 19, 10)
+	local bubble = Instance.new("Frame")
+	bubble.Position = UDim2.fromOffset(100, 38)
+	bubble.Size = UDim2.new(1, -112, 0, 56)
+	bubble.BackgroundColor3 = C.Frost
+	bubble.BorderSizePixel = 0
+	Theme.round(bubble, 14)
+	Theme.stroke(bubble, C.Ink, 3)
+	bubble.Parent = orbi
+	local speech = Theme.label(bubble,
+		"Transmissões chegando em breve! Enquanto isso: minere, venda e melhore seu equipamento.", 13, C.Ink)
+	speech.Font = Theme.Font.Label
+	speech.Position = UDim2.fromOffset(10, 4)
+	speech.Size = UDim2.new(1, -20, 1, -8)
+	Theme.fitText(speech, 13, 8)
 	for index, mission in ipairs(missionTitles) do
-		local row = sectionWell(index + 1, 58)
-		row.BackgroundTransparency = 0.6
-		local lock = Theme.badge(row, "lock", C.Gray, 38)
-		lock.AnchorPoint = Vector2.new(0, 0.5)
-		lock.Position = UDim2.new(0, 10, 0.5, 0)
-		local title = Theme.label(row, index .. ". " .. mission[1], 15, C.Text)
-		title.Font = Theme.Font.Display
+		local row = Instance.new("Frame")
+		row.LayoutOrder = index + 1
+		row.Size = UDim2.new(1, 0, 0, 62)
+		Theme.well(row, 16)
+		row.Parent = body
+		local number = Theme.badge(row, "lock", C.Gray, 44)
+		number.AnchorPoint = Vector2.new(0, 0.5)
+		number.Position = UDim2.new(0, 10, 0.5, 0)
+		local title = Theme.title(row, index .. ". " .. mission[1], 17, C.White)
 		title.TextXAlignment = Enum.TextXAlignment.Left
-		title.Position = UDim2.fromOffset(58, 7)
-		title.Size = UDim2.new(1, -150, 0, 20)
-		Theme.fitText(title, 15, 9)
+		title.Position = UDim2.fromOffset(64, 8)
+		title.Size = UDim2.new(1, -170, 0, 22)
+		Theme.fitText(title, 17, 9)
 		local detail = Theme.label(row, mission[2], 12, C.Muted)
 		detail.Font = Theme.Font.Body
 		detail.TextXAlignment = Enum.TextXAlignment.Left
-		detail.Position = UDim2.fromOffset(58, 28)
-		detail.Size = UDim2.new(1, -150, 0, 22)
+		detail.Position = UDim2.fromOffset(64, 31)
+		detail.Size = UDim2.new(1, -170, 0, 22)
 		Theme.fitText(detail, 12, 8)
-		local soon = Theme.label(row, "EM BREVE", 12, C.Amber)
-		soon.Font = Theme.Font.Display
+		local soon = Theme.title(row, "EM BREVE", 13, C.Ink)
+		soon.BackgroundColor3 = C.Amber
 		soon.AnchorPoint = Vector2.new(1, 0.5)
 		soon.Position = UDim2.new(1, -12, 0.5, 0)
-		soon.Size = UDim2.fromOffset(80, 22)
+		soon.Size = UDim2.fromOffset(88, 26)
+		soon.TextStrokeTransparency = 1
+		Theme.round(soon, 13)
+		Theme.stroke(soon, C.Ink, 2)
 	end
 end
 
--- ----- Configurações (preferências locais desta sessão) -----
-local function buildSettings()
+-- ----- Ajustes (preferências locais desta sessão) -----
+local function buildSettings(body)
 	local options = {
-		{ "Movimento reduzido", "Desliga animações de menus, números e contadores.", "GalaxyReduceMotion", false },
-		{ "Números de dano", "Mostra o dano de cada golpe acima do minério.", "GalaxyHideDamage", true },
-		{ "Poeira cósmica", "Partículas brilhantes flutuando ao seu redor.", "GalaxyHideDust", true },
+		{ "Movimento reduzido", "Desliga animações de menus, números e do cenário.", "GalaxyReduceMotion", false, "motion" },
+		{ "Sons", "Cliques, golpes e recompensas.", "GalaxyMute", true, "sound" },
+		{ "Números de dano", "Mostra o dano de cada golpe acima do minério.", "GalaxyHideDamage", true, "bolt" },
+		{ "Placas dos minérios", "Nome, resistência e golpes necessários.", "GalaxyHideOrePlates", true, "gem" },
+		{ "Poeira cósmica", "Partículas brilhantes flutuando ao seu redor.", "GalaxyHideDust", true, "sparkle" },
 	}
 	for index, option in ipairs(options) do
 		local attribute, inverted = option[3], option[4]
 		local current = playerGui:GetAttribute(attribute) == true
 		local row = Theme.toggle(body, option[1], option[2], if inverted then not current else current, function(value)
 			playerGui:SetAttribute(attribute, if inverted then not value else value)
-		end)
+		end, option[5])
 		row.LayoutOrder = index
 	end
-	local keys = sectionWell(10, 64)
+	local keys = sectionWell(body, 20, 66)
 	local text = Theme.label(keys,
-		"Atalhos  ·  L Loja  ·  B Mochila  ·  M Missões  ·  P Configurações\nNo controle, B fecha a janela aberta.", 13, C.Frost)
+		"Atalhos  ·  L Loja  ·  B Mochila  ·  M Missões  ·  P Ajustes\nNo controle, B fecha a janela aberta.", 13, C.Frost)
 	text.Font = Theme.Font.Body
-	text.Position = UDim2.fromOffset(12, 4)
-	text.Size = UDim2.new(1, -24, 1, -8)
+	text.Position = UDim2.fromOffset(14, 4)
+	text.Size = UDim2.new(1, -28, 1, -8)
 	Theme.fitText(text, 13, 9)
 end
 
@@ -584,7 +683,14 @@ local function render()
 	end
 end
 
-local titles = { ["Mochila"] = "MOCHILA", ["Missões"] = "MISSÕES", ["Configurações"] = "AJUSTES" }
+local function clear(parts)
+	for _, container in ipairs({ parts.Content, parts.Tabs }) do
+		for _, child in ipairs(container:GetChildren()) do
+			if child:IsA("GuiObject") then child:Destroy() end
+		end
+	end
+	table.clear(view)
+end
 
 local function openMenu(name)
 	if name == "Loja" then
@@ -594,76 +700,88 @@ local function openMenu(name)
 		end)
 		return
 	end
-	if playerGui:GetAttribute("GalaxyShopOpen") or menu.Closing then return end
-	local wasOpen = menu.Overlay.Visible
+	if playerGui:GetAttribute("GalaxyShopOpen") then return end
+	if currentMenu and currentMenu ~= name then
+		-- Troca de menu: fecha o atual e abre o pedido em seguida.
+		closeMenu(function() openMenu(name) end)
+		return
+	end
+	local parts = getWindow(name)
+	if parts.Closing then return end
+	local wasOpen = parts.Overlay.Visible
 	currentMenu = name
-	menu.Title.Text = titles[name] or string.upper(name)
-	clearBody()
+	clear(parts)
+	local body = parts.Content
 	body.CanvasPosition = Vector2.zero
 	local hasTabs = name == "Mochila"
-	tabsBar.Visible = hasTabs
-	body.Position = UDim2.fromOffset(0, hasTabs and 50 or 0)
-	body.Size = UDim2.new(1, 0, 1, hasTabs and -50 or 0)
+	parts.Tabs.Visible = hasTabs
+	body.Position = UDim2.fromOffset(0, hasTabs and 54 or 0)
+	body.Size = UDim2.new(1, 0, 1, hasTabs and -54 or 0)
 	if hasTabs then
-		for index, tab in ipairs({ "Minérios", "Pets" }) do
-			local active = backpackTab == tab
-			local button = Theme.action(tabsBar, tab, active and C.Cyan:Lerp(C.Deep, 0.25) or C.Navy)
-			button.Font = Theme.Font.Display
-			button.TextSize = 17
-			button.Position = UDim2.new((index - 1) * 0.5, index == 1 and 0 or 4, 0, 0)
-			button.Size = UDim2.new(0.5, -4, 1, 0)
-			local edge = button:FindFirstChildOfClass("UIStroke")
-			edge.Color = active and C.Frost or C.Deep
+		for index, tab in ipairs({ { "Minérios", "gem" }, { "Pets", "pet" } }) do
+			local active = backpackTab == tab[1]
+			local button = Theme.action(parts.Tabs, string.upper(tab[1]), active and C.Cyan or C.Plum,
+				{ Size = UDim2.new(0.5, -5, 1, 0), Icon = tab[2], TextSize = 19 })
+			button.Position = UDim2.new((index - 1) * 0.5, index == 1 and 0 or 5, 0, 0)
 			button.Activated:Connect(function()
-				if backpackTab ~= tab then
-					backpackTab = tab
+				if backpackTab ~= tab[1] then
+					backpackTab = tab[1]
 					openMenu("Mochila")
 				end
 			end)
 		end
-		if backpackTab == "Minérios" then buildOres() else buildPets() end
+		if backpackTab == "Minérios" then buildOres(body) else buildPets(body) end
 	elseif name == "Missões" then
-		buildMissions()
+		buildMissions(body)
 	elseif name == "Configurações" then
-		buildSettings()
+		buildSettings(body)
 	end
 	render()
 	if not wasOpen then
 		playerGui:SetAttribute("GalaxyMenuOpen", true)
-		Theme.openWindow(menu)
+		Theme.openWindow(parts)
 	end
 	if isGamepad() then
 		task.defer(function()
-			local first = tabsBar:FindFirstChildWhichIsA("TextButton") or body:FindFirstChildWhichIsA("TextButton", true)
+			local first = parts.Tabs:FindFirstChildWhichIsA("TextButton") or body:FindFirstChildWhichIsA("TextButton", true)
 			if first then GuiService.SelectedObject = first end
 		end)
 	end
 end
 
 local function toggleMenu(name)
-	if currentMenu == name and menu.Overlay.Visible then
+	if currentMenu == name and windows[name] and windows[name].Overlay.Visible then
 		closeMenu()
 	else
 		openMenu(name)
 	end
 end
 
+goalButton.Activated:Connect(function()
+	if goalMode == "full" then
+		locate("SaleStation", "Counter", "a Estação de Venda")
+	else
+		toggleMenu("Loja")
+	end
+end)
+
 local buttons = {}
 for index, entry in ipairs({
-	{ "shop", "Loja", C.Amber, "L" },
+	{ "shop", "Loja", C.Gold, "L" },
 	{ "pack", "Mochila", C.Cyan, "B" },
 	{ "mission", "Missões", C.Violet, "M" },
-	{ "settings", "Configurações", C.Green, "P" },
+	{ "settings", "Ajustes", C.Mint, "P" },
 }) do
+	local target = entry[2] == "Ajustes" and "Configurações" or entry[2]
 	local button = Theme.navigationAction(navigation, entry[2], entry[1], entry[3], entry[4])
 	button.LayoutOrder = index
-	button.Activated:Connect(function() toggleMenu(entry[2]) end)
+	button.Activated:Connect(function() toggleMenu(target) end)
 	buttons[index] = button
 end
 
 UserInputService.InputBegan:Connect(function(input, processed)
 	-- B do controle fecha a janela mesmo quando a navegação de interface já usou a tecla.
-	if input.KeyCode == Enum.KeyCode.ButtonB and menu.Overlay.Visible then
+	if input.KeyCode == Enum.KeyCode.ButtonB and currentMenu then
 		closeMenu()
 		return
 	end
@@ -677,63 +795,157 @@ UserInputService.InputBegan:Connect(function(input, processed)
 	}
 	local target = shortcuts[input.KeyCode]
 	-- Sem menu da HUD aberto, a própria loja trata a tecla L.
-	if target == "Loja" and not menu.Overlay.Visible then return end
+	if target == "Loja" and not currentMenu then return end
 	if target then toggleMenu(target) end
 end)
 
+-- ---------- Layout responsivo ----------
+local wideLayout = true
 local function layout()
 	local size = gui.AbsoluteSize
-	local wide = size.X >= 900 and size.Y >= 550
+	local wide = size.X >= 900 and size.Y >= 520
+	wideLayout = wide
 	navigation.AnchorPoint = wide and Vector2.new(0, 0.5) or Vector2.new(0.5, 0)
-	navigation.Position = wide and UDim2.new(0, 12, 0.5, 0) or UDim2.new(0.5, 0, 0, 72)
-	navigation.Size = wide and UDim2.fromOffset(86, 264) or UDim2.new(1, -24, 0, 54)
-	navLayout.FillDirection = wide and Enum.FillDirection.Vertical or Enum.FillDirection.Horizontal
+	navigation.Position = wide and UDim2.new(0, 14, 0.5, 0) or UDim2.new(0.5, 0, 0, 74)
+	navigation.Size = wide and UDim2.fromOffset(182, 182) or UDim2.new(1, -24, 0, 60)
+	navGrid.CellSize = wide and UDim2.fromOffset(86, 86) or UDim2.new(0.25, -8, 1, 0)
+	navGrid.CellPadding = UDim2.fromOffset(10, 10)
 	for _, button in ipairs(buttons) do
-		button.Size = wide and UDim2.new(1, 0, 0, 58) or UDim2.new(1 / #buttons, -6, 1, 0)
 		local hint = button:FindFirstChild("KeyHint")
 		if hint then hint.Visible = wide and not UserInputService.TouchEnabled end
+		local face = button:FindFirstChild("Face")
+		local icon = face and face:FindFirstChild("Illustration")
+		local iconScale = icon and icon:FindFirstChild("IconScale")
+		if iconScale then iconScale.Scale = wide and 1.45 or 0.95 end
 	end
-	toasts.AnchorPoint = wide and Vector2.new(1, 1) or Vector2.new(0.5, 0)
-	toasts.Position = wide and UDim2.new(1, -12, 1, -120) or UDim2.new(0.5, 0, 0, 134)
-	toasts.Size = wide and UDim2.fromOffset(300, 150) or UDim2.new(1, -24, 0, 150)
-	toastLayout.VerticalAlignment = wide and Enum.VerticalAlignment.Bottom or Enum.VerticalAlignment.Top
+	toasts.AnchorPoint = Vector2.new(0.5, 0)
+	toasts.Position = wide and UDim2.new(0.5, 0, 0, 76) or UDim2.new(0.5, 0, 0, 212)
+	toasts.Size = UDim2.new(1, -40, 0, 160)
 	local toastLimit = toasts:FindFirstChildOfClass("UISizeConstraint") or Instance.new("UISizeConstraint", toasts)
-	toastLimit.MaxSize = Vector2.new(420, 150)
-	-- Em telas estreitas os ícones dos contadores somem para dar espaço aos números.
-	local compactHeader = header.AbsoluteSize.X < 390
-	for _, entry in ipairs(tiles) do
-		entry.badge.Visible = not compactHeader
-		local left = compactHeader and 8 or 48
-		entry.caption.Position = UDim2.fromOffset(left, 6)
-		entry.caption.Size = UDim2.new(1, -(left + 6), 0, 13)
-		entry.value.Position = UDim2.fromOffset(left, 19)
-		entry.value.Size = UDim2.new(1, -(left + 6), 0, 24)
+	toastLimit.MaxSize = Vector2.new(400, 160)
+
+	-- Cartão de meta: completo à direita (tela larga) ou compacto no topo.
+	goalCard.AnchorPoint = wide and Vector2.new(1, 0.5) or Vector2.new(0.5, 0)
+	goalCard.Position = wide and UDim2.new(1, -14, 0.5, 0) or UDim2.new(0.5, 0, 0, 142)
+	goalCard.Size = wide and UDim2.fromOffset(250, 178) or UDim2.new(1, -24, 0, 62)
+	local cardLimit = goalCard:FindFirstChildOfClass("UISizeConstraint") or Instance.new("UISizeConstraint", goalCard)
+	cardLimit.MaxSize = Vector2.new(wide and 250 or 420, 178)
+	goalHeader.Visible = wide
+	goalButton.Visible = wide
+	goalHeader.Position = UDim2.fromOffset(14, 8)
+	goalHeader.Size = UDim2.new(1, -28, 0, 18)
+	goalBadgeHolder.Position = wide and UDim2.fromOffset(12, 30) or UDim2.fromOffset(6, 5)
+	local left = wide and 74 or 62
+	goalName.Position = UDim2.fromOffset(left, wide and 32 or 6)
+	goalName.Size = UDim2.new(1, -(left + 10), 0, 22)
+	goalDetail.Position = UDim2.fromOffset(left, wide and 54 or 26)
+	goalDetail.Size = UDim2.new(1, -(left + 10), 0, 14)
+	goalTrack.Position = wide and UDim2.fromOffset(14, 90) or UDim2.fromOffset(left, 42)
+	goalTrack.Size = wide and UDim2.new(1, -28, 0, 20) or UDim2.new(1, -(left + 12), 0, 14)
+	goalButton.AnchorPoint = Vector2.new(0.5, 1)
+	goalButton.Position = UDim2.new(0.5, 0, 1, -12)
+
+	-- Pílulas: ícones menores em telas estreitas.
+	local compact = currencies.AbsoluteSize.X < 470
+	currencyLayout.Padding = UDim.new(0, compact and 18 or 24)
+	for _, entry in ipairs(pills) do
+		local badgeSize = compact and 44 or 56
+		entry.badge.Size = UDim2.fromOffset(badgeSize, badgeSize)
+		entry.badge.Position = UDim2.new(0, compact and -14 or -18, 0.5, 0)
+		local icon = entry.badge:FindFirstChild("Illustration")
+		local scale = icon and icon:FindFirstChildOfClass("UIScale")
+		if scale then scale.Scale = (badgeSize * 0.72) / 32 end
+		local inset = compact and 34 or 44
+		entry.caption.Position = UDim2.fromOffset(inset, 5)
+		entry.caption.Size = UDim2.new(1, -(inset + 8), 0, 12)
+		entry.value.Position = UDim2.fromOffset(inset, 16)
+		entry.value.Size = UDim2.new(1, -(inset + 8), 0, 26)
 		if entry.track then
-			entry.track.Position = UDim2.new(0, left, 1, -11)
-			entry.track.Size = UDim2.new(1, -(left + 8), 0, 6)
+			entry.track.Position = UDim2.new(0, inset, 1, -11)
+			entry.track.Size = UDim2.new(1, -(inset + 14), 0, 7)
 		end
 	end
 end
 gui:GetPropertyChangedSignal("AbsoluteSize"):Connect(layout)
-header:GetPropertyChangedSignal("AbsoluteSize"):Connect(layout)
+currencies:GetPropertyChangedSignal("AbsoluteSize"):Connect(layout)
 layout()
 
--- ---------- Boas-vindas ----------
-do
-	local title = Theme.label(stage, "TERRA NOVA", 54, C.Amber)
-	title.Font = Theme.Font.Display
-	title.TextStrokeTransparency = 0
+local function updateGoal(s)
+	local full = s.Weight >= s.Capacity
+	local goal = nextGoal(s)
+	local key
+	if full then
+		goalMode = "full"
+		key = "full"
+		goalHeader.Text = "MOCHILA CHEIA!"
+		goalHeader.TextColor3 = C.Red
+		goalName.Text = "Hora de vender!"
+		goalDetail.Text = "Leve os minérios à Estação de Venda"
+		goalAmount.Text = Theme.format(s.Weight) .. " / " .. Theme.format(s.Capacity)
+		goalFill.BackgroundColor3 = C.Red
+		goalFill.Size = UDim2.fromScale(1, 1)
+		goalStroke.Color = C.Red
+		Theme.setText(goalButton, "IR VENDER")
+		Theme.setTint(goalButton, C.Red)
+	elseif goal then
+		goalMode = "goal"
+		key = goal.Id
+		goalHeader.Text = "PRÓXIMA META"
+		goalHeader.TextColor3 = C.Gold
+		goalName.Text = goal.Name
+		goalDetail.Text = goal.Detail
+		local ratio = math.clamp(s.Credits / goal.Price, 0, 1)
+		goalAmount.Text = ratio >= 1 and "PRONTO PARA COMPRAR!"
+			or ("✦ " .. Theme.compact(s.Credits) .. " / " .. Theme.compact(goal.Price))
+		goalFill.BackgroundColor3 = ratio >= 1 and C.Mint or C.Gold
+		Theme.tween(goalFill, Theme.Motion.Enter, { Size = UDim2.fromScale(ratio, 1) })
+		goalStroke.Color = ratio >= 1 and C.Mint or C.Ink
+		Theme.setText(goalButton, ratio >= 1 and "COMPRAR AGORA" or "ABRIR LOJA")
+		Theme.setTint(goalButton, ratio >= 1 and C.Mint or C.Gold)
+	else
+		goalMode = "goal"
+		key = "done"
+		goalHeader.Text = "COLEÇÃO COMPLETA"
+		goalName.Text = "Tudo comprado!"
+		goalDetail.Text = "Você é uma lenda de Terra Nova"
+		goalAmount.Text = "100%"
+		goalFill.Size = UDim2.fromScale(1, 1)
+		goalFill.BackgroundColor3 = C.Gold
+	end
+	if key ~= goalBadgeKey then
+		goalBadgeKey = key
+		if goalBadge then goalBadge:Destroy() end
+		local kind = full and "pack" or goal and goal.Icon or "star"
+		local color = full and C.Red or goal and goal.Color or C.Gold
+		goalBadge = Theme.badge(goalBadgeHolder, kind, color, 52)
+		Theme.pop(goalCard, 0.06)
+	end
+	-- Em telas estreitas o cartão só aparece quando a mochila enche.
+	goalCard.Visible = wideLayout or full
+end
+
+-- ---------- Boas-vindas (depois da tela de carregamento) ----------
+task.spawn(function()
+	local waited = 0
+	while playerGui:FindFirstChild("GalaxyLoading") and waited < 20 do
+		waited += task.wait(0.2)
+	end
+	local title = Theme.title(stage, "TERRA NOVA", 64, C.Gold)
 	title.AnchorPoint = Vector2.new(0.5, 0.5)
-	title.Position = UDim2.fromScale(0.5, 0.32)
-	title.Size = UDim2.new(1, -40, 0, 64)
-	Theme.fitText(title, 54, 24)
-	local subtitle = Theme.label(stage, "Planeta inicial  ·  Galáxia de Asterion", 20, C.Frost)
-	subtitle.Font = Theme.Font.Display
-	subtitle.TextStrokeTransparency = 0.1
+	title.Position = UDim2.fromScale(0.5, 0.3)
+	title.Size = UDim2.new(1, -40, 0, 74)
+	Theme.fitText(title, 64, 26)
+	local subtitle = Theme.title(stage, "Planeta inicial  ·  Galáxia de Asterion", 22, C.Cyan)
 	subtitle.AnchorPoint = Vector2.new(0.5, 0)
-	subtitle.Position = UDim2.new(0.5, 0, 0.32, 34)
-	subtitle.Size = UDim2.new(1, -40, 0, 26)
-	Theme.fitText(subtitle, 20, 12)
+	subtitle.Position = UDim2.new(0.5, 0, 0.3, 40)
+	subtitle.Size = UDim2.new(1, -40, 0, 28)
+	Theme.fitText(subtitle, 22, 12)
+	local scale = Instance.new("UIScale")
+	scale.Parent = title
+	if not Theme.reducedMotion(title) then
+		scale.Scale = 0.4
+		TweenService:Create(scale, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
+	end
 	task.delay(3.5, function()
 		local fade = TweenInfo.new(1.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
 		for _, label in ipairs({ title, subtitle }) do
@@ -742,77 +954,51 @@ do
 		Debris:AddItem(title, 1.4)
 		Debris:AddItem(subtitle, 1.4)
 	end)
-end
+end)
 
 -- ---------- Celebração de resgate de pet ----------
 local function celebrate(petId)
 	local pet = findPet(petId)
 	if not pet then return end
 	local color = Color3.fromHex(pet.Color)
+	Sound.play("reward", 1.2)
+	Theme.confetti(stage, 60)
 	local holder = Instance.new("Frame")
 	holder.Name = "PetReveal"
 	holder.AnchorPoint = Vector2.new(0.5, 0.5)
 	holder.Position = UDim2.fromScale(0.5, 0.45)
-	holder.Size = UDim2.fromOffset(320, 320)
+	holder.Size = UDim2.fromOffset(360, 360)
 	holder.BackgroundTransparency = 1
 	holder.Parent = stage
 	local scale = Instance.new("UIScale")
 	scale.Parent = holder
-	local rays = {}
-	for index = 0, 7 do
-		local ray = Instance.new("Frame")
-		ray.AnchorPoint = Vector2.new(0.5, 0.5)
-		ray.Position = UDim2.fromScale(0.5, 0.42)
-		ray.Size = UDim2.fromOffset(26, 300)
-		ray.BackgroundColor3 = index % 2 == 0 and color or C.Gold
-		ray.BackgroundTransparency = 0.55
-		ray.BorderSizePixel = 0
-		ray.Rotation = index * 22.5
-		Theme.round(ray, 13)
-		ray.Parent = holder
-		rays[index + 1] = ray
-	end
-	local portrait = Theme.badge(holder, "pet", color, 120)
+	Theme.rays(holder, { Color = color, Alt = C.Gold, Length = 380, Width = 30, Count = 10,
+		Position = UDim2.fromScale(0.5, 0.4), Transparency = 0.45 })
+	local portrait = Theme.badge(holder, "pet", color, 140)
 	portrait.AnchorPoint = Vector2.new(0.5, 0.5)
-	portrait.Position = UDim2.fromScale(0.5, 0.42)
+	portrait.Position = UDim2.fromScale(0.5, 0.4)
 	portrait.ZIndex = 3
-	local headline = Theme.label(holder, "PET RESGATADO!", 34, C.Gold)
-	headline.Font = Theme.Font.Display
-	headline.TextStrokeTransparency = 0
+	local headline = Theme.title(holder, "PET RESGATADO!", 40, C.Gold)
 	headline.AnchorPoint = Vector2.new(0.5, 0)
-	headline.Position = UDim2.new(0.5, 0, 0.42, 72)
-	headline.Size = UDim2.fromOffset(420, 40)
+	headline.Position = UDim2.new(0.5, 0, 0.4, 82)
+	headline.Size = UDim2.fromOffset(460, 46)
 	headline.ZIndex = 4
-	local detail = Theme.label(holder, pet.Name .. "  ·  +" .. math.round(pet.Bonus * 100) .. "% de poder  ·  Equipado", 18, C.Frost)
-	detail.Font = Theme.Font.Display
-	detail.TextStrokeTransparency = 0.1
+	local detail = Theme.title(holder, pet.Name .. "  ·  +" .. math.round(pet.Bonus * 100) .. "% de poder  ·  Equipado", 20, C.White)
 	detail.AnchorPoint = Vector2.new(0.5, 0)
-	detail.Position = UDim2.new(0.5, 0, 0.42, 112)
-	detail.Size = UDim2.fromOffset(420, 24)
+	detail.Position = UDim2.new(0.5, 0, 0.4, 128)
+	detail.Size = UDim2.fromOffset(460, 26)
 	detail.ZIndex = 4
-	local spin
 	if not Theme.reducedMotion(holder) then
 		scale.Scale = 0.2
 		TweenService:Create(scale, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Scale = 1 }):Play()
-		local started = os.clock()
-		spin = RunService.RenderStepped:Connect(function()
-			local angle = (os.clock() - started) * 30
-			for index, ray in ipairs(rays) do
-				ray.Rotation = (index - 1) * 22.5 + angle
-			end
-		end)
 	end
 	task.delay(3, function()
-		local function finish()
-			if spin then spin:Disconnect() end
-			holder:Destroy()
-		end
 		if Theme.reducedMotion(holder) then
-			finish()
+			holder:Destroy()
 			return
 		end
 		local out = TweenService:Create(scale, Theme.Motion.Exit, { Scale = 0 })
-		out.Completed:Once(finish)
+		out.Completed:Once(function() holder:Destroy() end)
 		out:Play()
 	end)
 end
@@ -820,7 +1006,7 @@ end
 -- ---------- Estado vindo do servidor ----------
 local displayedCredits = Instance.new("NumberValue")
 displayedCredits.Changed:Connect(function(value)
-	creditsTile.value.Text = Theme.compact(math.floor(value + 0.5))
+	creditsPill.value.Text = Theme.compact(math.floor(value + 0.5))
 end)
 local creditsTween
 local fullPulse
@@ -828,7 +1014,7 @@ local cargoRatio
 local lastCredits
 
 local function setFill(fill, ratio)
-	Theme.tween(fill, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+	Theme.tween(fill, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 		Size = UDim2.fromScale(math.clamp(ratio, 0, 1), 1),
 	})
 end
@@ -841,23 +1027,24 @@ remote.OnClientEvent:Connect(function(snapshot)
 	if lastCredits == nil or Theme.reducedMotion(gui) then
 		if creditsTween then creditsTween:Cancel() end
 		displayedCredits.Value = snapshot.Credits
-		creditsTile.value.Text = Theme.compact(snapshot.Credits)
+		creditsPill.value.Text = Theme.compact(snapshot.Credits)
 	elseif snapshot.Credits ~= lastCredits then
 		if creditsTween then creditsTween:Cancel() end
 		creditsTween = TweenService:Create(displayedCredits, Theme.Motion.Count, { Value = snapshot.Credits })
 		creditsTween:Play()
-		Theme.pop(creditsTile.tile, 0.1)
+		Theme.pop(creditsPill.frame, 0.12)
 		local delta = snapshot.Credits - lastCredits
-		floatFrom(creditsTile, (delta > 0 and "+" or "") .. Theme.format(delta), delta > 0 and C.Gold or C.Red)
+		floatFrom(creditsPill, (delta > 0 and "+" or "") .. Theme.format(delta), delta > 0 and C.Gold or C.Red)
+		if delta > 0 then Sound.play("reward") end
 	end
 	lastCredits = snapshot.Credits
 
 	-- Carga: medidor, aviso de mochila cheia e coletas.
 	local full = snapshot.Weight >= snapshot.Capacity
-	cargoTile.value.Text = Theme.compact(snapshot.Weight) .. "/" .. Theme.compact(snapshot.Capacity)
-	cargoTile.value.TextColor3 = full and C.Red or C.Text
-	cargoTile.caption.Text = full and "CARGA · CHEIA!" or "CARGA"
-	cargoTile.caption.TextColor3 = full and C.Red or C.Cyan
+	cargoPill.value.Text = Theme.compact(snapshot.Weight) .. "/" .. Theme.compact(snapshot.Capacity)
+	cargoPill.value.TextColor3 = full and C.Red or C.White
+	cargoPill.caption.Text = full and "CARGA · CHEIA!" or "CARGA"
+	cargoPill.caption.TextColor3 = full and C.Red or C.Cyan:Lerp(C.White, 0.2)
 	local ratio = snapshot.Capacity > 0 and snapshot.Weight / snapshot.Capacity or 0
 	if ratio ~= cargoRatio then
 		cargoRatio = ratio
@@ -866,34 +1053,37 @@ remote.OnClientEvent:Connect(function(snapshot)
 	cargoFill.BackgroundColor3 = full and C.Red or ratio >= 0.8 and C.Amber or C.Cyan
 	if full and not fullPulse and not Theme.reducedMotion(gui) then
 		fullPulse = TweenService:Create(cargoStroke,
-			TweenInfo.new(0.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), { Color = C.Red })
+			TweenInfo.new(0.45, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), { Color = C.Red })
 		fullPulse:Play()
 	elseif not full and fullPulse then
 		fullPulse:Cancel()
 		fullPulse = nil
-		cargoStroke.Color = C.Cyan:Lerp(C.Deep, 0.62)
+		cargoStroke.Color = C.Ink
 	end
 	if previous then
 		for _, entry in ipairs(oreList) do
 			local gained = (snapshot.Items[entry.id] or 0) - (previous.Items[entry.id] or 0)
 			if gained > 0 then
-				floatFrom(cargoTile, "+" .. gained .. " " .. entry.ore.Name, entry.color)
-				Theme.pop(cargoTile.tile, 0.06)
+				floatFrom(cargoPill, "+" .. gained .. " " .. entry.ore.Name, entry.color:Lerp(C.White, 0.2))
+				Theme.pop(cargoPill.frame, 0.07)
 			end
 		end
 	end
 
 	-- Poder: valor total e progresso do treino até o limite da mochila.
-	powerTile.value.Text = Theme.format(snapshot.Power)
+	powerPill.value.Text = Theme.format(snapshot.Power)
 	local maxed = snapshot.TrainingPower >= snapshot.PowerCap
-	powerTile.caption.Text = string.format("PODER · TREINO +%d/%d", snapshot.TrainingPower, snapshot.PowerCap)
+	powerPill.caption.Text = string.format("PODER · TREINO +%d/%d", snapshot.TrainingPower, snapshot.PowerCap)
 	setFill(trainingFill, maxed and 1 or snapshot.TrainingClicks / Config.TrainingClicksPerPoint)
 	trainingFill.BackgroundColor3 = maxed and C.Gold or C.Violet
 	if previous and snapshot.Power > previous.Power then
-		Theme.pop(powerTile.tile, 0.12)
+		Theme.pop(powerPill.frame, 0.14)
 	end
 
 	playerGui:SetAttribute("GalaxyToolName", snapshot.ToolName)
+	-- Poder atual para as placas dos minérios (apresentação; o servidor calcula o dano).
+	playerGui:SetAttribute("GalaxyPower", snapshot.Power)
+	updateGoal(snapshot)
 
 	-- Notificações: coletas já aparecem no contador; a loja mostra as próprias mensagens.
 	if snapshot.PetReveal then

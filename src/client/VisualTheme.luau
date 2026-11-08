@@ -1,30 +1,44 @@
--- Design System 4.0 do Galaxy Mining Simulator.
+-- Design System 5.0 do Galaxy Mining Simulator — "Doce Cósmico".
+-- Botões 3D com profundidade, vidro escuro com brilho, contornos grossos,
+-- céu estrelado nas janelas e efeitos animados compartilhados.
 -- Só apresentação: nenhuma regra de jogo vive aqui.
 local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local Debris = game:GetService("Debris")
+local Sound = require(script.Parent:WaitForChild("Sound"))
+
 local Theme = {}
 
 Theme.Color = table.freeze({
+	-- Base escura
+	Ink = Color3.fromHex("#0B0628"),
+	Deep = Color3.fromHex("#0B0628"),
+	Night = Color3.fromHex("#160D45"),
 	Navy = Color3.fromHex("#1B1250"),
+	Plum = Color3.fromHex("#2A1873"),
+	Surface = Color3.fromHex("#3B22A0"),
+	Royal = Color3.fromHex("#4B2BD6"),
+	Track = Color3.fromHex("#1E1658"),
+	-- Acentos
 	Blue = Color3.fromHex("#2F7BFF"),
-	Cyan = Color3.fromHex("#00D8FF"),
-	Violet = Color3.fromHex("#A855F7"),
-	Amber = Color3.fromHex("#FFCA3A"),
+	Cyan = Color3.fromHex("#22E1FF"),
+	Violet = Color3.fromHex("#A65BFF"),
+	Pink = Color3.fromHex("#FF5FB8"),
+	Mint = Color3.fromHex("#2EE59D"),
 	Green = Color3.fromHex("#36D985"),
-	Frost = Color3.fromHex("#EAF4FF"),
-	Text = Color3.fromHex("#EDF4FF"),
-	Track = Color3.fromHex("#273857"),
-	Deep = Color3.fromHex("#0A0630"),
-	Surface = Color3.fromHex("#4B2BB8"),
-	Gold = Color3.fromHex("#FFB800"),
-	Mint = Color3.fromHex("#2FD16B"),
-	Red = Color3.fromHex("#FF3B4E"),
-	Pink = Color3.fromHex("#FF6FB5"),
-	Gray = Color3.fromHex("#6B6F8F"),
-	Muted = Color3.fromHex("#B7AEE8"),
+	Gold = Color3.fromHex("#FFC531"),
+	Amber = Color3.fromHex("#FFB23F"),
+	Orange = Color3.fromHex("#FF8A1F"),
+	Red = Color3.fromHex("#FF3D57"),
+	Gray = Color3.fromHex("#6E6A96"),
+	-- Texto
+	Frost = Color3.fromHex("#F3F7FF"),
+	Text = Color3.fromHex("#F3F7FF"),
+	Muted = Color3.fromHex("#B9B0EE"),
 	White = Color3.new(1, 1, 1),
 })
+local C = Theme.Color
 
--- Display arredondada (cartunesca) para títulos e números; Gotham para leitura.
 Theme.Font = table.freeze({
 	Display = Enum.Font.FredokaOne,
 	Label = Enum.Font.GothamBold,
@@ -32,10 +46,10 @@ Theme.Font = table.freeze({
 })
 
 Theme.Motion = table.freeze({
-	Interaction = TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-	Enter = TweenInfo.new(0.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out),
+	Interaction = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+	Enter = TweenInfo.new(0.22, Enum.EasingStyle.Quart, Enum.EasingDirection.Out),
 	Exit = TweenInfo.new(0.14, Enum.EasingStyle.Quad, Enum.EasingDirection.In),
-	Pop = TweenInfo.new(0.32, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
+	Pop = TweenInfo.new(0.34, Enum.EasingStyle.Back, Enum.EasingDirection.Out),
 	Count = TweenInfo.new(0.45, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 	Float = TweenInfo.new(0.9, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
 })
@@ -47,7 +61,6 @@ function Theme.reducedMotion(object: Instance): boolean
 	return playerGui ~= nil and playerGui:GetAttribute("GalaxyReduceMotion") == true
 end
 
--- Aplica as propriedades com animação, ou diretamente com movimento reduzido.
 function Theme.tween(object: Instance, info: TweenInfo, properties)
 	if Theme.reducedMotion(object) then
 		for key, value in pairs(properties) do
@@ -67,8 +80,7 @@ function Theme.format(value): string
 	number = math.round(math.abs(number) * 10) / 10
 	local whole = math.floor(number)
 	local tenth = math.round((number - whole) * 10)
-	local digits = string.format("%d", whole)
-	local grouped = digits
+	local grouped = string.format("%d", whole)
 	local count = 1
 	while count > 0 do
 		grouped, count = string.gsub(grouped, "^(%d+)(%d%d%d)", "%1.%2")
@@ -79,7 +91,7 @@ function Theme.format(value): string
 	return (negative and "-" or "") .. grouped
 end
 
--- Versão curta para espaços pequenos: 1,25 mi a partir de um milhão.
+-- Versão curta: 1,25 mi a partir de um milhão.
 function Theme.compact(value): string
 	local number = tonumber(value) or 0
 	if math.abs(number) < 1000000 then
@@ -109,7 +121,6 @@ function Theme.stroke(object: GuiObject, color: Color3, thickness: number, trans
 	stroke.Parent = object
 	return stroke
 end
-local outline = Theme.stroke
 
 function Theme.gradient(object: GuiObject, top: Color3, bottom: Color3, rotation: number?)
 	local gradient = Instance.new("UIGradient")
@@ -129,6 +140,15 @@ function Theme.padding(object: GuiObject, pixels: number)
 	return padding
 end
 
+function Theme.fitText(label: TextLabel | TextButton, maxSize: number, minSize: number?)
+	label.TextScaled = true
+	local limit = label:FindFirstChildOfClass("UITextSizeConstraint") or Instance.new("UITextSizeConstraint")
+	limit.MaxTextSize = maxSize
+	limit.MinTextSize = minSize or 8
+	limit.Parent = label
+	return limit
+end
+
 local function scaleOf(object: GuiObject): UIScale
 	local scale = object:FindFirstChildOfClass("UIScale")
 	if not scale then
@@ -138,7 +158,6 @@ local function scaleOf(object: GuiObject): UIScale
 	return scale
 end
 
--- Pequeno "salto" de destaque, usado em contadores e cartões.
 function Theme.pop(object: GuiObject, strength: number?)
 	if Theme.reducedMotion(object) then return end
 	local scale = scaleOf(object)
@@ -146,159 +165,248 @@ function Theme.pop(object: GuiObject, strength: number?)
 	TweenService:Create(scale, Theme.Motion.Pop, { Scale = 1 }):Play()
 end
 
--- ---------- Superfícies ----------
-
-function Theme.panel(object: GuiObject, accent: Color3?)
-	local tint = accent or Theme.Color.Cyan
-	object.BackgroundColor3 = Color3.new(1, 1, 1)
-	object.BorderSizePixel = 0
-	Theme.round(object, 12)
-	outline(object, tint:Lerp(Theme.Color.Deep, 0.62), 3)
-	local gradient = Instance.new("UIGradient")
-	gradient.Rotation = 100
-	gradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Theme.Color.Surface:Lerp(tint, 0.18)),
-		ColorSequenceKeypoint.new(0.5, Theme.Color.Navy),
-		ColorSequenceKeypoint.new(1, Theme.Color.Deep),
-	})
-	gradient.Parent = object
-	local rail = Instance.new("Frame")
-	rail.Name = "AccentRail"
-	rail.AnchorPoint = Vector2.new(0.5, 0)
-	rail.Position = UDim2.new(0.5, 0, 0, 2)
-	rail.Size = UDim2.new(0.36, 0, 0, 3)
-	rail.BackgroundColor3 = tint
-	rail.BorderSizePixel = 0
-	rail.ZIndex = object.ZIndex + 1
-	Theme.round(rail, 2)
-	rail.Parent = object
-	object:GetPropertyChangedSignal("ZIndex"):Connect(function()
-		rail.ZIndex = object.ZIndex + 1
-	end)
-end
-
-function Theme.button(object: TextButton)
-	object.BackgroundColor3 = Theme.Color.Blue
-	object.TextColor3 = Theme.Color.Text
-	object.AutoButtonColor = false
-	Theme.round(object, 10)
-	outline(object, Theme.Color.Deep, 3)
-	object.TextStrokeColor3 = Theme.Color.Deep
-	object.TextStrokeTransparency = 0.2
-	-- Brilho de cima para baixo: dá volume de botão de desenho animado.
-	local gradient = Instance.new("UIGradient")
-	gradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
-		ColorSequenceKeypoint.new(0.5, Color3.fromHex("#E2E8FF")),
-		ColorSequenceKeypoint.new(1, Color3.fromHex("#8FA2E8")),
-	})
-	gradient.Rotation = 90
-	gradient.Parent = object
-end
-
-function Theme.sheet(object: Frame)
-	object.BackgroundColor3 = Color3.new(1, 1, 1)
-	object.BorderSizePixel = 0
-	Theme.round(object, 18)
-	outline(object, Theme.Color.Deep, 4)
-	Theme.gradient(object, Color3.fromHex("#FFFFFF"), Color3.fromHex("#C9B8FF"))
-end
-
--- Cartão interno de janelas (fundo escuro translúcido).
-function Theme.well(object: GuiObject, radius: number?)
-	object.BackgroundColor3 = Theme.Color.Deep
-	object.BackgroundTransparency = 0.45
-	object.BorderSizePixel = 0
-	Theme.round(object, radius or 14)
-	outline(object, Theme.Color.Deep, 3)
-end
-
-function Theme.meter(track: Frame, fill: Frame)
-	track.BackgroundColor3 = Theme.Color.Track
-	track.BorderSizePixel = 0
-	fill.BorderSizePixel = 0
-	track.ClipsDescendants = true
-	Theme.round(track, 6)
-	Theme.round(fill, 6)
-	outline(track, Theme.Color.Deep, 1.5)
-	local gradient = Instance.new("UIGradient")
-	gradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
-		ColorSequenceKeypoint.new(0.45, Color3.fromHex("#E6EBFF")),
-		ColorSequenceKeypoint.new(1, Color3.fromHex("#A2ABD2")),
-	})
-	gradient.Rotation = 90
-	gradient.Parent = fill
-end
-
 function Theme.label(parent, text, size, color)
 	local label = Instance.new("TextLabel")
 	label.BackgroundTransparency = 1
 	label.Font = Theme.Font.Label
-	label.TextColor3 = color or Theme.Color.Text
+	label.TextColor3 = color or C.Text
 	label.Text = text
 	label.TextSize = size
 	label.TextWrapped = true
-	label.TextStrokeColor3 = Theme.Color.Deep
-	-- Texto escuro (Navy) fica sem contorno; os claros ganham contorno estilo desenho.
-	label.TextStrokeTransparency = (color == Theme.Color.Navy) and 1 or 0.45
+	label.TextStrokeColor3 = C.Ink
+	label.TextStrokeTransparency = (color == C.Navy or color == C.Ink) and 1 or 0.35
 	label.Parent = parent
 	return label
 end
 
--- Texto grande que encolhe para caber, com limites de tamanho.
-function Theme.fitText(label: TextLabel | TextButton, maxSize: number, minSize: number?)
-	label.TextScaled = true
-	local limit = Instance.new("UITextSizeConstraint")
-	limit.MaxTextSize = maxSize
-	limit.MinTextSize = minSize or 8
-	limit.Parent = label
-	return limit
+-- Título grande com contorno cheio, no estilo de jogo de simulador.
+function Theme.title(parent, text, size, color)
+	local label = Theme.label(parent, text, size, color)
+	label.Font = Theme.Font.Display
+	label.TextStrokeTransparency = 0
+	return label
 end
 
-function Theme.action(parent, text, tint)
-	local button = Instance.new("TextButton")
-	button.Text = text
-	button.TextSize = 14
-	button.TextWrapped = true
-	button.Font = Theme.Font.Label
-	Theme.button(button)
-	local base = tint or Theme.Color.Blue
-	button.BackgroundColor3 = base
-	button:SetAttribute("BaseColor", base)
-	local scale = Instance.new("UIScale")
-	scale.Parent = button
-	local tween
-	local hovered, focused, pressed = false, false, false
-	local function update()
-		local active = hovered or focused
-		local color = button:GetAttribute("BaseColor") or base
-		button.BackgroundColor3 = pressed and color:Lerp(Theme.Color.Deep, 0.35)
-			or active and color:Lerp(Theme.Color.Frost, 0.2) or color
-		if tween then tween:Cancel() end
-		if Theme.reducedMotion(button) then
-			scale.Scale = 1
-			return
+-- ---------- Superfícies ----------
+
+-- Vidro escuro com brilho no topo e faixa de cor da área.
+function Theme.panel(object: GuiObject, accent: Color3?, radius: number?)
+	local tint = accent or C.Cyan
+	object.BackgroundColor3 = Color3.new(1, 1, 1)
+	object.BorderSizePixel = 0
+	Theme.round(object, radius or 14)
+	Theme.stroke(object, C.Ink, 3)
+	local gradient = Instance.new("UIGradient")
+	gradient.Rotation = 90
+	gradient.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, C.Royal:Lerp(tint, 0.22)),
+		ColorSequenceKeypoint.new(0.55, C.Plum),
+		ColorSequenceKeypoint.new(1, C.Night),
+	})
+	gradient.Parent = object
+	local gloss = Instance.new("Frame")
+	gloss.Name = "Gloss"
+	gloss.Position = UDim2.fromOffset(6, 3)
+	gloss.Size = UDim2.new(1, -12, 0, 3)
+	gloss.BackgroundColor3 = tint:Lerp(C.White, 0.5)
+	gloss.BackgroundTransparency = 0.35
+	gloss.BorderSizePixel = 0
+	Theme.round(gloss, 2)
+	gloss.Parent = object
+end
+
+-- Cartão rebaixado (fundo mais escuro e translúcido).
+function Theme.well(object: GuiObject, radius: number?)
+	object.BackgroundColor3 = C.Ink
+	object.BackgroundTransparency = 0.4
+	object.BorderSizePixel = 0
+	Theme.round(object, radius or 14)
+	Theme.stroke(object, C.Ink, 3)
+end
+
+function Theme.meter(track: Frame, fill: Frame)
+	track.BackgroundColor3 = C.Ink
+	track.BackgroundTransparency = 0.15
+	track.BorderSizePixel = 0
+	fill.BorderSizePixel = 0
+	track.ClipsDescendants = true
+	Theme.round(track, 99)
+	Theme.round(fill, 99)
+	Theme.stroke(track, C.Ink, 2)
+	local gradient = Instance.new("UIGradient")
+	gradient.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)),
+		ColorSequenceKeypoint.new(0.4, Color3.fromHex("#EEF0FF")),
+		ColorSequenceKeypoint.new(1, Color3.fromHex("#9AA3D8")),
+	})
+	gradient.Rotation = 90
+	gradient.Parent = fill
+	local shine = Instance.new("Frame")
+	shine.Name = "Shine"
+	shine.Position = UDim2.new(0, 3, 0, 1)
+	shine.Size = UDim2.new(1, -6, 0.35, 0)
+	shine.BackgroundColor3 = Color3.new(1, 1, 1)
+	shine.BackgroundTransparency = 0.55
+	shine.BorderSizePixel = 0
+	Theme.round(shine, 99)
+	shine.Parent = fill
+end
+
+-- Compatibilidade com a folha clara antiga.
+function Theme.sheet(object: Frame)
+	Theme.panel(object, C.Violet, 18)
+end
+
+-- ---------- Efeitos animados compartilhados (um único loop) ----------
+
+local effects = { rays = {}, shimmers = {}, stars = {} }
+local clock0 = os.clock()
+local frame = 0
+
+RunService.RenderStepped:Connect(function()
+	local t = os.clock() - clock0
+	frame += 1
+	for index = #effects.rays, 1, -1 do
+		local entry = effects.rays[index]
+		if not entry.holder.Parent then
+			table.remove(effects.rays, index)
+		elseif not Theme.reducedMotion(entry.holder) then
+			local angle = t * entry.speed
+			for rayIndex, ray in ipairs(entry.list) do
+				ray.Rotation = entry.base[rayIndex] + angle
+			end
 		end
-		tween = TweenService:Create(scale, Theme.Motion.Interaction, {
-			Scale = pressed and 0.94 or active and 1.04 or 1,
-		})
-		tween:Play()
 	end
-	button:GetAttributeChangedSignal("BaseColor"):Connect(update)
-	button.MouseEnter:Connect(function() hovered = true; update() end)
-	button.MouseLeave:Connect(function() hovered = false; pressed = false; update() end)
-	button.SelectionGained:Connect(function() focused = true; update() end)
-	button.SelectionLost:Connect(function() focused = false; pressed = false; update() end)
-	button.MouseButton1Down:Connect(function() pressed = true; update() end)
-	button.MouseButton1Up:Connect(function() pressed = false; update() end)
-	button.Parent = parent
-	return button
+	for index = #effects.shimmers, 1, -1 do
+		local entry = effects.shimmers[index]
+		if not entry.gradient.Parent or not entry.gradient.Parent.Parent then
+			table.remove(effects.shimmers, index)
+		elseif Theme.reducedMotion(entry.gradient.Parent) then
+			entry.gradient.Offset = Vector2.new(-2, 0)
+		else
+			entry.gradient.Offset = Vector2.new(((t * 0.6 + entry.phase) % 2.8) - 1.4, 0)
+		end
+	end
+	if frame % 3 == 0 then
+		for index = #effects.stars, 1, -1 do
+			local entry = effects.stars[index]
+			if not entry.holder.Parent then
+				table.remove(effects.stars, index)
+			elseif not Theme.reducedMotion(entry.holder) then
+				for _, dot in ipairs(entry.dots) do
+					local wave = 0.5 + 0.5 * math.sin(t * dot.speed + dot.phase)
+					dot.frame.BackgroundTransparency = 0.15 + 0.75 * wave
+				end
+			end
+		end
+	end
+end)
+
+-- Raios giratórios atrás de prêmios e destaques.
+function Theme.rays(parent: GuiObject, options)
+	options = options or {}
+	local count = options.Count or 8
+	local length = options.Length or 200
+	local holder = Instance.new("Frame")
+	holder.Name = "Rays"
+	holder.AnchorPoint = Vector2.new(0.5, 0.5)
+	holder.Position = options.Position or UDim2.fromScale(0.5, 0.5)
+	holder.Size = UDim2.fromOffset(length, length)
+	holder.BackgroundTransparency = 1
+	holder.Parent = parent
+	local entry = { holder = holder, list = {}, base = {}, speed = options.Speed or 25 }
+	for index = 0, count - 1 do
+		local ray = Instance.new("Frame")
+		ray.AnchorPoint = Vector2.new(0.5, 0.5)
+		ray.Position = UDim2.fromScale(0.5, 0.5)
+		ray.Size = UDim2.new(0, options.Width or 22, 1, 0)
+		ray.BackgroundColor3 = index % 2 == 0 and (options.Color or C.Gold) or (options.Alt or C.White)
+		ray.BackgroundTransparency = options.Transparency or 0.6
+		ray.BorderSizePixel = 0
+		ray.Rotation = index * (180 / count)
+		Theme.round(ray, 99)
+		ray.Parent = holder
+		table.insert(entry.list, ray)
+		table.insert(entry.base, ray.Rotation)
+	end
+	table.insert(effects.rays, entry)
+	return holder
 end
 
--- Troca a cor de um botão criado por Theme.action preservando os estados de foco.
-function Theme.setTint(button: TextButton, color: Color3)
-	button:SetAttribute("BaseColor", color)
+-- Faixa de brilho que atravessa o elemento continuamente.
+function Theme.shimmer(target: GuiObject, radius: number?)
+	local overlay = Instance.new("Frame")
+	overlay.Name = "Shimmer"
+	overlay.Size = UDim2.fromScale(1, 1)
+	overlay.BackgroundColor3 = Color3.new(1, 1, 1)
+	overlay.BorderSizePixel = 0
+	overlay.ZIndex = 4
+	Theme.round(overlay, radius or 12)
+	local gradient = Instance.new("UIGradient")
+	gradient.Rotation = 20
+	gradient.Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 1),
+		NumberSequenceKeypoint.new(0.42, 1),
+		NumberSequenceKeypoint.new(0.5, 0.55),
+		NumberSequenceKeypoint.new(0.58, 1),
+		NumberSequenceKeypoint.new(1, 1),
+	})
+	gradient.Offset = Vector2.new(-2, 0)
+	gradient.Parent = overlay
+	overlay.Parent = target
+	table.insert(effects.shimmers, { gradient = gradient, phase = math.random() * 2.8 })
+	return overlay
+end
+
+-- Céu estrelado cintilante ao fundo de janelas.
+function Theme.starfield(parent: GuiObject, count: number?)
+	local holder = Instance.new("Frame")
+	holder.Name = "Stars"
+	holder.Size = UDim2.fromScale(1, 1)
+	holder.BackgroundTransparency = 1
+	holder.ClipsDescendants = true
+	holder.Parent = parent
+	local entry = { holder = holder, dots = {} }
+	for _ = 1, count or 36 do
+		local size = math.random(2, 4)
+		local dot = Instance.new("Frame")
+		dot.AnchorPoint = Vector2.new(0.5, 0.5)
+		dot.Position = UDim2.fromScale(math.random(), math.random())
+		dot.Size = UDim2.fromOffset(size, size)
+		dot.BackgroundColor3 = ({ C.White, C.Cyan, C.Pink, C.Gold })[math.random(1, 4)]
+		dot.BackgroundTransparency = 0.4
+		dot.BorderSizePixel = 0
+		Theme.round(dot, 99)
+		dot.Parent = holder
+		table.insert(entry.dots, { frame = dot, speed = 1 + math.random() * 2.5, phase = math.random() * 6.28 })
+	end
+	table.insert(effects.stars, entry)
+	return holder
+end
+
+-- Confete caindo do topo da tela (celebrações).
+function Theme.confetti(screen: GuiObject | ScreenGui, amount: number?)
+	if Theme.reducedMotion(screen) then return end
+	local palette = { C.Gold, C.Pink, C.Cyan, C.Mint, C.Violet, C.Orange }
+	for _ = 1, amount or 40 do
+		local piece = Instance.new("Frame")
+		piece.AnchorPoint = Vector2.new(0.5, 0.5)
+		local x = math.random()
+		piece.Position = UDim2.new(x, 0, 0, -20 - math.random(0, 120))
+		piece.Size = UDim2.fromOffset(math.random(8, 14), math.random(5, 9))
+		piece.BackgroundColor3 = palette[math.random(1, #palette)]
+		piece.BorderSizePixel = 0
+		piece.Rotation = math.random(0, 360)
+		piece.ZIndex = 50
+		Theme.round(piece, 2)
+		piece.Parent = screen
+		local duration = 1.6 + math.random() * 1.2
+		TweenService:Create(piece, TweenInfo.new(duration, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+			Position = UDim2.new(x + (math.random() - 0.5) * 0.25, 0, 1, 40),
+			Rotation = piece.Rotation + math.random(-540, 540),
+		}):Play()
+		Debris:AddItem(piece, duration + 0.1)
+	end
 end
 
 -- ---------- Ícones vetoriais (feitos de Frames, sem imagens externas) ----------
@@ -310,7 +418,6 @@ local function iconPart(parent, x, y, width, height, color, radius, angle)
 	piece.BackgroundColor3 = color
 	piece.BorderSizePixel = 0
 	piece.Rotation = angle or 0
-	piece.ZIndex = parent.ZIndex + 1
 	Theme.round(piece, radius)
 	piece.Parent = parent
 	return piece
@@ -321,11 +428,10 @@ function Theme.illustration(parent, kind, accent)
 	icon.Name = "Illustration"
 	icon.BackgroundTransparency = 1
 	icon.Size = UDim2.fromOffset(32, 29)
-	icon.ZIndex = parent.ZIndex + 1
 	icon.Parent = parent
-	local ink = Theme.Color.Navy
-	local light = Theme.Color.Frost
-	accent = accent or Theme.Color.Cyan
+	local ink = C.Navy
+	local light = C.Frost
+	accent = accent or C.Cyan
 	if kind == "shop" then
 		iconPart(icon, 6, 12, 21, 14, light, 4)
 		iconPart(icon, 3, 6, 26, 9, accent, 3)
@@ -350,7 +456,7 @@ function Theme.illustration(parent, kind, accent)
 		iconPart(icon, 20, 9, 10, 5, accent, 2, -20)
 		iconPart(icon, 10, 17, 6, 9, accent, 2, 12)
 	elseif kind == "coin" then
-		iconPart(icon, 4, 2, 24, 24, accent:Lerp(ink, 0.25), 12)
+		iconPart(icon, 4, 2, 24, 24, accent:Lerp(ink, 0.3), 12)
 		iconPart(icon, 6, 3, 20, 20, accent, 10)
 		iconPart(icon, 10, 7, 12, 12, accent:Lerp(light, 0.45), 6)
 		iconPart(icon, 14, 9, 4, 8, accent:Lerp(ink, 0.3), 2)
@@ -360,7 +466,7 @@ function Theme.illustration(parent, kind, accent)
 		iconPart(icon, 12, 13, 7, 15, accent, 2, 24)
 		iconPart(icon, 16, 4, 2, 7, light, 1, 24)
 	elseif kind == "gem" then
-		iconPart(icon, 7, 5, 18, 18, accent:Lerp(ink, 0.2), 3, 45)
+		iconPart(icon, 7, 5, 18, 18, accent:Lerp(ink, 0.25), 3, 45)
 		iconPart(icon, 9, 6, 14, 14, accent, 3, 45)
 		iconPart(icon, 12, 8, 5, 5, light, 2, 45)
 	elseif kind == "pet" then
@@ -371,6 +477,7 @@ function Theme.illustration(parent, kind, accent)
 		iconPart(icon, 18, 12, 5, 7, ink, 3)
 		iconPart(icon, 11, 13, 2, 2, light, 1)
 		iconPart(icon, 19, 13, 2, 2, light, 1)
+		iconPart(icon, 13, 21, 6, 2, ink, 1)
 	elseif kind == "star" then
 		iconPart(icon, 8, 5, 17, 17, accent, 3)
 		iconPart(icon, 8, 5, 17, 17, accent, 3, 45)
@@ -378,7 +485,7 @@ function Theme.illustration(parent, kind, accent)
 	elseif kind == "lock" then
 		local shackle = iconPart(icon, 10, 3, 12, 14, light, 6)
 		shackle.BackgroundTransparency = 1
-		outline(shackle, light, 3)
+		Theme.stroke(shackle, light, 3)
 		iconPart(icon, 7, 12, 18, 14, light, 4)
 		iconPart(icon, 14, 16, 4, 6, ink, 2)
 	elseif kind == "robot" then
@@ -392,6 +499,15 @@ function Theme.illustration(parent, kind, accent)
 		iconPart(icon, 12, 13, 9, 9, accent, 1, 45)
 		iconPart(icon, 8, 2, 16, 16, accent, 8)
 		iconPart(icon, 13, 7, 6, 6, ink, 3)
+	elseif kind == "target" then
+		iconPart(icon, 4, 2, 24, 24, accent, 12)
+		iconPart(icon, 8, 6, 16, 16, light, 8)
+		iconPart(icon, 12, 10, 8, 8, accent, 4)
+	elseif kind == "sound" then
+		iconPart(icon, 4, 10, 8, 9, light, 2)
+		iconPart(icon, 8, 6, 8, 17, light, 3, 0)
+		iconPart(icon, 19, 8, 3, 13, accent, 2)
+		iconPart(icon, 24, 5, 3, 19, accent, 2)
 	elseif kind == "motion" then
 		iconPart(icon, 3, 9, 14, 3, light, 2)
 		iconPart(icon, 6, 15, 18, 3, accent, 2)
@@ -405,68 +521,195 @@ function Theme.illustration(parent, kind, accent)
 	return icon
 end
 
--- Ícone dentro de um distintivo redondo, no tamanho pedido.
+-- Ícone dentro de uma esfera brilhante com contorno grosso.
 function Theme.badge(parent, kind, accent, size)
 	local badge = Instance.new("Frame")
 	badge.Name = "Badge"
 	badge.Size = UDim2.fromOffset(size, size)
-	badge.BackgroundColor3 = accent:Lerp(Theme.Color.Deep, 0.55)
+	badge.BackgroundColor3 = Color3.new(1, 1, 1)
 	badge.BorderSizePixel = 0
-	badge.ZIndex = parent.ZIndex + 1
 	Theme.round(badge, size // 2)
-	outline(badge, accent, 2, 0.1)
+	Theme.stroke(badge, C.Ink, size >= 56 and 4 or 3)
+	Theme.gradient(badge, accent:Lerp(C.White, 0.25):Lerp(C.Plum, 0.35), accent:Lerp(C.Ink, 0.55))
 	badge.Parent = parent
+	local gloss = Instance.new("Frame")
+	gloss.Name = "Gloss"
+	gloss.AnchorPoint = Vector2.new(0.5, 0)
+	gloss.Position = UDim2.new(0.5, 0, 0.08, 0)
+	gloss.Size = UDim2.fromScale(0.62, 0.3)
+	gloss.BackgroundColor3 = Color3.new(1, 1, 1)
+	gloss.BackgroundTransparency = 0.78
+	gloss.BorderSizePixel = 0
+	Theme.round(gloss, 99)
+	gloss.Parent = badge
 	local icon = Theme.illustration(badge, kind, accent)
+	icon.ZIndex = 2
 	icon.AnchorPoint = Vector2.new(0.5, 0.5)
-	icon.Position = UDim2.fromScale(0.5, 0.5)
+	icon.Position = UDim2.fromScale(0.5, 0.52)
 	local scale = Instance.new("UIScale")
-	scale.Scale = (size * 0.78) / 32
+	scale.Scale = (size * 0.72) / 32
 	scale.Parent = icon
 	return badge, icon
 end
 
--- Etiqueta pequena de atalho de teclado ("B", "M"...).
 function Theme.keyHint(parent, key)
 	local hint = Instance.new("TextLabel")
 	hint.Name = "KeyHint"
 	hint.AnchorPoint = Vector2.new(1, 0)
-	hint.Position = UDim2.new(1, 4, 0, -4)
-	hint.Size = UDim2.fromOffset(18, 18)
-	hint.BackgroundColor3 = Theme.Color.Frost
-	hint.TextColor3 = Theme.Color.Navy
+	hint.Position = UDim2.new(1, 5, 0, -5)
+	hint.Size = UDim2.fromOffset(20, 20)
+	hint.BackgroundColor3 = C.Frost
+	hint.TextColor3 = C.Ink
 	hint.Font = Theme.Font.Display
-	hint.TextSize = 12
+	hint.TextSize = 13
 	hint.Text = key
-	hint.ZIndex = parent.ZIndex + 3
-	Theme.round(hint, 5)
-	outline(hint, Theme.Color.Deep, 2)
+	hint.ZIndex = 10
+	Theme.round(hint, 6)
+	Theme.stroke(hint, C.Ink, 2)
 	hint.Parent = parent
 	return hint
 end
 
+-- ---------- Botão 3D ----------
+-- O TextButton é transparente; dentro dele há a Base (sombra sólida) e a
+-- Face, que afunda ao pressionar. Use Theme.setText/setTint para alterar.
+
+function Theme.action(parent, text, tint, options)
+	options = options or {}
+	local depth = options.Depth or 5
+	local radius = options.Radius or 12
+	local color = tint or C.Blue
+	local button = Instance.new("TextButton")
+	button.Name = options.Name or "Button"
+	button.Text = ""
+	button.AutoButtonColor = false
+	button.BackgroundTransparency = 1
+	button.BorderSizePixel = 0
+	button.Size = options.Size or UDim2.fromOffset(140, 46)
+	button:SetAttribute("BaseColor", color)
+
+	local base = Instance.new("Frame")
+	base.Name = "Base"
+	base.ZIndex = 1
+	base.Size = UDim2.fromScale(1, 1)
+	base.BorderSizePixel = 0
+	Theme.round(base, radius)
+	Theme.stroke(base, C.Ink, 3)
+	base.Parent = button
+
+	local face = Instance.new("Frame")
+	face.Name = "Face"
+	face.ZIndex = 2
+	face.Size = UDim2.new(1, 0, 1, -depth)
+	face.BorderSizePixel = 0
+	Theme.round(face, radius)
+	Theme.stroke(face, C.Ink, 3)
+	Theme.gradient(face, Color3.new(1, 1, 1), Color3.fromHex("#C3C9EF"))
+	face.Parent = button
+
+	local gloss = Instance.new("Frame")
+	gloss.Name = "Gloss"
+	gloss.Position = UDim2.new(0, 6, 0, 3)
+	gloss.Size = UDim2.new(1, -12, 0.36, 0)
+	gloss.BackgroundColor3 = Color3.new(1, 1, 1)
+	gloss.BackgroundTransparency = 0.72
+	gloss.BorderSizePixel = 0
+	Theme.round(gloss, math.max(radius - 4, 3))
+	gloss.Parent = face
+
+	local label = Instance.new("TextLabel")
+	label.Name = "Label"
+	label.ZIndex = 2
+	label.BackgroundTransparency = 1
+	label.Position = UDim2.new(0, 8, 0, 0)
+	label.Size = UDim2.new(1, -16, 1, 0)
+	label.Font = Theme.Font.Display
+	label.Text = text
+	label.TextColor3 = C.White
+	label.TextStrokeColor3 = C.Ink
+	label.TextStrokeTransparency = 0
+	label.TextWrapped = true
+	label.Parent = face
+	Theme.fitText(label, options.TextSize or 18, 8)
+
+	if options.Icon then
+		local icon = Theme.illustration(face, options.Icon, options.IconAccent or C.Frost)
+		icon.AnchorPoint = Vector2.new(0, 0.5)
+		icon.Position = UDim2.new(0, 10, 0.5, 0)
+		label.Position = UDim2.new(0, 46, 0, 0)
+		label.Size = UDim2.new(1, -54, 1, 0)
+	end
+
+	local scale = Instance.new("UIScale")
+	scale.Parent = button
+	local tweens = {}
+	local hovered, focused, pressed = false, false, false
+	local function paint()
+		local current = button:GetAttribute("BaseColor") or color
+		local active = hovered or focused
+		base.BackgroundColor3 = current:Lerp(C.Ink, 0.5)
+		face.BackgroundColor3 = pressed and current:Lerp(C.Ink, 0.15)
+			or active and current:Lerp(C.White, 0.18) or current
+		for _, tween in ipairs(tweens) do tween:Cancel() end
+		table.clear(tweens)
+		local facePosition = UDim2.fromOffset(0, pressed and depth - 1 or 0)
+		local size = pressed and 1 or active and 1.05 or 1
+		if Theme.reducedMotion(button) then
+			face.Position = facePosition
+			scale.Scale = 1
+			return
+		end
+		table.insert(tweens, TweenService:Create(face, Theme.Motion.Interaction, { Position = facePosition }))
+		table.insert(tweens, TweenService:Create(scale, Theme.Motion.Interaction, { Scale = size }))
+		for _, tween in ipairs(tweens) do tween:Play() end
+	end
+	button:GetAttributeChangedSignal("BaseColor"):Connect(paint)
+	button.MouseEnter:Connect(function() hovered = true; paint() end)
+	button.MouseLeave:Connect(function() hovered = false; pressed = false; paint() end)
+	button.SelectionGained:Connect(function() focused = true; paint() end)
+	button.SelectionLost:Connect(function() focused = false; pressed = false; paint() end)
+	button.MouseButton1Down:Connect(function() pressed = true; paint() end)
+	button.MouseButton1Up:Connect(function() pressed = false; paint() end)
+	button.Activated:Connect(function()
+		if not options.Silent then Sound.play("click") end
+	end)
+	paint()
+	button.Parent = parent
+	return button
+end
+
+function Theme.setTint(button: TextButton, color: Color3)
+	button:SetAttribute("BaseColor", color)
+end
+
+function Theme.setText(button: TextButton, text: string)
+	local face = button:FindFirstChild("Face")
+	local label = face and face:FindFirstChild("Label")
+	if label then label.Text = text end
+end
+
+function Theme.getLabel(button: TextButton): TextLabel?
+	local face = button:FindFirstChild("Face")
+	return face and face:FindFirstChild("Label") :: TextLabel?
+end
+
+-- Botão quadrado de navegação: ícone grande e legenda.
 function Theme.navigationAction(parent, text, kind, accent, hotkey)
-	local button = Theme.action(parent, "", accent:Lerp(Theme.Color.Navy, 0.56))
-	button.Name = text
-	local edge = button:FindFirstChildOfClass("UIStroke")
-	edge.Color = accent
-	edge.Thickness = 2
-	edge.Transparency = 0.15
-	local lip = Instance.new("Frame")
-	lip.AnchorPoint = Vector2.new(0.5, 1)
-	lip.Position = UDim2.new(0.5, 0, 1, -2)
-	lip.Size = UDim2.new(0.76, 0, 0, 3)
-	lip.BackgroundColor3 = accent
-	lip.BorderSizePixel = 0
-	Theme.round(lip, 3)
-	lip.Parent = button
-	local icon = Theme.illustration(button, kind, accent)
-	icon.AnchorPoint = Vector2.new(0.5, 0)
-	icon.Position = UDim2.new(0.5, 0, 0, 3)
-	local caption = Theme.label(button, text, 12)
-	caption.Font = Theme.Font.Display
-	caption.Position = UDim2.fromOffset(3, 31)
-	caption.Size = UDim2.new(1, -6, 0, 19)
-	Theme.fitText(caption, 13, 8)
+	local button = Theme.action(parent, "", accent:Lerp(C.Plum, 0.35), { Radius = 16, Depth = 6, Name = text })
+	local face = button:FindFirstChild("Face")
+	local icon = Theme.illustration(face, kind, accent:Lerp(C.White, 0.2))
+	icon.AnchorPoint = Vector2.new(0.5, 0.5)
+	icon.Position = UDim2.new(0.5, 0, 0.42, 0)
+	local iconScale = Instance.new("UIScale")
+	iconScale.Name = "IconScale"
+	iconScale.Scale = 1.25
+	iconScale.Parent = icon
+	local label = face:FindFirstChild("Label")
+	label.Text = text
+	label.AnchorPoint = Vector2.new(0.5, 1)
+	label.Position = UDim2.new(0.5, 0, 1, -3)
+	label.Size = UDim2.new(1, -6, 0, 16)
+	Theme.fitText(label, 14, 7)
 	if hotkey then
 		Theme.keyHint(button, hotkey)
 	end
@@ -474,45 +717,57 @@ function Theme.navigationAction(parent, text, kind, accent, hotkey)
 end
 
 -- Interruptor liga/desliga em linha inteira (bom para toque e controle).
-function Theme.toggle(parent, text, detail, value, onChange)
+function Theme.toggle(parent, text, detail, value, onChange, kind)
 	local row = Instance.new("TextButton")
 	row.Name = text
 	row.Text = ""
 	row.AutoButtonColor = false
-	row.Size = UDim2.new(1, 0, 0, 64)
-	Theme.panel(row, Theme.Color.Green)
+	row.Size = UDim2.new(1, 0, 0, 70)
+	Theme.panel(row, C.Mint)
 	row.Parent = parent
-	local title = Theme.label(row, text, 16)
-	title.Font = Theme.Font.Display
+	local left = 14
+	if kind then
+		local badge = Theme.badge(row, kind, C.Mint, 44)
+		badge.AnchorPoint = Vector2.new(0, 0.5)
+		badge.Position = UDim2.new(0, 12, 0.5, 0)
+		left = 66
+	end
+	local title = Theme.title(row, text, 18, C.White)
 	title.TextXAlignment = Enum.TextXAlignment.Left
-	title.Position = UDim2.fromOffset(14, 8)
-	title.Size = UDim2.new(1, -96, 0, 22)
-	local hint = Theme.label(row, detail, 12, Theme.Color.Muted)
+	title.Position = UDim2.fromOffset(left, 9)
+	title.Size = UDim2.new(1, -(left + 96), 0, 24)
+	Theme.fitText(title, 18, 10)
+	local hint = Theme.label(row, detail, 12, C.Muted)
 	hint.Font = Theme.Font.Body
 	hint.TextXAlignment = Enum.TextXAlignment.Left
-	hint.Position = UDim2.fromOffset(14, 31)
-	hint.Size = UDim2.new(1, -96, 0, 26)
+	hint.Position = UDim2.fromOffset(left, 34)
+	hint.Size = UDim2.new(1, -(left + 96), 0, 28)
+	Theme.fitText(hint, 12, 8)
 	local track = Instance.new("Frame")
 	track.AnchorPoint = Vector2.new(1, 0.5)
 	track.Position = UDim2.new(1, -14, 0.5, 0)
-	track.Size = UDim2.fromOffset(58, 30)
+	track.Size = UDim2.fromOffset(70, 34)
 	track.BorderSizePixel = 0
-	Theme.round(track, 15)
-	outline(track, Theme.Color.Deep, 2)
+	Theme.round(track, 17)
+	Theme.stroke(track, C.Ink, 3)
 	track.Parent = row
+	local state = Theme.title(track, "", 11, C.White)
+	state.Size = UDim2.fromScale(1, 1)
 	local knob = Instance.new("Frame")
 	knob.AnchorPoint = Vector2.new(0, 0.5)
-	knob.Size = UDim2.fromOffset(24, 24)
-	knob.BackgroundColor3 = Theme.Color.White
+	knob.Size = UDim2.fromOffset(26, 26)
+	knob.BackgroundColor3 = C.White
+	knob.ZIndex = 2
 	knob.BorderSizePixel = 0
-	Theme.round(knob, 12)
-	outline(knob, Theme.Color.Deep, 2)
+	Theme.round(knob, 13)
+	Theme.stroke(knob, C.Ink, 3)
 	knob.Parent = track
 	local function render(animate)
-		local target = {
-			Position = value and UDim2.new(1, -27, 0.5, 0) or UDim2.new(0, 3, 0.5, 0),
-		}
-		track.BackgroundColor3 = value and Theme.Color.Mint or Theme.Color.Gray
+		local target = { Position = value and UDim2.new(1, -30, 0.5, 0) or UDim2.new(0, 4, 0.5, 0) }
+		track.BackgroundColor3 = value and C.Mint or C.Gray
+		state.Text = value and "ON  " or "  OFF"
+		state.TextXAlignment = value and Enum.TextXAlignment.Left or Enum.TextXAlignment.Right
+		state.Position = UDim2.fromOffset(value and 10 or -10, 0)
 		if animate then
 			Theme.tween(knob, Theme.Motion.Interaction, target)
 		else
@@ -523,17 +778,16 @@ function Theme.toggle(parent, text, detail, value, onChange)
 		value = not value
 		onChange(value)
 		render(true)
+		Sound.play("click", value and 1.15 or 0.9)
 	end)
 	render(false)
 	return row
 end
 
 -- ---------- Janela modal padrão (loja e menus) ----------
--- Retorna as partes para o script preencher o conteúdo em `Body`.
 function Theme.window(parent: Instance, titleText: string, options)
 	options = options or {}
-	local top = options.Top or Color3.fromHex("#6A4BFF")
-	local bottom = options.Bottom or Color3.fromHex("#25157A")
+	local accent = options.Accent or C.Gold
 	local maxSize = options.MaxSize or Vector2.new(780, 480)
 
 	local overlay = Instance.new("TextButton")
@@ -541,8 +795,8 @@ function Theme.window(parent: Instance, titleText: string, options)
 	overlay.Text = ""
 	overlay.AutoButtonColor = false
 	overlay.Selectable = false
-	overlay.BackgroundColor3 = Color3.new(0, 0, 0)
-	overlay.BackgroundTransparency = 0.45
+	overlay.BackgroundColor3 = C.Ink
+	overlay.BackgroundTransparency = 0.35
 	overlay.BorderSizePixel = 0
 	overlay.Size = UDim2.fromScale(1, 1)
 	overlay.Visible = false
@@ -552,8 +806,8 @@ function Theme.window(parent: Instance, titleText: string, options)
 	local holder = Instance.new("Frame")
 	holder.Name = "Holder"
 	holder.AnchorPoint = Vector2.new(0.5, 0.5)
-	holder.Position = UDim2.fromScale(0.5, 0.53)
-	holder.Size = UDim2.fromScale(0.94, 0.82)
+	holder.Position = UDim2.fromScale(0.5, 0.52)
+	holder.Size = UDim2.fromScale(0.94, 0.84)
 	holder.BackgroundTransparency = 1
 	holder.Active = true
 	holder.Parent = overlay
@@ -565,13 +819,13 @@ function Theme.window(parent: Instance, titleText: string, options)
 
 	local shadow = Instance.new("Frame")
 	shadow.Name = "Shadow"
-	shadow.Position = UDim2.fromOffset(0, 8)
+	shadow.Position = UDim2.fromOffset(0, 10)
 	shadow.Size = UDim2.fromScale(1, 1)
-	shadow.BackgroundColor3 = Color3.new(0, 0, 0)
-	shadow.BackgroundTransparency = 0.5
+	shadow.BackgroundColor3 = C.Ink
+	shadow.BackgroundTransparency = 0.25
 	shadow.BorderSizePixel = 0
 	shadow.ZIndex = 1
-	Theme.round(shadow, 22)
+	Theme.round(shadow, 26)
 	shadow.Parent = holder
 
 	local window = Instance.new("Frame")
@@ -581,68 +835,77 @@ function Theme.window(parent: Instance, titleText: string, options)
 	window.BorderSizePixel = 0
 	window.Active = true
 	window.ZIndex = 2
-	Theme.round(window, 20)
-	outline(window, Theme.Color.Deep, 5)
-	Theme.gradient(window, top, bottom)
+	Theme.round(window, 24)
+	Theme.stroke(window, C.Ink, 5)
+	local fill = Instance.new("UIGradient")
+	fill.Rotation = 90
+	fill.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, C.Royal:Lerp(accent, 0.12)),
+		ColorSequenceKeypoint.new(0.45, C.Plum),
+		ColorSequenceKeypoint.new(1, C.Night),
+	})
+	fill.Parent = window
 	window.Parent = holder
+	Theme.starfield(window, 40)
 
-	-- Brilho sutil no topo da janela.
-	local shine = Instance.new("Frame")
-	shine.Name = "Shine"
-	shine.Position = UDim2.fromOffset(10, 6)
-	shine.Size = UDim2.new(1, -20, 0, 26)
-	shine.BackgroundColor3 = Color3.new(1, 1, 1)
-	shine.BackgroundTransparency = 0.88
-	shine.BorderSizePixel = 0
-	Theme.round(shine, 13)
-	shine.Parent = window
+	-- Borda interna clara: dá acabamento de "moldura" à janela.
+	local inset = Instance.new("Frame")
+	inset.Name = "Inset"
+	inset.Position = UDim2.fromOffset(5, 5)
+	inset.Size = UDim2.new(1, -10, 1, -10)
+	inset.BackgroundTransparency = 1
+	Theme.round(inset, 20)
+	Theme.stroke(inset, C.White, 2, 0.85)
+	inset.Parent = window
 
-	local banner = Instance.new("Frame")
-	banner.Name = "Banner"
-	banner.AnchorPoint = Vector2.new(0.5, 0.5)
-	banner.Position = UDim2.new(0.5, 0, 0, 4)
-	banner.Size = UDim2.fromOffset(options.BannerWidth or 250, 52)
-	banner.BackgroundColor3 = Color3.new(1, 1, 1)
-	banner.BorderSizePixel = 0
-	banner.ZIndex = 3
-	Theme.round(banner, 14)
-	outline(banner, Theme.Color.Deep, 4)
-	Theme.gradient(banner, options.BannerTop or Color3.fromHex("#FFE066"),
-		options.BannerBottom or Color3.fromHex("#FF9F1C"))
-	banner.Parent = holder
-	local title = Theme.label(banner, titleText, 28, Color3.new(1, 1, 1))
-	title.Font = Theme.Font.Display
-	title.Size = UDim2.new(1, -16, 1, 0)
-	title.Position = UDim2.fromOffset(8, 0)
-	title.TextStrokeTransparency = 0
-	Theme.fitText(title, 28, 14)
+	local header = Instance.new("Frame")
+	header.Name = "Header"
+	header.ZIndex = 3
+	header.Position = UDim2.fromOffset(10, 10)
+	header.Size = UDim2.new(1, -20, 0, 54)
+	header.BackgroundColor3 = Color3.new(1, 1, 1)
+	header.BorderSizePixel = 0
+	Theme.round(header, 16)
+	Theme.stroke(header, C.Ink, 3)
+	Theme.gradient(header, accent:Lerp(C.White, 0.15), accent:Lerp(C.Ink, 0.35))
+	header.Parent = window
+	local headerGloss = Instance.new("Frame")
+	headerGloss.Position = UDim2.fromOffset(8, 4)
+	headerGloss.Size = UDim2.new(1, -16, 0, 14)
+	headerGloss.BackgroundColor3 = Color3.new(1, 1, 1)
+	headerGloss.BackgroundTransparency = 0.7
+	headerGloss.BorderSizePixel = 0
+	Theme.round(headerGloss, 7)
+	headerGloss.Parent = header
 
-	local close = Instance.new("TextButton")
-	close.Name = "Close"
-	close.AnchorPoint = Vector2.new(1, 0)
-	close.Position = UDim2.new(1, -10, 0, 10)
-	close.Size = UDim2.fromOffset(42, 42)
-	close.Text = "X"
-	close.TextSize = 24
-	close.Font = Theme.Font.Display
-	Theme.button(close)
-	close.BackgroundColor3 = Theme.Color.Red
-	close.AutoButtonColor = true
-	close.ZIndex = 3
-	close.Parent = holder
+	local badge = Theme.badge(header, options.Icon or "star", accent, 62)
+	badge.ZIndex = 2
+	badge.AnchorPoint = Vector2.new(0, 0.5)
+	badge.Position = UDim2.new(0, -14, 0.5, 0)
+	local title = Theme.title(header, titleText, 32, C.White)
+	title.TextXAlignment = Enum.TextXAlignment.Left
+	title.Position = UDim2.fromOffset(58, 2)
+	title.Size = UDim2.new(1, -120, 1, -4)
+	Theme.fitText(title, 32, 14)
+
+	local close = Theme.action(header, "X", C.Red, { Size = UDim2.fromOffset(46, 46), Radius = 14, TextSize = 26, Name = "Close" })
+	close.AnchorPoint = Vector2.new(1, 0.5)
+	close.Position = UDim2.new(1, -4, 0.5, 0)
 
 	local body = Instance.new("Frame")
 	body.Name = "Body"
+	body.ZIndex = 3
 	body.BackgroundTransparency = 1
-	body.Position = UDim2.fromOffset(12, 62)
-	body.Size = UDim2.new(1, -24, 1, -74)
+	body.Position = UDim2.fromOffset(14, 74)
+	body.Size = UDim2.new(1, -28, 1, -86)
 	body.Parent = window
 
 	return {
 		Overlay = overlay,
 		Holder = holder,
 		Window = window,
-		Banner = banner,
+		Header = header,
+		Badge = badge,
 		Title = title,
 		Close = close,
 		Body = body,
@@ -654,15 +917,16 @@ end
 function Theme.openWindow(parts)
 	parts.Closing = false
 	parts.Overlay.Visible = true
+	Sound.play("open")
 	if Theme.reducedMotion(parts.Overlay) then
 		parts.Scale.Scale = 1
-		parts.Overlay.BackgroundTransparency = 0.45
+		parts.Overlay.BackgroundTransparency = 0.35
 		return
 	end
-	parts.Scale.Scale = 0.86
+	parts.Scale.Scale = 0.8
 	parts.Overlay.BackgroundTransparency = 1
 	TweenService:Create(parts.Scale, Theme.Motion.Pop, { Scale = 1 }):Play()
-	TweenService:Create(parts.Overlay, Theme.Motion.Enter, { BackgroundTransparency = 0.45 }):Play()
+	TweenService:Create(parts.Overlay, Theme.Motion.Enter, { BackgroundTransparency = 0.35 }):Play()
 end
 
 function Theme.closeWindow(parts, onClosed)
@@ -677,7 +941,7 @@ function Theme.closeWindow(parts, onClosed)
 		finish()
 		return
 	end
-	local tween = TweenService:Create(parts.Scale, Theme.Motion.Exit, { Scale = 0.9 })
+	local tween = TweenService:Create(parts.Scale, Theme.Motion.Exit, { Scale = 0.88 })
 	TweenService:Create(parts.Overlay, Theme.Motion.Exit, { BackgroundTransparency = 1 }):Play()
 	tween.Completed:Once(finish)
 	tween:Play()

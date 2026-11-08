@@ -1,4 +1,5 @@
 local Theme = require(script.Parent.VisualTheme)
+local Sound = require(script.Parent.Sound)
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -25,58 +26,60 @@ panel.Name = "MiningPanel"
 panel.Active = true
 panel.Visible = false
 panel.AnchorPoint = Vector2.new(0.5, 1)
-panel.Position = UDim2.new(0.5, 0, 1, -14)
-panel.Size = UDim2.new(0.8, 0, 0, 86)
-Theme.panel(panel)
+panel.Position = UDim2.new(0.5, 0, 1, -16)
+panel.Size = UDim2.new(0.8, 0, 0, 96)
+Theme.panel(panel, C.Cyan, 24)
 panel.Parent = gui
 local constraint = Instance.new("UISizeConstraint")
-constraint.MaxSize = Vector2.new(400, 140)
+constraint.MaxSize = Vector2.new(420, 156)
 constraint.Parent = panel
+local panelPadding = Instance.new("UIPadding")
+panelPadding.PaddingLeft = UDim.new(0, 0)
+panelPadding.Parent = panel
 local panelStroke = panel:FindFirstChildOfClass("UIStroke")
 
--- Distintivo com a cor do minério selecionado (recriado ao trocar de minério).
+-- Distintivo grande com a cor do minério, saindo pela borda esquerda.
 local oreBadge
 local badgeColor
 local function setBadge(color)
 	if badgeColor == color and oreBadge then return end
 	badgeColor = color
 	if oreBadge then oreBadge:Destroy() end
-	oreBadge = Theme.badge(panel, "gem", color, 54)
-	oreBadge.Position = UDim2.fromOffset(10, 14)
+	oreBadge = Theme.badge(panel, "gem", color, 78)
+	oreBadge.AnchorPoint = Vector2.new(0, 0)
+	oreBadge.Position = UDim2.fromOffset(-16, 9)
+	oreBadge.ZIndex = 4
 end
 setBadge(C.Gray)
 
-local title = Theme.label(panel, "Selecione um minério", 17, C.Cyan)
-title.Font = Theme.Font.Display
-title.TextStrokeTransparency = 0.2
+local title = Theme.title(panel, "Selecione um minério", 20, C.Cyan)
 title.TextXAlignment = Enum.TextXAlignment.Left
-title.Position = UDim2.fromOffset(74, 6)
-title.Size = UDim2.new(1, -84, 0, 22)
-Theme.fitText(title, 17, 11)
+title.Position = UDim2.fromOffset(72, 8)
+title.Size = UDim2.new(1, -84, 0, 24)
+Theme.fitText(title, 20, 11)
 
 local track = Instance.new("Frame")
-track.Position = UDim2.fromOffset(74, 30)
-track.Size = UDim2.new(1, -86, 0, 18)
+track.Position = UDim2.fromOffset(72, 34)
+track.Size = UDim2.new(1, -86, 0, 22)
 track.Parent = panel
 local fill = Instance.new("Frame")
 fill.Size = UDim2.fromScale(0, 1)
 fill.BackgroundColor3 = C.Cyan
 fill.Parent = track
 Theme.meter(track, fill)
-local hpText = Theme.label(track, "", 13)
-hpText.Font = Theme.Font.Display
-hpText.TextStrokeTransparency = 0
+local hpText = Theme.title(track, "", 14, C.White)
 hpText.Size = UDim2.fromScale(1, 1)
 hpText.ZIndex = 3
 
-local tool = Theme.label(panel, "", 12, C.Amber)
+local tool = Theme.title(panel, "", 12, C.Gold)
 tool.TextXAlignment = Enum.TextXAlignment.Left
-tool.Position = UDim2.fromOffset(74, 50)
+tool.Position = UDim2.fromOffset(72, 58)
 tool.Size = UDim2.new(1, -84, 0, 15)
-Theme.fitText(tool, 12, 8)
+Theme.fitText(tool, 13, 8)
+local currentHits = ""
 local function updateTool()
 	local name = playerGui:GetAttribute("GalaxyToolName")
-	tool.Text = name and ("Ferramenta: " .. name) or "Carregando ferramenta…"
+	tool.Text = (name or "Carregando ferramenta…") .. currentHits
 end
 playerGui:GetAttributeChangedSignal("GalaxyToolName"):Connect(updateTool)
 updateTool()
@@ -84,25 +87,112 @@ updateTool()
 local status = Theme.label(panel, "Mire em um depósito", 12, C.Frost)
 status.Font = Theme.Font.Body
 status.TextXAlignment = Enum.TextXAlignment.Left
-status.Position = UDim2.fromOffset(74, 66)
+status.Position = UDim2.fromOffset(72, 74)
 status.Size = UDim2.new(1, -84, 0, 15)
 Theme.fitText(status, 12, 8)
 
-local touchButton = Theme.action(panel, "◆  MINERAR", C.Blue)
-touchButton.Font = Theme.Font.Display
-touchButton.TextSize = 20
+local touchButton = Theme.action(panel, "MINERAR", C.Blue,
+	{ Size = UDim2.new(1, -24, 0, 50), Icon = "drill", TextSize = 22, Silent = true })
 touchButton.AnchorPoint = Vector2.new(0.5, 1)
 touchButton.Position = UDim2.new(0.5, 0, 1, -8)
-touchButton.Size = UDim2.new(1, -20, 0, 44)
 local function layout()
 	local touch = UserInputService.TouchEnabled
 	touchButton.Visible = touch
-	panel.Size = touch and UDim2.new(0.56, 0, 0, 140) or UDim2.new(0.8, 0, 0, 86)
+	panel.Size = touch and UDim2.new(0.6, 0, 0, 156) or UDim2.new(0.8, 0, 0, 96)
 end
 layout()
 
--- As instruções de mineração ficam na HUD. Oculta apenas as placas
--- redundantes neste cliente, inclusive quando entram por streaming.
+-- Golpes necessários com o poder atual (fórmula do GDD: ⌈resistência / poder⌉).
+local function hitsFor(resistance)
+	local power = tonumber(playerGui:GetAttribute("GalaxyPower")) or Config.Power
+	return math.max(1, math.ceil(resistance / math.max(power, 0.01)))
+end
+
+-- ---------- Placas dos minérios no mundo ----------
+local plateFolder = Instance.new("Folder")
+plateFolder.Name = "GalaxyOrePlates"
+plateFolder.Parent = playerGui
+local plates = {}
+
+local function difficulty(hits)
+	if hits <= 3 then return "FÁCIL", C.Mint end
+	if hits <= 12 then return "MÉDIO", C.Gold end
+	if hits <= 40 then return "DIFÍCIL", C.Orange end
+	return "EXTREMO", C.Red
+end
+
+local function refreshPlate(entry)
+	local hits = hitsFor(entry.ore.Resistance)
+	local tag, color = difficulty(hits)
+	entry.hits.Text = Theme.format(hits) .. (hits == 1 and " golpe" or " golpes")
+	entry.chip.BackgroundColor3 = color
+	entry.chip.Text = tag
+	entry.gui.Enabled = not playerGui:GetAttribute("GalaxyHideOrePlates")
+end
+
+local function makePlate(anchor, oreType)
+	if plates[anchor] then return end
+	local ore = Config.Ores[oreType]
+	if not ore then return end
+	local color = Color3.fromHex(ore.Color or "#FFFFFF")
+	local billboard = Instance.new("BillboardGui")
+	billboard.Name = oreType
+	billboard.Adornee = anchor
+	billboard.Size = UDim2.fromOffset(230, 74)
+	billboard.StudsOffset = Vector3.new(0, 1.5, 0)
+	billboard.MaxDistance = 90
+	billboard.LightInfluence = 0
+	billboard.ResetOnSpawn = false
+	billboard.Parent = plateFolder
+	local card = Instance.new("Frame")
+	card.Position = UDim2.fromOffset(26, 8)
+	card.Size = UDim2.new(1, -30, 1, -12)
+	Theme.panel(card, color, 20)
+	card.Parent = billboard
+	local badge = Theme.badge(card, "gem", color, 60)
+	badge.AnchorPoint = Vector2.new(0, 0.5)
+	badge.Position = UDim2.new(0, -24, 0.5, 0)
+	badge.ZIndex = 3
+	local name = Theme.title(card, ore.Name, 18, color:Lerp(C.White, 0.35))
+	name.TextXAlignment = Enum.TextXAlignment.Left
+	name.Position = UDim2.fromOffset(42, 5)
+	name.Size = UDim2.new(1, -50, 0, 22)
+	Theme.fitText(name, 18, 10)
+	local resistance = Theme.label(card, "Resistência " .. Theme.format(ore.Resistance), 12, C.Muted)
+	resistance.Font = Theme.Font.Display
+	resistance.TextXAlignment = Enum.TextXAlignment.Left
+	resistance.Position = UDim2.fromOffset(42, 28)
+	resistance.Size = UDim2.new(0.55, -30, 0, 14)
+	Theme.fitText(resistance, 12, 7)
+	local hits = Theme.title(card, "", 12, C.White)
+	hits.TextXAlignment = Enum.TextXAlignment.Left
+	hits.Position = UDim2.fromOffset(42, 42)
+	hits.Size = UDim2.new(0.55, -30, 0, 14)
+	Theme.fitText(hits, 12, 7)
+	local chip = Theme.title(card, "", 12, C.Ink)
+	chip.TextStrokeTransparency = 1
+	chip.AnchorPoint = Vector2.new(1, 1)
+	chip.Position = UDim2.new(1, -8, 1, -6)
+	chip.Size = UDim2.fromOffset(70, 22)
+	Theme.round(chip, 11)
+	Theme.stroke(chip, C.Ink, 2)
+	local entry = { gui = billboard, ore = ore, hits = hits, chip = chip }
+	plates[anchor] = entry
+	refreshPlate(entry)
+	anchor.Destroying:Connect(function()
+		plates[anchor] = nil
+		billboard:Destroy()
+	end)
+end
+
+local function refreshPlates()
+	for _, entry in pairs(plates) do refreshPlate(entry) end
+end
+playerGui:GetAttributeChangedSignal("GalaxyPower"):Connect(refreshPlates)
+playerGui:GetAttributeChangedSignal("GalaxyHideOrePlates"):Connect(refreshPlates)
+
+-- As instruções de mineração ficam na HUD e nas placas novas. Oculta as placas
+-- antigas neste cliente, inclusive quando entram por streaming.
 local function hideMiningSign(object)
 	if not object:IsA("BillboardGui") then return end
 	local anchor = object.Parent
@@ -114,6 +204,7 @@ local function hideMiningSign(object)
 	local depositSign = anchor.Name == "Name" and parent.Name == "OreDeposits"
 		and parent.Parent and parent.Parent.Name == "TerraNova" and parent.Parent.Parent == workspace
 	if zoneSign or depositSign then object.Enabled = false end
+	if depositSign and anchor:IsA("BasePart") then makePlate(anchor, folder.Name) end
 end
 workspace.DescendantAdded:Connect(hideMiningSign)
 local world = workspace:FindFirstChild("TerraNova")
@@ -130,16 +221,33 @@ playerGui:GetAttributeChangedSignal("GalaxyMenuOpen"):Connect(updateMenuVisibili
 updateMenuVisibility()
 
 -- Retículo para seleção no centro da tela com controle.
-local crosshair = Instance.new("TextLabel")
+local crosshair = Instance.new("Frame")
 crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
 crosshair.Position = UDim2.fromScale(0.5, 0.5)
-crosshair.Size = UDim2.fromOffset(24, 24)
+crosshair.Size = UDim2.fromOffset(30, 30)
 crosshair.BackgroundTransparency = 1
-crosshair.Text = "+"
-crosshair.TextSize = 24
-crosshair.TextColor3 = Color3.new(1, 1, 1)
 crosshair.Visible = UserInputService.GamepadEnabled
 crosshair.Parent = gui
+for _, spec in ipairs({ { 0.5, 0, 4, 10 }, { 0.5, 1, 4, 10 }, { 0, 0.5, 10, 4 }, { 1, 0.5, 10, 4 } }) do
+	local tick = Instance.new("Frame")
+	tick.AnchorPoint = Vector2.new(spec[1], spec[2])
+	tick.Position = UDim2.fromScale(spec[1], spec[2])
+	tick.Size = UDim2.fromOffset(spec[3], spec[4])
+	tick.BackgroundColor3 = C.White
+	tick.BorderSizePixel = 0
+	Theme.round(tick, 2)
+	Theme.stroke(tick, C.Ink, 1.5)
+	tick.Parent = crosshair
+end
+local dot = Instance.new("Frame")
+dot.AnchorPoint = Vector2.new(0.5, 0.5)
+dot.Position = UDim2.fromScale(0.5, 0.5)
+dot.Size = UDim2.fromOffset(6, 6)
+dot.BackgroundColor3 = C.Cyan
+dot.BorderSizePixel = 0
+Theme.round(dot, 3)
+Theme.stroke(dot, C.Ink, 1.5)
+dot.Parent = crosshair
 UserInputService.LastInputTypeChanged:Connect(function(inputType)
 	crosshair.Visible = inputType.Name:match("^Gamepad") ~= nil
 end)
@@ -169,6 +277,9 @@ local function setBar(remaining, maximum)
 	end
 	local ratio = maximum > 0 and math.clamp(remaining / maximum, 0, 1) or 0
 	hpText.Text = maximum > 1 and (Theme.format(remaining) .. " / " .. Theme.format(maximum)) or ""
+	local hits = maximum > 1 and hitsFor(remaining) or nil
+	currentHits = hits and ("  ·  faltam " .. Theme.format(hits) .. (hits == 1 and " golpe" or " golpes")) or ""
+	updateTool()
 	local color = ratio <= 0.3 and orange or cyan
 	if playerGui:GetAttribute("GalaxyReduceMotion") then
 		fill.Size = UDim2.fromScale(ratio, 1)
@@ -235,7 +346,7 @@ local function selectPiece(piece)
 		setBadge(oreColor)
 		setBar(remaining, definition.Resistance)
 	end
-	panelStroke.Color = inRange and cyan:Lerp(C.Deep, 0.35) or orange
+	panelStroke.Color = inRange and C.Ink or orange
 	if os.clock() > messageUntil then
 		status.Text = inRange and "Clique, toque ou use R2 para minerar"
 			or "Fora de alcance • aproxime-se"
@@ -326,7 +437,7 @@ local function overHud(position)
 	local inset = GuiService:GetGuiInset()
 	local point = position - inset
 	for _, object in ipairs(playerGui:GetGuiObjectsAtPosition(point.X, point.Y)) do
-		if object ~= crosshair then
+		if object ~= crosshair and not object:IsDescendantOf(crosshair) then
 			return true
 		end
 	end
@@ -382,6 +493,11 @@ remote.OnClientEvent:Connect(function(result)
 			Debris:AddItem(burst, 1)
 		end
 		local broke = result.Remaining == 0
+		if broke then
+			Sound.play("reward", 1.35)
+		else
+			Sound.play("hit", 0.9 + math.random() * 0.25)
+		end
 		local showDamage = not playerGui:GetAttribute("GalaxyHideDamage")
 		if target and target.Parent and (broke or showDamage) then
 			-- Números empilhados com leve desvio lateral; a quebra ganha destaque.

@@ -1,38 +1,48 @@
 # Guia de interface do Galaxy Mining Simulator
 
-A referência é [Ninja Legends](https://www.roblox.com/games/3956818381/Ninja-Legends). Para o Galaxy Mining, a prioridade é enxergar o saldo, o espaço da mochila e o progresso da ação em curso sem abrir menus. A linguagem visual usa contornos marcados, números grandes e a paleta espacial de Terra Nova.
+Direção visual **"Doce Cósmico"** (Design System 5.0): simulador cartunesco no espaço, com botões 3D, contornos grossos em tinta escura, vidro roxo brilhante, números grandes e muito retorno visual. A referência de estilo é [Ninja Legends](https://www.roblox.com/games/3956818381/Ninja-Legends), sem copiar seus elementos.
 
-| Cor | Uso |
-| --- | --- |
-| Azul marinho `#1B1250` / `#0A0630` | Superfícies e contornos |
-| Azul `#2F7BFF` | Botões e ações |
-| Ciano `#00D8FF` | Mineração, carga e progresso |
-| Violeta `#A855F7` | Poder, pets e contornos secundários |
-| Ouro `#FFB800` | Créditos, itens equipados e metas |
-| Verde `#2FD16B` | Compra possível e sucesso |
-| Vermelho `#FF3B4E` | Mochila cheia, erros e botão fechar |
+| Cor | Hex | Uso |
+| --- | --- | --- |
+| Tinta | `#0B0628` | Contornos, sombras e fundos profundos |
+| Noite / Ameixa / Real | `#160D45` / `#2A1873` / `#4B2BD6` | Degradê dos painéis e janelas |
+| Ciano | `#22E1FF` | Mineração, carga e progresso |
+| Violeta | `#A65BFF` | Poder e missões |
+| Rosa | `#FF5FB8` | Pets e celebrações |
+| Ouro | `#FFC531` | Créditos, itens equipados e metas |
+| Menta | `#2EE59D` | Compra possível, sucesso e ajustes |
+| Vermelho | `#FF3D57` | Mochila cheia, erros e botão fechar |
 
 Use sempre cor **e** texto juntos para comunicar função e estado.
 
-## Design System 4.0 (`src/client/VisualTheme.luau`)
+## Componentes (`src/client/VisualTheme.luau`)
 
-- **Tipografia:** `FredokaOne` (arredondada, cartunesca) para títulos e números; `GothamBold`/`GothamMedium` para rótulos e textos de apoio. Textos longos usam `Theme.fitText` para encolher sem cortar.
-- **Números:** `Theme.format` usa o padrão brasileiro (`1.250`, `5,5`); `Theme.compact` abrevia a partir de um milhão (`1,25 mi`).
-- **Ícones:** desenhados com Frames, sem imagens externas: loja, mochila, missão, ajustes, broca, moeda, raio, gema, pet, estrela, cadeado, robô (ORBI), alfinete e brilho. `Theme.badge` coloca o ícone num distintivo redondo.
-- **Componentes:** `panel`, `well`, `meter`, `action` (com foco, hover e clique), `navigationAction` (com atalho de teclado), `toggle` (interruptor) e `window` (janela modal com faixa de título, sombra e botão fechar), usada pela loja e pelos menus.
-- **Movimento:** `Theme.Motion` define Interaction, Enter, Exit, Pop, Count e Float. `Theme.tween` e `Theme.pop` respeitam **Movimento reduzido**: as mudanças acontecem sem animação.
+- **Botão 3D** (`Theme.action`): base sólida escura e face colorida com brilho; a face afunda ao pressionar e cresce no hover/foco. O texto fica em `Face/Label`: use `Theme.setText` e `Theme.setTint`, nunca `button.Text`. Opções: `Size`, `Icon`, `TextSize`, `Radius`, `Depth`, `Silent`.
+- **Navegação** (`Theme.navigationAction`): botão quadrado 3D com ícone grande, legenda e atalho.
+- **Painel** (`Theme.panel`), **poço** (`Theme.well`), **medidor** (`Theme.meter`, com brilho) e **esfera de ícone** (`Theme.badge`, com reflexo).
+- **Janela** (`Theme.window`): sombra, moldura interna, céu estrelado cintilante e cabeçalho colorido com ícone saindo pela borda e botão X 3D.
+- **Efeitos** num único loop compartilhado: `Theme.rays` (raios giratórios), `Theme.shimmer` (faixa de brilho), `Theme.starfield` (estrelas) e `Theme.confetti`.
+- **Interruptor** (`Theme.toggle`) com ícone, ON/OFF e som.
+- **Tipografia:** `FredokaOne` em títulos, números e botões; Gotham em textos de apoio. **Números** no padrão brasileiro (`1.250`, `5,5`, `1,25 mi`).
+- **Ícones** feitos de Frames, sem imagens externas: loja, mochila, missão, ajustes, broca, moeda, raio, gema, pet, estrela, cadeado, robô, alfinete, alvo, som, movimento e brilho.
+- **Som** (`src/client/Sound.luau`): clique, golpe, recompensa e abertura de janela, com sons embutidos do Roblox (`rbxasset://sounds/...`).
+
+Tudo que anima respeita **Movimento reduzido**.
 
 ## Telas
 
-- **HUD (topo):** Créditos com contagem animada e "+N" a cada ganho; Carga com medidor (ciano → âmbar a 80% → vermelho e contorno pulsando quando cheia) e "+1 minério" a cada coleta; Poder com o progresso do treino até o limite da mochila (medidor dourado no máximo).
-- **Navegação:** à esquerda em telas largas (com atalhos L, B, M, P); em linha abaixo da HUD em telas pequenas.
-- **Notificações:** até três empilhadas, com cor e ícone pelo tipo (`Tone` enviado pelo servidor: success, error, warning, sale, power). As coletas não geram notificação, porque já aparecem no contador.
-- **Mochila:** resumo (carga, valor estimado na venda, ferramenta) e grade dos nove minérios com cor, quantidade e preço unitário; aba Pets com cartões, cadeado para os não resgatados e destaque dourado para o equipado. O valor estimado é só informativo; a venda é calculada no servidor.
-- **Missões:** prévia com ORBI e as cinco missões do GDD marcadas como "EM BREVE". O sistema de missões ainda não existe.
-- **Ajustes:** interruptores de Movimento reduzido, Números de dano e Poeira cósmica (preferências locais da sessão).
-- **Loja Orion:** contadores de itens obtidos por categoria, comparação com o equipamento atual (por exemplo "Poder 20 (+8)"), selo **PRÓXIMA** no primeiro item ainda não obtido (a grade rola até ele), barra de progresso até o preço e mensagens coloridas do servidor.
-- **Mineração:** painel inferior com o distintivo na cor do minério, barra de resistência com valores, contorno ciano (ao alcance) ou âmbar (fora de alcance), clarão a cada golpe e números de dano empilhados; a quebra mostra "+1 minério" em dourado.
-- **Celebração:** ao resgatar um pet, aparece um cartão central com raios giratórios; também há uma vinheta "TERRA NOVA" ao entrar.
+- **Carregamento** (`src/first/Loading.client.luau`, em ReplicatedFirst): céu estrelado, planeta com anel e lua orbitando, logotipo, barra de progresso e dicas.
+- **HUD:** três pílulas no topo (Créditos com contagem animada e "+N"; Carga com medidor ciano → âmbar → vermelho pulsando; Poder com treino até o limite), menu 2×2 de botões 3D à esquerda e o cartão **Próxima meta** à direita: o item mais barato que falta, com progresso de Créditos e atalho para a loja. Com a mochila cheia, ele vira o alerta **MOCHILA CHEIA!**, com o botão "IR VENDER". Em telas pequenas, a navegação fica em linha e o cartão só aparece no alerta.
+- **Notificações:** até três, em pílulas com ícone e cor pelo `Tone` do servidor.
+- **Mochila:** resumo e grade de minérios (cor, quantidade, preço e peso); aba Pets com raios atrás do pet equipado e cadeado nos que faltam resgatar.
+- **Missões:** prévia com ORBI em balão de fala e as cinco missões do GDD como "EM BREVE". O sistema de missões não existe ainda.
+- **Ajustes:** Movimento reduzido, Sons, Números de dano, Placas dos minérios e Poeira cósmica.
+- **Loja Orion:** cartões 3D na cor do item, com comparação com o equipamento atual, selo **PRÓXIMA** com brilho e raios, progresso até o preço, contadores por categoria e confete nas compras.
+- **Mineração:** painel com esfera grande na cor do minério, barra de resistência com valores, "faltam N golpes", contorno colorido, clarão e números de dano empilhados, além de sons de golpe e de quebra.
+- **Placas dos minérios:** acima de cada grupo de depósitos, com nome, resistência, golpes necessários com o poder atual (⌈resistência ÷ poder⌉, como no GDD) e um selo FÁCIL, MÉDIO, DIFÍCIL ou EXTREMO.
+- **Prompts:** cartões holográficos com tecla 3D que se enche ao segurar; no toque, a tecla é um botão.
+- **Mundo vivo** (só no cliente): planetas e anéis giram, ilhas, orbes e postes flutuam, nuvens derivam, estrelas dos postes rodam, chamas dos foguetes tremulam e hologramas dos portais pulsam. Só peças decorativas sem colisão de `TerraNova/Expansion` se movem.
+- **Celebração:** raios, confete e cartão central no resgate de pet; vinheta "TERRA NOVA" depois do carregamento.
 
 ## Controles
 
@@ -40,9 +50,12 @@ Use sempre cor **e** texto juntos para comunicar função e estado.
 | --- | --- | --- | --- |
 | Loja / Mochila / Missões / Ajustes | L / B / M / P | Seleção na barra | Botões da barra |
 | Fechar janela | X ou clique fora | B | X ou toque fora |
-
-Ao abrir uma janela com o controle, o primeiro botão recebe o foco automaticamente.
+| Interagir com terminal | E (segurar quando indicado) | X | Tocar na tecla do prompt |
 
 ## Revisão no Studio
 
-Confira se o saldo longo cabe, se as janelas cabem em telas de celular (paisagem), se os botões respondem a toque e controle e se o painel de mineração deixa espaço para os comandos virtuais. Confira também os estados de mochila cheia, item "PRÓXIMA", pet equipado e a celebração do resgate de Lumini, com e sem Movimento reduzido.
+1. Conferir no Output se nenhum som `rbxasset://sounds/...` falhou ao carregar.
+2. Testar telas de celular em paisagem: pílulas, janelas e a grade da loja.
+3. Conferir prompts com teclado, controle e toque, incluindo segurar para vender.
+4. Conferir se as animações do cenário não atravessam construções e se o desempenho continua estável.
+5. Testar os estados de mochila cheia, item "PRÓXIMA", pet equipado, compra e resgate de Lumini, com e sem Movimento reduzido.

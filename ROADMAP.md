@@ -21,11 +21,11 @@
 4. Ferramentas, mochilas e loja: 20 ferramentas, 20 Mochilas de Poeira Cósmica, 9 minérios e 6 pets em menu de loja; Minas Profundas no mapa (gerador em tools/build_space_map.py); teste no Studio pendente.
 5. Estação de pets com OVNI em Terra Nova. Primeiro resgate de Lumini por 75 Créditos, com equipamento e bônus em sessão. Revisão no Studio, Rokko e Nebbi pendentes.
 6. Cinco missões de ORBI e progressão.
-7. Interfaces: Design System 4.0 (docs/UI-GUIDE.md) com HUD animada, notificações
-   empilhadas, Mochila em grade, Loja com comparação e meta "PRÓXIMA", Ajustes com
-   interruptores, atalhos de teclado/controle, celebração de resgate e painel de
-   mineração redesenhado; validação visual no Studio pendente. Apresentação da
-   Orion Scout e salvamento continuam pendentes.
+7. Interfaces: Design System 5.0 "Doce Cósmico" (docs/UI-GUIDE.md) com botões 3D,
+   tela de carregamento, HUD com cartão de próxima meta, prompts holográficos, placas
+   de minério com golpes necessários, sons, mundo decorativo animado, Loja e menus
+   refeitos; validação visual no Studio pendente. Apresentação da Orion Scout e
+   salvamento continuam pendentes.
 8. Testes em celular e multiplayer, balanceamento e Alpha 0.1.
 
 ## Fora do MVP

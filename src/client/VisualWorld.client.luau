@@ -66,3 +66,153 @@ for _, descendant in ipairs(world:GetDescendants()) do
 	animate(descendant)
 end
 world.DescendantAdded:Connect(animate)
+
+-- ---------- Cenário vivo ----------
+-- Só peças decorativas sem colisão da Expansion se movem, e apenas neste
+-- cliente: planetas giram, ilhas e orbes flutuam, nuvens derivam e estrelas
+-- dos postes rodam. Minérios, balcões e terminais nunca são movidos.
+local movers = {}
+local flickers = {}
+local holograms = {}
+
+local function bobOffset(t, amplitude, speed, phase)
+	return Vector3.new(0, math.sin(t * speed + phase) * amplitude, 0)
+end
+
+local function spinY(base, angle)
+	return CFrame.new(base.Position) * CFrame.Angles(0, angle, 0) * base.Rotation
+end
+
+local function classify(part, folderName)
+	local name = part.Name
+	local index
+	if folderName == "Backdrop" then
+		index = name:match("^Island%a+(%d+)$")
+		if index then
+			local phase = tonumber(index)
+			return function(base, t) return base + bobOffset(t, 2.5, 0.5, phase) end
+		end
+		index = name:match("^TreeTrunk(1%d%d)$") or name:match("^TreeCap(1%d%d)_%d$")
+		if index then
+			local phase = tonumber(index) - 100
+			return function(base, t) return base + bobOffset(t, 2.5, 0.5, phase) end
+		end
+		index = name:match("^Cloud(%d+)_%d+$")
+		if index then
+			local phase = tonumber(index)
+			return function(base, t) return base + Vector3.new(math.sin(t * 0.04 + phase) * 14, 0, 0) end
+		end
+		if name:match("^PlanetRing%d+$") then
+			return function(base, t) return spinY(base, t * 0.05) end
+		end
+		index = name:match("^PlanetSpot(%d+)$")
+		if index then
+			-- A mancha gira em volta do centro do planeta: parece que ele roda.
+			local planet = part.Parent:FindFirstChild("Planet" .. index)
+			if planet then
+				local center = planet.Position
+				return function(base, t)
+					return CFrame.new(center) * CFrame.Angles(0, t * 0.06, 0) * (CFrame.new(-center) * base)
+				end
+			end
+		end
+	elseif folderName == "Props" then
+		index = name:match("^PlanetBall(%d+)$")
+		if index then
+			local phase = tonumber(index)
+			return function(base, t) return base + bobOffset(t, 0.5, 1.2, phase) end
+		end
+		index = name:match("^PlanetRing(%d+)$")
+		if index then
+			local phase = tonumber(index)
+			return function(base, t) return spinY(base, t * 0.6) + bobOffset(t, 0.5, 1.2, phase) end
+		end
+		if name:match("^StarTop") then
+			return function(base, t) return spinY(base, t * 1.2) end
+		end
+		if name:match("^RocketFlame%d+$") then
+			table.insert(flickers, part)
+		end
+	elseif folderName == "PlazaOrbs" then
+		index = name:match("^Orb(%d+)$")
+		if index then
+			local phase = tonumber(index)
+			return function(base, t)
+				local position = base.Position
+				local radius = Vector2.new(position.X, position.Z).Magnitude
+				local angle = math.atan2(position.Z, position.X) + t * 0.25
+				return CFrame.new(math.cos(angle) * radius, position.Y + math.sin(t * 1.5 + phase) * 0.8,
+					math.sin(angle) * radius) * base.Rotation
+			end
+		end
+	elseif folderName == "Rim" then
+		index = name:match("^PylonOrb(%d+)$")
+		if index then
+			local phase = tonumber(index)
+			return function(base, t) return base + bobOffset(t, 0.6, 1.4, phase) end
+		end
+	elseif folderName == "Gates" then
+		if name:match("Holo$") then
+			table.insert(holograms, { part = part, base = part.Transparency })
+		end
+	end
+	return nil
+end
+
+local function register(part)
+	if not part:IsA("BasePart") or part.CanCollide or movers[part] then return end
+	local folder = part.Parent
+	if not folder or not folder.Parent or folder.Parent.Name ~= "Expansion" then return end
+	local motion = classify(part, folder.Name)
+	if motion then
+		movers[part] = { base = part.CFrame, motion = motion }
+	end
+end
+
+local expansion = world:WaitForChild("Expansion", 30)
+if expansion then
+	for _, descendant in ipairs(expansion:GetDescendants()) do register(descendant) end
+	expansion.DescendantAdded:Connect(register)
+end
+
+local resting = false
+local accumulator = 0
+RunService.Heartbeat:Connect(function(dt)
+	accumulator += dt
+	if accumulator < 1 / 30 then return end
+	accumulator = 0
+	local reduced = playerGui:GetAttribute("GalaxyReduceMotion") == true
+	if reduced then
+		-- Movimento reduzido: tudo volta à posição original uma única vez.
+		if not resting then
+			resting = true
+			local parts, frames = {}, {}
+			for part, entry in pairs(movers) do
+				if part.Parent then
+					table.insert(parts, part)
+					table.insert(frames, entry.base)
+				end
+			end
+			workspace:BulkMoveTo(parts, frames, Enum.BulkMoveMode.FireCFrameChanged)
+		end
+		return
+	end
+	resting = false
+	local t = os.clock()
+	local parts, frames = {}, {}
+	for part, entry in pairs(movers) do
+		if part.Parent then
+			table.insert(parts, part)
+			table.insert(frames, entry.motion(entry.base, t))
+		else
+			movers[part] = nil
+		end
+	end
+	workspace:BulkMoveTo(parts, frames, Enum.BulkMoveMode.FireCFrameChanged)
+	for _, flame in ipairs(flickers) do
+		flame.Transparency = 0.1 + math.random() * 0.35
+	end
+	for _, holo in ipairs(holograms) do
+		holo.part.Transparency = math.clamp(holo.base + math.sin(t * 2.2) * 0.06, 0, 1)
+	end
+end)

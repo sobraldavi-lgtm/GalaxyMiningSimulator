@@ -133,6 +133,13 @@
         "$path": "src/shared"
       }
     },
+    "ReplicatedFirst": {
+      "$className": "ReplicatedFirst",
+      "$ignoreUnknownInstances": true,
+      "GalaxyLoading": {
+        "$path": "src/first/Loading.client.luau"
+      }
+    },
     "ServerScriptService": {
       "$className": "ServerScriptService",
       "$ignoreUnknownInstances": true,
