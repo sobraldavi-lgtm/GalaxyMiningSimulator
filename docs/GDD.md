@@ -558,7 +558,8 @@ Não inventar esses valores durante a criação da estrutura.
 Escolhidas com o usuário como **hipóteses para testes** (centralizadas em
 `src/shared/MiningConfig.luau`, ajustar após testes com jogadores):
 
-- XP: 1 por minério extraído e 10 por venda com Créditos. Níveis 1–5 seguem a
+- XP: 1 por minério extraído e até 10 por venda (limitado à quantidade de
+  minérios vendidos, para que vender um por vez não renda XP extra). Níveis 1–5 seguem a
   tabela do GDD (0/100/250/450/700); depois do 5, +300 XP por nível.
 - Missões de ORBI (§10) em sequência, com recompensas de 50, 75, 100, 150 e 250
   Créditos e 1 Fragmento Estelar cada. A missão 5 (transmissor da caverna azul)

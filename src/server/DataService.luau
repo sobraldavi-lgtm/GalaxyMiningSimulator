@@ -54,12 +54,17 @@ function DataService.Init()
 		return DataStoreService:GetDataStore(STORE_NAME)
 	end)
 	if ok then
-		-- Uma leitura de teste confirma o acesso (falha no Studio sem permissão).
-		local probe = pcall(function()
-			result:GetAsync("probe")
-		end)
-		available = probe
 		store = result
+		if RunService:IsStudio() then
+			-- No Studio, uma leitura de teste confirma a permissão de API.
+			available = pcall(function()
+				result:GetAsync("probe")
+			end)
+		else
+			-- Em produção, uma falha momentânea não pode desligar o salvamento do
+			-- servidor inteiro: erros de cada jogador são tratados em Load/Save.
+			available = true
+		end
 	end
 	if not available then
 		warn("[DataService] DataStore indisponível: progresso só em memória nesta sessão."
@@ -143,6 +148,21 @@ function DataService.Save(player: Player, data, release: boolean?)
 	return ok and ownsLock
 end
 
+-- Libera a trava sem alterar os dados (jogador saiu antes de terminar de carregar).
+function DataService.Release(player: Player)
+	if not available then return end
+	local key = keyFor(player.UserId)
+	withRetries("Liberar " .. key, function()
+		return store:UpdateAsync(key, function(old)
+			if type(old) ~= "table" or not old.Session or old.Session.JobId ~= jobId then
+				return nil
+			end
+			old.Session = nil
+			return old
+		end)
+	end)
+end
+
 -- ---------- Placares globais (OrderedDataStore) ----------
 
 local boards = {}
@@ -166,7 +186,8 @@ function DataService.SubmitScore(name: string, userId: number, value: number)
 	end)
 end
 
--- Devolve até `count` entradas { UserId, Value } em ordem decrescente.
+-- Devolve até `count` entradas { UserId, Value } em ordem decrescente;
+-- nil se o DataStore não está disponível, false se a leitura falhou agora.
 function DataService.TopScores(name: string, count: number)
 	local ordered = board(name)
 	if not ordered then return nil end
@@ -174,7 +195,7 @@ function DataService.TopScores(name: string, count: number)
 		local pages = ordered:GetSortedAsync(false, count)
 		return pages:GetCurrentPage()
 	end)
-	if not ok then return nil end
+	if not ok then return false end
 	local list = {}
 	for _, entry in ipairs(entries) do
 		table.insert(list, { UserId = tonumber(entry.key), Value = entry.value })

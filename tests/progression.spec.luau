@@ -46,9 +46,19 @@ local earned, _, sold = player:SellAll()
 equal(earned, 37, "5 ferros e 1 cobre = 37")
 equal(#sold, 1, "Venda conclui Primeira venda")
 equal(player.credits, 50 + 37 + 75, "Venda + recompensa da missão 2")
-equal(player.xp, 16, "Venda dá 10 XP")
+equal(player.xp, 12, "Venda de 6 minérios dá 6 XP (limite de 10 por venda)")
 equal(select(1, player:SellAll()), 0, "Venda vazia não dá XP nem progresso")
-equal(player.xp, 16, "XP sem venda vazia")
+equal(player.xp, 12, "XP sem venda vazia")
+-- Vender um minério por vez não rende mais XP que minerar (sem farm).
+local farmer = InventoryModel.new(Config)
+for _ = 1, 3 do
+	farmer:Mine("Iron")
+	farmer:SellAll()
+end
+equal(farmer.xp, 6, "3 ferros vendidos um a um: 3 XP de mineração + 3 de venda")
+for _ = 1, 15 do farmer:Mine("Iron") end
+farmer:SellAll()
+equal(farmer.xp, 6 + 15 + 10, "Venda grande rende o máximo de 10 XP")
 
 -- Missão 3: qualquer compra. Missão 4: equipar Lumini (estado já alcançado conclui na hora).
 equal(player:BuyBackpack("Dust02"), true, "Compra mochila")

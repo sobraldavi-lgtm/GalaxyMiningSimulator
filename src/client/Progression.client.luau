@@ -460,12 +460,12 @@ end
 local function openHangar()
 	if hangar.Overlay.Visible or playerGui:GetAttribute("GalaxyMenuOpen") then return end
 	playerGui:SetAttribute("GalaxyMenuOpen", true)
-	playerGui:SetAttribute("GalaxyShopOpen", true) -- bloqueia atalhos da HUD enquanto aberto
+	playerGui:SetAttribute("GalaxyHangarOpen", true) -- bloqueia atalhos da HUD enquanto aberto
 	Theme.openWindow(hangar)
 end
 local function closeHangar()
 	Theme.closeWindow(hangar, function()
-		playerGui:SetAttribute("GalaxyShopOpen", false)
+		playerGui:SetAttribute("GalaxyHangarOpen", false)
 		playerGui:SetAttribute("GalaxyMenuOpen", false)
 	end)
 end

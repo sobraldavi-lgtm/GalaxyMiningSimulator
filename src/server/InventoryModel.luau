@@ -275,12 +275,18 @@ function InventoryModel:Mine(oreType)
 end
 
 -- Venda com progressão. Devolve Créditos ganhos, nível novo e missões.
+-- A XP da venda é limitada à quantidade de minérios vendidos: vender um
+-- minério por vez não rende mais XP do que minerar (evita farm de XP).
 function InventoryModel:SellAll()
+	local units = 0
+	for _, amount in pairs(self.items) do
+		units += amount
+	end
 	local earned = self:Sell()
 	if earned <= 0 then
 		return 0, nil, {}
 	end
-	local levelUp = self:AddXp(self.config.Progression.XpPerSale)
+	local levelUp = self:AddXp(math.min(self.config.Progression.XpPerSale, units))
 	return earned, levelUp, self:Progress("Sell")
 end
 

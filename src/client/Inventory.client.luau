@@ -870,7 +870,7 @@ local function openMenu(name)
 		end)
 		return
 	end
-	if playerGui:GetAttribute("GalaxyShopOpen") then return end
+	if playerGui:GetAttribute("GalaxyShopOpen") or playerGui:GetAttribute("GalaxyHangarOpen") then return end
 	if currentMenu and currentMenu ~= name then
 		-- Troca de menu: fecha o atual e abre o pedido em seguida.
 		closeMenu(function() openMenu(name) end)
@@ -956,7 +956,8 @@ end
 playerGui:GetAttributeChangedSignal("GalaxyMenuRequest"):Connect(function()
 	local request = tostring(playerGui:GetAttribute("GalaxyMenuRequest") or "")
 	local name = request:match("^([^#]+)")
-	if name and windowStyles[name] and not playerGui:GetAttribute("GalaxyShopOpen") then
+	if name and windowStyles[name] and not playerGui:GetAttribute("GalaxyShopOpen")
+		and not playerGui:GetAttribute("GalaxyHangarOpen") then
 		openMenu(name)
 	end
 end)
@@ -968,7 +969,8 @@ UserInputService.InputBegan:Connect(function(input, processed)
 		return
 	end
 	if processed or UserInputService:GetFocusedTextBox() then return end
-	if playerGui:GetAttribute("GalaxyShopOpen") then return end
+	-- Janelas próprias (loja e hangar) bloqueiam os atalhos da HUD.
+	if playerGui:GetAttribute("GalaxyShopOpen") or playerGui:GetAttribute("GalaxyHangarOpen") then return end
 	local shortcuts = {
 		[Enum.KeyCode.L] = "Loja",
 		[Enum.KeyCode.B] = "Mochila",

@@ -3,14 +3,15 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("MiningConfig"))
 local deposits = workspace:WaitForChild("TerraNova"):WaitForChild("OreDeposits")
 local Inventory = require(script.Parent:WaitForChild("InventoryService"))
-Inventory.Init()
 
 -- O cliente envia a ação e, para golpes, o alvo. O servidor controla o progresso.
+-- O canal é criado antes de Inventory.Init (que pode esperar o DataStore),
+-- para o cliente não ficar bloqueado; ações só valem após o carregamento.
 local remote = Instance.new("RemoteEvent")
 remote.Name = "MiningRequest"
-remote.Parent = script.Parent
 -- Replicar somente o canal de comunicação; nenhum estado de jogador fica no cliente.
 remote.Parent = ReplicatedStorage
+Inventory.Init()
 
 local byPart = {}
 for oreType, definition in pairs(Config.Ores) do

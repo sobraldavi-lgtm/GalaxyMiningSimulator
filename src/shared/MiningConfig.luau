@@ -14,7 +14,7 @@ return table.freeze({
 	-- de balanceamento escolhidas com o usuário para testar (ajustar após testes).
 	Progression = table.freeze({
 		XpPerOre = 1,
-		XpPerSale = 10,
+		XpPerSale = 10, -- máximo por venda; limitado à quantidade de minérios vendidos
 		LevelXp = table.freeze({ 0, 100, 250, 450, 700 }),
 		LevelStepAfter = 300, -- hipótese: XP extra por nível depois do 5
 		CaveLevel = 3, -- GDD: nível 3 dá acesso à caverna azul

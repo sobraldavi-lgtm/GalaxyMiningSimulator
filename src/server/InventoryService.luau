@@ -137,8 +137,14 @@ end
 local saving = {}
 
 local function save(player, release)
+	if saving[player] then
+		-- Autosave pode pular; a gravação final (que libera a trava) espera a anterior.
+		if not release then return end
+		local deadline = os.clock() + 30
+		while saving[player] and os.clock() < deadline do task.wait(0.1) end
+	end
 	local inventory = getInventory(player)
-	if not inventory or saving[player] then return end
+	if not inventory then return end
 	saving[player] = true
 	DataService.Save(player, inventory:Serialize(), release)
 	DataService.SubmitScore("Lifetime", player.UserId, inventory.lifetimeCredits)
@@ -148,7 +154,11 @@ end
 
 local function load(player)
 	local ok, data = DataService.Load(player)
-	if not player.Parent then return end
+	if not player.Parent then
+		-- Saiu durante o carregamento: libera a trava sem tocar nos dados.
+		if ok then DataService.Release(player) end
+		return
+	end
 	if not ok then
 		-- Sem dados confiáveis, não deixamos jogar: evita sobrescrever o progresso salvo.
 		player:Kick("Não foi possível carregar seu progresso agora. Tente entrar novamente em instantes.")
@@ -181,6 +191,10 @@ local leaderboardData
 local function refreshLeaderboards()
 	for _, board in ipairs({ { "Lifetime", "lifetimeCredits" }, { "Rebirths", "rebirths" } }) do
 		local entries = DataService.TopScores(board[1], 10)
+		if entries == false then
+			-- Falha momentânea: mantém o último placar publicado.
+			continue
+		end
 		if not entries then
 			-- Sem DataStore: placar só com quem está neste servidor.
 			entries = {}
@@ -315,33 +329,37 @@ function Service.Init()
 	shopFloor = shop:WaitForChild("Floor")
 	createPrompt(shop:WaitForChild("PurchaseDesk"), "OpenShop", "Abrir loja", "Loja Orion", 14)
 
-	-- Missão 5: transmissor da caverna azul (exige nível de acesso à caverna).
-	local transmitter = world:WaitForChild("Cave"):WaitForChild("Transmitter", 10)
-	if transmitter then
-		local activate = createPrompt(transmitter, "ActivateTransmitter", "Reativar transmissor", "Caverna azul", 10, 1)
-		activate.Triggered:Connect(function(player)
-			local inventory = getInventory(player)
-			local now = os.clock()
-			if not inventory or now - (lastTransmitter[player] or -math.huge) < 1 then return end
-			lastTransmitter[player] = now
-			local root = alive(player)
-			if not root or (root.Position - transmitter.Position).Magnitude > 14 then return end
-			if inventory:CanUseTransmitter() then
-				local missions = inventory:Progress("Transmitter")
-				publish(player, "Transmissor reativado! Um sinal ecoa pela galáxia…", nil, "success", { Missions = missions })
-			elseif inventory:CurrentMission() and inventory:CurrentMission().Kind == "Transmitter" then
-				publish(player, "O transmissor exige nível " .. Config.Progression.CaveLevel .. " de explorador.", nil, "warning")
-			else
-				publish(player, "O transmissor está em silêncio… por enquanto.", nil, "info")
-			end
-		end)
-	end
+	-- Peças opcionais do cenário (transmissor e hangar) podem chegar depois:
+	-- configuradas em segundo plano para não atrasar o restante do Init.
+	task.spawn(function()
+		-- Missão 5: transmissor da caverna azul (exige nível de acesso à caverna).
+		local transmitter = world:WaitForChild("Cave"):WaitForChild("Transmitter", 10)
+		if transmitter then
+			local activate = createPrompt(transmitter, "ActivateTransmitter", "Reativar transmissor", "Caverna azul", 10, 1)
+			activate.Triggered:Connect(function(player)
+				local inventory = getInventory(player)
+				local now = os.clock()
+				if not inventory or now - (lastTransmitter[player] or -math.huge) < 1 then return end
+				lastTransmitter[player] = now
+				local root = alive(player)
+				if not root or (root.Position - transmitter.Position).Magnitude > 14 then return end
+				if inventory:CanUseTransmitter() then
+					local missions = inventory:Progress("Transmitter")
+					publish(player, "Transmissor reativado! Um sinal ecoa pela galáxia…", nil, "success", { Missions = missions })
+				elseif inventory:CurrentMission() and inventory:CurrentMission().Kind == "Transmitter" then
+					publish(player, "O transmissor exige nível " .. Config.Progression.CaveLevel .. " de explorador.", nil, "warning")
+				else
+					publish(player, "O transmissor está em silêncio… por enquanto.", nil, "info")
+				end
+			end)
+		end
 
-	-- Hangar: só abre a apresentação da Orion Scout no cliente.
-	local terminal = world:WaitForChild("Hangar"):WaitForChild("Terminal", 10)
-	if terminal then
-		createPrompt(terminal, "OpenHangar", "Ver nave e destinos", "Hangar Orion", 12)
-	end
+		-- Hangar: só abre a apresentação da Orion Scout no cliente.
+		local terminal = world:WaitForChild("Hangar"):WaitForChild("Terminal", 10)
+		if terminal then
+			createPrompt(terminal, "OpenHangar", "Ver nave e destinos", "Hangar Orion", 12)
+		end
+	end)
 
 	Players.PlayerAdded:Connect(function(player) task.spawn(load, player) end)
 	for _, player in ipairs(Players:GetPlayers()) do task.spawn(load, player) end

@@ -558,7 +558,6 @@ function Theme.illustration(parent, kind, accent)
 		local ring = iconPart(icon, 5, 3, 22, 22, accent, 11)
 		ring.BackgroundTransparency = 1
 		Theme.stroke(ring, light, 4)
-		iconPart(icon, 4, 2, 9, 9, C.Ink, 1, 45).BackgroundTransparency = 1
 		iconPart(icon, 18, 0, 9, 4, light, 2, 30)
 		iconPart(icon, 21, 4, 4, 8, light, 2, -20)
 		iconPart(icon, 12, 10, 8, 8, accent, 4)
