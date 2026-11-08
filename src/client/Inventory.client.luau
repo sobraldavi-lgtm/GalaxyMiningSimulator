@@ -65,12 +65,7 @@ for id, ore in pairs(Config.Ores) do
 end
 table.sort(oreList, function(a, b) return a.ore.Value < b.ore.Value end)
 
-local function findPet(id)
-	for _, pet in ipairs(Config.Pets) do
-		if pet.Id == id then return pet end
-	end
-	return nil
-end
+local findPet = ArtStyle.pet
 
 local goals = {}
 for _, backpack in ipairs(Config.Backpacks) do
@@ -225,6 +220,7 @@ local goalButton = Theme.action(goalCard, "ABRIR LOJA", C.Gold, { Size = UDim2.n
 local goalBadge
 local goalBadgeKey
 local goalMode = "goal"
+local goalKind -- tipo do item da meta atual (Egg, Tool, Backpack)
 
 -- ---------- Notificações empilhadas ----------
 local toasts = Instance.new("Frame")
@@ -549,12 +545,29 @@ for _, egg in ipairs(Config.Eggs) do
 	end
 end
 local function buildPets(body)
-	local intro = sectionWell(body, 1, 50)
+	local intro = sectionWell(body, 1, 56)
 	local introText = Theme.label(intro, "Um pet equipado por vez. O bônus é somado ao poder da ferramenta.", 14, C.Frost)
 	introText.Font = Theme.Font.Body
+	introText.TextXAlignment = Enum.TextXAlignment.Left
 	introText.Position = UDim2.fromOffset(14, 4)
-	introText.Size = UDim2.new(1, -28, 1, -8)
+	introText.Size = UDim2.new(1, -196, 1, -8)
 	Theme.fitText(introText, 14, 9)
+	-- Atalho: equipa o pet com maior bônus entre os obtidos.
+	local best = Theme.action(intro, "EQUIPAR MELHOR", C.Mint, { Size = UDim2.fromOffset(170, 42), Icon = "star", TextSize = 14 })
+	best.AnchorPoint = Vector2.new(1, 0.5)
+	best.Position = UDim2.new(1, -8, 0.5, -1)
+	best.Activated:Connect(function()
+		if not state then return end
+		local top
+		for _, pet in ipairs(Config.Pets) do
+			if state.OwnedPets[pet.Id] and (not top or pet.Bonus > top.Bonus) then top = pet end
+		end
+		if top and state.EquippedPet ~= top.Id then
+			remote:FireServer("EquipPet", top.Id)
+		elseif not top then
+			notify("Abra um ovo no OVNI para conseguir seu primeiro pet.", "warning")
+		end
+	end)
 
 	local holder = gridHolder(body, 2, UDim2.fromOffset(156, 196))
 	local cards = {}
@@ -971,11 +984,15 @@ goalButton.Activated:Connect(function()
 	if goalMode == "full" then
 		locate("SaleStation", "Counter", "a Estação de Venda")
 	else
+		-- Abre a loja já na aba do item da meta.
+		local categories = { Egg = "Pets", Tool = "Tools", Backpack = "Backpacks" }
+		playerGui:SetAttribute("GalaxyShopCategory", goalKind and categories[goalKind] or nil)
 		toggleMenu("Loja")
 	end
 end)
 
 local buttons = {}
+local alertDots = {}
 for index, entry in ipairs({
 	{ "shop", "Loja", C.Gold, "L" },
 	{ "pack", "Mochila", C.Cyan, "B" },
@@ -988,7 +1005,29 @@ for index, entry in ipairs({
 	button.LayoutOrder = index
 	button.Activated:Connect(function() toggleMenu(target) end)
 	buttons[index] = button
+	-- Selo de aviso ("!") no canto: algo novo para fazer nesse menu.
+	local dot = Theme.title(button, "!", 14, C.White)
+	dot.Name = "AlertDot"
+	dot.BackgroundColor3 = C.Red
+	dot.AnchorPoint = Vector2.new(0, 0)
+	dot.Position = UDim2.new(0, -6, 0, -6)
+	dot.Size = UDim2.fromOffset(22, 22)
+	dot.ZIndex = 11
+	dot.Visible = false
+	Theme.round(dot, 11)
+	Theme.stroke(dot, C.Ink, 2)
+	alertDots[target] = dot
 end
+
+-- Pulso contínuo e discreto dos selos visíveis.
+task.spawn(function()
+	while true do
+		task.wait(1.2)
+		for _, dot in pairs(alertDots) do
+			if dot.Visible then Theme.pop(dot, 0.25) end
+		end
+	end
+end)
 
 -- Outros scripts pedem um menu com o atributo GalaxyMenuRequest = "Nome#marca".
 playerGui:GetAttributeChangedSignal("GalaxyMenuRequest"):Connect(function()
@@ -1112,6 +1151,7 @@ local function updateGoal(s)
 		Theme.setTint(goalButton, C.Red)
 	elseif goal then
 		goalMode = "goal"
+		goalKind = goal.Kind
 		key = goal.Id
 		goalHeader.Text = "PRÓXIMA META"
 		goalHeader.TextColor3 = C.Gold
@@ -1381,6 +1421,46 @@ local function setFill(fill, ratio)
 	})
 end
 
+-- ---------- Avisos de "algo novo" ----------
+-- Itens melhores que cabem no saldo (ferramentas e mochilas ainda não obtidas).
+local function affordableUpgrades(s)
+	local list = {}
+	for _, goal in ipairs(goals) do
+		if goal.Price <= s.Credits then
+			if goal.Kind == "Tool" and not s.OwnedUpgrades[goal.Id] and goal.Power > s.ToolPower then
+				table.insert(list, goal)
+			elseif goal.Kind == "Backpack" and not s.OwnedBackpacks[goal.Id] then
+				table.insert(list, goal)
+			elseif goal.Kind == "Egg" and next(s.OwnedPets) == nil then
+				table.insert(list, goal)
+			end
+		end
+	end
+	return list
+end
+
+local announced = {}
+local alertsReady = false
+local function updateAlerts(s)
+	local upgrades = affordableUpgrades(s)
+	alertDots["Loja"].Visible = #upgrades > 0
+	alertDots["Renascer"].Visible = s.RebirthCost ~= nil and s.Credits >= s.RebirthCost
+	alertDots["Mochila"].Visible = s.Weight >= s.Capacity
+	-- Anuncia uma vez por sessão cada item que passa a caber no saldo
+	-- (na primeira mensagem só registra, para não encher a tela ao entrar).
+	local fresh
+	for _, goal in ipairs(upgrades) do
+		if not announced[goal.Id] then
+			announced[goal.Id] = true
+			fresh = fresh or goal
+		end
+	end
+	if fresh and alertsReady then
+		notify("Já dá para comprar: " .. fresh.Name .. "! Abra a Loja (L).", "success")
+	end
+	alertsReady = true
+end
+
 local settingsApplied = false
 remote.OnClientEvent:Connect(function(snapshot)
 	local previous = state
@@ -1456,6 +1536,7 @@ remote.OnClientEvent:Connect(function(snapshot)
 	-- Poder atual para as placas dos minérios (apresentação; o servidor calcula o dano).
 	playerGui:SetAttribute("GalaxyPower", snapshot.Power)
 	updateGoal(snapshot)
+	updateAlerts(snapshot)
 
 	-- Notificações: coletas já aparecem no contador; a loja mostra as próprias mensagens.
 	if snapshot.Hatches and #snapshot.Hatches > 0 then

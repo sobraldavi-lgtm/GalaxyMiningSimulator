@@ -159,9 +159,11 @@ local function build(base, oreType)
 	local color = Color3.fromHex(ore.Color or "#FFFFFF")
 	local rng = Random.new(seedOf(base:GetFullName()))
 	local entry = { parts = {} }
+	-- Peças de rocha (pedregulhos, veios e cascalho) só tremem; o minério renasce.
+	local addingRock = false
 	local function add(cframe, size, partColor, material, shape, transparency)
 		local part = piece(cframe, size, partColor, material, shape, transparency)
-		table.insert(entry.parts, { part = part, cframe = cframe, size = size, color = partColor })
+		table.insert(entry.parts, { part = part, cframe = cframe, size = size, color = partColor, rock = addingRock })
 		return part
 	end
 
@@ -181,6 +183,7 @@ local function build(base, oreType)
 
 	-- Pedregulhos nos cantos quebram a silhueta de caixa da base,
 	-- com veios do minério correndo pela superfície.
+	addingRock = true
 	local half = base.Size / 2
 	for _, corner in ipairs({ { -1, -1 }, { 1, -1 }, { -1, 1 }, { 1, 1 } }) do
 		local size = rng:NextNumber(2.4, 3.4)
@@ -205,6 +208,7 @@ local function build(base, oreType)
 			Vector3.new(size, size * 0.7, size), ROCK:Lerp(color, 0.08), Enum.Material.Rock, Enum.PartType.Ball)
 	end
 
+	addingRock = false
 	kits[style.Kit](top, rng, color, style, add)
 
 	if style.Sparkle and entry.parts[1] then
@@ -273,6 +277,7 @@ hitSignal.Event:Connect(function(base, broke)
 		return
 	end
 	for _, item in ipairs(entry.parts) do
+		if item.rock then continue end
 		item.part.Size = item.size * 0.25
 		item.part.Color = WHITE
 		TweenService:Create(item.part, TweenInfo.new(0.45, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {

@@ -354,6 +354,8 @@ function InventoryModel:Progress(kind, target, amount)
 		kind = nil -- o evento conta só para a missão ativa no momento
 		if not self:MissionSatisfied(mission) then break end
 		self.credits += mission.Credits
+		-- Contador da sessão: separa recompensas de missão dos gastos (analytics).
+		self.rewardedCredits = (self.rewardedCredits or 0) + mission.Credits
 		self.fragments += mission.Fragments
 		self.missionIndex += 1
 		self.missionProgress = 0

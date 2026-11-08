@@ -18,6 +18,7 @@ local lastBackpack = {}
 local lastRebirth = {}
 local lastTransmitter = {}
 local lastSettings = {}
+local lastHatch = {}
 local hatchRandom = Random.new() -- sorteio dos ovos só no servidor
 local initialized = false
 local remote
@@ -86,7 +87,7 @@ end
 -- Tone é só apresentação: indica ao cliente a cor e o ícone da notificação
 -- (success, error, warning, sale, power, pickup). Não carrega regras.
 -- extra: { LevelUp = n, Missions = { ... } } para celebrações no cliente.
-local function publish(player, message, petReveal, tone, extra)
+local function publish(player, message, tone, extra)
 	local inventory = getInventory(player)
 	if not inventory then return end
 	local snapshot = inventory:Snapshot()
@@ -101,7 +102,6 @@ local function publish(player, message, petReveal, tone, extra)
 		player:SetAttribute("EquippedBackpack", snapshot.BackpackId)
 	end
 	snapshot.Message = message
-	snapshot.PetReveal = petReveal
 	snapshot.Tone = tone
 	if extra then
 		logMissions(player, inventory, extra.Missions)
@@ -135,7 +135,7 @@ function Service.Train(player)
 	if not inventory then return end
 	local progressed, gained = inventory:TrainMining()
 	if progressed then
-		publish(player, gained and "Treino • +1 de poder" or nil, nil, "power")
+		publish(player, gained and "Treino • +1 de poder" or nil, "power")
 	end
 end
 
@@ -144,7 +144,7 @@ function Service.Add(player, oreType)
 	if not inventory then return false end
 	local success, levelUp, missions = inventory:Mine(oreType)
 	if success then
-		publish(player, "+1 " .. Config.Ores[oreType].Name, nil, "pickup", { LevelUp = levelUp, Missions = missions })
+		publish(player, "+1 " .. Config.Ores[oreType].Name, "pickup", { LevelUp = levelUp, Missions = missions })
 	end
 	return success
 end
@@ -204,15 +204,17 @@ local function load(player)
 	end
 	local inventory = InventoryModel.fromData(Config, data)
 	inventories[player] = inventory
-	if not data then
-		logFunnel(player, 1, "Primeira entrada")
+	-- Passo 1 do funil para quem ainda está no tutorial (o Roblox conta cada
+	-- jogador uma vez por passo), inclusive saves anteriores à analytics.
+	if inventory.missionIndex <= #Config.Missions then
+		logFunnel(player, 1, "Entrada no tutorial")
 	end
 	player:SetAttribute("EquippedPet", inventory.equippedPet)
 	player:SetAttribute("EquippedTool", inventory.toolId)
 	player:SetAttribute("EquippedBackpack", inventory.backpackId)
 	-- Missões de estado (ex.: Lumini já equipada) concluem ao entrar.
 	local missions = inventory:Progress(nil)
-	publish(player, data and "Progresso carregado. Bem-vindo de volta!" or nil, nil, "info", { Missions = missions })
+	publish(player, data and "Progresso carregado. Bem-vindo de volta!" or nil, "info", { Missions = missions })
 end
 
 -- ---------- Placares ----------
@@ -261,9 +263,13 @@ local function trackedAction(player, action, argument, extra)
 	local inventory = getInventory(player)
 	if not inventory then return end
 	local before = inventory.credits
+	local rewardsBefore = inventory.rewardedCredits or 0
 	handleAction(player, action, argument, extra)
-	-- Créditos gastos (compras, resgates e renascimento) entram como "sink".
-	local spent = before - inventory.credits
+	-- Créditos gastos (compras, ovos e renascimento) entram como "sink". Recompensas
+	-- de missão concluídas na mesma ação já são registradas como "source" e não
+	-- podem reduzir o gasto registrado.
+	local rewards = (inventory.rewardedCredits or 0) - rewardsBefore
+	local spent = before - inventory.credits + rewards
 	if spent > 0 and inventories[player] == inventory then
 		local transaction = action == "Rebirth" and Enum.AnalyticsEconomyTransactionType.Gameplay.Name
 			or Enum.AnalyticsEconomyTransactionType.Shop.Name
@@ -285,13 +291,15 @@ function handleAction(player, action, argument, extra)
 	if action == "HatchEgg" then
 		local root = alive(player)
 		-- Intervalo cobre a animação de abertura no cliente.
-		if typeof(argument) ~= "string" or not root or now - (lastPetChange[player] or -math.huge) < 1.2 then
+		if typeof(argument) ~= "string" or not root then return end
+		if now - (lastHatch[player] or -math.huge) < 1.2 then
+			publish(player, "Aguarde o ovo terminar de abrir.", "warning")
 			return
 		end
-		lastPetChange[player] = now
+		lastHatch[player] = now
 		-- Ovos só no OVNI da Estação de Pets.
 		if not petTerminal or (root.Position - petTerminal.Position).Magnitude > 40 then
-			publish(player, "Vá até o OVNI da Estação de Pets para abrir ovos.", nil, "warning")
+			publish(player, "Vá até o OVNI da Estação de Pets para abrir ovos.", "warning")
 			return
 		end
 		-- Quantidade: 1 ou Config.MultiOpen (validada no modelo).
@@ -300,7 +308,7 @@ function handleAction(player, action, argument, extra)
 			return hatchRandom:NextNumber()
 		end)
 		local missions = ok and inventory:Progress("Pet", results[1].PetId) or nil
-		publish(player, message, nil, ok and "success" or "error", { Missions = missions, Hatches = results })
+		publish(player, message, ok and "success" or "error", { Missions = missions, Hatches = results })
 		return
 	end
 	if action == "EquipPet" or action == "UnequipPet" then
@@ -317,7 +325,7 @@ function handleAction(player, action, argument, extra)
 			ok, message = inventory:EquipPet(nil)
 		end
 		local missions = ok and inventory:Progress("Pet", argument) or nil
-		publish(player, message, nil, ok and "success" or "error", { Missions = missions })
+		publish(player, message, ok and "success" or "error", { Missions = missions })
 		return
 	end
 	if action == "BuyBackpack" or action == "EquipBackpack" or action == "BuyUpgrade" then
@@ -328,12 +336,12 @@ function handleAction(player, action, argument, extra)
 		lastBackpack[player] = now
 		if action == "EquipBackpack" then
 			local ok, message = inventory:EquipBackpack(argument)
-			publish(player, message, nil, ok and "success" or "error")
+			publish(player, message, ok and "success" or "error")
 			return
 		end
 		-- Compra presencial: exige estar perto da Loja Orion.
 		if not shopFloor or (root.Position - shopFloor.Position).Magnitude > 45 then
-			publish(player, "Vá até a Loja Orion para comprar.", nil, "warning")
+			publish(player, "Vá até a Loja Orion para comprar.", "warning")
 			return
 		end
 		local ok, message
@@ -343,14 +351,14 @@ function handleAction(player, action, argument, extra)
 			ok, message = inventory:Purchase(argument)
 		end
 		local missions = ok and inventory:Progress("Buy") or nil
-		publish(player, message, nil, ok and "success" or "error", { Missions = missions })
+		publish(player, message, ok and "success" or "error", { Missions = missions })
 		return
 	end
 	if action == "Rebirth" then
 		if now - (lastRebirth[player] or -math.huge) < 2 then return end
 		lastRebirth[player] = now
 		local ok, message = inventory:Rebirth()
-		publish(player, message, nil, ok and "success" or "error")
+		publish(player, message, ok and "success" or "error")
 		if ok then
 			task.spawn(save, player, false) -- marco importante: salva logo
 		end
@@ -400,7 +408,7 @@ function Service.Init()
 		logCredits(player, Enum.AnalyticsEconomyFlowType.Source, earned, inventory.credits,
 			Enum.AnalyticsEconomyTransactionType.Gameplay.Name, "Sale")
 		publish(player, earned > 0 and ("Venda concluída: +" .. earned .. " Créditos.") or "Sua mochila está vazia.",
-			nil, earned > 0 and "sale" or "warning", { LevelUp = levelUp, Missions = missions })
+			earned > 0 and "sale" or "warning", { LevelUp = levelUp, Missions = missions })
 	end)
 
 	-- A loja é um menu: o prompt só pede ao cliente para abrir a interface.
@@ -424,11 +432,11 @@ function Service.Init()
 				if not root or (root.Position - transmitter.Position).Magnitude > 14 then return end
 				if inventory:CanUseTransmitter() then
 					local missions = inventory:Progress("Transmitter")
-					publish(player, "Transmissor reativado! Um sinal ecoa pela galáxia…", nil, "success", { Missions = missions })
+					publish(player, "Transmissor reativado! Um sinal ecoa pela galáxia…", "success", { Missions = missions })
 				elseif inventory:CurrentMission() and inventory:CurrentMission().Kind == "Transmitter" then
-					publish(player, "O transmissor exige nível " .. Config.Progression.CaveLevel .. " de explorador.", nil, "warning")
+					publish(player, "O transmissor exige nível " .. Config.Progression.CaveLevel .. " de explorador.", "warning")
 				else
-					publish(player, "O transmissor está em silêncio… por enquanto.", nil, "info")
+					publish(player, "O transmissor está em silêncio… por enquanto.", "info")
 				end
 			end)
 		end
@@ -453,6 +461,7 @@ function Service.Init()
 		lastRebirth[player] = nil
 		lastTransmitter[player] = nil
 		lastSettings[player] = nil
+		lastHatch[player] = nil
 	end)
 
 	-- Ao fechar o servidor, salva todos em paralelo e espera terminar.

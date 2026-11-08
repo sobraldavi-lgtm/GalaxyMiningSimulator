@@ -44,8 +44,6 @@ for index, entry in ipairs(tools) do
 	})
 end
 -- Ovos de pet (gacha): o sorteio acontece no servidor; aqui mostramos as chances.
-local petById = {}
-for _, pet in ipairs(Config.Pets) do petById[pet.Id] = pet end
 for index, egg in ipairs(Config.Eggs) do
 	table.insert(items, {
 		Id = egg.Id, Category = "Pets", Kind = "Egg", Order = index,
@@ -365,7 +363,7 @@ local function refresh()
 				-- Chances sempre visíveis, na cor da raridade; ✔ marca pets já obtidos.
 				local lines = {}
 				for _, entry in ipairs(item.Odds) do
-					local pet = petById[entry[1]]
+					local pet = ArtStyle.pet(entry[1])
 					local hex = Config.Rarities[pet.Rarity] or "#FFFFFF"
 					table.insert(lines, string.format('<font color="%s">%s%s</font>  %d%%', hex,
 						state.OwnedPets[pet.Id] and "✔ " or "", pet.Name, entry[2]))
@@ -382,7 +380,7 @@ local function refresh()
 				local left = math.max(Config.PityOpens - opened, 1)
 				local allRare = true
 				for _, entry in ipairs(item.Odds) do
-					if not Config.PityRarities[petById[entry[1]].Rarity] then allRare = false end
+					if not Config.PityRarities[ArtStyle.pet(entry[1]).Rarity] then allRare = false end
 				end
 				card.number.Text = allRare and "SEMPRE RARO+" or left == 1 and "RARO GARANTIDO!" or ("Raro em " .. left)
 				card.number.TextColor3 = (allRare or left == 1) and C.Gold or C.White
@@ -404,7 +402,8 @@ local function refresh()
 			Theme.setText(card.button, text)
 			Theme.setTint(card.button, color)
 			local isGoal = card == goal
-			card.ribbon.Visible = isGoal
+			-- Nos ovos o selo da garantia ocupa o topo; o destaque fica na borda e no brilho.
+			card.ribbon.Visible = isGoal and item.Kind ~= "Egg"
 			card.shimmer.Visible = isGoal or highlight
 			card.rays.Visible = isGoal or highlight
 			card.edge.Color = highlight and C.Gold or isGoal and C.White or C.Ink
@@ -521,7 +520,15 @@ UserInputService.InputBegan:Connect(function(input, processed)
 		end
 	end
 end)
-playerGui:GetAttributeChangedSignal("GalaxyShopRequest"):Connect(open)
+playerGui:GetAttributeChangedSignal("GalaxyShopRequest"):Connect(function()
+	-- A HUD pode pedir uma aba específica (ex.: Ovos, a partir do cartão de meta).
+	local category = playerGui:GetAttribute("GalaxyShopCategory")
+	if category and tabs[category] and not shop.Overlay.Visible then
+		selected = category
+	end
+	playerGui:SetAttribute("GalaxyShopCategory", nil)
+	open()
+end)
 ProximityPromptService.PromptTriggered:Connect(function(prompt, triggeringPlayer)
 	if triggeringPlayer ~= player then return end
 	if prompt.Name == "OpenShop" then

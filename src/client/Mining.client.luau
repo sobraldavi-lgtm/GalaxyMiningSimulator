@@ -92,6 +92,36 @@ status.Position = UDim2.fromOffset(72, 74)
 status.Size = UDim2.new(1, -84, 0, 15)
 Theme.fitText(status, 12, 8)
 
+-- Contador de combo (só visual): golpes aceitos em sequência, sem bônus.
+local comboChip = Theme.title(panel, "", 18, C.Ink)
+comboChip.Name = "Combo"
+comboChip.TextStrokeTransparency = 1
+comboChip.AnchorPoint = Vector2.new(0.5, 1)
+comboChip.Position = UDim2.new(0.5, 0, 0, -8)
+comboChip.Size = UDim2.fromOffset(150, 30)
+comboChip.Visible = false
+comboChip.ZIndex = 6
+Theme.round(comboChip, 15)
+Theme.stroke(comboChip, C.Ink, 3)
+local combo = 0
+local lastComboHit = 0
+local function bumpCombo()
+	local now = os.clock()
+	combo = now - lastComboHit <= 1.2 and combo + 1 or 1
+	lastComboHit = now
+	if combo < 3 then return end
+	comboChip.Visible = true
+	comboChip.Text = "COMBO ×" .. combo
+	comboChip.BackgroundColor3 = combo >= 25 and C.Pink or combo >= 10 and C.Gold or C.Cyan
+	Theme.pop(comboChip, combo % 10 == 0 and 0.35 or 0.12)
+	task.delay(1.25, function()
+		if os.clock() - lastComboHit >= 1.2 then
+			comboChip.Visible = false
+			combo = 0
+		end
+	end)
+end
+
 local touchButton = Theme.action(panel, "MINERAR", C.Blue,
 	{ Size = UDim2.new(1, -24, 0, 50), Icon = "drill", TextSize = 22, Silent = true })
 touchButton.AnchorPoint = Vector2.new(0.5, 1)
@@ -501,6 +531,7 @@ remote.OnClientEvent:Connect(function(result)
 		end
 		local broke = result.Remaining == 0
 		-- Arte do minério treme/renasce e a ferramenta balança (só visual).
+		bumpCombo()
 		local oreHit = playerGui:FindFirstChild("GalaxyOreHit")
 		if oreHit then oreHit:Fire(result.Target, broke) end
 		playerGui:SetAttribute("GalaxySwing", os.clock())
