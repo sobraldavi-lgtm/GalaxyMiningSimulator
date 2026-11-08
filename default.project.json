@@ -41,65 +41,65 @@
       "$className": "Lighting",
       "$ignoreUnknownInstances": true,
       "$properties": {
-        "ClockTime": 0.5,
-        "Brightness": 3.0,
-        "ExposureCompensation": 0.35,
+        "ClockTime": 14.5,
+        "Brightness": 3.2,
+        "ExposureCompensation": 0.3,
         "Ambient": [
-          0.34,
-          0.38,
-          0.62
+          0.62,
+          0.55,
+          0.85
         ],
         "OutdoorAmbient": [
-          0.4,
-          0.45,
-          0.75
+          0.7,
+          0.62,
+          0.95
         ],
         "EnvironmentDiffuseScale": 0.6,
-        "EnvironmentSpecularScale": 0.6,
+        "EnvironmentSpecularScale": 0.4,
         "ColorShift_Top": [
-          0.5,
-          0.6,
+          1.0,
+          0.85,
           1.0
         ]
       },
       "TerraNovaAtmosphere": {
         "$className": "Atmosphere",
         "$properties": {
-          "Density": 0.12,
-          "Haze": 0.9,
-          "Offset": 0.08,
-          "Glare": 0,
+          "Density": 0.3,
+          "Haze": 1.6,
+          "Offset": 0.1,
+          "Glare": 0.3,
           "Color": [
-            0.45,
-            0.5,
-            0.9
+            0.8,
+            0.65,
+            1.0
           ],
           "Decay": [
-            0.25,
-            0.15,
-            0.5
+            1.0,
+            0.55,
+            0.85
           ]
         }
       },
       "TerraNovaBloom": {
         "$className": "BloomEffect",
         "$properties": {
-          "Intensity": 1.1,
-          "Size": 36,
-          "Threshold": 1.1
+          "Intensity": 0.45,
+          "Size": 30,
+          "Threshold": 1.5
         }
       },
       "TerraNovaSunRays": {
         "$className": "SunRaysEffect",
         "$properties": {
-          "Intensity": 0.0,
-          "Spread": 0.8
+          "Intensity": 0.15,
+          "Spread": 0.9
         }
       },
       "TerraNovaDepth": {
         "$className": "DepthOfFieldEffect",
         "$properties": {
-          "FarIntensity": 0.12,
+          "FarIntensity": 0.05,
           "FocusDistance": 60,
           "InFocusRadius": 40,
           "NearIntensity": 0
@@ -108,19 +108,19 @@
       "TerraNovaSky": {
         "$className": "Sky",
         "$properties": {
-          "StarCount": 5000,
-          "SunAngularSize": 8,
+          "StarCount": 3000,
+          "SunAngularSize": 16,
           "MoonAngularSize": 0
         }
       },
       "TerraNovaColor": {
         "$className": "ColorCorrectionEffect",
         "$properties": {
-          "Contrast": 0.12,
-          "Saturation": 0.25,
+          "Contrast": 0.08,
+          "Saturation": 0.3,
           "TintColor": [
-            0.95,
-            0.95,
+            1.0,
+            0.97,
             1.0
           ]
         }

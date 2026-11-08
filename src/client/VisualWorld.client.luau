@@ -18,7 +18,7 @@ anchor.Parent = workspace
 
 local dust = Instance.new("ParticleEmitter")
 dust.Texture = "rbxasset://textures/particles/sparkles_main.dna"
-dust.Color = ColorSequence.new(Color3.fromRGB(190, 160, 255), Color3.fromRGB(120, 220, 255))
+dust.Color = ColorSequence.new(Color3.fromRGB(255, 190, 245), Color3.fromRGB(170, 240, 255))
 dust.LightEmission = 0.9
 dust.Rate = 22
 dust.Lifetime = NumberRange.new(4, 7)

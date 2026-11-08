@@ -23,11 +23,11 @@
             0
           ],
           "Color": [
-            0.07,
-            0.12,
-            0.24
+            0.146,
+            0.335,
+            0.787
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "ServiceWall": {
@@ -49,11 +49,11 @@
             -13.6
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "Foundation-1": {
@@ -75,11 +75,11 @@
             -13.8
           ],
           "Color": [
-            0.07,
-            0.12,
-            0.24
+            0.146,
+            0.335,
+            0.787
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "EndCap-1": {
@@ -101,11 +101,11 @@
             -13.2
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -132,11 +132,11 @@
             -5.65
           ],
           "Color": [
-            0.73,
-            0.57,
-            0.31
+            0.924,
+            0.691,
+            0.313
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -164,9 +164,9 @@
             -9.6
           ],
           "Color": [
-            0.3,
-            0.61,
-            0.75
+            0.288,
+            0.73,
+            0.93
           ],
           "Material": "Glass",
           "Transparency": 0.57
@@ -191,11 +191,11 @@
             -9.6
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "WindowCap-1": {
@@ -217,11 +217,11 @@
             -9.6
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "PortalGuide-1": {
@@ -269,11 +269,11 @@
             13.8
           ],
           "Color": [
-            0.07,
-            0.12,
-            0.24
+            0.146,
+            0.335,
+            0.787
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "EndCap1": {
@@ -295,11 +295,11 @@
             13.2
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -326,11 +326,11 @@
             5.65
           ],
           "Color": [
-            0.73,
-            0.57,
-            0.31
+            0.924,
+            0.691,
+            0.313
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -358,9 +358,9 @@
             9.6
           ],
           "Color": [
-            0.3,
-            0.61,
-            0.75
+            0.288,
+            0.73,
+            0.93
           ],
           "Material": "Glass",
           "Transparency": 0.57
@@ -385,11 +385,11 @@
             9.6
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "WindowCap1": {
@@ -411,11 +411,11 @@
             9.6
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "PortalGuide1": {
@@ -463,9 +463,9 @@
             13.5
           ],
           "Color": [
-            0.3,
-            0.61,
-            0.75
+            0.288,
+            0.73,
+            0.93
           ],
           "Material": "Glass",
           "Transparency": 0.58
@@ -490,11 +490,11 @@
             13.5
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "Mullion-81": {
@@ -516,11 +516,11 @@
             13.5
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "Mullion-72": {
@@ -542,11 +542,11 @@
             13.5
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "Mullion-63": {
@@ -568,11 +568,11 @@
             13.5
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "Mullion-56": {
@@ -594,11 +594,11 @@
             13.5
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       }
     },
@@ -623,11 +623,11 @@
             -11.3
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             -12,
             0,
@@ -654,11 +654,11 @@
             -11.3
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             -12,
             0,
@@ -685,11 +685,11 @@
             -5.65
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             -6,
             0,
@@ -701,14 +701,15 @@
           "$properties": {
             "Range": 13,
             "Color": [
-              0.78,
-              0.87,
-              1
+              0.655,
+              0.796,
+              1.0
             ],
             "Brightness": 0.9,
             "Face": "Bottom",
             "Angle": 100,
-            "Shadows": false
+            "Shadows": false,
+            "Material": "SmoothPlastic"
           }
         }
       },
@@ -731,11 +732,11 @@
             -5.65
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             -6,
             0,
@@ -762,11 +763,11 @@
             0
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -793,11 +794,11 @@
             0
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -824,11 +825,11 @@
             5.65
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             6,
             0,
@@ -840,14 +841,15 @@
           "$properties": {
             "Range": 13,
             "Color": [
-              0.78,
-              0.87,
-              1
+              0.655,
+              0.796,
+              1.0
             ],
             "Brightness": 0.9,
             "Face": "Bottom",
             "Angle": 100,
-            "Shadows": false
+            "Shadows": false,
+            "Material": "SmoothPlastic"
           }
         }
       },
@@ -870,11 +872,11 @@
             5.65
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             6,
             0,
@@ -901,11 +903,11 @@
             11.3
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             12,
             0,
@@ -932,11 +934,11 @@
             11.3
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             12,
             0,
@@ -963,11 +965,11 @@
             0
           ],
           "Color": [
-            0.1,
-            0.22,
-            0.48
+            0.077,
+            0.322,
+            0.854
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "OrionName": {
@@ -1110,11 +1112,11 @@
             -12.95
           ],
           "Color": [
-            0.07,
-            0.12,
-            0.24
+            0.146,
+            0.335,
+            0.787
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "Tool": {
@@ -1346,9 +1348,9 @@
             -6.6
           ],
           "Color": [
-            0.3,
-            0.61,
-            0.75
+            0.288,
+            0.73,
+            0.93
           ],
           "Material": "Glass",
           "Transparency": 0.48
@@ -1373,11 +1375,11 @@
             -6.07
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "CaseRail-62": {
@@ -1425,9 +1427,9 @@
             -6.6
           ],
           "Color": [
-            0.3,
-            0.61,
-            0.75
+            0.288,
+            0.73,
+            0.93
           ],
           "Material": "Glass",
           "Transparency": 0.48
@@ -1452,11 +1454,11 @@
             -6.07
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "DrillMotor": {
@@ -1478,11 +1480,11 @@
             -5.55
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Shape": "Cylinder"
         }
       },
@@ -1505,11 +1507,11 @@
             -5.55
           ],
           "Color": [
-            0.08,
-            0.78,
-            0.88
+            0.0,
+            0.846,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Shape": "Cylinder"
         }
       },
@@ -1532,9 +1534,9 @@
             -5.55
           ],
           "Color": [
-            0.07,
-            0.12,
-            0.24
+            0.146,
+            0.335,
+            0.787
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -1563,9 +1565,9 @@
             -5.45
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
           "Material": "SmoothPlastic",
           "Shape": "Ball"
@@ -1590,11 +1592,11 @@
             -4.89
           ],
           "Color": [
-            0.6,
-            0.35,
-            0.85
+            0.634,
+            0.31,
+            0.958
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "PackTank-1": {
@@ -1616,11 +1618,11 @@
             -5.47
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -1648,11 +1650,11 @@
             -5.47
           ],
           "Color": [
-            0.66,
-            0.77,
-            0.89
+            0.635,
+            0.795,
+            0.969
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -1680,11 +1682,11 @@
             0.1
           ],
           "Color": [
-            0.23,
-            0.34,
-            0.56
+            0.283,
+            0.481,
+            0.877
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       }
     }

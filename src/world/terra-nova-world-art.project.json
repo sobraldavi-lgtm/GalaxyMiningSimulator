@@ -23,11 +23,11 @@
             -8
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal"
+          "Material": "SmoothPlastic"
         }
       },
       "Core": {
@@ -49,9 +49,9 @@
             -8
           ],
           "Color": [
-            0.24,
-            0.44,
-            0.79
+            0.188,
+            0.462,
+            0.941
           ],
           "Material": "SmoothPlastic",
           "Shape": "Ball"
@@ -108,11 +108,11 @@
             -8
           ],
           "Color": [
-            1,
-            0.74,
-            0.24
+            1.0,
+            0.701,
+            0.126
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -139,11 +139,11 @@
             -7.55
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -170,11 +170,11 @@
             -7.220577136594005
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -201,11 +201,11 @@
             -7.1
           ],
           "Color": [
-            1,
-            0.74,
-            0.24
+            1.0,
+            0.701,
+            0.126
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -232,11 +232,11 @@
             -7.220577136594005
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -263,11 +263,11 @@
             -7.55
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -294,11 +294,11 @@
             -8
           ],
           "Color": [
-            1,
-            0.74,
-            0.24
+            1.0,
+            0.701,
+            0.126
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -325,11 +325,11 @@
             -8.45
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -356,11 +356,11 @@
             -8.779422863405994
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -387,11 +387,11 @@
             -8.9
           ],
           "Color": [
-            1,
-            0.74,
-            0.24
+            1.0,
+            0.701,
+            0.126
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -418,11 +418,11 @@
             -8.779422863405994
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -449,11 +449,11 @@
             -8.450000000000001
           ],
           "Color": [
-            0.61,
-            0.76,
-            0.88
+            0.625,
+            0.815,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -464,948 +464,6 @@
     },
     "Skyline": {
       "$className": "Folder",
-      "IslandCap0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            5.28,
-            57.6,
-            35.2
-          ],
-          "Position": [
-            -351.0,
-            15,
-            -327.6
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "Ground",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            21,
-            90
-          ]
-        }
-      },
-      "IslandCliff0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            11.840000000000002,
-            55.87200000000001,
-            33.44
-          ],
-          "Position": [
-            -351.0,
-            10.3,
-            -327.6
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            21,
-            90
-          ]
-        }
-      },
-      "IslandKeel0": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            47.808,
-            35.2,
-            30.272
-          ],
-          "Position": [
-            -344.448,
-            -3.1000000000000014,
-            -327.6
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            21,
-            180
-          ]
-        }
-      },
-      "IslandSpur0": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            30.528000000000006,
-            22.880000000000003,
-            21.824
-          ],
-          "Position": [
-            -368.78400000000005,
-            1.5199999999999996,
-            -322.452
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            79,
-            180
-          ]
-        }
-      },
-      "IslandPeak0": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            21.888,
-            19.712000000000003,
-            17.248
-          ],
-          "Position": [
-            -362.23199999999997,
-            19.84,
-            -325.0
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            65,
-            0
-          ]
-        }
-      },
-      "IslandCap1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            5.28,
-            43.2,
-            35.2
-          ],
-          "Position": [
-            -169.0,
-            33,
-            -426.40000000000003
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "Ground",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            103,
-            90
-          ]
-        }
-      },
-      "IslandCliff1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            11.840000000000002,
-            41.903999999999996,
-            33.44
-          ],
-          "Position": [
-            -169.0,
-            28.3,
-            -426.40000000000003
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            103,
-            90
-          ]
-        }
-      },
-      "IslandKeel1": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            35.856,
-            52.800000000000004,
-            30.272
-          ],
-          "Position": [
-            -164.086,
-            8.849999999999998,
-            -426.40000000000003
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            103,
-            180
-          ]
-        }
-      },
-      "IslandSpur1": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            22.896,
-            34.32,
-            21.824
-          ],
-          "Position": [
-            -182.338,
-            15.780000000000001,
-            -421.25200000000007
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            161,
-            180
-          ]
-        }
-      },
-      "IslandPeak1": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            16.416,
-            29.568,
-            17.248
-          ],
-          "Position": [
-            -177.424,
-            40.26,
-            -423.8
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            147,
-            0
-          ]
-        }
-      },
-      "IslandCap2": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            5.28,
-            78.4,
-            35.2
-          ],
-          "Position": [
-            132.6,
-            19,
-            -455.0
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "Ground",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            63,
-            90
-          ]
-        }
-      },
-      "IslandCliff2": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            11.840000000000002,
-            76.048,
-            33.44
-          ],
-          "Position": [
-            132.6,
-            14.3,
-            -455.0
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            63,
-            90
-          ]
-        }
-      },
-      "IslandKeel2": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            65.07199999999999,
-            48.0,
-            30.272
-          ],
-          "Position": [
-            141.518,
-            -3.5,
-            -455.0
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            63,
-            180
-          ]
-        }
-      },
-      "IslandSpur2": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            41.55200000000001,
-            31.200000000000003,
-            21.824
-          ],
-          "Position": [
-            108.39399999999999,
-            2.799999999999999,
-            -449.85200000000003
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            121,
-            180
-          ]
-        }
-      },
-      "IslandPeak2": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            29.792,
-            26.880000000000003,
-            17.248
-          ],
-          "Position": [
-            117.312,
-            25.6,
-            -452.40000000000003
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            107,
-            0
-          ]
-        }
-      },
-      "IslandCap3": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            5.28,
-            52.800000000000004,
-            48.0
-          ],
-          "Position": [
-            358.8,
-            27,
-            -260.0
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "Ground",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            132,
-            90
-          ]
-        }
-      },
-      "IslandCliff3": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            11.840000000000002,
-            51.216,
-            45.6
-          ],
-          "Position": [
-            358.8,
-            22.3,
-            -260.0
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            132,
-            90
-          ]
-        }
-      },
-      "IslandKeel3": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            43.824,
-            38.400000000000006,
-            41.28
-          ],
-          "Position": [
-            364.80600000000004,
-            7.799999999999999,
-            -260.0
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            132,
-            180
-          ]
-        }
-      },
-      "IslandSpur3": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            27.984000000000005,
-            24.960000000000004,
-            29.760000000000005
-          ],
-          "Position": [
-            342.498,
-            12.84,
-            -252.98
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            190,
-            180
-          ]
-        }
-      },
-      "IslandPeak3": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            20.064000000000004,
-            21.504000000000005,
-            23.52
-          ],
-          "Position": [
-            348.504,
-            32.28,
-            -257.40000000000003
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            176,
-            0
-          ]
-        }
-      },
-      "IslandCap4": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            5.28,
-            65.60000000000001,
-            43.2
-          ],
-          "Position": [
-            234.0,
-            13,
-            317.2
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "Ground",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            45,
-            90
-          ]
-        }
-      },
-      "IslandCliff4": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            11.840000000000002,
-            63.632,
-            41.04
-          ],
-          "Position": [
-            234.0,
-            8.3,
-            317.2
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            45,
-            90
-          ]
-        }
-      },
-      "IslandKeel4": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            54.44800000000001,
-            44.800000000000004,
-            37.152
-          ],
-          "Position": [
-            241.46200000000002,
-            -8.400000000000002,
-            317.2
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            45,
-            180
-          ]
-        }
-      },
-      "IslandSpur4": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            34.768,
-            29.12,
-            26.784
-          ],
-          "Position": [
-            213.74599999999998,
-            -2.5200000000000014,
-            323.51800000000003
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            103,
-            180
-          ]
-        }
-      },
-      "IslandPeak4": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            24.928,
-            25.088000000000005,
-            21.168000000000003
-          ],
-          "Position": [
-            221.208,
-            19.16,
-            319.8
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            89,
-            0
-          ]
-        }
-      },
-      "IslandCap5": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            5.28,
-            56.0,
-            27.200000000000003
-          ],
-          "Position": [
-            -249.60000000000002,
-            9,
-            340.6
-          ],
-          "Color": [
-            0.26,
-            0.67,
-            0.52
-          ],
-          "Material": "Ground",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            96,
-            90
-          ]
-        }
-      },
-      "IslandCliff5": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            11.840000000000002,
-            54.31999999999999,
-            25.84
-          ],
-          "Position": [
-            -249.60000000000002,
-            4.3,
-            340.6
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Shape": "Cylinder",
-          "Orientation": [
-            0,
-            96,
-            90
-          ]
-        }
-      },
-      "IslandKeel5": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            46.48,
-            36.800000000000004,
-            23.392
-          ],
-          "Position": [
-            -243.23,
-            -9.65,
-            340.6
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            96,
-            180
-          ]
-        }
-      },
-      "IslandSpur5": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            29.680000000000003,
-            23.92,
-            16.864
-          ],
-          "Position": [
-            -266.89000000000004,
-            -4.82,
-            344.57800000000003
-          ],
-          "Color": [
-            0.3,
-            0.37,
-            0.53
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            154,
-            180
-          ]
-        }
-      },
-      "IslandPeak5": {
-        "$className": "WedgePart",
-        "$properties": {
-          "Anchored": true,
-          "CanCollide": false,
-          "CanQuery": false,
-          "CanTouch": false,
-          "CastShadow": false,
-          "Size": [
-            21.28,
-            20.608000000000004,
-            13.328000000000001
-          ],
-          "Position": [
-            -260.52000000000004,
-            14.059999999999999,
-            343.2
-          ],
-          "Color": [
-            0.15,
-            0.21,
-            0.35
-          ],
-          "Material": "Slate",
-          "Orientation": [
-            0,
-            140,
-            0
-          ]
-        }
-      },
       "FarPlanet": {
         "$className": "Part",
         "$properties": {
@@ -1425,9 +483,9 @@
             -522.6
           ],
           "Color": [
-            0.4,
-            0.56,
-            0.88
+            0.36,
+            0.562,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Shape": "Ball"
@@ -1452,9 +510,9 @@
             -522.6
           ],
           "Color": [
-            0.58,
-            0.71,
-            0.94
+            0.55,
+            0.707,
+            0.983
           ],
           "Material": "SmoothPlastic",
           "Shape": "Cylinder",

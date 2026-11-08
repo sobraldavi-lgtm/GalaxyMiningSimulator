@@ -23,11 +23,11 @@
             0
           ],
           "Color": [
-            0.045,
-            0.09,
-            0.22
+            0.067,
+            0.25,
+            0.782
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -55,11 +55,11 @@
             0
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -87,11 +87,11 @@
             0
           ],
           "Color": [
-            0.18,
-            0.33,
-            0.54
+            0.203,
+            0.482,
+            0.871
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -119,11 +119,11 @@
             0
           ],
           "Color": [
-            0.045,
-            0.09,
-            0.22
+            0.067,
+            0.25,
+            0.782
           ],
-          "Material": "Metal",
+          "Material": "SmoothPlastic",
           "Orientation": [
             0,
             0,
@@ -647,9 +647,9 @@
             -8
           ],
           "Color": [
-            0.045,
-            0.09,
-            0.22
+            0.067,
+            0.25,
+            0.782
           ],
           "Material": "SmoothPlastic"
         }
@@ -673,9 +673,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -735,9 +735,9 @@
             -8
           ],
           "Color": [
-            0.045,
-            0.09,
-            0.22
+            0.067,
+            0.25,
+            0.782
           ],
           "Material": "SmoothPlastic"
         }
@@ -761,9 +761,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -823,9 +823,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -885,9 +885,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -947,9 +947,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -1009,9 +1009,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -1071,9 +1071,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -1133,9 +1133,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -1195,9 +1195,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -1257,9 +1257,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
@@ -1319,9 +1319,9 @@
             -8
           ],
           "Color": [
-            0.56,
-            0.72,
-            0.88
+            0.562,
+            0.764,
+            0.966
           ],
           "Material": "SmoothPlastic",
           "Orientation": [
