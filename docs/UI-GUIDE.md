@@ -1,6 +1,13 @@
 # Guia de interface do Galaxy Mining Simulator
 
-Direção visual **"Galáxia Profunda"** (Design System 5.1): simulador cartunesco no espaço profundo. Os fundos são quase pretos em índigo e violeta, as bordas de neon têm a cor de cada área, há nebulosas e estrelas nas janelas e os botões 3D são vivos. A referência de estilo é [Ninja Legends](https://www.roblox.com/games/3956818381/Ninja-Legends), sem copiar seus elementos.
+Direção visual **"Elegância Cósmica"** (Design System 6.0): espaço profundo, fosco e metálico, com contornos grossos em tinta escura e botões 3D vivos. **O neon é acento, não superfície:** ele fica nas ações (botões), no progresso (barras), nos estados (equipado, próxima meta) e em detalhes pequenos do mundo (lâmpadas, orbes, pontas de cristal). A referência de estilo é [Ninja Legends](https://www.roblox.com/games/3956818381/Ninja-Legends), sem copiar seus elementos.
+
+### Regras do neon
+
+- **Interface:** bordas internas e anéis de cor ficam sutis (transparência 0,7 ou mais). O brilho forte é reservado para botões, medidores e destaques de estado.
+- **Mundo** (`VisualWorld.client.luau`): peças em neon com mais de 6 studs no maior lado viram foscas na mesma cor, só no cliente. Depósitos e peças mineráveis não são alterados.
+- **Iluminação:** bloom com limiar alto (1,8) e intensidade 0,4, para só os pontos realmente brilhantes irradiarem; saturação baixa e reflexo metálico maior.
+- **Modelos:** cristais são de vidro e plástico liso, com pontas brilhantes; pets usam neon só em antenas, raios e chamas; ferramentas ganham neon a partir do 10º nível.
 
 | Cor | Hex | Uso |
 | --- | --- | --- |
@@ -16,8 +23,8 @@ Direção visual **"Galáxia Profunda"** (Design System 5.1): simulador cartunes
 
 ## Mundo à noite
 
-- **Iluminação** (`default.project.json`): meia-noite, ambiente índigo e violeta, bloom forte para os neons, 5.000 estrelas, sem sol nem lua, e atmosfera roxa no horizonte.
-- **Céu galáctico** (`VisualWorld.client.luau`, só no cliente): galáxia espiral girando devagar, nebulosas gigantes, faixa de "Via Láctea", estrelas cadentes e as nuvens do cenário transformadas em nebulosas de neon.
+- **Iluminação** (`default.project.json`): meia-noite, ambiente índigo e violeta, bloom contido, 5.000 estrelas, sem sol nem lua, e atmosfera violeta escura no horizonte.
+- **Céu galáctico** (`VisualWorld.client.luau`, só no cliente): galáxia espiral girando devagar, nebulosas gigantes, faixa de "Via Láctea", estrelas cadentes e as nuvens do cenário transformadas em nebulosas escuras e esfumaçadas.
 - **Vinheta** escura nas bordas da tela. A mineração ignora a vinheta e os contêineres transparentes ao decidir se um clique caiu na interface.
 
 Use sempre cor **e** texto juntos para comunicar função e estado.
@@ -28,7 +35,7 @@ Família, kit de formas e ícone de cada item ficam em `src/client/ArtStyle.luau
 
 - **Minérios** (`OreArt.client.luau`): a base vira rocha escura e cada tipo ganha um conjunto próprio. Ferro, cobre (com pátina) e ouro (com faíscas) têm pepitas metálicas; prata, lascas espelhadas; cristal, esmeralda e rubi, aglomerados de cristal com pontas brilhantes; obsidiana, espinhos negros com veios violeta; diamante, uma gema grande girando e lascas. Todos têm anel de neon pulsando no chão. Cada golpe faz o conjunto tremer; a quebra dá um clarão, uma onda de choque e o conjunto renasce. As peças decorativas não colidem e não recebem cliques (`CanQuery = false`), e o servidor não as conhece.
 - **Pets** (`Pets.client.luau`): olhos grandes com pupila e brilho, bochechas, pés e acessórios por espécie (antenas, cristais, nuvens, raios, picos de gelo, anel e chamas). Eles quicam, inclinam, piscam, têm sombra no chão e etiqueta com nome e bônus. Aparecem **para todos os jogadores** a partir do atributo `EquippedPet`.
-- **Ferramentas** (`Gear.client.luau`): modelo na mão de cada jogador, a partir do atributo `EquippedTool` publicado pelo servidor. São cinco famílias pelo nome do item (picareta, broca, martelo, lâmina, emissor) na cor do item. Do 5º nível em diante ganham neon, do 10º luz e do 14º faíscas. Balançam a cada golpe aceito e soltam um brilho ao trocar de ferramenta.
+- **Ferramentas** (`Gear.client.luau`): modelo na mão de cada jogador, a partir do atributo `EquippedTool` publicado pelo servidor. São cinco famílias pelo nome do item (picareta, broca, martelo, lâmina, emissor) na cor do item. Do 10º nível em diante ganham neon e luz, e do 14º faíscas. Balançam a cada golpe aceito e soltam um brilho ao trocar de ferramenta.
 - **Ícones novos:** picareta, martelo, lâmina, emissor, pepita, lasca, diamante e cinco variações de pet.
 
 ## Componentes (`src/client/VisualTheme.luau`)

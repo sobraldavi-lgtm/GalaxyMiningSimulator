@@ -23,7 +23,8 @@ local function design(info)
 	local parts = {}
 	local accent = info.Color
 	local metal = accent:Lerp(WHITE, 0.45)
-	local glowing = info.Tier >= 5
+	-- Neon só como acento nas ferramentas avançadas; as demais são metal e vidro.
+	local glowing = info.Tier >= 10
 	local glow = glowing and Enum.Material.Neon or Enum.Material.SmoothPlastic
 	local function add(cframe, size, color, material, shape, transparency)
 		table.insert(parts, { cframe = cframe, size = size, color = color, material = material or Enum.Material.SmoothPlastic,

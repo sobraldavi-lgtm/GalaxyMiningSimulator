@@ -43,56 +43,56 @@
       "$properties": {
         "ClockTime": 0,
         "GeographicLatitude": 23,
-        "Brightness": 1.6,
+        "Brightness": 1.8,
         "ExposureCompensation": 0.15,
         "Ambient": [
-          0.26,
-          0.2,
-          0.46
+          0.24,
+          0.21,
+          0.36
         ],
         "OutdoorAmbient": [
           0.4,
-          0.32,
-          0.66
+          0.36,
+          0.56
         ],
-        "EnvironmentDiffuseScale": 0.35,
-        "EnvironmentSpecularScale": 0.6,
+        "EnvironmentDiffuseScale": 0.45,
+        "EnvironmentSpecularScale": 0.85,
         "ColorShift_Top": [
-          0.75,
-          0.7,
+          0.8,
+          0.78,
           1.0
         ],
         "ColorShift_Bottom": [
-          0.35,
-          0.2,
-          0.55
+          0.25,
+          0.18,
+          0.38
         ]
       },
       "TerraNovaAtmosphere": {
         "$className": "Atmosphere",
         "$properties": {
-          "Density": 0.2,
-          "Haze": 1.2,
+          "Density": 0.24,
+          "Haze": 1.4,
           "Offset": 0.05,
           "Glare": 0,
           "Color": [
-            0.32,
-            0.16,
-            0.55
+            0.2,
+            0.14,
+            0.34
           ],
           "Decay": [
-            0.55,
-            0.15,
-            0.62
+            0.36,
+            0.2,
+            0.48
           ]
         }
       },
       "TerraNovaBloom": {
         "$className": "BloomEffect",
         "$properties": {
-          "Intensity": 1.0,
-          "Size": 36,
-          "Threshold": 0.92
+          "Intensity": 0.4,
+          "Size": 22,
+          "Threshold": 1.8
         }
       },
       "TerraNovaSunRays": {
@@ -123,12 +123,12 @@
       "TerraNovaColor": {
         "$className": "ColorCorrectionEffect",
         "$properties": {
-          "Contrast": 0.18,
-          "Saturation": 0.32,
+          "Contrast": 0.14,
+          "Saturation": 0.06,
           "Brightness": 0.02,
           "TintColor": [
-            0.9,
-            0.88,
+            0.94,
+            0.93,
             1.0
           ]
         }

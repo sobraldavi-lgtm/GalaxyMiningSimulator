@@ -44,8 +44,27 @@ RunService.Heartbeat:Connect(function()
 		and not playerGui:GetAttribute("GalaxyHideDust")
 end)
 
--- Pulso suave nos neons da praça (anéis e núcleos orbitais)
 local world = workspace:WaitForChild("TerraNova")
+
+-- ---------- Orçamento de neon ----------
+-- O neon fica como acento (lâmpadas, orbes, pontas). Superfícies grandes em
+-- neon (faixas, bordas, hologramas, anéis do chão) viram foscas na mesma cor,
+-- só neste cliente. Depósitos de minério e peças mineráveis não são alterados.
+local NEON_MAX_SIZE = 6
+local deposits = world:WaitForChild("OreDeposits", 30)
+local function tame(part)
+	if not part:IsA("BasePart") or part.Material ~= Enum.Material.Neon then return end
+	if part:GetAttribute("Mineable") or (deposits and part:IsDescendantOf(deposits)) then return end
+	local size = part.Size
+	if math.max(size.X, size.Y, size.Z) > NEON_MAX_SIZE then
+		part.Material = Enum.Material.SmoothPlastic
+		part.Color = part.Color:Lerp(Color3.fromHex("#1A1440"), 0.25)
+	end
+end
+for _, descendant in ipairs(world:GetDescendants()) do tame(descendant) end
+world.DescendantAdded:Connect(tame)
+
+-- Pulso suave nos neons da praça (anéis e núcleos orbitais)
 local pulse = TweenInfo.new(1.6, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
 local function animate(part)
 	if part:IsA("BasePart") and part.Material == Enum.Material.Neon
@@ -100,12 +119,12 @@ local function classify(part, folderName)
 		index = name:match("^Cloud(%d+)_%d+$")
 		if index then
 			local phase = tonumber(index)
-			-- Céu noturno: as nuvens brancas viram nebulosas brilhantes.
-			local nebula = { Color3.fromHex("#7B3DFF"), Color3.fromHex("#FF4FB3"), Color3.fromHex("#22C8FF"),
-				Color3.fromHex("#4B2BD6") }
+			-- Céu noturno: as nuvens brancas viram nebulosas escuras e esfumaçadas.
+			local nebula = { Color3.fromHex("#3A2470"), Color3.fromHex("#5A2556"), Color3.fromHex("#1D3D66"),
+				Color3.fromHex("#2B2160") }
 			part.Color = nebula[phase % #nebula + 1]
-			part.Material = Enum.Material.Neon
-			part.Transparency = 0.8
+			part.Material = Enum.Material.SmoothPlastic
+			part.Transparency = 0.5
 			return function(base, t) return base + Vector3.new(math.sin(t * 0.04 + phase) * 14, 0, 0) end
 		end
 		if name:match("^PlanetRing%d+$") then
@@ -267,7 +286,7 @@ for _ = 1, 26 do
 	local angle = random:NextNumber(0, math.pi * 2)
 	local radius = random:NextNumber(0, 45)
 	addStar(axisA * math.cos(angle) * radius + axisB * math.sin(angle) * radius,
-		random:NextNumber(20, 34), GOLD:Lerp(Color3.new(1, 1, 1), random:NextNumber(0, 0.6)), random:NextNumber(0.25, 0.5))
+		random:NextNumber(20, 34), GOLD:Lerp(Color3.new(1, 1, 1), random:NextNumber(0, 0.6)), random:NextNumber(0.45, 0.65))
 end
 for arm = 0, 1 do
 	for k = 1, 120 do
@@ -279,7 +298,7 @@ for arm = 0, 1 do
 			+ axisB * (math.sin(angle) * radius + random:NextNumber(-jitter, jitter))
 			+ normal * random:NextNumber(-12, 12)
 		local color = progress < 0.5 and PINK:Lerp(VIOLET, progress * 2) or VIOLET:Lerp(CYAN, (progress - 0.5) * 2)
-		addStar(offset, random:NextNumber(6, 16) * (1.2 - progress * 0.5), color, random:NextNumber(0.25, 0.65))
+		addStar(offset, random:NextNumber(6, 16) * (1.2 - progress * 0.5), color, random:NextNumber(0.5, 0.8))
 	end
 end
 
@@ -289,7 +308,7 @@ for index = 1, 8 do
 	local distance = random:NextNumber(950, 1300)
 	local colors = { VIOLET, PINK, CYAN, Color3.fromHex("#3B2BD6") }
 	skyPart(Vector3.new(math.cos(angle) * distance, random:NextNumber(220, 560), math.sin(angle) * distance),
-		random:NextNumber(380, 620), colors[index % #colors + 1], 0.93)
+		random:NextNumber(380, 620), colors[index % #colors + 1], 0.96)
 end
 
 -- Faixa da "Via Láctea" cruzando o céu.
@@ -298,7 +317,7 @@ for k = 0, 70 do
 	local angle = progress * math.pi
 	local position = Vector3.new(math.cos(angle) * 1100, 380 + math.sin(angle) * 520, 300 - progress * 600)
 		+ Vector3.new(random:NextNumber(-60, 60), random:NextNumber(-40, 40), random:NextNumber(-60, 60))
-	skyPart(position, random:NextNumber(40, 90), ({ VIOLET, CYAN, PINK })[k % 3 + 1], random:NextNumber(0.86, 0.93))
+	skyPart(position, random:NextNumber(40, 90), ({ VIOLET, CYAN, PINK })[k % 3 + 1], random:NextNumber(0.92, 0.96))
 end
 
 local galaxyClock = 0
