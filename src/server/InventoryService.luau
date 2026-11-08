@@ -97,6 +97,9 @@ local function publish(player, message, petReveal, tone, extra)
 	if player:GetAttribute("EquippedPet") ~= snapshot.EquippedPet then
 		player:SetAttribute("EquippedPet", snapshot.EquippedPet)
 	end
+	if player:GetAttribute("EquippedBackpack") ~= snapshot.BackpackId then
+		player:SetAttribute("EquippedBackpack", snapshot.BackpackId)
+	end
 	snapshot.Message = message
 	snapshot.PetReveal = petReveal
 	snapshot.Tone = tone
@@ -206,6 +209,7 @@ local function load(player)
 	end
 	player:SetAttribute("EquippedPet", inventory.equippedPet)
 	player:SetAttribute("EquippedTool", inventory.toolId)
+	player:SetAttribute("EquippedBackpack", inventory.backpackId)
 	-- Missões de estado (ex.: Lumini já equipada) concluem ao entrar.
 	local missions = inventory:Progress(nil)
 	publish(player, data and "Progresso carregado. Bem-vindo de volta!" or nil, nil, "info", { Missions = missions })

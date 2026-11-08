@@ -33,8 +33,24 @@ local function design(info)
 	local cylinder = Enum.PartType.Cylinder
 	local ball = Enum.PartType.Ball
 
-	-- Cabo comum a todas as famílias.
-	add(CFrame.new(0, 0.6, 0) * Y, Vector3.new(3, 0.3, 0.3), HANDLE, Enum.Material.SmoothPlastic, cylinder)
+	-- Acabamento por faixa de nível: madeira (1–4), metal (5–9), sci-fi (10–14), lendária (15+).
+	local tier = info.Tier
+	local handleColor = tier < 5 and Color3.fromHex("#8A5A36") or HANDLE
+	local handleMaterial = tier < 5 and Enum.Material.Wood or Enum.Material.Metal
+	add(CFrame.new(0, 0.6, 0) * Y, Vector3.new(3, 0.3, 0.3), handleColor, handleMaterial, cylinder)
+	if tier >= 5 then
+		-- Anéis de cor no cabo.
+		for _, height in ipairs({ 0.75, 1.55 }) do
+			add(CFrame.new(0, height, 0) * Y, Vector3.new(0.12, 0.36, 0.36), accent, glowing and Enum.Material.Neon
+				or Enum.Material.Metal, cylinder)
+		end
+	end
+	if tier >= 15 then
+		-- Lendárias: halo em volta da cabeça e gema na base.
+		add(CFrame.new(0, 2.35, 0) * Y, Vector3.new(0.06, 2.1, 2.1), accent:Lerp(WHITE, 0.35), Enum.Material.Neon, cylinder, 0.35)
+		add(CFrame.new(0, -0.6, 0) * CFrame.Angles(0, 0, math.rad(45)), Vector3.new(0.3, 0.3, 0.3),
+			Color3.fromHex("#FFE066"), Enum.Material.Neon)
+	end
 	add(CFrame.new(0, -0.35, 0) * Y, Vector3.new(0.25, 0.38, 0.38), WRAP, Enum.Material.Fabric, cylinder)
 	add(CFrame.new(0, 0.15, 0) * Y, Vector3.new(0.25, 0.38, 0.38), WRAP, Enum.Material.Fabric, cylinder)
 	add(CFrame.new(0, -0.95, 0), Vector3.new(0.45, 0.45, 0.45), accent, glow, ball)
@@ -160,9 +176,29 @@ local function attach(player, celebrate)
 		sparkle.SpreadAngle = Vector2.new(180, 180)
 		sparkle.Parent = model:GetChildren()[#model:GetChildren()]
 	end
+	-- Rastro de luz no golpe (a partir do 5º nível), ligado só durante o balanço.
+	local trail
+	if info.Tier >= 5 then
+		local localGrip = handle:GetAttribute("Local")
+		local low = Instance.new("Attachment")
+		low.Position = localGrip:PointToObjectSpace(Vector3.new(0, 2.1, 0))
+		low.Parent = handle
+		local high = Instance.new("Attachment")
+		high.Position = localGrip:PointToObjectSpace(Vector3.new(0, 3.9, 0))
+		high.Parent = handle
+		trail = Instance.new("Trail")
+		trail.Attachment0 = low
+		trail.Attachment1 = high
+		trail.Lifetime = 0.18
+		trail.LightEmission = 0.5
+		trail.Color = ColorSequence.new(info.Color:Lerp(WHITE, 0.3), info.Color)
+		trail.Transparency = NumberSequence.new(0.35, 1)
+		trail.Enabled = false
+		trail.Parent = handle
+	end
 	model.PrimaryPart = handle
 	model.Parent = folder
-	rigs[player] = { model = model, weld = weld, base = gripOffset }
+	rigs[player] = { model = model, weld = weld, base = gripOffset, trail = trail }
 
 	if celebrate then
 		local burst = Instance.new("ParticleEmitter")
@@ -202,6 +238,7 @@ playerGui:GetAttributeChangedSignal("GalaxySwing"):Connect(function()
 	local rig = rigs[localPlayer]
 	if not rig or swinging or playerGui:GetAttribute("GalaxyReduceMotion") then return end
 	swinging = true
+	if rig.trail then rig.trail.Enabled = true end
 	local weld = rig.weld
 	local windUp = TweenService:Create(weld, TweenInfo.new(0.05, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 		C0 = rig.base * CFrame.Angles(math.rad(35), 0, 0),
@@ -214,7 +251,13 @@ playerGui:GetAttributeChangedSignal("GalaxySwing"):Connect(function()
 	})
 	windUp.Completed:Once(function() strike:Play() end)
 	strike.Completed:Once(function() settle:Play() end)
-	settle.Completed:Once(function() swinging = false end)
+	settle.Completed:Once(function()
+		swinging = false
+		if rig.trail then rig.trail.Enabled = false end
+	end)
 	windUp:Play()
-	task.delay(0.6, function() swinging = false end)
+	task.delay(0.6, function()
+		swinging = false
+		if rig.trail then rig.trail.Enabled = false end
+	end)
 end)

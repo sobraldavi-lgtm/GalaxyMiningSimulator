@@ -598,3 +598,11 @@ Raridades: Lumini Comum, Rokko Incomum, Nebbi e Zapi Raros, Glacio e Solari Épi
 Se ovos forem vendidos por Robux no futuro, as regras do Roblox exigem mostrar as
 chances antes da compra (já atendido) e a decisão deve ser revisada à parte.
 
+### Gacha: abrir 3 e garantia de raro — 08/11/2026 (aprovado pelo usuário)
+
+- **Abrir 3:** abre 3 ovos de uma vez pelo preço × 3 (sem desconto).
+- **Garantia de raro:** cada ovo tem um contador salvo. Depois de 9 aberturas
+  seguidas desse ovo sem pet Raro ou Épico, a 10ª é garantida Raro+, sorteada
+  entre os Raro+ do próprio ovo pelas chances dele. Qualquer Raro+ zera o contador.
+  A loja mostra "Raro em N" em cada ovo; o Ovo Supernova só tem Raro+ ("SEMPRE RARO+").
+

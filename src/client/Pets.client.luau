@@ -249,6 +249,22 @@ local function build(player)
 	local root = builders[pet.Look](k, Color3.fromHex(pet.Color))
 	model.PrimaryPart = root
 	local shadow = decorate(model, root, pet, player)
+	-- Aura por raridade: Incomum e Raro brilham com faíscas; Épico ganha anel e luz.
+	local rarityColor = Color3.fromHex(Config.Rarities[pet.Rarity] or "#FFFFFF")
+	if pet.Rarity == "Incomum" then
+		k.emit(root, rarityColor, 2, 0.15)
+	elseif pet.Rarity == "Raro" then
+		k.emit(root, rarityColor, 5, 0.22)
+	elseif pet.Rarity == "Épico" then
+		k.part("Aura", Cylinder, Vector3.new(0.06, 2.4, 2.4), CFrame.new(0, -0.95, 0) * CFrame.Angles(0, 0, math.rad(90)),
+			rarityColor, Neon, 0.45)
+		k.emit(root, rarityColor, 8, 0.3)
+		local glow = Instance.new("PointLight")
+		glow.Color = rarityColor
+		glow.Range = 8
+		glow.Brightness = 0.8
+		glow.Parent = root
+	end
 	-- Guarda o desenho original de cada peça (relativo ao corpo) para animar.
 	local layout = {}
 	for _, part in ipairs(model:GetChildren()) do
@@ -312,6 +328,11 @@ RunService.RenderStepped:Connect(function(dt)
 			local age = t - entry.arrival
 			if age < 0.6 then hop = math.sin(age / 0.6 * math.pi) * 1.4 else entry.arrival = nil end
 		end
+		-- Pulinho de comemoração a cada golpe do dono (só o pet do jogador local).
+		if entry.cheer and not reduced then
+			local age = t - entry.cheer
+			if age < 0.3 then hop += math.sin(age / 0.3 * math.pi) * 0.6 else entry.cheer = nil end
+		end
 		local goal = root.CFrame * CFrame.new(2.8, 0.6 + bounce + hop, 2)
 		if not entry.current or (entry.current.Position - goal.Position).Magnitude > 24 then
 			entry.current = goal
@@ -344,3 +365,9 @@ RunService.RenderStepped:Connect(function(dt)
 		if not entry.model.Parent then entry.model.Parent = folder end
 	end
 end)
+
+playerGui:GetAttributeChangedSignal("GalaxySwing"):Connect(function()
+	local entry = companions[localPlayer]
+	if entry then entry.cheer = os.clock() end
+end)
+
