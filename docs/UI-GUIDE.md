@@ -1,11 +1,12 @@
 # Guia de interface do Galaxy Mining Simulator
 
-Direção visual **"Doce Cósmico"** (Design System 5.0): simulador cartunesco no espaço, com botões 3D, contornos grossos em tinta escura, vidro roxo brilhante, números grandes e muito retorno visual. A referência de estilo é [Ninja Legends](https://www.roblox.com/games/3956818381/Ninja-Legends), sem copiar seus elementos.
+Direção visual **"Galáxia Profunda"** (Design System 5.1): simulador cartunesco no espaço profundo. Os fundos são quase pretos em índigo e violeta, as bordas de neon têm a cor de cada área, há nebulosas e estrelas nas janelas e os botões 3D são vivos. A referência de estilo é [Ninja Legends](https://www.roblox.com/games/3956818381/Ninja-Legends), sem copiar seus elementos.
 
 | Cor | Hex | Uso |
 | --- | --- | --- |
-| Tinta | `#0B0628` | Contornos, sombras e fundos profundos |
-| Noite / Ameixa / Real | `#160D45` / `#2A1873` / `#4B2BD6` | Degradê dos painéis e janelas |
+| Tinta | `#05030F` | Contornos, sombras e vinheta |
+| Vazio / Noite / Ameixa | `#070418` / `#0C0726` / `#1A1048` | Degradê dos painéis e janelas |
+| Real | `#2E1C9E` | Brilho superior e nebulosas |
 | Ciano | `#22E1FF` | Mineração, carga e progresso |
 | Violeta | `#A65BFF` | Poder e missões |
 | Rosa | `#FF5FB8` | Pets e celebrações |
@@ -13,14 +14,20 @@ Direção visual **"Doce Cósmico"** (Design System 5.0): simulador cartunesco n
 | Menta | `#2EE59D` | Compra possível, sucesso e ajustes |
 | Vermelho | `#FF3D57` | Mochila cheia, erros e botão fechar |
 
+## Mundo à noite
+
+- **Iluminação** (`default.project.json`): meia-noite, ambiente índigo e violeta, bloom forte para os neons, 5.000 estrelas, sem sol nem lua, e atmosfera roxa no horizonte.
+- **Céu galáctico** (`VisualWorld.client.luau`, só no cliente): galáxia espiral girando devagar, nebulosas gigantes, faixa de "Via Láctea", estrelas cadentes e as nuvens do cenário transformadas em nebulosas de neon.
+- **Vinheta** escura nas bordas da tela. A mineração ignora a vinheta e os contêineres transparentes ao decidir se um clique caiu na interface.
+
 Use sempre cor **e** texto juntos para comunicar função e estado.
 
 ## Componentes (`src/client/VisualTheme.luau`)
 
 - **Botão 3D** (`Theme.action`): base sólida escura e face colorida com brilho; a face afunda ao pressionar e cresce no hover/foco. O texto fica em `Face/Label`: use `Theme.setText` e `Theme.setTint`, nunca `button.Text`. Opções: `Size`, `Icon`, `TextSize`, `Radius`, `Depth`, `Silent`.
 - **Navegação** (`Theme.navigationAction`): botão quadrado 3D com ícone grande, legenda e atalho.
-- **Painel** (`Theme.panel`), **poço** (`Theme.well`), **medidor** (`Theme.meter`, com brilho) e **esfera de ícone** (`Theme.badge`, com reflexo).
-- **Janela** (`Theme.window`): sombra, moldura interna, céu estrelado cintilante e cabeçalho colorido com ícone saindo pela borda e botão X 3D.
+- **Painel** (`Theme.panel`, com borda interna de neon), **poço** (`Theme.well`), **medidor** (`Theme.meter`, com brilho) e **esfera de ícone** (`Theme.badge`, com reflexo).
+- **Janela** (`Theme.window`): sombra, moldura de neon, nebulosas (`Theme.nebula`), céu estrelado cintilante e cabeçalho colorido com ícone saindo pela borda e botão X 3D.
 - **Efeitos** num único loop compartilhado: `Theme.rays` (raios giratórios), `Theme.shimmer` (faixa de brilho), `Theme.starfield` (estrelas) e `Theme.confetti`.
 - **Interruptor** (`Theme.toggle`) com ícone, ON/OFF e som.
 - **Tipografia:** `FredokaOne` em títulos, números e botões; Gotham em textos de apoio. **Números** no padrão brasileiro (`1.250`, `5,5`, `1,25 mi`).

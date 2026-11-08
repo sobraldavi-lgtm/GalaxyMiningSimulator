@@ -1,4 +1,4 @@
--- Design System 5.0 do Galaxy Mining Simulator — "Doce Cósmico".
+-- Design System 5.1 do Galaxy Mining Simulator — "Galáxia Profunda".
 -- Botões 3D com profundidade, vidro escuro com brilho, contornos grossos,
 -- céu estrelado nas janelas e efeitos animados compartilhados.
 -- Só apresentação: nenhuma regra de jogo vive aqui.
@@ -11,14 +11,15 @@ local Theme = {}
 
 Theme.Color = table.freeze({
 	-- Base escura
-	Ink = Color3.fromHex("#0B0628"),
-	Deep = Color3.fromHex("#0B0628"),
-	Night = Color3.fromHex("#160D45"),
-	Navy = Color3.fromHex("#1B1250"),
-	Plum = Color3.fromHex("#2A1873"),
-	Surface = Color3.fromHex("#3B22A0"),
-	Royal = Color3.fromHex("#4B2BD6"),
-	Track = Color3.fromHex("#1E1658"),
+	Ink = Color3.fromHex("#05030F"),
+	Deep = Color3.fromHex("#05030F"),
+	Void = Color3.fromHex("#070418"),
+	Night = Color3.fromHex("#0C0726"),
+	Navy = Color3.fromHex("#120B36"),
+	Plum = Color3.fromHex("#1A1048"),
+	Surface = Color3.fromHex("#241670"),
+	Royal = Color3.fromHex("#2E1C9E"),
+	Track = Color3.fromHex("#0E0A2E"),
 	-- Acentos
 	Blue = Color3.fromHex("#2F7BFF"),
 	Cyan = Color3.fromHex("#22E1FF"),
@@ -199,17 +200,26 @@ function Theme.panel(object: GuiObject, accent: Color3?, radius: number?)
 	local gradient = Instance.new("UIGradient")
 	gradient.Rotation = 90
 	gradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, C.Royal:Lerp(tint, 0.22)),
-		ColorSequenceKeypoint.new(0.55, C.Plum),
-		ColorSequenceKeypoint.new(1, C.Night),
+		ColorSequenceKeypoint.new(0, C.Plum:Lerp(tint, 0.2)),
+		ColorSequenceKeypoint.new(0.5, C.Night),
+		ColorSequenceKeypoint.new(1, C.Void),
 	})
 	gradient.Parent = object
+	-- Borda interna de neon na cor da área: brilho de holograma.
+	local glow = Instance.new("Frame")
+	glow.Name = "NeonEdge"
+	glow.Position = UDim2.fromOffset(2, 2)
+	glow.Size = UDim2.new(1, -4, 1, -4)
+	glow.BackgroundTransparency = 1
+	Theme.round(glow, math.max((radius or 14) - 2, 2))
+	Theme.stroke(glow, tint, 1.5, 0.35)
+	glow.Parent = object
 	local gloss = Instance.new("Frame")
 	gloss.Name = "Gloss"
-	gloss.Position = UDim2.fromOffset(6, 3)
-	gloss.Size = UDim2.new(1, -12, 0, 3)
-	gloss.BackgroundColor3 = tint:Lerp(C.White, 0.5)
-	gloss.BackgroundTransparency = 0.35
+	gloss.Position = UDim2.fromOffset(8, 3)
+	gloss.Size = UDim2.new(0.5, -8, 0, 2)
+	gloss.BackgroundColor3 = tint:Lerp(C.White, 0.4)
+	gloss.BackgroundTransparency = 0.25
 	gloss.BorderSizePixel = 0
 	Theme.round(gloss, 2)
 	gloss.Parent = object
@@ -218,7 +228,7 @@ end
 -- Cartão rebaixado (fundo mais escuro e translúcido).
 function Theme.well(object: GuiObject, radius: number?)
 	object.BackgroundColor3 = C.Ink
-	object.BackgroundTransparency = 0.4
+	object.BackgroundTransparency = 0.25
 	object.BorderSizePixel = 0
 	Theme.round(object, radius or 14)
 	Theme.stroke(object, C.Ink, 3)
@@ -356,6 +366,32 @@ function Theme.shimmer(target: GuiObject, radius: number?)
 	overlay.Parent = target
 	table.insert(effects.shimmers, { gradient = gradient, phase = math.random() * 2.8 })
 	return overlay
+end
+
+-- Nuvens de nebulosa: elipses translúcidas sobrepostas formam um brilho suave.
+function Theme.nebula(parent: GuiObject, accent: Color3?)
+	local holder = Instance.new("Frame")
+	holder.Name = "Nebula"
+	holder.Size = UDim2.fromScale(1, 1)
+	holder.BackgroundTransparency = 1
+	holder.ClipsDescendants = true
+	holder.Parent = parent
+	local colors = { accent or C.Violet, C.Pink, C.Cyan }
+	for index, spot in ipairs({ { 0.18, 0.25, 0.75 }, { 0.82, 0.7, 0.85 }, { 0.55, 0.05, 0.55 } }) do
+		for layer = 1, 3 do
+			local blob = Instance.new("Frame")
+			blob.AnchorPoint = Vector2.new(0.5, 0.5)
+			blob.Position = UDim2.fromScale(spot[1], spot[2])
+			local size = spot[3] * (1 - (layer - 1) * 0.28)
+			blob.Size = UDim2.fromScale(size, size * 0.8)
+			blob.BackgroundColor3 = colors[index]
+			blob.BackgroundTransparency = 0.93
+			blob.BorderSizePixel = 0
+			Theme.round(blob, 999)
+			blob.Parent = holder
+		end
+	end
+	return holder
 end
 
 -- Céu estrelado cintilante ao fundo de janelas.
@@ -530,8 +566,16 @@ function Theme.badge(parent, kind, accent, size)
 	badge.BorderSizePixel = 0
 	Theme.round(badge, size // 2)
 	Theme.stroke(badge, C.Ink, size >= 56 and 4 or 3)
-	Theme.gradient(badge, accent:Lerp(C.White, 0.25):Lerp(C.Plum, 0.35), accent:Lerp(C.Ink, 0.55))
+	Theme.gradient(badge, accent:Lerp(C.White, 0.15):Lerp(C.Plum, 0.4), accent:Lerp(C.Ink, 0.72))
 	badge.Parent = parent
+	local ring = Instance.new("Frame")
+	ring.Name = "NeonEdge"
+	ring.Position = UDim2.fromOffset(2, 2)
+	ring.Size = UDim2.new(1, -4, 1, -4)
+	ring.BackgroundTransparency = 1
+	Theme.round(ring, 999)
+	Theme.stroke(ring, accent, 1.5, 0.3)
+	ring.Parent = badge
 	local gloss = Instance.new("Frame")
 	gloss.Name = "Gloss"
 	gloss.AnchorPoint = Vector2.new(0.5, 0)
@@ -604,7 +648,7 @@ function Theme.action(parent, text, tint, options)
 	face.BorderSizePixel = 0
 	Theme.round(face, radius)
 	Theme.stroke(face, C.Ink, 3)
-	Theme.gradient(face, Color3.new(1, 1, 1), Color3.fromHex("#C3C9EF"))
+	Theme.gradient(face, Color3.new(1, 1, 1), Color3.fromHex("#8E93C8"))
 	face.Parent = button
 
 	local gloss = Instance.new("Frame")
@@ -647,7 +691,7 @@ function Theme.action(parent, text, tint, options)
 	local function paint()
 		local current = button:GetAttribute("BaseColor") or color
 		local active = hovered or focused
-		base.BackgroundColor3 = current:Lerp(C.Ink, 0.5)
+		base.BackgroundColor3 = current:Lerp(C.Ink, 0.62)
 		face.BackgroundColor3 = pressed and current:Lerp(C.Ink, 0.15)
 			or active and current:Lerp(C.White, 0.18) or current
 		for _, tween in ipairs(tweens) do tween:Cancel() end
@@ -796,7 +840,7 @@ function Theme.window(parent: Instance, titleText: string, options)
 	overlay.AutoButtonColor = false
 	overlay.Selectable = false
 	overlay.BackgroundColor3 = C.Ink
-	overlay.BackgroundTransparency = 0.35
+	overlay.BackgroundTransparency = 0.22
 	overlay.BorderSizePixel = 0
 	overlay.Size = UDim2.fromScale(1, 1)
 	overlay.Visible = false
@@ -840,13 +884,14 @@ function Theme.window(parent: Instance, titleText: string, options)
 	local fill = Instance.new("UIGradient")
 	fill.Rotation = 90
 	fill.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, C.Royal:Lerp(accent, 0.12)),
-		ColorSequenceKeypoint.new(0.45, C.Plum),
-		ColorSequenceKeypoint.new(1, C.Night),
+		ColorSequenceKeypoint.new(0, C.Plum:Lerp(accent, 0.1)),
+		ColorSequenceKeypoint.new(0.4, C.Night),
+		ColorSequenceKeypoint.new(1, C.Void),
 	})
 	fill.Parent = window
 	window.Parent = holder
-	Theme.starfield(window, 40)
+	Theme.nebula(window, accent)
+	Theme.starfield(window, 70)
 
 	-- Borda interna clara: dá acabamento de "moldura" à janela.
 	local inset = Instance.new("Frame")
@@ -855,7 +900,7 @@ function Theme.window(parent: Instance, titleText: string, options)
 	inset.Size = UDim2.new(1, -10, 1, -10)
 	inset.BackgroundTransparency = 1
 	Theme.round(inset, 20)
-	Theme.stroke(inset, C.White, 2, 0.85)
+	Theme.stroke(inset, accent, 2, 0.55)
 	inset.Parent = window
 
 	local header = Instance.new("Frame")
@@ -867,13 +912,21 @@ function Theme.window(parent: Instance, titleText: string, options)
 	header.BorderSizePixel = 0
 	Theme.round(header, 16)
 	Theme.stroke(header, C.Ink, 3)
-	Theme.gradient(header, accent:Lerp(C.White, 0.15), accent:Lerp(C.Ink, 0.35))
+	Theme.gradient(header, accent:Lerp(C.Ink, 0.25), accent:Lerp(C.Ink, 0.7))
+	local headerEdge = Instance.new("Frame")
+	headerEdge.Name = "NeonEdge"
+	headerEdge.Position = UDim2.fromOffset(2, 2)
+	headerEdge.Size = UDim2.new(1, -4, 1, -4)
+	headerEdge.BackgroundTransparency = 1
+	Theme.round(headerEdge, 14)
+	Theme.stroke(headerEdge, accent, 2, 0.2)
+	headerEdge.Parent = header
 	header.Parent = window
 	local headerGloss = Instance.new("Frame")
 	headerGloss.Position = UDim2.fromOffset(8, 4)
 	headerGloss.Size = UDim2.new(1, -16, 0, 14)
 	headerGloss.BackgroundColor3 = Color3.new(1, 1, 1)
-	headerGloss.BackgroundTransparency = 0.7
+	headerGloss.BackgroundTransparency = 0.85
 	headerGloss.BorderSizePixel = 0
 	Theme.round(headerGloss, 7)
 	headerGloss.Parent = header
@@ -920,13 +973,13 @@ function Theme.openWindow(parts)
 	Sound.play("open")
 	if Theme.reducedMotion(parts.Overlay) then
 		parts.Scale.Scale = 1
-		parts.Overlay.BackgroundTransparency = 0.35
+		parts.Overlay.BackgroundTransparency = 0.22
 		return
 	end
 	parts.Scale.Scale = 0.8
 	parts.Overlay.BackgroundTransparency = 1
 	TweenService:Create(parts.Scale, Theme.Motion.Pop, { Scale = 1 }):Play()
-	TweenService:Create(parts.Overlay, Theme.Motion.Enter, { BackgroundTransparency = 0.35 }):Play()
+	TweenService:Create(parts.Overlay, Theme.Motion.Enter, { BackgroundTransparency = 0.22 }):Play()
 end
 
 function Theme.closeWindow(parts, onClosed)

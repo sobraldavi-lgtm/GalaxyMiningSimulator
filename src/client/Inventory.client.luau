@@ -21,6 +21,33 @@ gui.DisplayOrder = 10
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.Parent = playerGui
 
+-- Vinheta escura nas bordas: deixa a cena com cara de espaço profundo.
+-- Não intercepta cliques (a mineração ignora esta camada).
+local vignette = Instance.new("ScreenGui")
+vignette.Name = "GalaxyVignette"
+vignette.IgnoreGuiInset = true
+vignette.ResetOnSpawn = false
+vignette.DisplayOrder = -1
+vignette.Parent = playerGui
+for _, edge in ipairs({
+	{ Vector2.new(0, 0), UDim2.new(1, 0, 0.2, 0), 90 },
+	{ Vector2.new(0, 1), UDim2.new(1, 0, 0.22, 0), -90 },
+	{ Vector2.new(0, 0), UDim2.new(0.16, 0, 1, 0), 0 },
+	{ Vector2.new(1, 0), UDim2.new(0.16, 0, 1, 0), 180 },
+}) do
+	local shade = Instance.new("Frame")
+	shade.AnchorPoint = edge[1]
+	shade.Position = UDim2.fromScale(edge[1].X, edge[1].Y)
+	shade.Size = edge[2]
+	shade.BackgroundColor3 = Color3.fromHex("#05030F")
+	shade.BorderSizePixel = 0
+	local fade = Instance.new("UIGradient")
+	fade.Rotation = edge[3]
+	fade.Transparency = NumberSequence.new(0.35, 1)
+	fade.Parent = shade
+	shade.Parent = vignette
+end
+
 -- Camada acima da loja para celebrações e boas-vindas.
 local stage = Instance.new("ScreenGui")
 stage.Name = "GalaxyCelebration"

@@ -433,11 +433,17 @@ player.CharacterAdded:Connect(function()
 	-- Resistência e inventário do servidor são preservados após renascer.
 end)
 
+-- Camadas só visuais que nunca devem bloquear a mineração.
+local passThrough = { GalaxyVignette = true, GalaxyCelebration = true, GalaxyLoading = true }
 local function overHud(position)
 	local inset = GuiService:GetGuiInset()
 	local point = position - inset
 	for _, object in ipairs(playerGui:GetGuiObjectsAtPosition(point.X, point.Y)) do
-		if object ~= crosshair and not object:IsDescendantOf(crosshair) then
+		local layer = object:FindFirstAncestorWhichIsA("LayerCollector")
+		local decorative = layer and passThrough[layer.Name]
+		-- Contêineres invisíveis (sem fundo) não contam como interface.
+		local container = object:IsA("Frame") and object.BackgroundTransparency >= 1
+		if not decorative and not container and object ~= crosshair and not object:IsDescendantOf(crosshair) then
 			return true
 		end
 	end
