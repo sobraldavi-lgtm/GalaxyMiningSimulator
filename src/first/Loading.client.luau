@@ -10,9 +10,9 @@ local ContentProvider = game:GetService("ContentProvider")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
-local INK = Color3.fromHex("#0B0628")
-local NIGHT = Color3.fromHex("#160D45")
+local INK = Color3.fromHex("#05030F")
 local ROYAL = Color3.fromHex("#4B2BD6")
+local VIOLET = Color3.fromHex("#8B4DFF")
 local GOLD = Color3.fromHex("#FFC531")
 local CYAN = Color3.fromHex("#22E1FF")
 local PINK = Color3.fromHex("#FF5FB8")
@@ -49,11 +49,27 @@ root.Parent = gui
 local sky = Instance.new("UIGradient")
 sky.Rotation = 90
 sky.Color = ColorSequence.new({
-	ColorSequenceKeypoint.new(0, ROYAL),
-	ColorSequenceKeypoint.new(0.6, NIGHT),
-	ColorSequenceKeypoint.new(1, INK),
+	ColorSequenceKeypoint.new(0, Color3.fromHex("#1A0F55")),
+	ColorSequenceKeypoint.new(0.55, Color3.fromHex("#0B0726")),
+	ColorSequenceKeypoint.new(1, Color3.fromHex("#05030F")),
 })
 sky.Parent = root
+
+-- Nebulosas suaves (elipses translúcidas sobrepostas).
+for _, spot in ipairs({ { 0.2, 0.3, 0.7, PINK }, { 0.82, 0.55, 0.8, CYAN }, { 0.5, 0.9, 0.9, ROYAL } }) do
+	for layer = 1, 4 do
+		local blob = Instance.new("Frame")
+		blob.AnchorPoint = Vector2.new(0.5, 0.5)
+		blob.Position = UDim2.fromScale(spot[1], spot[2])
+		local size = spot[3] * (1 - (layer - 1) * 0.22)
+		blob.Size = UDim2.fromScale(size, size * 0.7)
+		blob.BackgroundColor3 = spot[4]
+		blob.BackgroundTransparency = 0.94
+		blob.BorderSizePixel = 0
+		corner(blob, 999)
+		blob.Parent = root
+	end
+end
 
 local stars = {}
 for _ = 1, 90 do
@@ -98,7 +114,7 @@ corner(planet, 75)
 stroke(planet, 5)
 local planetFill = Instance.new("UIGradient")
 planetFill.Rotation = 45
-planetFill.Color = ColorSequence.new(PINK, ROYAL)
+planetFill.Color = ColorSequence.new(PINK, VIOLET:Lerp(INK, 0.35))
 planetFill.Parent = planet
 planet.Parent = planetHolder
 for _, spot in ipairs({ { 0.3, 0.32, 34 }, { 0.62, 0.6, 22 }, { 0.42, 0.72, 14 } }) do

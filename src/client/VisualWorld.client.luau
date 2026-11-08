@@ -18,7 +18,7 @@ anchor.Parent = workspace
 
 local dust = Instance.new("ParticleEmitter")
 dust.Texture = "rbxasset://textures/particles/sparkles_main.dna"
-dust.Color = ColorSequence.new(Color3.fromRGB(255, 190, 245), Color3.fromRGB(170, 240, 255))
+dust.Color = ColorSequence.new(Color3.fromRGB(190, 140, 255), Color3.fromRGB(120, 230, 255))
 dust.LightEmission = 0.9
 dust.Rate = 22
 dust.Lifetime = NumberRange.new(4, 7)
@@ -100,6 +100,12 @@ local function classify(part, folderName)
 		index = name:match("^Cloud(%d+)_%d+$")
 		if index then
 			local phase = tonumber(index)
+			-- Céu noturno: as nuvens brancas viram nebulosas brilhantes.
+			local nebula = { Color3.fromHex("#7B3DFF"), Color3.fromHex("#FF4FB3"), Color3.fromHex("#22C8FF"),
+				Color3.fromHex("#4B2BD6") }
+			part.Color = nebula[phase % #nebula + 1]
+			part.Material = Enum.Material.Neon
+			part.Transparency = 0.8
 			return function(base, t) return base + Vector3.new(math.sin(t * 0.04 + phase) * 14, 0, 0) end
 		end
 		if name:match("^PlanetRing%d+$") then
@@ -214,5 +220,137 @@ RunService.Heartbeat:Connect(function(dt)
 	end
 	for _, holo in ipairs(holograms) do
 		holo.part.Transparency = math.clamp(holo.base + math.sin(t * 2.2) * 0.06, 0, 1)
+	end
+end)
+
+-- ---------- Céu galáctico (só neste cliente) ----------
+-- Galáxia espiral girando, nebulosas, faixa estelar e estrelas cadentes.
+-- Peças locais, sem colisão e sem consulta: não interferem na mineração.
+local skyFolder = Instance.new("Folder")
+skyFolder.Name = "GalaxySky"
+skyFolder.Parent = workspace
+
+local function skyPart(position, size, color, transparency)
+	local part = Instance.new("Part")
+	part.Shape = Enum.PartType.Ball
+	part.Anchored = true
+	part.CanCollide = false
+	part.CanQuery = false
+	part.CanTouch = false
+	part.CastShadow = false
+	part.Material = Enum.Material.Neon
+	part.Size = Vector3.new(size, size, size)
+	part.Position = position
+	part.Color = color
+	part.Transparency = transparency
+	part.Parent = skyFolder
+	return part
+end
+
+local random = Random.new(42)
+local PINK = Color3.fromHex("#FF4FB3")
+local VIOLET = Color3.fromHex("#8B4DFF")
+local CYAN = Color3.fromHex("#22D8FF")
+local GOLD = Color3.fromHex("#FFD36E")
+
+-- Galáxia espiral voltada para o centro do mapa.
+local galaxyCenter = Vector3.new(-620, 540, -860)
+local normal = (Vector3.new(0, 120, 0) - galaxyCenter).Unit
+local axisA = normal:Cross(Vector3.yAxis).Unit
+local axisB = normal:Cross(axisA).Unit
+local galaxy = {}
+local function addStar(offset, size, color, transparency)
+	local part = skyPart(galaxyCenter + offset, size, color, transparency)
+	table.insert(galaxy, { part = part, offset = offset })
+end
+for _ = 1, 26 do
+	local angle = random:NextNumber(0, math.pi * 2)
+	local radius = random:NextNumber(0, 45)
+	addStar(axisA * math.cos(angle) * radius + axisB * math.sin(angle) * radius,
+		random:NextNumber(20, 34), GOLD:Lerp(Color3.new(1, 1, 1), random:NextNumber(0, 0.6)), random:NextNumber(0.25, 0.5))
+end
+for arm = 0, 1 do
+	for k = 1, 120 do
+		local progress = k / 120
+		local angle = arm * math.pi + progress * math.pi * 3.4
+		local radius = 45 + progress * 400
+		local jitter = (1 - progress * 0.4) * 30
+		local offset = axisA * (math.cos(angle) * radius + random:NextNumber(-jitter, jitter))
+			+ axisB * (math.sin(angle) * radius + random:NextNumber(-jitter, jitter))
+			+ normal * random:NextNumber(-12, 12)
+		local color = progress < 0.5 and PINK:Lerp(VIOLET, progress * 2) or VIOLET:Lerp(CYAN, (progress - 0.5) * 2)
+		addStar(offset, random:NextNumber(6, 16) * (1.2 - progress * 0.5), color, random:NextNumber(0.25, 0.65))
+	end
+end
+
+-- Nebulosas gigantes e translúcidas ao redor do horizonte.
+for index = 1, 8 do
+	local angle = index / 8 * math.pi * 2 + random:NextNumber(-0.3, 0.3)
+	local distance = random:NextNumber(950, 1300)
+	local colors = { VIOLET, PINK, CYAN, Color3.fromHex("#3B2BD6") }
+	skyPart(Vector3.new(math.cos(angle) * distance, random:NextNumber(220, 560), math.sin(angle) * distance),
+		random:NextNumber(380, 620), colors[index % #colors + 1], 0.93)
+end
+
+-- Faixa da "Via Láctea" cruzando o céu.
+for k = 0, 70 do
+	local progress = k / 70
+	local angle = progress * math.pi
+	local position = Vector3.new(math.cos(angle) * 1100, 380 + math.sin(angle) * 520, 300 - progress * 600)
+		+ Vector3.new(random:NextNumber(-60, 60), random:NextNumber(-40, 40), random:NextNumber(-60, 60))
+	skyPart(position, random:NextNumber(40, 90), ({ VIOLET, CYAN, PINK })[k % 3 + 1], random:NextNumber(0.86, 0.93))
+end
+
+local galaxyClock = 0
+RunService.Heartbeat:Connect(function(dt)
+	galaxyClock += dt
+	if galaxyClock < 1 / 20 or playerGui:GetAttribute("GalaxyReduceMotion") then return end
+	galaxyClock = 0
+	local rotation = CFrame.fromAxisAngle(normal, os.clock() * 0.015)
+	local parts, frames = {}, {}
+	for _, star in ipairs(galaxy) do
+		table.insert(parts, star.part)
+		table.insert(frames, CFrame.new(galaxyCenter + rotation:VectorToWorldSpace(star.offset)))
+	end
+	workspace:BulkMoveTo(parts, frames, Enum.BulkMoveMode.FireCFrameChanged)
+end)
+
+-- Estrelas cadentes de tempos em tempos.
+local function shootingStar()
+	local camera = workspace.CurrentCamera
+	if not camera then return end
+	local origin = camera.CFrame.Position
+	local start = origin + Vector3.new(random:NextNumber(-500, 500), random:NextNumber(260, 420), random:NextNumber(-500, 500))
+	local heading = Vector3.new(random:NextNumber(-1, 1), -0.35, random:NextNumber(-1, 1)).Unit
+	local star = skyPart(start, 4, Color3.new(1, 1, 1), 0)
+	local head = Instance.new("Attachment")
+	head.Position = Vector3.new(0, 1.5, 0)
+	head.Parent = star
+	local tail = Instance.new("Attachment")
+	tail.Position = Vector3.new(0, -1.5, 0)
+	tail.Parent = star
+	local trail = Instance.new("Trail")
+	trail.Attachment0 = head
+	trail.Attachment1 = tail
+	trail.Lifetime = 0.45
+	trail.LightEmission = 1
+	trail.FaceCamera = true
+	trail.Color = ColorSequence.new(Color3.new(1, 1, 1), CYAN)
+	trail.Transparency = NumberSequence.new(0, 1)
+	trail.Parent = star
+	local tween = TweenService:Create(star, TweenInfo.new(1.3, Enum.EasingStyle.Linear), {
+		Position = start + heading * 420,
+		Transparency = 1,
+	})
+	tween.Completed:Once(function() star:Destroy() end)
+	tween:Play()
+end
+
+task.spawn(function()
+	while true do
+		task.wait(random:NextNumber(4, 9))
+		if not playerGui:GetAttribute("GalaxyReduceMotion") then
+			shootingStar()
+		end
 	end
 end)

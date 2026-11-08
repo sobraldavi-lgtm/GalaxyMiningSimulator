@@ -82,7 +82,7 @@ HUD mostra Créditos, carga e poder com animações; o painel inferior mostra a
 resistência do minério selecionado, e a Mochila abre em janela própria.
 Depósitos renovam imediatamente após quebrar; golpes respeitam intervalo de 0,2 s.
 Atalhos: L Loja, B Mochila, M Missões, P Ajustes; B no controle fecha janelas.
-Design System 5.0, telas e roteiro de revisão visual: docs/UI-GUIDE.md.
+Design System 5.1 (visual noturno de galáxia), telas e roteiro de revisão visual: docs/UI-GUIDE.md.
 A tela de carregamento fica em src/first (ReplicatedFirst).
 Viagem e salvamento ainda não estão implementados.
 Mochila e saldo duram apenas esta sessão; parar Play ou sair do servidor reinicia os dados.

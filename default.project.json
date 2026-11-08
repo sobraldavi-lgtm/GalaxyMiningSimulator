@@ -41,65 +41,71 @@
       "$className": "Lighting",
       "$ignoreUnknownInstances": true,
       "$properties": {
-        "ClockTime": 14.5,
-        "Brightness": 3.2,
-        "ExposureCompensation": 0.3,
+        "ClockTime": 0,
+        "GeographicLatitude": 23,
+        "Brightness": 1.6,
+        "ExposureCompensation": 0.15,
         "Ambient": [
-          0.62,
-          0.55,
-          0.85
+          0.26,
+          0.2,
+          0.46
         ],
         "OutdoorAmbient": [
-          0.7,
-          0.62,
-          0.95
+          0.4,
+          0.32,
+          0.66
         ],
-        "EnvironmentDiffuseScale": 0.6,
-        "EnvironmentSpecularScale": 0.4,
+        "EnvironmentDiffuseScale": 0.35,
+        "EnvironmentSpecularScale": 0.6,
         "ColorShift_Top": [
-          1.0,
-          0.85,
+          0.75,
+          0.7,
           1.0
+        ],
+        "ColorShift_Bottom": [
+          0.35,
+          0.2,
+          0.55
         ]
       },
       "TerraNovaAtmosphere": {
         "$className": "Atmosphere",
         "$properties": {
-          "Density": 0.3,
-          "Haze": 1.6,
-          "Offset": 0.1,
-          "Glare": 0.3,
+          "Density": 0.2,
+          "Haze": 1.2,
+          "Offset": 0.05,
+          "Glare": 0,
           "Color": [
-            0.8,
-            0.65,
-            1.0
+            0.32,
+            0.16,
+            0.55
           ],
           "Decay": [
-            1.0,
             0.55,
-            0.85
+            0.15,
+            0.62
           ]
         }
       },
       "TerraNovaBloom": {
         "$className": "BloomEffect",
         "$properties": {
-          "Intensity": 0.45,
-          "Size": 30,
-          "Threshold": 1.5
+          "Intensity": 1.0,
+          "Size": 36,
+          "Threshold": 0.92
         }
       },
       "TerraNovaSunRays": {
         "$className": "SunRaysEffect",
         "$properties": {
-          "Intensity": 0.15,
-          "Spread": 0.9
+          "Intensity": 0.04,
+          "Spread": 0.6
         }
       },
       "TerraNovaDepth": {
         "$className": "DepthOfFieldEffect",
         "$properties": {
-          "FarIntensity": 0.05,
+          "FarIntensity": 0,
           "FocusDistance": 60,
           "InFocusRadius": 40,
           "NearIntensity": 0
@@ -108,19 +114,21 @@
       "TerraNovaSky": {
         "$className": "Sky",
         "$properties": {
-          "StarCount": 3000,
-          "SunAngularSize": 16,
-          "MoonAngularSize": 0
+          "StarCount": 5000,
+          "SunAngularSize": 0,
+          "MoonAngularSize": 0,
+          "CelestialBodiesShown": false
         }
       },
       "TerraNovaColor": {
         "$className": "ColorCorrectionEffect",
         "$properties": {
-          "Contrast": 0.08,
-          "Saturation": 0.3,
+          "Contrast": 0.18,
+          "Saturation": 0.32,
+          "Brightness": 0.02,
           "TintColor": [
-            1.0,
-            0.97,
+            0.9,
+            0.88,
             1.0
           ]
         }
