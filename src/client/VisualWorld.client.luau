@@ -41,6 +41,7 @@ RunService.Heartbeat:Connect(function()
 		anchor.Position = camera.CFrame.Position + Vector3.new(0, 4, 0)
 	end
 	dust.Enabled = not playerGui:GetAttribute("GalaxyReduceMotion")
+		and not playerGui:GetAttribute("GalaxyHideDust")
 end)
 
 -- Pulso suave nos neons da praça (anéis e núcleos orbitais)

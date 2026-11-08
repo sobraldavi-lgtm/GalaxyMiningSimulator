@@ -1,18 +1,22 @@
 -- Polimento visual dos depósitos: brilho, luz e partículas. Não altera regras de jogo.
+-- A cor vem de MiningConfig para combinar com os ícones da HUD.
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("MiningConfig"))
 local looks = {
-	Iron = { color = Color3.fromRGB(190, 215, 255), neon = false },
-	Copper = { color = Color3.fromRGB(255, 150, 80), neon = false },
-	Crystal = { color = Color3.fromRGB(60, 170, 255), neon = true },
-	Silver = { color = Color3.fromRGB(210, 222, 242), neon = false },
-	Gold = { color = Color3.fromRGB(255, 200, 50), neon = false },
-	Emerald = { color = Color3.fromRGB(40, 240, 130), neon = true },
-	Ruby = { color = Color3.fromRGB(255, 45, 75), neon = true },
-	Obsidian = { color = Color3.fromRGB(115, 50, 205), neon = true },
-	Diamond = { color = Color3.fromRGB(180, 240, 255), neon = true },
+	Iron = { neon = false },
+	Copper = { neon = false },
+	Crystal = { neon = true },
+	Silver = { neon = false },
+	Gold = { neon = false },
+	Emerald = { neon = true },
+	Ruby = { neon = true },
+	Obsidian = { neon = true },
+	Diamond = { neon = true },
 }
 
 local deposits = workspace:WaitForChild("TerraNova"):WaitForChild("OreDeposits")
 for oreType, look in pairs(looks) do
+	look.color = Color3.fromHex(Config.Ores[oreType].Color)
 	local folder = deposits:WaitForChild(oreType)
 	for _, part in ipairs(folder:GetChildren()) do
 		if part:IsA("BasePart") and part.Name:match("^Sample") then
