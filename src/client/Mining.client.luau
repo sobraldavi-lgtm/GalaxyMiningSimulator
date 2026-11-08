@@ -336,6 +336,21 @@ remote.OnClientEvent:Connect(function(result)
 		end
 		local target = result.Target
 		if target and target.Parent then
+			-- Fragmentos no impacto; mais intensos ao quebrar o minério.
+			local burst = Instance.new("ParticleEmitter")
+			burst.Texture = "rbxasset://textures/particles/sparkles_main.dna"
+			burst.Color = ColorSequence.new(target.Color)
+			burst.LightEmission = 0.8
+			burst.Lifetime = NumberRange.new(0.3, 0.6)
+			burst.Speed = NumberRange.new(8, 16)
+			burst.SpreadAngle = Vector2.new(180, 180)
+			burst.Size = NumberSequence.new(result.Remaining == 0 and 0.9 or 0.4, 0)
+			burst.Rate = 0
+			burst.Parent = target
+			burst:Emit(result.Remaining == 0 and 30 or 8)
+			Debris:AddItem(burst, 1)
+		end
+		if target and target.Parent then
 			if lastPopup then lastPopup:Destroy() end
 			local popup = Instance.new("BillboardGui")
 			lastPopup = popup

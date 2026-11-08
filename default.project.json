@@ -27,8 +27,9 @@
       "$className": "Lighting",
       "$ignoreUnknownInstances": true,
       "$properties": {
-        "ClockTime": 15.0,
-        "Brightness": 2.25,
+        "ClockTime": 17.6,
+        "Brightness": 2.6,
+        "ExposureCompensation": 0.15,
         "Ambient": [0.37, 0.39, 0.52],
         "OutdoorAmbient": [0.57, 0.62, 0.73],
         "EnvironmentDiffuseScale": 0.45,
@@ -44,6 +45,22 @@
           "Color": [0.63, 0.81, 1.0],
           "Decay": [0.52, 0.43, 0.73]
         }
+      },
+      "TerraNovaBloom": {
+        "$className": "BloomEffect",
+        "$properties": { "Intensity": 0.6, "Size": 28, "Threshold": 1.6 }
+      },
+      "TerraNovaSunRays": {
+        "$className": "SunRaysEffect",
+        "$properties": { "Intensity": 0.12, "Spread": 0.8 }
+      },
+      "TerraNovaDepth": {
+        "$className": "DepthOfFieldEffect",
+        "$properties": { "FarIntensity": 0.12, "FocusDistance": 60, "InFocusRadius": 40, "NearIntensity": 0 }
+      },
+      "TerraNovaSky": {
+        "$className": "Sky",
+        "$properties": { "StarCount": 4000, "SunAngularSize": 14, "MoonAngularSize": 0 }
       },
       "TerraNovaColor": {
         "$className": "ColorCorrectionEffect",
