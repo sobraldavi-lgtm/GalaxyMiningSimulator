@@ -2,93 +2,6 @@
   "name": "TerraNova",
   "tree": {
     "$className": "Model",
-    "Ground": {
-      "$className": "Folder",
-      "RouteToMine": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            12,
-            0.15,
-            34
-          ],
-          "Position": [
-            0,
-            0.58,
-            -30
-          ],
-          "Color": [
-            0.16,
-            0.22,
-            0.3
-          ],
-          "Material": "Concrete",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth",
-          "Transparency": 1,
-          "CanCollide": false,
-          "CanTouch": false,
-          "CanQuery": false
-        }
-      },
-      "RouteToShop": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            40,
-            0.15,
-            10
-          ],
-          "Position": [
-            -33,
-            0.58,
-            0
-          ],
-          "Color": [
-            0.16,
-            0.22,
-            0.3
-          ],
-          "Material": "Concrete",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth",
-          "Transparency": 1,
-          "CanCollide": false,
-          "CanTouch": false,
-          "CanQuery": false
-        }
-      },
-      "RouteToHangar": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            40,
-            0.15,
-            10
-          ],
-          "Position": [
-            33,
-            0.58,
-            0
-          ],
-          "Color": [
-            0.16,
-            0.22,
-            0.3
-          ],
-          "Material": "Concrete",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth",
-          "Transparency": 1,
-          "CanCollide": false,
-          "CanTouch": false,
-          "CanQuery": false
-        }
-      }
-    },
     "Arrival": {
       "$className": "Folder",
       "LandingPad": {
@@ -309,7 +222,7 @@
           "Position": [
             0,
             0.7,
-            -62
+            -132
           ],
           "Color": [
             0.09,
@@ -333,7 +246,7 @@
           "Position": [
             0,
             10,
-            -43
+            -113
           ],
           "Color": [
             1,
@@ -457,7 +370,7 @@
             "Position": [
               -20,
               2.4,
-              -57
+              -127
             ],
             "Color": [
               0.27,
@@ -486,7 +399,7 @@
             "Position": [
               -20,
               5,
-              -57
+              -127
             ],
             "Color": [
               0.27,
@@ -515,7 +428,7 @@
             "Position": [
               -17,
               2.4,
-              -64
+              -134
             ],
             "Color": [
               0.27,
@@ -544,7 +457,7 @@
             "Position": [
               -17,
               5,
-              -64
+              -134
             ],
             "Color": [
               0.27,
@@ -573,7 +486,7 @@
             "Position": [
               -20,
               2.4,
-              -71
+              -141
             ],
             "Color": [
               0.27,
@@ -602,7 +515,7 @@
             "Position": [
               -20,
               5,
-              -71
+              -141
             ],
             "Color": [
               0.27,
@@ -631,7 +544,7 @@
             "Position": [
               -20,
               10,
-              -63
+              -133
             ],
             "Color": [
               0.84,
@@ -753,7 +666,7 @@
             "Position": [
               0,
               2.4,
-              -57
+              -127
             ],
             "Color": [
               0.27,
@@ -782,7 +695,7 @@
             "Position": [
               0,
               5,
-              -57
+              -127
             ],
             "Color": [
               0.67,
@@ -811,7 +724,7 @@
             "Position": [
               3,
               2.4,
-              -64
+              -134
             ],
             "Color": [
               0.27,
@@ -840,7 +753,7 @@
             "Position": [
               3,
               5,
-              -64
+              -134
             ],
             "Color": [
               0.67,
@@ -869,7 +782,7 @@
             "Position": [
               0,
               2.4,
-              -71
+              -141
             ],
             "Color": [
               0.27,
@@ -898,7 +811,7 @@
             "Position": [
               0,
               5,
-              -71
+              -141
             ],
             "Color": [
               0.67,
@@ -927,7 +840,7 @@
             "Position": [
               0,
               10,
-              -63
+              -133
             ],
             "Color": [
               0.67,
@@ -1049,7 +962,7 @@
             "Position": [
               20,
               2.4,
-              -57
+              -127
             ],
             "Color": [
               0.27,
@@ -1078,7 +991,7 @@
             "Position": [
               20,
               5,
-              -57
+              -127
             ],
             "Color": [
               0.2,
@@ -1107,7 +1020,7 @@
             "Position": [
               23,
               2.4,
-              -64
+              -134
             ],
             "Color": [
               0.27,
@@ -1136,7 +1049,7 @@
             "Position": [
               23,
               5,
-              -64
+              -134
             ],
             "Color": [
               0.2,
@@ -1165,7 +1078,7 @@
             "Position": [
               20,
               2.4,
-              -71
+              -141
             ],
             "Color": [
               0.27,
@@ -1194,7 +1107,7 @@
             "Position": [
               20,
               5,
-              -71
+              -141
             ],
             "Color": [
               0.2,
@@ -1223,7 +1136,7 @@
             "Position": [
               20,
               10,
-              -63
+              -133
             ],
             "Color": [
               0.2,
@@ -1343,13 +1256,13 @@
               6
             ],
             "Position": [
-              49,
+              94,
               2.4,
-              -57
+              -127
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -1372,9 +1285,9 @@
               2.5
             ],
             "Position": [
-              49,
+              94,
               5,
-              -57
+              -127
             ],
             "Color": [
               0.82,
@@ -1401,13 +1314,13 @@
               6
             ],
             "Position": [
-              52,
+              97,
               2.4,
-              -64
+              -134
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -1430,9 +1343,9 @@
               2.5
             ],
             "Position": [
-              52,
+              97,
               5,
-              -64
+              -134
             ],
             "Color": [
               0.82,
@@ -1459,13 +1372,13 @@
               6
             ],
             "Position": [
-              49,
+              94,
               2.4,
-              -71
+              -141
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -1488,9 +1401,9 @@
               2.5
             ],
             "Position": [
-              49,
+              94,
               5,
-              -71
+              -141
             ],
             "Color": [
               0.82,
@@ -1517,9 +1430,9 @@
               1
             ],
             "Position": [
-              49,
+              94,
               10,
-              -63
+              -133
             ],
             "Color": [
               0.82,
@@ -1529,11 +1442,11 @@
             "Material": "SmoothPlastic",
             "TopSurface": "Smooth",
             "BottomSurface": "Smooth",
-            "Transparency": 1,
             "CanCollide": false,
             "CanTouch": false,
             "CanQuery": false,
-            "CastShadow": false
+            "CastShadow": false,
+            "Transparency": 1
           },
           "Label": {
             "$className": "BillboardGui",
@@ -1542,16 +1455,16 @@
                 "UDim2": [
                   [
                     0,
-                    290
+                    300
                   ],
                   [
                     0,
-                    66
+                    70
                   ]
                 ]
               },
               "AlwaysOnTop": false,
-              "MaxDistance": 110
+              "MaxDistance": 140
             },
             "Text": {
               "$className": "TextLabel",
@@ -1569,9 +1482,9 @@
                   ]
                 },
                 "BackgroundColor3": [
-                  0.1,
-                  0.07,
-                  0.3
+                  0.04,
+                  0.05,
+                  0.16
                 ],
                 "BackgroundTransparency": 0.1,
                 "Text": "Prata cósmica\nClique para minerar",
@@ -1600,9 +1513,9 @@
                 "$properties": {
                   "Thickness": 3,
                   "Color": [
-                    0.03,
                     0.02,
-                    0.18
+                    0.02,
+                    0.12
                   ]
                 }
               }
@@ -1622,13 +1535,13 @@
               6
             ],
             "Position": [
-              60,
+              105,
               2.4,
-              -57
+              -127
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -1651,9 +1564,9 @@
               2.5
             ],
             "Position": [
-              60,
+              105,
               5,
-              -57
+              -127
             ],
             "Color": [
               1.0,
@@ -1680,13 +1593,13 @@
               6
             ],
             "Position": [
-              63,
+              108,
               2.4,
-              -64
+              -134
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -1709,9 +1622,9 @@
               2.5
             ],
             "Position": [
-              63,
+              108,
               5,
-              -64
+              -134
             ],
             "Color": [
               1.0,
@@ -1738,13 +1651,13 @@
               6
             ],
             "Position": [
-              60,
+              105,
               2.4,
-              -71
+              -141
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -1767,9 +1680,9 @@
               2.5
             ],
             "Position": [
-              60,
+              105,
               5,
-              -71
+              -141
             ],
             "Color": [
               1.0,
@@ -1796,9 +1709,9 @@
               1
             ],
             "Position": [
-              60,
+              105,
               10,
-              -63
+              -133
             ],
             "Color": [
               1.0,
@@ -1808,11 +1721,11 @@
             "Material": "SmoothPlastic",
             "TopSurface": "Smooth",
             "BottomSurface": "Smooth",
-            "Transparency": 1,
             "CanCollide": false,
             "CanTouch": false,
             "CanQuery": false,
-            "CastShadow": false
+            "CastShadow": false,
+            "Transparency": 1
           },
           "Label": {
             "$className": "BillboardGui",
@@ -1821,16 +1734,16 @@
                 "UDim2": [
                   [
                     0,
-                    290
+                    300
                   ],
                   [
                     0,
-                    66
+                    70
                   ]
                 ]
               },
               "AlwaysOnTop": false,
-              "MaxDistance": 110
+              "MaxDistance": 140
             },
             "Text": {
               "$className": "TextLabel",
@@ -1848,9 +1761,9 @@
                   ]
                 },
                 "BackgroundColor3": [
-                  0.1,
-                  0.07,
-                  0.3
+                  0.04,
+                  0.05,
+                  0.16
                 ],
                 "BackgroundTransparency": 0.1,
                 "Text": "Ouro estelar\nClique para minerar",
@@ -1879,9 +1792,9 @@
                 "$properties": {
                   "Thickness": 3,
                   "Color": [
-                    0.03,
                     0.02,
-                    0.18
+                    0.02,
+                    0.12
                   ]
                 }
               }
@@ -1901,13 +1814,13 @@
               6
             ],
             "Position": [
-              71,
+              116,
               2.4,
-              -57
+              -127
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -1930,9 +1843,9 @@
               2.5
             ],
             "Position": [
-              71,
+              116,
               5,
-              -57
+              -127
             ],
             "Color": [
               0.15,
@@ -1959,13 +1872,13 @@
               6
             ],
             "Position": [
-              74,
+              119,
               2.4,
-              -64
+              -134
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -1988,9 +1901,9 @@
               2.5
             ],
             "Position": [
-              74,
+              119,
               5,
-              -64
+              -134
             ],
             "Color": [
               0.15,
@@ -2017,13 +1930,13 @@
               6
             ],
             "Position": [
-              71,
+              116,
               2.4,
-              -71
+              -141
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2046,9 +1959,9 @@
               2.5
             ],
             "Position": [
-              71,
+              116,
               5,
-              -71
+              -141
             ],
             "Color": [
               0.15,
@@ -2075,9 +1988,9 @@
               1
             ],
             "Position": [
-              71,
+              116,
               10,
-              -63
+              -133
             ],
             "Color": [
               0.15,
@@ -2087,11 +2000,11 @@
             "Material": "SmoothPlastic",
             "TopSurface": "Smooth",
             "BottomSurface": "Smooth",
-            "Transparency": 1,
             "CanCollide": false,
             "CanTouch": false,
             "CanQuery": false,
-            "CastShadow": false
+            "CastShadow": false,
+            "Transparency": 1
           },
           "Label": {
             "$className": "BillboardGui",
@@ -2100,16 +2013,16 @@
                 "UDim2": [
                   [
                     0,
-                    290
+                    300
                   ],
                   [
                     0,
-                    66
+                    70
                   ]
                 ]
               },
               "AlwaysOnTop": false,
-              "MaxDistance": 110
+              "MaxDistance": 140
             },
             "Text": {
               "$className": "TextLabel",
@@ -2127,9 +2040,9 @@
                   ]
                 },
                 "BackgroundColor3": [
-                  0.1,
-                  0.07,
-                  0.3
+                  0.04,
+                  0.05,
+                  0.16
                 ],
                 "BackgroundTransparency": 0.1,
                 "Text": "Esmeralda alienígena\nClique para minerar",
@@ -2158,9 +2071,9 @@
                 "$properties": {
                   "Thickness": 3,
                   "Color": [
-                    0.03,
                     0.02,
-                    0.18
+                    0.02,
+                    0.12
                   ]
                 }
               }
@@ -2180,13 +2093,13 @@
               6
             ],
             "Position": [
-              -71,
+              -116,
               2.4,
-              -57
+              -127
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2209,9 +2122,9 @@
               2.5
             ],
             "Position": [
-              -71,
+              -116,
               5,
-              -57
+              -127
             ],
             "Color": [
               1.0,
@@ -2238,13 +2151,13 @@
               6
             ],
             "Position": [
-              -68,
+              -113,
               2.4,
-              -64
+              -134
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2267,9 +2180,9 @@
               2.5
             ],
             "Position": [
-              -68,
+              -113,
               5,
-              -64
+              -134
             ],
             "Color": [
               1.0,
@@ -2296,13 +2209,13 @@
               6
             ],
             "Position": [
-              -71,
+              -116,
               2.4,
-              -71
+              -141
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2325,9 +2238,9 @@
               2.5
             ],
             "Position": [
-              -71,
+              -116,
               5,
-              -71
+              -141
             ],
             "Color": [
               1.0,
@@ -2354,9 +2267,9 @@
               1
             ],
             "Position": [
-              -71,
+              -116,
               10,
-              -63
+              -133
             ],
             "Color": [
               1.0,
@@ -2366,11 +2279,11 @@
             "Material": "SmoothPlastic",
             "TopSurface": "Smooth",
             "BottomSurface": "Smooth",
-            "Transparency": 1,
             "CanCollide": false,
             "CanTouch": false,
             "CanQuery": false,
-            "CastShadow": false
+            "CastShadow": false,
+            "Transparency": 1
           },
           "Label": {
             "$className": "BillboardGui",
@@ -2379,16 +2292,16 @@
                 "UDim2": [
                   [
                     0,
-                    290
+                    300
                   ],
                   [
                     0,
-                    66
+                    70
                   ]
                 ]
               },
               "AlwaysOnTop": false,
-              "MaxDistance": 110
+              "MaxDistance": 140
             },
             "Text": {
               "$className": "TextLabel",
@@ -2406,9 +2319,9 @@
                   ]
                 },
                 "BackgroundColor3": [
-                  0.1,
-                  0.07,
-                  0.3
+                  0.04,
+                  0.05,
+                  0.16
                 ],
                 "BackgroundTransparency": 0.1,
                 "Text": "Rubi solar\nClique para minerar",
@@ -2437,9 +2350,9 @@
                 "$properties": {
                   "Thickness": 3,
                   "Color": [
-                    0.03,
                     0.02,
-                    0.18
+                    0.02,
+                    0.12
                   ]
                 }
               }
@@ -2459,13 +2372,13 @@
               6
             ],
             "Position": [
-              -60,
+              -105,
               2.4,
-              -57
+              -127
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2488,9 +2401,9 @@
               2.5
             ],
             "Position": [
-              -60,
+              -105,
               5,
-              -57
+              -127
             ],
             "Color": [
               0.45,
@@ -2517,13 +2430,13 @@
               6
             ],
             "Position": [
-              -57,
+              -102,
               2.4,
-              -64
+              -134
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2546,9 +2459,9 @@
               2.5
             ],
             "Position": [
-              -57,
+              -102,
               5,
-              -64
+              -134
             ],
             "Color": [
               0.45,
@@ -2575,13 +2488,13 @@
               6
             ],
             "Position": [
-              -60,
+              -105,
               2.4,
-              -71
+              -141
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2604,9 +2517,9 @@
               2.5
             ],
             "Position": [
-              -60,
+              -105,
               5,
-              -71
+              -141
             ],
             "Color": [
               0.45,
@@ -2633,9 +2546,9 @@
               1
             ],
             "Position": [
-              -60,
+              -105,
               10,
-              -63
+              -133
             ],
             "Color": [
               0.45,
@@ -2645,11 +2558,11 @@
             "Material": "SmoothPlastic",
             "TopSurface": "Smooth",
             "BottomSurface": "Smooth",
-            "Transparency": 1,
             "CanCollide": false,
             "CanTouch": false,
             "CanQuery": false,
-            "CastShadow": false
+            "CastShadow": false,
+            "Transparency": 1
           },
           "Label": {
             "$className": "BillboardGui",
@@ -2658,16 +2571,16 @@
                 "UDim2": [
                   [
                     0,
-                    290
+                    300
                   ],
                   [
                     0,
-                    66
+                    70
                   ]
                 ]
               },
               "AlwaysOnTop": false,
-              "MaxDistance": 110
+              "MaxDistance": 140
             },
             "Text": {
               "$className": "TextLabel",
@@ -2685,9 +2598,9 @@
                   ]
                 },
                 "BackgroundColor3": [
-                  0.1,
-                  0.07,
-                  0.3
+                  0.04,
+                  0.05,
+                  0.16
                 ],
                 "BackgroundTransparency": 0.1,
                 "Text": "Obsidiana negra\nClique para minerar",
@@ -2716,9 +2629,9 @@
                 "$properties": {
                   "Thickness": 3,
                   "Color": [
-                    0.03,
                     0.02,
-                    0.18
+                    0.02,
+                    0.12
                   ]
                 }
               }
@@ -2738,13 +2651,13 @@
               6
             ],
             "Position": [
-              -49,
+              -94,
               2.4,
-              -57
+              -127
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2767,9 +2680,9 @@
               2.5
             ],
             "Position": [
-              -49,
+              -94,
               5,
-              -57
+              -127
             ],
             "Color": [
               0.7,
@@ -2796,13 +2709,13 @@
               6
             ],
             "Position": [
-              -46,
+              -91,
               2.4,
-              -64
+              -134
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2825,9 +2738,9 @@
               2.5
             ],
             "Position": [
-              -46,
+              -91,
               5,
-              -64
+              -134
             ],
             "Color": [
               0.7,
@@ -2854,13 +2767,13 @@
               6
             ],
             "Position": [
-              -49,
+              -94,
               2.4,
-              -71
+              -141
             ],
             "Color": [
-              0.22,
               0.2,
+              0.19,
               0.3
             ],
             "Material": "Rock",
@@ -2883,9 +2796,9 @@
               2.5
             ],
             "Position": [
-              -49,
+              -94,
               5,
-              -71
+              -141
             ],
             "Color": [
               0.7,
@@ -2912,9 +2825,9 @@
               1
             ],
             "Position": [
-              -49,
+              -94,
               10,
-              -63
+              -133
             ],
             "Color": [
               0.7,
@@ -2924,11 +2837,11 @@
             "Material": "SmoothPlastic",
             "TopSurface": "Smooth",
             "BottomSurface": "Smooth",
-            "Transparency": 1,
             "CanCollide": false,
             "CanTouch": false,
             "CanQuery": false,
-            "CastShadow": false
+            "CastShadow": false,
+            "Transparency": 1
           },
           "Label": {
             "$className": "BillboardGui",
@@ -2937,16 +2850,16 @@
                 "UDim2": [
                   [
                     0,
-                    290
+                    300
                   ],
                   [
                     0,
-                    66
+                    70
                   ]
                 ]
               },
               "AlwaysOnTop": false,
-              "MaxDistance": 110
+              "MaxDistance": 140
             },
             "Text": {
               "$className": "TextLabel",
@@ -2964,9 +2877,9 @@
                   ]
                 },
                 "BackgroundColor3": [
-                  0.1,
-                  0.07,
-                  0.3
+                  0.04,
+                  0.05,
+                  0.16
                 ],
                 "BackgroundTransparency": 0.1,
                 "Text": "Diamante galáctico\nClique para minerar",
@@ -2995,9 +2908,9 @@
                 "$properties": {
                   "Thickness": 3,
                   "Color": [
-                    0.03,
                     0.02,
-                    0.18
+                    0.02,
+                    0.12
                   ]
                 }
               }
@@ -3018,7 +2931,7 @@
             30
           ],
           "Position": [
-            -68,
+            -140,
             0.75,
             0
           ],
@@ -3042,7 +2955,7 @@
             4
           ],
           "Position": [
-            -74,
+            -146,
             5.5,
             -5
           ],
@@ -3066,7 +2979,7 @@
             4
           ],
           "Position": [
-            -62,
+            -134,
             5.5,
             -5
           ],
@@ -3093,7 +3006,7 @@
             4
           ],
           "Position": [
-            -68,
+            -140,
             3,
             -5
           ],
@@ -3120,9 +3033,9 @@
             42
           ],
           "Position": [
-            72,
+            150,
             0.75,
-            4
+            10
           ],
           "Color": [
             0.12,
@@ -3144,9 +3057,9 @@
             40
           ],
           "Position": [
-            53,
+            131,
             1.06,
-            4
+            10
           ],
           "Color": [
             0.15,
@@ -3169,9 +3082,9 @@
             40
           ],
           "Position": [
-            91,
+            169,
             1.06,
-            4
+            10
           ],
           "Color": [
             0.15,
@@ -3194,9 +3107,9 @@
             2
           ],
           "Position": [
-            72,
+            150,
             16,
-            -16
+            -10
           ],
           "Color": [
             0.23,
@@ -3218,9 +3131,9 @@
             2
           ],
           "Position": [
-            52,
+            130,
             8,
-            -16
+            -10
           ],
           "Color": [
             0.23,
@@ -3242,9 +3155,9 @@
             2
           ],
           "Position": [
-            92,
+            170,
             8,
-            -16
+            -10
           ],
           "Color": [
             0.23,
@@ -3266,9 +3179,9 @@
             1
           ],
           "Position": [
-            72,
+            150,
             14,
-            20
+            26
           ],
           "Color": [
             0.15,
@@ -3387,9 +3300,9 @@
               19
             ],
             "Position": [
-              72,
+              150,
               6,
-              3
+              9
             ],
             "Color": [
               0.84,
@@ -3411,9 +3324,9 @@
               6
             ],
             "Position": [
-              72,
+              150,
               5.5,
-              -9
+              -3
             ],
             "Color": [
               1,
@@ -3435,9 +3348,9 @@
               7
             ],
             "Position": [
-              72,
+              150,
               9,
-              0
+              6
             ],
             "Color": [
               0.2,
@@ -3460,9 +3373,9 @@
               12
             ],
             "Position": [
-              62,
+              140,
               4.2,
-              5
+              11
             ],
             "Color": [
               1,
@@ -3484,9 +3397,9 @@
               8
             ],
             "Position": [
-              62,
+              140,
               5,
-              11
+              17
             ],
             "Color": [
               0.23,
@@ -3508,9 +3421,9 @@
               0.3
             ],
             "Position": [
-              62,
+              140,
               5,
-              15.1
+              21.1
             ],
             "Color": [
               0.15,
@@ -3532,9 +3445,9 @@
               12
             ],
             "Position": [
-              82,
+              160,
               4.2,
-              5
+              11
             ],
             "Color": [
               1,
@@ -3556,9 +3469,9 @@
               8
             ],
             "Position": [
-              82,
+              160,
               5,
-              11
+              17
             ],
             "Color": [
               0.23,
@@ -3580,9 +3493,9 @@
               0.3
             ],
             "Position": [
-              82,
+              160,
               5,
-              15.1
+              21.1
             ],
             "Color": [
               0.15,
@@ -3604,9 +3517,9 @@
               2
             ],
             "Position": [
-              68,
+              146,
               2.5,
-              6
+              12
             ],
             "Color": [
               0.23,
@@ -3628,9 +3541,9 @@
               2
             ],
             "Position": [
-              76,
+              154,
               2.5,
-              6
+              12
             ],
             "Color": [
               0.23,
@@ -3658,7 +3571,7 @@
           "Position": [
             -14,
             9,
-            -84
+            -154
           ],
           "Color": [
             0.27,
@@ -3682,7 +3595,7 @@
           "Position": [
             14,
             9,
-            -84
+            -154
           ],
           "Color": [
             0.27,
@@ -3706,7 +3619,7 @@
           "Position": [
             0,
             19,
-            -84
+            -154
           ],
           "Color": [
             0.27,
@@ -3730,7 +3643,7 @@
           "Position": [
             0,
             8,
-            -89
+            -159
           ],
           "Color": [
             0.08,
@@ -3754,7 +3667,7 @@
           "Position": [
             0,
             12,
-            -78
+            -148
           ],
           "Color": [
             0.2,
@@ -3864,372 +3777,6 @@
     },
     "Decorations": {
       "$className": "Folder",
-      "Beacon0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1,
-            4,
-            1
-          ],
-          "Position": [
-            -17,
-            2.5,
-            15
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "BeaconCap0": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.4,
-            0.6,
-            1.4
-          ],
-          "Position": [
-            -17,
-            4.8,
-            15
-          ],
-          "Color": [
-            0.15,
-            0.85,
-            0.95
-          ],
-          "Material": "Neon",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        },
-        "Light": {
-          "$className": "PointLight",
-          "$properties": {
-            "Color": [
-              0.15,
-              0.85,
-              0.95
-            ],
-            "Brightness": 0.6,
-            "Range": 10,
-            "Shadows": false
-          }
-        }
-      },
-      "Beacon1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1,
-            4,
-            1
-          ],
-          "Position": [
-            17,
-            2.5,
-            15
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "BeaconCap1": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.4,
-            0.6,
-            1.4
-          ],
-          "Position": [
-            17,
-            4.8,
-            15
-          ],
-          "Color": [
-            0.15,
-            0.85,
-            0.95
-          ],
-          "Material": "Neon",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        },
-        "Light": {
-          "$className": "PointLight",
-          "$properties": {
-            "Color": [
-              0.15,
-              0.85,
-              0.95
-            ],
-            "Brightness": 0.6,
-            "Range": 10,
-            "Shadows": false
-          }
-        }
-      },
-      "Beacon2": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1,
-            4,
-            1
-          ],
-          "Position": [
-            -17,
-            2.5,
-            -30
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "BeaconCap2": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.4,
-            0.6,
-            1.4
-          ],
-          "Position": [
-            -17,
-            4.8,
-            -30
-          ],
-          "Color": [
-            0.15,
-            0.85,
-            0.95
-          ],
-          "Material": "Neon",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        },
-        "Light": {
-          "$className": "PointLight",
-          "$properties": {
-            "Color": [
-              0.15,
-              0.85,
-              0.95
-            ],
-            "Brightness": 0.6,
-            "Range": 10,
-            "Shadows": false
-          }
-        }
-      },
-      "Beacon3": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1,
-            4,
-            1
-          ],
-          "Position": [
-            17,
-            2.5,
-            -30
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "BeaconCap3": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.4,
-            0.6,
-            1.4
-          ],
-          "Position": [
-            17,
-            4.8,
-            -30
-          ],
-          "Color": [
-            0.15,
-            0.85,
-            0.95
-          ],
-          "Material": "Neon",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        },
-        "Light": {
-          "$className": "PointLight",
-          "$properties": {
-            "Color": [
-              0.15,
-              0.85,
-              0.95
-            ],
-            "Brightness": 0.6,
-            "Range": 10,
-            "Shadows": false
-          }
-        }
-      },
-      "Beacon4": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1,
-            4,
-            1
-          ],
-          "Position": [
-            -45,
-            2.5,
-            8
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "BeaconCap4": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.4,
-            0.6,
-            1.4
-          ],
-          "Position": [
-            -45,
-            4.8,
-            8
-          ],
-          "Color": [
-            0.15,
-            0.85,
-            0.95
-          ],
-          "Material": "Neon",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        },
-        "Light": {
-          "$className": "PointLight",
-          "$properties": {
-            "Color": [
-              0.15,
-              0.85,
-              0.95
-            ],
-            "Brightness": 0.6,
-            "Range": 10,
-            "Shadows": false
-          }
-        }
-      },
-      "Beacon5": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1,
-            4,
-            1
-          ],
-          "Position": [
-            45,
-            2.5,
-            8
-          ],
-          "Color": [
-            0.23,
-            0.3,
-            0.38
-          ],
-          "Material": "Metal",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        }
-      },
-      "BeaconCap5": {
-        "$className": "Part",
-        "$properties": {
-          "Anchored": true,
-          "Size": [
-            1.4,
-            0.6,
-            1.4
-          ],
-          "Position": [
-            45,
-            4.8,
-            8
-          ],
-          "Color": [
-            0.15,
-            0.85,
-            0.95
-          ],
-          "Material": "Neon",
-          "TopSurface": "Smooth",
-          "BottomSurface": "Smooth"
-        },
-        "Light": {
-          "$className": "PointLight",
-          "$properties": {
-            "Color": [
-              0.15,
-              0.85,
-              0.95
-            ],
-            "Brightness": 0.6,
-            "Range": 10,
-            "Shadows": false
-          }
-        }
-      },
       "MineSetDressing": {
         "MineFrontTrim": {
           "$properties": {
@@ -4251,7 +3798,7 @@
             "Position": [
               0,
               1.0,
-              -43.05
+              -113.05
             ]
           },
           "$className": "Part"
@@ -4276,7 +3823,7 @@
             "Position": [
               -5,
               0.94,
-              -45
+              -115
             ]
           },
           "$className": "Part"
@@ -4302,7 +3849,7 @@
             "Position": [
               -15,
               0.94,
-              -45
+              -115
             ]
           },
           "$className": "Part"
@@ -4327,7 +3874,7 @@
             "Position": [
               0,
               1.0,
-              -80.95
+              -150.95
             ]
           },
           "$className": "Part"
@@ -4352,7 +3899,7 @@
             "Position": [
               25,
               0.94,
-              -45
+              -115
             ]
           },
           "$className": "Part"
@@ -4377,7 +3924,7 @@
             "Position": [
               5,
               0.94,
-              -45
+              -115
             ]
           },
           "$className": "Part"
@@ -4402,7 +3949,7 @@
             "Position": [
               28.7,
               1.0,
-              -62
+              -132
             ]
           },
           "$className": "Part"
@@ -4427,7 +3974,7 @@
             "Position": [
               15,
               0.94,
-              -45
+              -115
             ]
           },
           "$className": "Part"
@@ -4452,7 +3999,7 @@
             "Position": [
               -28.7,
               1.0,
-              -62
+              -132
             ]
           },
           "$className": "Part"
@@ -4477,7 +4024,7 @@
             "Position": [
               -25,
               0.94,
-              -45
+              -115
             ]
           },
           "$className": "Part"
@@ -4503,9 +4050,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              80,
+              158,
               1.08,
-              -11
+              -5
             ]
           },
           "$className": "Part"
@@ -4528,9 +4075,9 @@
             "Material": "Neon",
             "TopSurface": "Smooth",
             "Position": [
-              72,
+              150,
               15.8,
-              -15.65
+              -9.65
             ]
           },
           "$className": "Part"
@@ -4554,9 +4101,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              64,
+              142,
               1.08,
-              19
+              25
             ]
           },
           "$className": "Part"
@@ -4581,9 +4128,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              72,
+              150,
               1.08,
-              -11
+              -5
             ]
           },
           "$className": "Part"
@@ -4607,9 +4154,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              64,
+              142,
               1.08,
-              -11
+              -5
             ]
           },
           "$className": "Part"
@@ -4633,9 +4180,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              80,
+              158,
               1.08,
-              19
+              25
             ]
           },
           "$className": "Part"
@@ -4659,9 +4206,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              88,
+              166,
               1.08,
-              19
+              25
             ]
           },
           "$className": "Part"
@@ -4685,9 +4232,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              56,
+              134,
               1.08,
-              -11
+              -5
             ]
           },
           "$className": "Part"
@@ -4710,9 +4257,9 @@
             "Material": "Neon",
             "TopSurface": "Smooth",
             "Position": [
-              72,
+              150,
               1.08,
-              4
+              10
             ]
           },
           "$className": "Part"
@@ -4736,9 +4283,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              88,
+              166,
               1.08,
-              -11
+              -5
             ]
           },
           "$className": "Part"
@@ -4762,9 +4309,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              72,
+              150,
               1.08,
-              19
+              25
             ]
           },
           "$className": "Part"
@@ -4788,9 +4335,9 @@
             "TopSurface": "Smooth",
             "Shape": "Ball",
             "Position": [
-              56,
+              134,
               1.08,
-              19
+              25
             ]
           },
           "$className": "Part"
@@ -4824,7 +4371,7 @@
             "Position": [
               -19,
               4,
-              -77
+              -147
             ]
           },
           "$className": "Part"
@@ -4855,7 +4402,7 @@
             "Position": [
               21,
               5,
-              -82
+              -152
             ]
           },
           "$className": "Part"
@@ -4886,7 +4433,7 @@
             "Position": [
               -21,
               5,
-              -82
+              -152
             ]
           },
           "$className": "Part"
@@ -4917,7 +4464,7 @@
             "Position": [
               19,
               4,
-              -77
+              -147
             ]
           },
           "$className": "Part"
@@ -4936,9 +4483,9 @@
             19
           ],
           "Position": [
-            -22,
+            -52,
             0.75,
-            23
+            68
           ],
           "Color": [
             0.043,
@@ -4969,9 +4516,9 @@
             17
           ],
           "Position": [
-            -22,
+            -52,
             1.06,
-            23
+            68
           ],
           "Color": [
             0.545,
@@ -5002,9 +4549,9 @@
             16
           ],
           "Position": [
-            -22,
+            -52,
             1.15,
-            23
+            68
           ],
           "Color": [
             0.043,
@@ -5035,9 +4582,9 @@
             4.4
           ],
           "Position": [
-            -22,
+            -52,
             4.1,
-            24
+            69
           ],
           "Color": [
             0.133,
@@ -5068,9 +4615,9 @@
             12
           ],
           "Position": [
-            -22,
+            -52,
             7,
-            24
+            69
           ],
           "Color": [
             0.545,
@@ -5101,9 +4648,9 @@
             11.1
           ],
           "Position": [
-            -22,
+            -52,
             7.25,
-            24
+            69
           ],
           "Color": [
             0.133,
@@ -5134,9 +4681,9 @@
             5.4
           ],
           "Position": [
-            -22,
+            -52,
             8.2,
-            24
+            69
           ],
           "Color": [
             0.145,
@@ -5167,9 +4714,9 @@
             1.4
           ],
           "Position": [
-            -22,
+            -52,
             2.31,
-            18.4
+            63.4
           ],
           "Color": [
             0.043,
@@ -5200,9 +4747,9 @@
             0.15
           ],
           "Position": [
-            -22,
+            -52,
             3,
-            17.65
+            62.65
           ],
           "Color": [
             0.133,
@@ -5233,9 +4780,9 @@
             0.85
           ],
           "Position": [
-            -17.0,
+            -47.0,
             6.45,
-            24.0
+            69.0
           ],
           "Color": [
             1,
@@ -5266,9 +4813,9 @@
             0.85
           ],
           "Position": [
-            -18.464466094067262,
+            -48.46446609406726,
             6.45,
-            27.535533905932738
+            72.53553390593274
           ],
           "Color": [
             1,
@@ -5299,9 +4846,9 @@
             0.85
           ],
           "Position": [
-            -22.0,
+            -52.0,
             6.45,
-            29.0
+            74.0
           ],
           "Color": [
             1,
@@ -5332,9 +4879,9 @@
             0.85
           ],
           "Position": [
-            -25.535533905932738,
+            -55.53553390593274,
             6.45,
-            27.535533905932738
+            72.53553390593274
           ],
           "Color": [
             1,
@@ -5365,9 +4912,9 @@
             0.85
           ],
           "Position": [
-            -27.0,
+            -57.0,
             6.45,
-            24.0
+            69.0
           ],
           "Color": [
             1,
@@ -5398,9 +4945,9 @@
             0.85
           ],
           "Position": [
-            -25.535533905932738,
+            -55.53553390593274,
             6.45,
-            20.464466094067262
+            65.46446609406726
           ],
           "Color": [
             1,
@@ -5431,9 +4978,9 @@
             0.85
           ],
           "Position": [
-            -22.0,
+            -52.0,
             6.45,
-            19.0
+            64.0
           ],
           "Color": [
             1,
@@ -5464,9 +5011,9 @@
             0.85
           ],
           "Position": [
-            -18.464466094067262,
+            -48.46446609406726,
             6.45,
-            20.464466094067262
+            65.46446609406726
           ],
           "Color": [
             1,
@@ -5497,9 +5044,9 @@
             1.3
           ],
           "Position": [
-            -11.0,
+            -41.0,
             0.59,
-            12.0
+            57.0
           ],
           "Color": [
             0.545,
@@ -5530,9 +5077,9 @@
             1.3
           ],
           "Position": [
-            -13.2,
+            -43.2,
             0.59,
-            13.2
+            58.2
           ],
           "Color": [
             0.545,
@@ -5563,9 +5110,9 @@
             1.3
           ],
           "Position": [
-            -15.4,
+            -45.4,
             0.59,
-            14.4
+            59.4
           ],
           "Color": [
             0.545,
@@ -5596,9 +5143,9 @@
             1.3
           ],
           "Position": [
-            -17.6,
+            -47.6,
             0.59,
-            15.6
+            60.6
           ],
           "Color": [
             0.545,
@@ -5629,9 +5176,9 @@
             1
           ],
           "Position": [
-            -22,
+            -52,
             11.4,
-            23
+            68
           ],
           "Color": [
             0.15,
@@ -5760,9 +5307,9 @@
             3.2
           ],
           "Position": [
-            69.4,
+            86.4,
             2.05,
-            -25
+            60
           ],
           "Color": [
             0.11,
