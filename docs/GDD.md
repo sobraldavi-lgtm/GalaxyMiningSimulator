@@ -606,3 +606,23 @@ chances antes da compra (já atendido) e a decisão deve ser revisada à parte.
   entre os Raro+ do próprio ovo pelas chances dele. Qualquer Raro+ zera o contador.
   A loja mostra "Raro em N" em cada ovo; o Ovo Supernova só tem Raro+ ("SEMPRE RARO+").
 
+## Prêmio diário, venda automática e contratos — 08/11/2026 (aprovados pelo usuário)
+
+Valores são **hipóteses para testes**, em `MiningConfig` (`DailyRewards`, `AutoSell`, `Contracts`).
+
+- **Prêmio diário:** calendário de 7 dias contado por dia UTC no servidor. Entrar no
+  dia seguinte mantém a sequência; pular um dia recomeça no dia 1; depois do dia 7
+  o calendário volta ao 1, e a sequência total continua contando. Créditos: 100,
+  200, 300, 500, 800, 1.200 e 2.000, multiplicados pelo bônus de venda (renascimentos).
+  Fragmentos: +1 no dia 3 e +2 no dia 7.
+- **Venda automática:** exceção à regra "com a mochila cheia, vender na estação".
+  Liberada no **nível 5**, vende tudo ao encher, em qualquer lugar, por **80%** do
+  valor (a Estação de Venda continua pagando 100%). Liga e desliga em Ajustes.
+- **Contratos da Orion:** depois da campanha de ORBI, sempre 3 contratos ativos,
+  trocados ao concluir:
+  - minerar 20 de um dos 3 melhores minérios que quebram em até 6 golpes com o
+    poder atual (recompensa = valor de venda do lote + 1 Fragmento);
+  - ganhar em vendas o valor de 2 mochilas cheias do melhor minério viável
+    (recompensa = 25% da meta + 1 Fragmento);
+  - abrir 2 ovos (2 Fragmentos).
+

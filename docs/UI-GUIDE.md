@@ -58,6 +58,10 @@ Tudo que anima respeita **Movimento reduzido**.
 
 - **Carregamento** (`src/first/Loading.client.luau`, em ReplicatedFirst): céu estrelado, planeta com anel e lua orbitando, logotipo, barra de progresso e dicas.
 - **HUD:** três pílulas no topo (Créditos com contagem animada e "+N"; Carga com medidor ciano → âmbar → vermelho pulsando; Poder com treino até o limite), menu 2×2 de botões 3D à esquerda e o cartão **Próxima meta** à direita: o item mais barato que falta, com progresso de Créditos e atalho para a loja. Com a mochila cheia, ele vira o alerta **MOCHILA CHEIA!**, com o botão "IR VENDER". Em telas pequenas, a navegação fica em linha e o cartão só aparece no alerta.
+- **Prêmio diário (G):** janela com os 7 dias (resgatado, HOJE!, em breve), a sequência atual e o botão RESGATAR; abre sozinha uma vez por sessão quando há prêmio, e o botão Prêmio mostra "!".
+- **Contratos da Orion:** seção na janela de Missões e no rastreador da HUD (o contrato mais perto de terminar), com celebração "CONTRATO CONCLUÍDO!"; o guia aponta para o minério de contratos de mineração.
+- **Venda automática:** em Ajustes, interruptor a partir do nível 5 (antes disso, uma linha bloqueada explica o requisito).
+- **Mapa** (`MapDetails.client.luau`): cerca de 140 grupos de flora alienígena (cogumelos com pintas brilhantes, grama, brotos de cristal e flores-lanterna) só no chão aberto, sem cobrir caminhos, crateras ou construções; títulos de zona ao entrar em cada área (Praça, Mina, Caverna Azul, Loja, Venda, Pets, Hangar).
 - **Selos de aviso na navegação:** "!" vermelho pulsando na Loja (há ferramenta ou mochila melhor, ou o primeiro ovo, ao alcance do saldo), no Renascer (já dá para renascer) e na Mochila (cheia). Quando um item melhor passa a caber no saldo, aparece uma vez por sessão o aviso "Já dá para comprar: …".
 - **Combo de mineração:** a partir de 3 golpes seguidos (até 1,2 s entre eles), um selo "COMBO ×N" aparece sobre o painel: ciano, dourado a partir de 10 e rosa a partir de 25. É só visual e não dá bônus.
 - **Notificações:** até três, em pílulas com ícone e cor pelo `Tone` do servidor.
