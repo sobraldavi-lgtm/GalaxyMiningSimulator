@@ -92,6 +92,11 @@ local function logMissions(player, inventory, missions)
 	end
 end
 
+-- Dia UTC atual (prêmio diário). Declarado antes de publish, que o usa.
+local function today()
+	return os.time() // 86400
+end
+
 -- Tone é só apresentação: indica ao cliente a cor e o ícone da notificação
 -- (success, error, warning, sale, power, pickup). Não carrega regras.
 -- extra: { LevelUp = n, Missions = { ... } } para celebrações no cliente.
@@ -130,10 +135,6 @@ local function publish(player, message, tone, extra)
 	if extra then snapshot.DailyClaim = extra.DailyClaim end
 	updateLeaderstats(player, inventory)
 	remote:FireClient(player, snapshot)
-end
-
-local function today()
-	return os.time() // 86400
 end
 
 -- Se o minério não cabe e a venda automática está ligada (e liberada),
