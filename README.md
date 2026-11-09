@@ -145,3 +145,16 @@ renascimento fica no menu Renascer (tecla R).
   gastos: loja, pets e renascimento). Os eventos só aparecem com o jogo
   publicado e nunca interferem na partida.
 
+## Verificação sem o Studio
+
+Sem o Luau CLI, dois verificadores em Python ajudam a pegar erros comuns antes do teste:
+
+```
+python3 tools/check_blocks.py src/*/*.luau tests/*.luau
+python3 tools/lint_luau.py src/*/*.luau
+```
+
+O segundo aponta locais usados antes de serem declarados, que em Luau viram uma
+global nula e só falham em tempo de execução. Nenhum dos dois substitui o
+`luau-analyze` nem o teste no Studio.
+

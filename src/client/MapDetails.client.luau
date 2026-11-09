@@ -38,6 +38,7 @@ local CAPS = { Color3.fromHex("#5B3FD1"), Color3.fromHex("#2BA6A0"), Color3.from
 local GRASS = { Color3.fromHex("#2D6E70"), Color3.fromHex("#4B3B8F"), Color3.fromHex("#2F5C8A") }
 local GLOW = { Color3.fromHex("#7CF3E6"), Color3.fromHex("#FF8AD8"), Color3.fromHex("#9EB7FF") }
 
+local lanterns = {} -- bulbos que ganham vagalumes (declarado antes de kinds.lantern usar)
 local kinds = {}
 function kinds.mushrooms(at, rng)
 	for _ = 1, rng:NextInteger(2, 4) do
@@ -94,6 +95,7 @@ function kinds.lantern(at, rng)
 	local color = GLOW[rng:NextInteger(1, #GLOW)]
 	local bulb = piece(CFrame.new(at + Vector3.new(0, height + 0.3, 0)), Vector3.new(0.7, 0.85, 0.7), color,
 		Enum.Material.Neon, Enum.PartType.Ball, 0.15)
+	table.insert(lanterns, bulb)
 	if rng:NextNumber() < 0.35 then
 		local light = Instance.new("PointLight")
 		light.Color = color
@@ -140,10 +142,90 @@ local function blocked(point)
 	return false
 end
 
+-- ---------- Estátua do ORBI (marco perto da praça) ----------
+-- Procura um ponto livre perto do centro e monta o robô de frente para a praça.
+local function areaFree(center, radius)
+	for dx = -radius, radius, 2 do
+		for dz = -radius, radius, 2 do
+			if dx * dx + dz * dz <= radius * radius and blocked(center + Vector3.new(dx, 1, dz)) then
+				return false
+			end
+		end
+	end
+	return true
+end
+
+local function buildStatue(params)
+	local spot
+	for _, radius in ipairs({ 42, 52, 64, 78 }) do
+		for step = 0, 23 do
+			local angle = step * math.pi / 12 + 0.3
+			local probe = Vector3.new(math.cos(angle) * radius, 120, math.sin(angle) * radius)
+			local hit = workspace:Raycast(probe, Vector3.new(0, -240, 0), params)
+			if hit and hit.Instance.Name == "Surface" and areaFree(hit.Position, 7) then
+				spot = hit.Position
+				break
+			end
+		end
+		if spot then break end
+	end
+	if not spot then return end
+	local facing = CFrame.lookAt(spot, Vector3.new(0, spot.Y, 0))
+	local function at(x, y, z) return facing * CFrame.new(x, y, z) end
+	local FROST = Color3.fromHex("#E6ECFF")
+	local METAL = Color3.fromHex("#2A2147")
+	local CYAN = Color3.fromHex("#5CF0FF")
+	local parts = {}
+	local function add(cframe, size, color, material, shape, solid)
+		local part = piece(cframe, size, color, material, shape)
+		part.CanCollide = solid == true -- colisão local: o personagem não atravessa a estátua
+		table.insert(parts, part)
+		return part
+	end
+	add(at(0, 0.6, 0) * VERTICAL, Vector3.new(1.2, 10, 10), METAL, Enum.Material.Metal, Enum.PartType.Cylinder, true)
+	add(at(0, 1.6, 0) * VERTICAL, Vector3.new(0.8, 8, 8), METAL:Lerp(FROST, 0.15), Enum.Material.Metal, Enum.PartType.Cylinder, true)
+	add(at(0, 2.05, 0) * VERTICAL, Vector3.new(0.1, 8.2, 8.2), CYAN, Enum.Material.Neon, Enum.PartType.Cylinder)
+	add(at(0, 4.6, 0), Vector3.new(4, 4.4, 3.4), FROST, Enum.Material.SmoothPlastic, Enum.PartType.Ball, true)
+	add(at(0, 4.4, -1.55), Vector3.new(1.6, 1.2, 0.3), CYAN:Lerp(METAL, 0.5), Enum.Material.SmoothPlastic)
+	add(at(0, 8.2, 0), Vector3.new(4.6, 3.8, 3.8), FROST, Enum.Material.SmoothPlastic, Enum.PartType.Ball, true)
+	add(at(0, 8.2, -1.75), Vector3.new(3.4, 1.7, 0.45), Color3.fromHex("#120A26"), Enum.Material.Glass)
+	for side = -1, 1, 2 do
+		add(at(side * 0.75, 8.25, -2.02), Vector3.new(0.55, 0.7, 0.2), CYAN, Enum.Material.Neon, Enum.PartType.Ball)
+		-- Braços: um acenando para quem chega na praça.
+		local arm = side == 1 and at(2.6, 6.4, -0.3) * CFrame.Angles(0, 0, math.rad(-35))
+			or at(-2.4, 4.4, 0) * CFrame.Angles(0, 0, math.rad(15))
+		add(arm, Vector3.new(0.9, 2.6, 0.9), FROST:Lerp(METAL, 0.12), Enum.Material.SmoothPlastic, Enum.PartType.Ball)
+	end
+	add(at(0, 10.6, 0) * VERTICAL, Vector3.new(1.4, 0.18, 0.18), METAL, Enum.Material.Metal, Enum.PartType.Cylinder)
+	local tip = add(at(0, 11.45, 0), Vector3.new(0.6, 0.6, 0.6), CYAN, Enum.Material.Neon, Enum.PartType.Ball)
+	local light = Instance.new("PointLight")
+	light.Color = CYAN
+	light.Range = 14
+	light.Brightness = 1
+	light.Parent = tip
+	table.insert(lanterns, tip)
+	local plaque = Instance.new("BillboardGui")
+	plaque.Size = UDim2.fromOffset(240, 46)
+	plaque.StudsOffset = Vector3.new(0, 3, 0)
+	plaque.MaxDistance = 70
+	plaque.LightInfluence = 0
+	plaque.Parent = tip
+	local name = Theme.title(plaque, "ORBI", 24, C.Cyan)
+	name.Size = UDim2.new(1, 0, 0, 26)
+	local role = Theme.title(plaque, "Guardião de Terra Nova", 14, C.Muted)
+	role.Position = UDim2.fromOffset(0, 24)
+	role.Size = UDim2.new(1, 0, 0, 18)
+	for _, part in ipairs(parts) do index(part) end -- a flora não nasce dentro da estátua
+end
+
 local function growFlora()
 	for _, descendant in ipairs(world:GetDescendants()) do
 		if descendant:IsA("BasePart") then index(descendant) end
 	end
+	local statueParams = RaycastParams.new()
+	statueParams.FilterType = Enum.RaycastFilterType.Include
+	statueParams.FilterDescendantsInstances = { world }
+	buildStatue(statueParams)
 	local rng = Random.new(7)
 	local params = RaycastParams.new()
 	params.FilterType = Enum.RaycastFilterType.Include
@@ -172,6 +254,26 @@ task.spawn(function()
 	task.wait(2) -- deixa o cenário terminar de carregar
 	growFlora()
 	applyQuality()
+	-- Vagalumes subindo de algumas lanternas.
+	for i, bulb in ipairs(lanterns) do
+		if i % 2 == 1 then
+			local motes = Instance.new("ParticleEmitter")
+			motes.Texture = "rbxasset://textures/particles/sparkles_main.dna"
+			motes.Color = ColorSequence.new(bulb.Color, Color3.new(1, 1, 1))
+			motes.LightEmission = 1
+			motes.Rate = 1.5
+			motes.Lifetime = NumberRange.new(2.5, 4)
+			motes.Speed = NumberRange.new(0.4, 1)
+			motes.SpreadAngle = Vector2.new(60, 60)
+			motes.Acceleration = Vector3.new(0, 0.3, 0)
+			motes.Size = NumberSequence.new({
+				NumberSequenceKeypoint.new(0, 0),
+				NumberSequenceKeypoint.new(0.4, 0.22),
+				NumberSequenceKeypoint.new(1, 0),
+			})
+			motes.Parent = bulb
+		end
+	end
 end)
 
 -- Lanternas e cogumelos "respiram" devagar (só o brilho).
