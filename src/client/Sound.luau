@@ -11,7 +11,8 @@ local library = {
 	click = { Id = "rbxasset://sounds/button.wav", Volume = 0.35 },
 	hit = { Id = "rbxasset://sounds/clickfast.wav", Volume = 0.45 },
 	reward = { Id = "rbxasset://sounds/electronicpingshort.wav", Volume = 0.5 },
-	open = { Id = "rbxasset://sounds/swoosh.wav", Volume = 0.25 },
+	-- swoosh.wav não carrega no Studio ("not approved"); reutiliza o clique, mais grave.
+	open = { Id = "rbxasset://sounds/button.wav", Volume = 0.25, Pitch = 0.7 },
 }
 
 local templates = {}
@@ -39,7 +40,7 @@ function Sound.play(name: string, pitch: number?)
 	if now - (lastPlayed[name] or 0) < 0.04 then return end
 	lastPlayed[name] = now
 	local sound = template:Clone()
-	sound.PlaybackSpeed = pitch or 1
+	sound.PlaybackSpeed = (pitch or 1) * (library[name].Pitch or 1)
 	sound.Parent = SoundService
 	sound:Play()
 	Debris:AddItem(sound, 3)
