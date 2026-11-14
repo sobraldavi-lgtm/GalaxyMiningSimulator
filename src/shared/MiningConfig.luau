@@ -103,11 +103,11 @@ return table.freeze({
 	-- Loja de Fragmentos Estelares: melhorias permanentes (não se perdem ao
 	-- renascer). Costs = preço em Fragmentos de cada nível. Hipótese para testes.
 	Perks = table.freeze({
-		table.freeze({ Id = "Capacity", Name = "Bolsos Dimensionais", Effect = "de carga na mochila",
+		table.freeze({ Id = "Capacity", Name = "Bolsos Dimensionais", Effect = "de carga na mochila", Short = "carga",
 			PerLevel = 0.1, Costs = table.freeze({ 3, 5, 8, 12, 17 }), Color = "#22E1FF", Icon = "pack" }),
-		table.freeze({ Id = "Sale", Name = "Contrato Premium", Effect = "de Créditos nas vendas",
+		table.freeze({ Id = "Sale", Name = "Contrato Premium", Effect = "de Créditos nas vendas", Short = "vendas",
 			PerLevel = 0.05, Costs = table.freeze({ 3, 5, 8, 12, 17 }), Color = "#FFC531", Icon = "coin" }),
-		table.freeze({ Id = "Power", Name = "Núcleo Estelar", Effect = "de poder de mineração",
+		table.freeze({ Id = "Power", Name = "Núcleo Estelar", Effect = "de poder de mineração", Short = "poder",
 			PerLevel = 0.05, Costs = table.freeze({ 3, 5, 8, 12, 17 }), Color = "#A65BFF", Icon = "bolt" }),
 	}),
 	-- Preferências do jogador que o servidor aceita salvar (só booleanos).

@@ -1274,28 +1274,36 @@ local function layout()
 		if iconScale then iconScale.Scale = wide and 1.45 or 0.95 end
 	end
 	toasts.AnchorPoint = Vector2.new(0.5, 0)
-	toasts.Position = wide and UDim2.new(0.5, 0, 0, 108) or UDim2.new(0.5, 0, 0, 234)
+	-- Em telas estreitas as notificações passam por cima da navegação (somem em 3 s
+	-- e não bloqueiam toques), em vez de cair sobre o painel de mineração.
+	toasts.Position = wide and UDim2.new(0.5, 0, 0, 108) or UDim2.new(0.5, 0, 0, 74)
 	toasts.Size = UDim2.new(1, -40, 0, 160)
 	local toastLimit = toasts:FindFirstChildOfClass("UISizeConstraint") or Instance.new("UISizeConstraint", toasts)
 	toastLimit.MaxSize = Vector2.new(400, 160)
 
 	-- Cartão de meta: completo à direita (tela larga) ou compacto no topo.
 	goalCard.AnchorPoint = wide and Vector2.new(1, 0.5) or Vector2.new(0.5, 0)
-	goalCard.Position = wide and UDim2.new(1, -14, 0.5, 30) or UDim2.new(0.5, 0, 0, 176)
-	goalCard.Size = wide and UDim2.fromOffset(250, 178) or UDim2.new(1, -24, 0, 62)
+	-- Celular deitado: o alerta ocupa o lugar do rastreador de missão (metade direita).
+	local split = not wide and size.X >= 560
+	goalCard.Position = wide and UDim2.new(1, -14, 0.5, 30) or split and UDim2.new(0.75, 0, 0, 136)
+		or UDim2.new(0.5, 0, 0, 176)
+	goalCard.Size = wide and UDim2.fromOffset(250, 178) or split and UDim2.new(0.5, -16, 0, 50)
+		or UDim2.new(1, -24, 0, 62)
+	goalDetail.Visible = not split
 	local cardLimit = goalCard:FindFirstChildOfClass("UISizeConstraint") or Instance.new("UISizeConstraint", goalCard)
 	cardLimit.MaxSize = Vector2.new(wide and 250 or 420, 178)
 	goalHeader.Visible = wide
 	goalButton.Visible = wide
 	goalHeader.Position = UDim2.fromOffset(14, 8)
 	goalHeader.Size = UDim2.new(1, -28, 0, 18)
-	goalBadgeHolder.Position = wide and UDim2.fromOffset(12, 30) or UDim2.fromOffset(6, 5)
+	goalBadgeHolder.Position = wide and UDim2.fromOffset(12, 30) or split and UDim2.fromOffset(4, -1)
+		or UDim2.fromOffset(6, 5)
 	local left = wide and 74 or 62
-	goalName.Position = UDim2.fromOffset(left, wide and 32 or 6)
+	goalName.Position = UDim2.fromOffset(left, wide and 32 or split and 4 or 6)
 	goalName.Size = UDim2.new(1, -(left + 10), 0, 22)
 	goalDetail.Position = UDim2.fromOffset(left, wide and 54 or 26)
 	goalDetail.Size = UDim2.new(1, -(left + 10), 0, 14)
-	goalTrack.Position = wide and UDim2.fromOffset(14, 90) or UDim2.fromOffset(left, 42)
+	goalTrack.Position = wide and UDim2.fromOffset(14, 90) or UDim2.fromOffset(left, split and 28 or 42)
 	goalTrack.Size = wide and UDim2.new(1, -28, 0, 20) or UDim2.new(1, -(left + 12), 0, 14)
 	goalButton.AnchorPoint = Vector2.new(0.5, 1)
 	goalButton.Position = UDim2.new(0.5, 0, 1, -12)

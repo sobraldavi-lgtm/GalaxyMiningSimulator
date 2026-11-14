@@ -58,7 +58,7 @@ for index, perk in ipairs(Config.Perks) do
 	table.insert(items, {
 		Id = perk.Id, Category = "Perks", Kind = "Perk", Order = index,
 		Name = perk.Name, Color = Color3.fromHex(perk.Color), Icon = perk.Icon,
-		Price = 0, Costs = perk.Costs, PerLevel = perk.PerLevel, Effect = perk.Effect,
+		Price = 0, Costs = perk.Costs, PerLevel = perk.PerLevel, Effect = perk.Short,
 	})
 end
 
@@ -272,15 +272,13 @@ local function makeCard(item)
 		Theme.fitText(primary, 12, 7)
 		secondary.Visible = false
 	elseif item.Kind == "Perk" then
-		-- Duas linhas para o efeito atual → próximo.
-		secondary.Size = UDim2.new(1, -12, 0, 30)
 		secondary.TextColor3 = C.White
 	end
 
 	-- Progresso até poder comprar (só quando falta saldo).
 	local track = Instance.new("Frame")
-	track.Position = UDim2.new(0, 12, 1, -60)
-	track.Size = UDim2.new(1, -24, 0, 8)
+	track.Position = UDim2.new(0, 12, 1, -57)
+	track.Size = UDim2.new(1, -24, 0, 6)
 	track.Visible = false
 	track.Parent = face
 	local fill = Instance.new("Frame")
@@ -288,6 +286,12 @@ local function makeCard(item)
 	fill.Size = UDim2.fromScale(0, 1)
 	fill.Parent = track
 	Theme.meter(track, fill)
+	if item.Kind == "Perk" then
+		-- Nível, barra de nível e efeito, empilhados sem encostar no botão.
+		primary.Position = UDim2.fromOffset(6, 124)
+		track.Position = UDim2.new(0, 12, 0, 144)
+		secondary.Position = UDim2.fromOffset(6, 153)
+	end
 
 	local button = Theme.action(face, "", C.Blue, { Size = UDim2.new(1, -16, 0, 42), TextSize = 17, Radius = 12 })
 	button.AnchorPoint = Vector2.new(0.5, 1)
