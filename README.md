@@ -158,3 +158,12 @@ O segundo aponta locais usados antes de serem declarados, que em Luau viram uma
 global nula e só falham em tempo de execução. Nenhum dos dois substitui o
 `luau-analyze` nem o teste no Studio.
 
+## Verificação automática (GitHub Actions)
+
+A cada envio, `.github/workflows/verificacao.yml` roda no GitHub: os verificadores
+em Python, a compilação de todos os scripts com `luau-compile`, os testes de regra
+(`tests/inventory.spec.luau` e `tests/progression.spec.luau`) e o `rojo build`.
+O resultado aparece na aba Actions do repositório. Não usa segredos nem publica
+o jogo. A verificação cobre sintaxe, regras e a montagem do lugar; o
+comportamento em jogo (telas, 3D, DataStore) ainda precisa de teste no Studio.
+
