@@ -21,6 +21,16 @@ Direção visual **"Elegância Cósmica"** (Design System 6.0): espaço profundo
 | Menta | `#2EE59D` | Compra possível, sucesso e ajustes |
 | Vermelho | `#FF3D57` | Mochila cheia, erros e botão fechar |
 
+## Detalhes fixos do cenário
+
+`tools/build_map_details.py` gera `src/world/terra-nova-details.project.json` (em `Workspace/TerraNova/Details`), visível no Studio mesmo sem dar Play:
+
+- **Globo holográfico** de Terra Nova sobre a praça, com anel, lua e um feixe subindo do ponto de chegada.
+- **Seis acampamentos de mineradores** em áreas livres: barraca em cúpula, fogueira acesa, bancos, caixotes com amostras de minério, poste com lanterna e bandeira.
+- **Equipamento ao lado da mina:** carrinhos de minério em trilhos, caixotes, barris e lâmpadas de trabalho, nas laterais da plataforma, fora da linha de visão dos depósitos.
+
+A ferramenta confere cada posição contra a base de todas as peças existentes (caminhos, crateras, pontes, construções) e sempre gera o mesmo arquivo. Para mudar, edite a ferramenta e rode de novo.
+
 ## Mundo à noite
 
 - **Iluminação** (`default.project.json`): meia-noite, ambiente índigo e violeta, bloom contido, 5.000 estrelas, sem sol nem lua, e atmosfera violeta escura no horizonte.
