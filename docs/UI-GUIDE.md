@@ -67,6 +67,9 @@ Tudo que anima respeita **Movimento reduzido**.
 - **Mapa** (`MapDetails.client.luau`): cerca de 140 grupos de flora alienígena (cogumelos com pintas brilhantes, grama, brotos de cristal e flores-lanterna) só no chão aberto, sem cobrir caminhos, crateras ou construções; títulos de zona ao entrar em cada área (Praça, Mina, Caverna Azul, Loja, Venda, Pets, Hangar).
 - **Loja de Fragmentos:** quarta aba da loja (a barra lateral agora rola em telas baixas). Cada cartão mostra o nível, uma barra de nível, o efeito atual → próximo e o preço em ◆; o "!" da Loja também acende quando há Fragmentos para uma melhoria.
 - **Moedas na venda:** ao vender, moedas se espalham e voam até o contador de Créditos.
+- **Radar** (`Radar.client.luau`): mostrador redondo no canto inferior direito, só em telas largas e altas (900×640 ou mais). Gira com a câmera (o topo é para onde ela olha) e mostra Mina, Loja, Venda, Pets e Hangar com o ícone e a cor de cada um; os que estão a mais de 170 studs ficam na borda, translúcidos. A legenda mostra o ponto mais próximo e a distância.
+- **Feixes de luz:** colunas finas e translúcidas na cor de cada área sobre a Mina, a Loja, a Estação de Venda, a Estação de Pets e o Hangar, para achar os prédios de longe.
+- **Contorno do minério:** ao alcance, o contorno de seleção usa a cor do próprio minério (âmbar quando fora de alcance).
 - **Selos de aviso na navegação:** "!" vermelho pulsando na Loja (há ferramenta ou mochila melhor, ou o primeiro ovo, ao alcance do saldo), no Renascer (já dá para renascer) e na Mochila (cheia). Quando um item melhor passa a caber no saldo, aparece uma vez por sessão o aviso "Já dá para comprar: …".
 - **Combo de mineração:** a partir de 3 golpes seguidos (até 1,2 s entre eles), um selo "COMBO ×N" aparece sobre o painel: ciano, dourado a partir de 10 e rosa a partir de 25. É só visual e não dá bônus.
 - **Notificações:** até três, em pílulas com ícone e cor pelo `Tone` do servidor.

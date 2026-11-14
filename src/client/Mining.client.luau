@@ -360,7 +360,8 @@ local function selectPiece(piece)
 	end
 	local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
 	local inRange = root ~= nil and (root.Position - piece.Position).Magnitude <= Config.Reach
-	local color = inRange and cyan or orange
+	-- Ao alcance, o contorno usa a cor do próprio minério; fora de alcance, âmbar.
+	local color = inRange and Color3.fromHex(definition.Color or "#22E1FF"):Lerp(Color3.new(1, 1, 1), 0.2) or orange
 	local sample = piece.Parent:FindFirstChild("Sample" .. index)
 	for outlineIndex, part in ipairs({ base, sample }) do
 		local outline = outlines[outlineIndex]
