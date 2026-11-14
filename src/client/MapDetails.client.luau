@@ -304,7 +304,12 @@ local function growFlora()
 end
 
 local function applyQuality()
-	flora.Parent = playerGui:GetAttribute("GalaxyLowGraphics") and nil or workspace
+	-- (não usar "cond and nil or x": nil faz a expressão cair sempre em x)
+	if playerGui:GetAttribute("GalaxyLowGraphics") then
+		flora.Parent = nil
+	else
+		flora.Parent = workspace
+	end
 end
 playerGui:GetAttributeChangedSignal("GalaxyLowGraphics"):Connect(applyQuality)
 task.spawn(function()
@@ -364,6 +369,23 @@ local zones = {
 	{ "Estação de Pets", "OVNI de resgate e ovos alienígenas", { "PetShop", "Terminal" }, 30, C.Pink },
 	{ "Hangar Orion", "A Orion Scout aguarda", { "Hangar", "LandingPad" }, 34, C.Violet },
 }
+
+-- ---------- Feixes de luz sobre os prédios ----------
+-- Colunas finas e translúcidas na cor de cada área, visíveis de longe.
+task.spawn(function()
+	task.wait(3)
+	for _, zone in ipairs(zones) do
+		local group = world:FindFirstChild(zone[3][1])
+		local anchor = group and group:FindFirstChild(zone[3][2])
+		if anchor and anchor:IsA("BasePart") and zone[1] ~= "Praça Central" and zone[1] ~= "Caverna Azul" then
+			local base = anchor.Position + Vector3.new(0, 24, 0)
+			piece(CFrame.new(base + Vector3.new(0, 70, 0)) * VERTICAL, Vector3.new(140, 2.2, 2.2), zone[5],
+				Enum.Material.Neon, Enum.PartType.Cylinder, 0.84)
+			piece(CFrame.new(base + Vector3.new(0, 70, 0)) * VERTICAL, Vector3.new(140, 5, 5), zone[5],
+				Enum.Material.Neon, Enum.PartType.Cylinder, 0.95)
+		end
+	end
+end)
 
 local gui = Instance.new("ScreenGui")
 gui.Name = "GalaxyZone"

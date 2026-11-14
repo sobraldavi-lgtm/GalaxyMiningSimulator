@@ -5874,6 +5874,9 @@
           "BottomSurface": "Smooth"
         }
       }
+    },
+    "Details": {
+      "$path": "terra-nova-details.project.json"
     }
   }
 }

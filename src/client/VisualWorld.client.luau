@@ -325,7 +325,12 @@ end
 
 -- Modo de desempenho: o céu galáctico inteiro sai da cena.
 local function applyQuality()
-	skyFolder.Parent = playerGui:GetAttribute("GalaxyLowGraphics") and nil or workspace
+	-- (não usar "cond and nil or x": nil faz a expressão cair sempre em x)
+	if playerGui:GetAttribute("GalaxyLowGraphics") then
+		skyFolder.Parent = nil
+	else
+		skyFolder.Parent = workspace
+	end
 end
 playerGui:GetAttributeChangedSignal("GalaxyLowGraphics"):Connect(applyQuality)
 applyQuality()

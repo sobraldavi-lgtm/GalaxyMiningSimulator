@@ -55,3 +55,18 @@ jobs:
           mkdir -p build
           rojo build default.project.json -o build/GalaxyMiningSimulator.rbxlx
           ls -la build
+
+      # Análise de tipos contra a API do Roblox. Informativa: não reprova o envio,
+      # porque scripts sem anotações de tipo geram avisos que não são erros.
+      - name: Análise de tipos (luau-lsp, informativa)
+        if: always()
+        continue-on-error: true
+        run: |
+          curl -sSLf -o lsp.zip https://github.com/JohnnyMorganz/luau-lsp/releases/latest/download/luau-lsp-linux-x86_64.zip \
+            || curl -sSLf -o lsp.zip https://github.com/JohnnyMorganz/luau-lsp/releases/latest/download/luau-lsp-linux.zip
+          unzip -q -o lsp.zip -d "$HOME/bin" && chmod +x "$HOME/bin/luau-lsp"
+          curl -sSLf -o globalTypes.d.luau https://raw.githubusercontent.com/JohnnyMorganz/luau-lsp/main/scripts/globalTypes.d.luau
+          rojo sourcemap default.project.json -o sourcemap.json
+          luau-lsp analyze --sourcemap=sourcemap.json --definitions=globalTypes.d.luau \
+            --ignore="tests/**" src 2>&1 | tee analise.txt || true
+          echo "Linhas de aviso: $(wc -l < analise.txt)"
