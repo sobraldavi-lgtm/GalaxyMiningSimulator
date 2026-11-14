@@ -1,0 +1,57 @@
+# Verificação automática a cada envio: testes de regra, compilação de todos os
+# scripts Luau e build do Rojo. Não publica nada e não usa segredos.
+name: Verificação
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar Luau e Rojo
+        run: |
+          mkdir -p "$HOME/bin"
+          curl -sSL -o luau.zip https://github.com/luau-lang/luau/releases/latest/download/luau-ubuntu.zip
+          unzip -q -o luau.zip -d "$HOME/bin"
+          curl -sSL -o rojo.zip https://github.com/rojo-rbx/rojo/releases/download/v7.7.1/rojo-7.7.1-linux-x86_64.zip
+          unzip -q -o rojo.zip -d "$HOME/bin"
+          chmod +x "$HOME/bin/"*
+          echo "$HOME/bin" >> "$GITHUB_PATH"
+          ls -la "$HOME/bin"
+
+      - name: Verificadores em Python
+        if: always()
+        run: |
+          python3 tools/check_blocks.py src/*/*.luau tests/*.luau
+          python3 tools/lint_luau.py src/*/*.luau
+
+      - name: Compilar todos os scripts (erros de sintaxe)
+        if: always()
+        run: |
+          status=0
+          for file in src/*/*.luau tests/*.luau; do
+            luau-compile --binary "$file" > /dev/null || { echo "ERRO em $file"; status=1; }
+          done
+          exit $status
+
+      - name: Testes de regra - inventário
+        if: always()
+        run: luau tests/inventory.spec.luau
+
+      - name: Testes de regra - progressão
+        if: always()
+        run: luau tests/progression.spec.luau
+
+      - name: Build do Rojo
+        if: always()
+        run: |
+          mkdir -p build
+          rojo build default.project.json -o build/GalaxyMiningSimulator.rbxlx
+          ls -la build
