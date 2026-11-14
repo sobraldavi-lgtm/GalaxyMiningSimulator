@@ -7,7 +7,6 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
-local TweenService = game:GetService("TweenService")
 local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("MiningConfig"))
 local remote = ReplicatedStorage:WaitForChild("InventoryState")
 local localPlayer = Players.LocalPlayer

@@ -31,7 +31,12 @@ end
 
 -- Modo de desempenho: a decoração dos depósitos sai da cena (a base continua mineral).
 local function applyQuality()
-	folder.Parent = playerGui:GetAttribute("GalaxyLowGraphics") and nil or workspace
+	-- (não usar "cond and nil or x": nil faz a expressão cair sempre em x)
+	if playerGui:GetAttribute("GalaxyLowGraphics") then
+		folder.Parent = nil
+	else
+		folder.Parent = workspace
+	end
 end
 playerGui:GetAttributeChangedSignal("GalaxyLowGraphics"):Connect(applyQuality)
 

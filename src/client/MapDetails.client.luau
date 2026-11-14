@@ -304,7 +304,12 @@ local function growFlora()
 end
 
 local function applyQuality()
-	flora.Parent = playerGui:GetAttribute("GalaxyLowGraphics") and nil or workspace
+	-- (não usar "cond and nil or x": nil faz a expressão cair sempre em x)
+	if playerGui:GetAttribute("GalaxyLowGraphics") then
+		flora.Parent = nil
+	else
+		flora.Parent = workspace
+	end
 end
 playerGui:GetAttributeChangedSignal("GalaxyLowGraphics"):Connect(applyQuality)
 task.spawn(function()
