@@ -501,7 +501,9 @@ def recolor(node):
         return
     props = node.get("$properties")
     has_text = any(isinstance(c, dict) and c.get("$className") == "SurfaceGui" for c in node.values())
-    if props and "Color" in props and props.get("Material") != "Neon" and not has_text:
+    # Só peças têm Material: luzes (SurfaceLight etc.) também têm Color e não podem recebê-lo.
+    is_part = node.get("$className") in ("Part", "WedgePart", "SpawnLocation")
+    if is_part and props and "Color" in props and props.get("Material") != "Neon" and not has_text:
         h, s, v = colorsys.rgb_to_hsv(*props["Color"])
         if s < 0.15:
             h, s = 0.72, 0.3
