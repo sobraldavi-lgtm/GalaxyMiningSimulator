@@ -319,6 +319,14 @@ function handleAction(player, action, argument, extra)
 		if ok then task.spawn(save, player, false) end
 		return
 	end
+	if action == "BuyPerk" then
+		if typeof(argument) ~= "string" or now - (lastBackpack[player] or -math.huge) < 0.5 then return end
+		lastBackpack[player] = now
+		local ok, message = inventory:BuyPerk(argument)
+		publish(player, message, ok and "success" or "error")
+		if ok then task.spawn(save, player, false) end
+		return
+	end
 	if action == "SetAutoSell" then
 		if now - (lastSettings[player] or -math.huge) < 0.5 then return end
 		lastSettings[player] = now

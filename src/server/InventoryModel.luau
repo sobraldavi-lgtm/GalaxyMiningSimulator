@@ -53,6 +53,7 @@ function InventoryModel.new(config)
 		dailyLastDay = 0,
 		autoSell = false,
 		contracts = {},
+		perks = {},
 	}, InventoryModel)
 end
 
@@ -61,10 +62,49 @@ function InventoryModel:CanFit(oreType)
 	return ore ~= nil and self.weight + ore.Weight <= self.capacity
 end
 
+local function findPerk(config, id)
+	for _, perk in ipairs(config.Perks) do
+		if perk.Id == id then return perk end
+	end
+	return nil
+end
+
+-- Bônus acumulado de uma melhoria de Fragmentos (0 se não comprada).
+function InventoryModel:PerkBonus(id)
+	local perk = findPerk(self.config, id)
+	return perk and (self.perks[id] or 0) * perk.PerLevel or 0
+end
+
 function InventoryModel:GetMiningPower()
 	local pet = self.equippedPet and findPet(self.config, self.equippedPet)
-	local multiplier = pet and (1 + pet.Bonus) or 1
+	local multiplier = (pet and (1 + pet.Bonus) or 1) * (1 + self:PerkBonus("Power"))
 	return math.round(self.power * multiplier * 100) / 100 + self:GetTrainingPower()
+end
+
+-- Capacidade = mochila equipada × bônus de Bolsos Dimensionais (arredonda para baixo).
+function InventoryModel:RefreshCapacity()
+	local backpack = findBackpack(self.config, self.backpackId)
+	self.capacity = math.floor(backpack.Capacity * (1 + self:PerkBonus("Capacity")) + 1e-6)
+end
+
+function InventoryModel:BuyPerk(id)
+	local perk = findPerk(self.config, id)
+	if not perk then
+		return false, "Melhoria inválida."
+	end
+	local level = self.perks[id] or 0
+	local cost = perk.Costs[level + 1]
+	if not cost then
+		return false, perk.Name .. " já está no nível máximo."
+	end
+	if self.fragments < cost then
+		return false, "Faltam " .. (cost - self.fragments) .. " Fragmentos para " .. perk.Name .. "."
+	end
+	self.fragments -= cost
+	self.perks[id] = level + 1
+	self:RefreshCapacity()
+	return true, string.format("%s nível %d: +%d%% %s!", perk.Name, level + 1,
+		math.round((level + 1) * perk.PerLevel * 100), perk.Effect)
 end
 
 function InventoryModel:GetPowerCap()
@@ -99,11 +139,12 @@ function InventoryModel:EquipBackpack(id, force)
 	if not backpack or not self.ownedBackpacks[id] then
 		return false, "Você não possui essa mochila."
 	end
-	if not force and self.weight > backpack.Capacity then
-		return false, "Esvazie a mochila: a carga excede " .. backpack.Capacity .. "."
+	local limit = math.floor(backpack.Capacity * (1 + self:PerkBonus("Capacity")) + 1e-6)
+	if not force and self.weight > limit then
+		return false, "Esvazie a mochila: a carga excede " .. limit .. "."
 	end
 	self.backpackId = id
-	self.capacity = backpack.Capacity
+	self:RefreshCapacity()
 	self.backpackName = backpack.Name
 	return true, backpack.Name .. " equipada."
 end
@@ -258,7 +299,7 @@ end
 
 function InventoryModel:GetSaleMultiplier()
 	local rebirth = self.config.Rebirth
-	return 1 + self.rebirths * (rebirth and rebirth.SaleBonus or 0)
+	return 1 + self.rebirths * (rebirth and rebirth.SaleBonus or 0) + self:PerkBonus("Sale")
 end
 
 -- rate opcional (ex.: 0,8 na venda automática).
@@ -423,10 +464,10 @@ function InventoryModel:Rebirth()
 	self.items = {}
 	self.weight = 0
 	self.credits = 0
-	self.capacity = starting.Capacity
 	self.backpackId = starting.Id
 	self.backpackName = starting.Name
 	self.ownedBackpacks = { [starting.Id] = true }
+	self:RefreshCapacity() -- melhorias de Fragmentos continuam valendo
 	self.power = self.config.Power
 	self.trainingPower = 0
 	self.trainingClicks = 0
@@ -625,6 +666,7 @@ function InventoryModel:Serialize()
 		DailyLastDay = self.dailyLastDay,
 		AutoSell = self.autoSell,
 		Contracts = cloneContracts(self.contracts),
+		Perks = table.clone(self.perks),
 	}
 end
 
@@ -688,6 +730,13 @@ function InventoryModel.fromData(config, data)
 	inventory.lifetimeCredits = count(data.LifetimeCredits)
 	inventory.purchases = count(data.Purchases)
 	inventory:SetSettings(data.Settings)
+	if type(data.Perks) == "table" then
+		for _, perk in ipairs(config.Perks) do
+			local level = math.min(count(data.Perks[perk.Id]), #perk.Costs)
+			if level > 0 then inventory.perks[perk.Id] = level end
+		end
+	end
+	inventory:RefreshCapacity()
 	inventory.dailyStreak = count(data.DailyStreak)
 	inventory.dailyLastDay = count(data.DailyLastDay)
 	inventory.autoSell = data.AutoSell == true
@@ -754,6 +803,7 @@ function InventoryModel:Snapshot()
 		DailyLastDay = self.dailyLastDay,
 		AutoSell = self.autoSell,
 		AutoSellUnlocked = self:AutoSellUnlocked(),
+		Perks = table.clone(self.perks),
 		Contracts = cloneContracts(self.contracts),
 	}
 end

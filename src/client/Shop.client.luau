@@ -20,6 +20,7 @@ local categories = {
 	{ Id = "Backpacks", Name = "Mochilas", Icon = "pack", Accent = C.Violet },
 	{ Id = "Tools", Name = "Ferramentas", Icon = "drill", Accent = C.Cyan },
 	{ Id = "Pets", Name = "Ovos", Icon = "egg", Accent = C.Mint },
+	{ Id = "Perks", Name = "Fragmentos", Icon = "star", Accent = C.Pink },
 }
 
 local items = {}
@@ -49,6 +50,15 @@ for index, egg in ipairs(Config.Eggs) do
 		Id = egg.Id, Category = "Pets", Kind = "Egg", Order = index,
 		Name = egg.Name, Color = Color3.fromHex(egg.Color), Icon = "egg",
 		Price = egg.Price, Odds = egg.Odds,
+	})
+end
+
+-- Melhorias permanentes compradas com Fragmentos Estelares (valem em qualquer lugar).
+for index, perk in ipairs(Config.Perks) do
+	table.insert(items, {
+		Id = perk.Id, Category = "Perks", Kind = "Perk", Order = index,
+		Name = perk.Name, Color = Color3.fromHex(perk.Color), Icon = perk.Icon,
+		Price = 0, Costs = perk.Costs, PerLevel = perk.PerLevel, Effect = perk.Effect,
 	})
 end
 
@@ -87,10 +97,21 @@ Theme.fitText(creditsLabel, 22, 10)
 shop.Title.Size = UDim2.new(1, -300, 1, -4)
 
 -- Categorias
-local sidebar = Instance.new("Frame")
+-- Rolável: em telas baixas as quatro categorias não cabem de uma vez.
+local sidebar = Instance.new("ScrollingFrame")
 sidebar.BackgroundTransparency = 1
-sidebar.Size = UDim2.new(0, 112, 1, 0)
+sidebar.BorderSizePixel = 0
+sidebar.Size = UDim2.new(0, 122, 1, 0)
+sidebar.CanvasSize = UDim2.new()
+sidebar.AutomaticCanvasSize = Enum.AutomaticSize.Y
+sidebar.ScrollBarThickness = 0
 sidebar.Parent = body
+local sidePadding = Instance.new("UIPadding")
+sidePadding.PaddingTop = UDim.new(0, 8)
+sidePadding.PaddingBottom = UDim.new(0, 8)
+sidePadding.PaddingLeft = UDim.new(0, 2)
+sidePadding.PaddingRight = UDim.new(0, 10)
+sidePadding.Parent = sidebar
 local sideList = Instance.new("UIListLayout")
 sideList.Padding = UDim.new(0, 12)
 sideList.SortOrder = Enum.SortOrder.LayoutOrder
@@ -250,6 +271,10 @@ local function makeCard(item)
 		primary.TextYAlignment = Enum.TextYAlignment.Top
 		Theme.fitText(primary, 12, 7)
 		secondary.Visible = false
+	elseif item.Kind == "Perk" then
+		-- Duas linhas para o efeito atual → próximo.
+		secondary.Size = UDim2.new(1, -12, 0, 30)
+		secondary.TextColor3 = C.White
 	end
 
 	-- Progresso até poder comprar (só quando falta saldo).
@@ -301,6 +326,11 @@ local function makeCard(item)
 			if state.Credits >= item.Price then
 				remote:FireServer("HatchEgg", item.Id)
 			end
+		elseif item.Kind == "Perk" then
+			local cost = item.Costs[((state.Perks and state.Perks[item.Id]) or 0) + 1]
+			if cost and state.Fragments >= cost then
+				remote:FireServer("BuyPerk", item.Id)
+			end
 		elseif not state.OwnedUpgrades[item.Id] then
 			remote:FireServer("BuyUpgrade", item.Id)
 		end
@@ -327,6 +357,7 @@ local function isOwned(item)
 	if item.Kind == "Backpack" then return state.OwnedBackpacks[item.Id] == true end
 	-- Ovos se repetem; o primeiro só é "meta" enquanto o jogador não tem pets.
 	if item.Kind == "Egg" then return next(state.OwnedPets) ~= nil end
+	if item.Kind == "Perk" then return ((state.Perks and state.Perks[item.Id]) or 0) >= #item.Costs end
 	return state.OwnedUpgrades[item.Id] == true or (item.Power ~= nil and item.Power <= state.ToolPower)
 end
 
@@ -344,6 +375,9 @@ end
 
 local function refresh()
 	creditsLabel.Text = Theme.compact(state and state.Credits or 0)
+	hint.Text = selected == "Perks"
+		and ("Você tem ◆ " .. Theme.format(state and state.Fragments or 0) .. " Fragmentos  ·  melhorias permanentes, mantidas ao renascer")
+		or "Compras no balcão da Loja Orion  ·  pets no OVNI de resgate"
 	local goal = nextGoal(selected)
 	for _, card in ipairs(cards) do
 		local item = card.item
@@ -395,6 +429,21 @@ local function refresh()
 				end
 			end
 			local affordable = state.Credits >= item.Price
+			if item.Kind == "Perk" then
+				local level = (state.Perks and state.Perks[item.Id]) or 0
+				local cost = item.Costs[level + 1]
+				local percent = math.round(level * item.PerLevel * 100)
+				local nextPercent = math.round((level + 1) * item.PerLevel * 100)
+				card.primary.Text = "Nível " .. level .. " / " .. #item.Costs
+				card.secondary.Text = cost and string.format('+%d%% <font color="#5CFF9D">→ +%d%%</font> %s', percent,
+					nextPercent, item.Effect) or ("+" .. percent .. "% " .. item.Effect)
+				if cost then
+					text, color = "◆ " .. cost, state.Fragments >= cost and C.Mint or C.Gray
+					affordable = true -- sem barra de Créditos; o preço é em Fragmentos
+				else
+					text, color, highlight = "✔ MÁXIMO", C.Gold, true
+				end
+			end
 			if not text then
 				text = item.Price == 0 and "GRÁTIS" or ("✦ " .. Theme.compact(item.Price))
 				color = affordable and C.Mint or C.Gray
@@ -412,7 +461,15 @@ local function refresh()
 			local showProgress = not highlight and not affordable and item.Kind ~= "Egg" and not isOwned(item)
 			card.track.Visible = showProgress
 			if showProgress then
+				card.fill.BackgroundColor3 = C.Gold
 				card.fill.Size = UDim2.fromScale(math.clamp(state.Credits / math.max(item.Price, 1), 0, 1), 1)
+			end
+			if item.Kind == "Perk" then
+				-- A barra mostra o nível da melhoria.
+				local level = (state.Perks and state.Perks[item.Id]) or 0
+				card.track.Visible = true
+				card.fill.BackgroundColor3 = item.Color
+				card.fill.Size = UDim2.fromScale(level / #item.Costs, 1)
 			end
 		end
 	end
@@ -427,6 +484,13 @@ local function refresh()
 					local has = (item.Kind == "Backpack" and state.OwnedBackpacks[item.Id])
 						or (item.Kind == "Tool" and state.OwnedUpgrades[item.Id])
 					if has then owned += 1 end
+				end
+			end
+			if id == "Perks" then
+				owned, total = 0, 0
+				for _, perk in ipairs(Config.Perks) do
+					total += #perk.Costs
+					owned += (state.Perks and state.Perks[perk.Id]) or 0
 				end
 			end
 			if id == "Pets" then
@@ -456,7 +520,7 @@ end
 for index, category in ipairs(categories) do
 	local button = Theme.navigationAction(sidebar, category.Name, category.Icon, category.Accent)
 	button.LayoutOrder = index
-	button.Size = UDim2.new(1, 0, 0, 92)
+	button.Size = UDim2.new(1, 0, 0, 86)
 	local face = button:FindFirstChild("Face")
 	local icon = face and face:FindFirstChild("Illustration")
 	local iconScale = icon and icon:FindFirstChild("IconScale")

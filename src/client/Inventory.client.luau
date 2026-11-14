@@ -1598,6 +1598,36 @@ function playHatch(list)
 	end)
 end
 
+-- ---------- Moedas voando até o contador (vendas) ----------
+local function coinBurst(amount)
+	if Theme.reducedMotion(stage) then return end
+	local target = creditsPill.badge.AbsolutePosition + creditsPill.badge.AbsoluteSize / 2
+	local origin = stage.AbsoluteSize * Vector2.new(0.5, 0.72)
+	for index = 1, amount do
+		local coin = Theme.badge(stage, "coin", C.Gold, 30)
+		coin.AnchorPoint = Vector2.new(0.5, 0.5)
+		coin.ZIndex = 30
+		coin.Position = UDim2.fromOffset(origin.X, origin.Y)
+		-- Espalha num leque e depois voa para o contador.
+		local spread = Vector2.new(math.random(-140, 140), math.random(-90, 40))
+		local out = TweenService:Create(coin, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.fromOffset(origin.X + spread.X, origin.Y + spread.Y),
+		})
+		local fly = TweenService:Create(coin, TweenInfo.new(0.45, Enum.EasingStyle.Quad, Enum.EasingDirection.In,
+			0, false, index * 0.03), {
+			Position = UDim2.fromOffset(target.X, target.Y),
+			Size = UDim2.fromOffset(16, 16),
+		})
+		out.Completed:Once(function() fly:Play() end)
+		fly.Completed:Once(function()
+			coin:Destroy()
+			if index == amount then Theme.pop(creditsPill.frame, 0.15) end
+		end)
+		out:Play()
+		Debris:AddItem(coin, 2)
+	end
+end
+
 -- ---------- Estado vindo do servidor ----------
 local displayedCredits = Instance.new("NumberValue")
 displayedCredits.Changed:Connect(function(value)
@@ -1636,7 +1666,13 @@ local announced = {}
 local alertsReady = false
 local function updateAlerts(s)
 	local upgrades = affordableUpgrades(s)
-	alertDots["Loja"].Visible = #upgrades > 0
+	-- Também avisa quando há Fragmentos para uma melhoria permanente.
+	local perkReady = false
+	for _, perk in ipairs(Config.Perks) do
+		local cost = perk.Costs[((s.Perks and s.Perks[perk.Id]) or 0) + 1]
+		if cost and s.Fragments >= cost then perkReady = true end
+	end
+	alertDots["Loja"].Visible = #upgrades > 0 or perkReady
 	alertDots["Renascer"].Visible = s.RebirthCost ~= nil and s.Credits >= s.RebirthCost
 	alertDots["Mochila"].Visible = s.Weight >= s.Capacity
 	alertDots["Prêmio"].Visible = s.DailyAvailable == true
@@ -1697,6 +1733,7 @@ remote.OnClientEvent:Connect(function(snapshot)
 		local delta = snapshot.Credits - lastCredits
 		floatFrom(creditsPill, (delta > 0 and "+" or "") .. Theme.format(delta), delta > 0 and C.Gold or C.Red)
 		if delta > 0 then Sound.play("reward") end
+		if delta > 0 and snapshot.Tone == "sale" then coinBurst(math.clamp(delta // 20, 6, 18)) end
 	end
 	lastCredits = snapshot.Credits
 

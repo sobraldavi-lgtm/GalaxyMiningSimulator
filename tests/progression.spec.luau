@@ -313,3 +313,32 @@ for _, contract in ipairs(varied.contracts) do
 end
 print("PASS: contratos distintos.")
 
+-- Loja de Fragmentos: melhorias permanentes, custo por nível, limite e efeitos.
+local buyer = InventoryModel.new(Config)
+equal(select(1, buyer:BuyPerk("Capacity")), false, "Sem Fragmentos")
+equal(select(1, buyer:BuyPerk("Unknown")), false, "Melhoria inválida")
+buyer.fragments = 3 + 5 + 3 + 3
+equal(select(1, buyer:BuyPerk("Capacity")), true, "Compra Bolsos nível 1")
+equal(buyer.capacity, 22, "20 × 1,1 = 22")
+equal(select(1, buyer:BuyPerk("Capacity")), true, "Compra Bolsos nível 2")
+equal(buyer.capacity, 24, "20 × 1,2 = 24")
+equal(buyer.fragments, 6, "Gastou 3 + 5")
+buyer:BuyPerk("Sale")
+buyer:Add("Crystal")
+equal(buyer:Sell(), 31, "Cristal 30 × 1,05 = 31")
+buyer:BuyPerk("Power")
+equal(buyer:GetMiningPower(), 5.25, "Poder 5 × 1,05")
+equal(buyer.fragments, 0, "Fragmentos gastos")
+buyer.credits = 60000
+buyer:Rebirth()
+equal(buyer.capacity, 24, "Bolsos continuam após renascer")
+equal(buyer.perks.Sale, 1, "Melhorias mantidas ao renascer")
+local kept = InventoryModel.fromData(Config, buyer:Serialize())
+equal(kept.capacity, 24, "Melhorias salvas")
+local maxed = InventoryModel.fromData(Config, { Perks = { Capacity = 99, Hack = 3 } })
+equal(maxed.perks.Capacity, 5, "Nível limitado ao máximo")
+equal(maxed.perks.Hack, nil, "Melhoria desconhecida descartada")
+maxed.fragments = 100
+equal(select(1, maxed:BuyPerk("Capacity")), false, "Não passa do nível máximo")
+print("PASS: loja de Fragmentos.")
+

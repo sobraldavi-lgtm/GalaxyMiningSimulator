@@ -64,6 +64,8 @@ Tudo que anima respeita **Movimento reduzido**.
 - **Estátua do ORBI e vagalumes:** um marco do ORBI acenando, de frente para a praça, num ponto livre perto do centro (com colisão local), e vagalumes subindo de parte das flores-lanterna.
 - **Pets, acabamento de desenho:** contorno escuro (Highlight, nos 12 pets mais próximos da câmera), olhar para a câmera ou para o dono quando parados, pezinhos que balançam ao andar, Nebbi e Solari pairando mais alto e etiqueta com a raridade colorida.
 - **Mapa** (`MapDetails.client.luau`): cerca de 140 grupos de flora alienígena (cogumelos com pintas brilhantes, grama, brotos de cristal e flores-lanterna) só no chão aberto, sem cobrir caminhos, crateras ou construções; títulos de zona ao entrar em cada área (Praça, Mina, Caverna Azul, Loja, Venda, Pets, Hangar).
+- **Loja de Fragmentos:** quarta aba da loja (a barra lateral agora rola em telas baixas). Cada cartão mostra o nível, uma barra de nível, o efeito atual → próximo e o preço em ◆; o "!" da Loja também acende quando há Fragmentos para uma melhoria.
+- **Moedas na venda:** ao vender, moedas se espalham e voam até o contador de Créditos.
 - **Selos de aviso na navegação:** "!" vermelho pulsando na Loja (há ferramenta ou mochila melhor, ou o primeiro ovo, ao alcance do saldo), no Renascer (já dá para renascer) e na Mochila (cheia). Quando um item melhor passa a caber no saldo, aparece uma vez por sessão o aviso "Já dá para comprar: …".
 - **Combo de mineração:** a partir de 3 golpes seguidos (até 1,2 s entre eles), um selo "COMBO ×N" aparece sobre o painel: ciano, dourado a partir de 10 e rosa a partir de 25. É só visual e não dá bônus.
 - **Notificações:** até três, em pílulas com ícone e cor pelo `Tone` do servidor.
