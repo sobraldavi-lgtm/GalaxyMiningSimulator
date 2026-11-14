@@ -261,11 +261,41 @@ local function chips(entry, amount)
 	end
 end
 
+-- Na quebra, pedaços do minério voam em arco até o jogador (coleta visível).
+local function collect(entry)
+	local character = Players.LocalPlayer.Character
+	local root = character and character:FindFirstChild("HumanoidRootPart")
+	if not root then return end
+	for index = 1, 4 do
+		local chunk = piece(entry.top * CFrame.new(math.random(-10, 10) / 10, 1, math.random(-10, 10) / 10),
+			Vector3.new(0.55, 0.55, 0.55), entry.color:Lerp(WHITE, 0.15), Enum.Material.Glass)
+		chunk.Reflectance = 0.3
+		local start = chunk.Position
+		local peak = start + Vector3.new(math.random(-20, 20) / 10, 4, math.random(-20, 20) / 10)
+		task.spawn(function()
+			task.wait(index * 0.05)
+			local began = os.clock()
+			while root.Parent do
+				local alpha = (os.clock() - began) / 0.45
+				if alpha >= 1 then break end
+				-- Curva de Bézier: sobe até o pico e mergulha no jogador (mesmo em movimento).
+				local target = root.Position
+				local position = start:Lerp(peak, alpha):Lerp(peak:Lerp(target, alpha), alpha)
+				chunk.CFrame = CFrame.new(position) * CFrame.Angles(alpha * 8, alpha * 6, 0)
+				chunk.Size = Vector3.new(0.55, 0.55, 0.55) * (1 - alpha * 0.5)
+				RunService.Heartbeat:Wait()
+			end
+			chunk:Destroy()
+		end)
+	end
+end
+
 -- Reação aos golpes: tremor e lascas; na quebra, clarão, onda de choque e "renascer".
 hitSignal.Event:Connect(function(base, broke)
 	local entry = decor[base]
 	if not entry or reduced() then return end
 	chips(entry, broke and 9 or 3)
+	if broke then collect(entry) end
 	if not broke then
 		for _, item in ipairs(entry.parts) do
 			local jolt = Vector3.new(math.random() - 0.5, math.random() * 0.4, math.random() - 0.5) * 0.35

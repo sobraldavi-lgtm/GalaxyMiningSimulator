@@ -268,6 +268,23 @@ local function build(player)
 		glow.Brightness = 0.8
 		glow.Parent = root
 	end
+	-- Rastro colorido atrás dos pets Raros e Épicos.
+	if pet.Rarity == "Raro" or pet.Rarity == "Épico" then
+		local top = Instance.new("Attachment")
+		top.Position = Vector3.new(0, 0.45, 0.6)
+		top.Parent = root
+		local bottom = Instance.new("Attachment")
+		bottom.Position = Vector3.new(0, -0.45, 0.6)
+		bottom.Parent = root
+		local trail = Instance.new("Trail")
+		trail.Attachment0 = top
+		trail.Attachment1 = bottom
+		trail.Lifetime = pet.Rarity == "Épico" and 0.7 or 0.45
+		trail.LightEmission = 0.3
+		trail.Color = ColorSequence.new(rarityColor, Color3.fromHex(pet.Color))
+		trail.Transparency = NumberSequence.new(0.45, 1)
+		trail.Parent = root
+	end
 	-- Guarda o desenho original de cada peça (relativo ao corpo) para animar.
 	local layout = {}
 	for _, part in ipairs(model:GetChildren()) do

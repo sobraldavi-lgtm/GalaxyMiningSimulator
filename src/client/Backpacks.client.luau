@@ -46,6 +46,25 @@ local function design(info)
 	for _, side in ipairs({ -1, 1 }) do
 		add("Strap", CFrame.new(side * 0.5, 0.95, -0.05), Vector3.new(0.2, 0.18, 0.75), STRAP, Enum.Material.Fabric)
 	end
+	-- Chaveiro de estrela em todas as mochilas.
+	add("Charm", CFrame.new(-0.6, -0.8, 0.9) * CFrame.Angles(0, 0, math.rad(45)), Vector3.new(0.2, 0.2, 0.06),
+		Color3.fromHex("#FFC531"), Enum.Material.Neon)
+	if tier < 8 then
+		-- Mochilas de tecido: saco de dormir enrolado no topo e zíper.
+		add("Bedroll", CFrame.new(0, 1.2, 0.4), Vector3.new(1.5, 0.48, 0.48), color:Lerp(WHITE, 0.35),
+			Enum.Material.Fabric, cylinder)
+		for _, side in ipairs({ -1, 1 }) do
+			add("BedrollStrap", CFrame.new(side * 0.45, 1.2, 0.4), Vector3.new(0.1, 0.52, 0.52), STRAP,
+				Enum.Material.Fabric, cylinder)
+		end
+		add("Zipper", CFrame.new(0, 0.22, 0.735), Vector3.new(1.3, 0.05, 0.04), Color3.fromHex("#C9D4E8"), Enum.Material.Metal)
+	end
+	if tier < 4 then
+		-- Bolsos laterais (nas seguintes, o lugar é das cápsulas de poeira).
+		for _, side in ipairs({ -1, 1 }) do
+			add("SidePocket", CFrame.new(side * 0.88, -0.4, 0.35), Vector3.new(0.22, 0.8, 0.55), color:Lerp(STRAP, 0.3), bodyMaterial)
+		end
+	end
 	if tier >= 4 then
 		-- Cápsulas de poeira cósmica: vidro com o enchimento colorido dentro.
 		for _, side in ipairs({ -1, 1 }) do

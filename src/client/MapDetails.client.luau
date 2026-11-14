@@ -218,6 +218,61 @@ local function buildStatue(params)
 	for _, part in ipairs(parts) do index(part) end -- a flora não nasce dentro da estátua
 end
 
+-- ---------- Agulhas de rocha na borda do mapa ----------
+-- Grupos de pedras altas com cristal no topo emolduram o horizonte.
+local function buildSpires(params)
+	local rng = Random.new(21)
+	local ROCK = Color3.fromHex("#241B3A")
+	for cluster = 0, 17 do
+		local angle = cluster * math.pi / 9 + rng:NextNumber(-0.12, 0.12)
+		local radius = rng:NextNumber(232, 240)
+		local hit = workspace:Raycast(Vector3.new(math.cos(angle) * radius, 120, math.sin(angle) * radius),
+			Vector3.new(0, -240, 0), params)
+		if hit and hit.Instance.Name == "Surface" and not blocked(hit.Position + Vector3.new(0, 1, 0)) then
+			local tint = GLOW[rng:NextInteger(1, #GLOW)]
+			local made = {}
+			for spire = 1, rng:NextInteger(2, 4) do
+				local height = rng:NextNumber(10, 26) * (spire == 1 and 1 or 0.6)
+				local width = rng:NextNumber(3, 5.5) * (spire == 1 and 1 or 0.75)
+				local base = hit.Position + Vector3.new(rng:NextNumber(-5, 5), 0, rng:NextNumber(-5, 5))
+				local frame = CFrame.new(base) * CFrame.Angles(math.rad(rng:NextNumber(-8, 8)), rng:NextNumber(0, 6),
+					math.rad(rng:NextNumber(-8, 8)))
+				local lower = piece(frame * CFrame.new(0, height * 0.3, 0), Vector3.new(width, height * 0.6, width),
+					ROCK:Lerp(tint, 0.06), Enum.Material.Rock)
+				local upper = piece(frame * CFrame.new(0, height * 0.75, 0) * CFrame.Angles(0, math.rad(25), 0),
+					Vector3.new(width * 0.65, height * 0.5, width * 0.65), ROCK:Lerp(tint, 0.12), Enum.Material.Rock)
+				lower.CanCollide = true
+				upper.CanCollide = true
+				table.insert(made, lower)
+				-- Cristal no topo: vidro escuro com ponta brilhante pequena.
+				local crystal = piece(frame * CFrame.new(0, height + 0.8, 0) * CFrame.Angles(0, math.rad(45), 0),
+					Vector3.new(width * 0.35, 2.6, width * 0.35), tint:Lerp(ROCK, 0.3), Enum.Material.Glass, nil, 0.15)
+				crystal.Reflectance = 0.3
+				piece(frame * CFrame.new(0, height + 2.2, 0) * CFrame.Angles(math.rad(45), 0, math.rad(45)),
+					Vector3.new(0.7, 0.7, 0.7), tint, Enum.Material.Neon)
+			end
+			for _, part in ipairs(made) do index(part) end
+		end
+	end
+end
+
+-- ---------- Aurora no horizonte ----------
+-- Faixas verticais muito translúcidas formando uma cortina ondulada ao longe.
+local function buildAurora()
+	local colors = { Color3.fromHex("#3DFFC2"), Color3.fromHex("#4FC3FF"), Color3.fromHex("#9B6BFF") }
+	for band = 0, 1 do
+		local start = band * math.pi + 0.6
+		for step = 0, 23 do
+			local angle = start + step * 0.045
+			local radius = 620 + math.sin(step * 0.6) * 45
+			local position = Vector3.new(math.cos(angle) * radius, 250 + math.sin(step * 0.9) * 18, math.sin(angle) * radius)
+			local height = 90 + math.sin(step * 1.3) * 30
+			piece(CFrame.lookAt(position, Vector3.new(0, position.Y, 0)), Vector3.new(30, height, 1),
+				colors[(step // 3 + band) % #colors + 1], Enum.Material.Neon, nil, 0.9)
+		end
+	end
+end
+
 local function growFlora()
 	for _, descendant in ipairs(world:GetDescendants()) do
 		if descendant:IsA("BasePart") then index(descendant) end
@@ -226,6 +281,8 @@ local function growFlora()
 	statueParams.FilterType = Enum.RaycastFilterType.Include
 	statueParams.FilterDescendantsInstances = { world }
 	buildStatue(statueParams)
+	buildSpires(statueParams)
+	buildAurora()
 	local rng = Random.new(7)
 	local params = RaycastParams.new()
 	params.FilterType = Enum.RaycastFilterType.Include

@@ -55,6 +55,12 @@ local function design(info)
 	add(CFrame.new(0, 0.15, 0) * Y, Vector3.new(0.25, 0.38, 0.38), WRAP, Enum.Material.Fabric, cylinder)
 	add(CFrame.new(0, -0.95, 0), Vector3.new(0.45, 0.45, 0.45), accent, glow, ball)
 
+	-- Gemas no cabo: uma a cada 4 níveis (até 5), para ler o nível de longe.
+	for index = 1, math.min(5, math.ceil(tier / 4)) do
+		add(CFrame.new(0, 0.85 + index * 0.2, -0.17), Vector3.new(0.13, 0.13, 0.13), Color3.fromHex("#FFE066"),
+			Enum.Material.Neon, ball)
+	end
+
 	local family = info.Family
 	if family == "pickaxe" then
 		add(CFrame.new(0, 2.15, 0), Vector3.new(0.55, 0.55, 0.6), accent, Enum.Material.Metal)
