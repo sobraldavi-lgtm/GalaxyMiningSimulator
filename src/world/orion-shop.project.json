@@ -708,8 +708,7 @@
             "Brightness": 0.9,
             "Face": "Bottom",
             "Angle": 100,
-            "Shadows": false,
-            "Material": "SmoothPlastic"
+            "Shadows": false
           }
         }
       },
@@ -848,8 +847,7 @@
             "Brightness": 0.9,
             "Face": "Bottom",
             "Angle": 100,
-            "Shadows": false,
-            "Material": "SmoothPlastic"
+            "Shadows": false
           }
         }
       },

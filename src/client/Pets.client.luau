@@ -224,7 +224,10 @@ local function decorate(model, root, pet, owner)
 	bonus.BackgroundTransparency = 1
 	bonus.Font = Enum.Font.FredokaOne
 	bonus.TextSize = 13
-	bonus.Text = (owner == localPlayer and "" or owner.DisplayName .. " · ") .. "+" .. math.round(pet.Bonus * 100) .. "%"
+	bonus.RichText = true
+	bonus.Text = (owner == localPlayer and "" or owner.DisplayName .. " · ")
+		.. string.format('<font color="%s">%s</font> · +%d%%', Config.Rarities[pet.Rarity] or "#FFFFFF", pet.Rarity,
+			math.round(pet.Bonus * 100))
 	bonus.TextColor3 = Color3.fromHex("#2EE59D")
 	bonus.TextStrokeColor3 = Color3.fromHex("#05030F")
 	bonus.TextStrokeTransparency = 0
@@ -265,6 +268,23 @@ local function build(player)
 		glow.Brightness = 0.8
 		glow.Parent = root
 	end
+	-- Rastro colorido atrás dos pets Raros e Épicos.
+	if pet.Rarity == "Raro" or pet.Rarity == "Épico" then
+		local top = Instance.new("Attachment")
+		top.Position = Vector3.new(0, 0.45, 0.6)
+		top.Parent = root
+		local bottom = Instance.new("Attachment")
+		bottom.Position = Vector3.new(0, -0.45, 0.6)
+		bottom.Parent = root
+		local trail = Instance.new("Trail")
+		trail.Attachment0 = top
+		trail.Attachment1 = bottom
+		trail.Lifetime = pet.Rarity == "Épico" and 0.7 or 0.45
+		trail.LightEmission = 0.3
+		trail.Color = ColorSequence.new(rarityColor, Color3.fromHex(pet.Color))
+		trail.Transparency = NumberSequence.new(0.45, 1)
+		trail.Parent = root
+	end
 	-- Guarda o desenho original de cada peça (relativo ao corpo) para animar.
 	local layout = {}
 	for _, part in ipairs(model:GetChildren()) do
@@ -272,7 +292,23 @@ local function build(player)
 			layout[part] = part.CFrame
 		end
 	end
+	-- Contorno escuro de desenho animado (ligado só nos pets mais próximos).
+	local outline = Instance.new("Highlight")
+	outline.FillTransparency = 1
+	outline.OutlineColor = Color3.fromHex("#140B24")
+	outline.OutlineTransparency = 0.3
+	outline.DepthMode = Enum.HighlightDepthMode.Occluded
+	outline.Enabled = false
+	outline.Parent = model
+	-- Pés (balançam ao andar) e espécies que flutuam em vez de quicar.
+	local feet = {}
+	for part in pairs(layout) do
+		if part.Name == "Foot" then
+			feet[part] = layout[part].Position.X >= 0 and 1 or -1
+		end
+	end
 	local entry = {
+		outline = outline, feet = feet, floating = pet.Look == "cloud" or pet.Look == "sun",
 		model = model, layout = layout, shadow = shadow, eyes = k.eyes, root = root,
 		phase = math.random() * 6.28, current = nil, nextBlink = os.clock() + math.random(2, 5),
 	}
@@ -322,7 +358,15 @@ RunService.RenderStepped:Connect(function(dt)
 			entry.current = nil
 			continue
 		end
-		local bounce = reduced and 0 or math.abs(math.sin(t * 4 + entry.phase)) * 0.35
+		local planar = root.AssemblyLinearVelocity * Vector3.new(1, 0, 1)
+		local moving = planar.Magnitude > 1
+		local bounce
+		if entry.floating then
+			-- Flutuantes pairam mais alto, num vaivém lento.
+			bounce = 1 + (reduced and 0 or math.sin(t * 1.6 + entry.phase) * 0.4)
+		else
+			bounce = (reduced or not moving) and 0 or math.abs(math.sin(t * 8 + entry.phase)) * 0.35
+		end
 		local hop = 0
 		if entry.arrival and not reduced then
 			local age = t - entry.arrival
@@ -334,6 +378,15 @@ RunService.RenderStepped:Connect(function(dt)
 			if age < 0.3 then hop += math.sin(age / 0.3 * math.pi) * 0.6 else entry.cheer = nil end
 		end
 		local goal = root.CFrame * CFrame.new(2.8, 0.6 + bounce + hop, 2)
+		-- Parado, o pet olha para a câmera (seu pet) ou para o dono (pets dos outros).
+		if not moving then
+			local camera = workspace.CurrentCamera
+			local focus = (player == localPlayer and camera) and camera.CFrame.Position or root.Position
+			local flat = Vector3.new(focus.X, goal.Position.Y, focus.Z)
+			if (flat - goal.Position).Magnitude > 0.5 then
+				goal = CFrame.lookAt(goal.Position, flat)
+			end
+		end
 		if not entry.current or (entry.current.Position - goal.Position).Magnitude > 24 then
 			entry.current = goal
 		else
@@ -346,6 +399,10 @@ RunService.RenderStepped:Connect(function(dt)
 		for part, offset in pairs(entry.layout) do
 			if part:GetAttribute("Spin") then
 				part.CFrame = pivot * CFrame.Angles(0, 0, spin) * offset
+			elseif entry.feet[part] and moving and not reduced then
+				-- Passinhos: pés sobem e descem alternados.
+				local step = math.max(0, math.sin(t * 12 + entry.feet[part] * math.pi / 2)) * 0.18
+				part.CFrame = pivot * CFrame.new(0, step, 0) * offset
 			else
 				part.CFrame = pivot * offset
 			end
@@ -369,5 +426,28 @@ end)
 playerGui:GetAttributeChangedSignal("GalaxySwing"):Connect(function()
 	local entry = companions[localPlayer]
 	if entry then entry.cheer = os.clock() end
+end)
+
+-- Orçamento de contornos: só os 12 pets mais próximos da câmera (limite de Highlights).
+local OUTLINE_BUDGET = 12
+task.spawn(function()
+	while true do
+		task.wait(0.5)
+		local camera = workspace.CurrentCamera
+		if camera then
+			local list = {}
+			for _, entry in pairs(companions) do
+				if entry.model.Parent and entry.current then
+					table.insert(list, { entry = entry, distance = (entry.current.Position - camera.CFrame.Position).Magnitude })
+				else
+					entry.outline.Enabled = false
+				end
+			end
+			table.sort(list, function(a, b) return a.distance < b.distance end)
+			for index, item in ipairs(list) do
+				item.entry.outline.Enabled = index <= OUTLINE_BUDGET and item.distance < 80
+			end
+		end
+	end
 end)
 

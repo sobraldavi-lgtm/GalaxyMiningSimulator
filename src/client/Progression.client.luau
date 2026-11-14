@@ -257,11 +257,17 @@ local function layout()
 	local size = gui.AbsoluteSize
 	local wide = size.X >= 900 and size.Y >= 520
 	wideLayout = wide
-	xpBar.Position = wide and UDim2.new(0.5, 8, 0, 72) or UDim2.new(0.5, 8, 0, 140)
-	xpBar.Size = UDim2.new(wide and 0.5 or 1, wide and 0 or -40, 0, 30)
+	-- Celular deitado (estreito mas largo o bastante): XP e missão lado a lado,
+	-- para a pilha do topo não invadir o painel de mineração em telas baixas.
+	local split = not wide and size.X >= 560
+	xpBar.Position = wide and UDim2.new(0.5, 8, 0, 72) or split and UDim2.new(0.25, 12, 0, 146)
+		or UDim2.new(0.5, 8, 0, 140)
+	xpBar.Size = wide and UDim2.new(0.5, 0, 0, 30) or split and UDim2.new(0.5, -36, 0, 30) or UDim2.new(1, -40, 0, 30)
 	tracker.AnchorPoint = wide and Vector2.new(1, 0) or Vector2.new(0.5, 0)
-	tracker.Position = wide and UDim2.new(1, -14, 0, 74) or UDim2.new(0.5, 0, 0, 176)
-	tracker.Size = wide and UDim2.fromOffset(250, 104) or UDim2.new(1, -24, 0, 50)
+	tracker.Position = wide and UDim2.new(1, -14, 0, 74) or split and UDim2.new(0.75, 0, 0, 136)
+		or UDim2.new(0.5, 0, 0, 176)
+	tracker.Size = wide and UDim2.fromOffset(250, 104) or split and UDim2.new(0.5, -16, 0, 50)
+		or UDim2.new(1, -24, 0, 50)
 	local trackerLimit = tracker:FindFirstChildOfClass("UISizeConstraint") or Instance.new("UISizeConstraint", tracker)
 	trackerLimit.MaxSize = Vector2.new(wide and 250 or 420, 104)
 	trackerHeader.Visible = wide
@@ -276,8 +282,9 @@ local function layout()
 	trackerGoal.Size = UDim2.new(1, -(left + 10), 0, 14)
 	trackerTrack.Position = UDim2.fromOffset(left, wide and 72 or 28)
 	trackerTrack.Size = UDim2.new(1, -(left + 12), 0, wide and 18 or 14)
-	dialog.Position = wide and UDim2.new(0, 220, 1, -24) or UDim2.new(0, 26, 1, -170)
-	dialog.Size = wide and UDim2.fromOffset(380, 92) or UDim2.new(1, -40, 0, 84)
+	-- Acima do painel de mineração e à esquerda do selo de combo.
+	dialog.Position = wide and UDim2.new(0, 206, 1, -128) or UDim2.new(0, 26, 1, -170)
+	dialog.Size = wide and UDim2.fromOffset(340, 92) or UDim2.new(1, -40, 0, 84)
 	local dialogLimit = dialog:FindFirstChildOfClass("UISizeConstraint") or Instance.new("UISizeConstraint", dialog)
 	dialogLimit.MaxSize = Vector2.new(420, 92)
 end

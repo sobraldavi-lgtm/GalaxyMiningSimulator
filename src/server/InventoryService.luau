@@ -92,6 +92,11 @@ local function logMissions(player, inventory, missions)
 	end
 end
 
+-- Dia UTC atual (prêmio diário). Declarado antes de publish, que o usa.
+local function today()
+	return os.time() // 86400
+end
+
 -- Tone é só apresentação: indica ao cliente a cor e o ícone da notificação
 -- (success, error, warning, sale, power, pickup). Não carrega regras.
 -- extra: { LevelUp = n, Missions = { ... } } para celebrações no cliente.
@@ -130,10 +135,6 @@ local function publish(player, message, tone, extra)
 	if extra then snapshot.DailyClaim = extra.DailyClaim end
 	updateLeaderstats(player, inventory)
 	remote:FireClient(player, snapshot)
-end
-
-local function today()
-	return os.time() // 86400
 end
 
 -- Se o minério não cabe e a venda automática está ligada (e liberada),
@@ -315,6 +316,14 @@ function handleAction(player, action, argument, extra)
 		lastDaily[player] = now
 		local ok, message, reward = inventory:ClaimDaily(today())
 		publish(player, message, ok and "success" or "warning", { DailyClaim = reward })
+		if ok then task.spawn(save, player, false) end
+		return
+	end
+	if action == "BuyPerk" then
+		if typeof(argument) ~= "string" or now - (lastBackpack[player] or -math.huge) < 0.5 then return end
+		lastBackpack[player] = now
+		local ok, message = inventory:BuyPerk(argument)
+		publish(player, message, ok and "success" or "error")
 		if ok then task.spawn(save, player, false) end
 		return
 	end

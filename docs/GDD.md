@@ -618,11 +618,26 @@ Valores são **hipóteses para testes**, em `MiningConfig` (`DailyRewards`, `Aut
 - **Venda automática:** exceção à regra "com a mochila cheia, vender na estação".
   Liberada no **nível 5**, vende tudo ao encher, em qualquer lugar, por **80%** do
   valor (a Estação de Venda continua pagando 100%). Liga e desliga em Ajustes.
-- **Contratos da Orion:** depois da campanha de ORBI, sempre 3 contratos ativos,
-  trocados ao concluir:
+- **Contratos da Orion:** depois da campanha de ORBI, sempre 3 contratos ativos
+  e diferentes entre si (mesmo tipo e alvo não se repetem), trocados ao concluir:
   - minerar 20 de um dos 3 melhores minérios que quebram em até 6 golpes com o
     poder atual (recompensa = valor de venda do lote + 1 Fragmento);
   - ganhar em vendas o valor de 2 mochilas cheias do melhor minério viável
     (recompensa = 25% da meta + 1 Fragmento);
   - abrir 2 ovos (2 Fragmentos).
+
+## Loja de Fragmentos — 14/11/2026 (aprovada pelo usuário)
+
+Uso dos Fragmentos Estelares: melhorias **permanentes**, compradas em qualquer lugar
+pela aba Fragmentos da loja, **mantidas ao renascer** e salvas. Hipóteses para testes,
+em `MiningConfig.Perks`:
+
+| Melhoria | Efeito por nível | Níveis | Custo por nível (Fragmentos) |
+| --- | --- | --- | --- |
+| Bolsos Dimensionais | +10% de carga na mochila | 5 | 3, 5, 8, 12, 17 |
+| Contrato Premium | +5% de Créditos nas vendas | 5 | 3, 5, 8, 12, 17 |
+| Núcleo Estelar | +5% de poder de mineração | 5 | 3, 5, 8, 12, 17 |
+
+O bônus de vendas soma com o do renascimento; o de poder multiplica ferramenta e pet
+(o treino continua somado depois); a carga arredonda para baixo.
 

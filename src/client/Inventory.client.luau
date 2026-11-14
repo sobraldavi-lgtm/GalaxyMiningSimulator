@@ -1274,28 +1274,36 @@ local function layout()
 		if iconScale then iconScale.Scale = wide and 1.45 or 0.95 end
 	end
 	toasts.AnchorPoint = Vector2.new(0.5, 0)
-	toasts.Position = wide and UDim2.new(0.5, 0, 0, 108) or UDim2.new(0.5, 0, 0, 234)
+	-- Em telas estreitas as notificações passam por cima da navegação (somem em 3 s
+	-- e não bloqueiam toques), em vez de cair sobre o painel de mineração.
+	toasts.Position = wide and UDim2.new(0.5, 0, 0, 108) or UDim2.new(0.5, 0, 0, 74)
 	toasts.Size = UDim2.new(1, -40, 0, 160)
 	local toastLimit = toasts:FindFirstChildOfClass("UISizeConstraint") or Instance.new("UISizeConstraint", toasts)
 	toastLimit.MaxSize = Vector2.new(400, 160)
 
 	-- Cartão de meta: completo à direita (tela larga) ou compacto no topo.
 	goalCard.AnchorPoint = wide and Vector2.new(1, 0.5) or Vector2.new(0.5, 0)
-	goalCard.Position = wide and UDim2.new(1, -14, 0.5, 30) or UDim2.new(0.5, 0, 0, 176)
-	goalCard.Size = wide and UDim2.fromOffset(250, 178) or UDim2.new(1, -24, 0, 62)
+	-- Celular deitado: o alerta ocupa o lugar do rastreador de missão (metade direita).
+	local split = not wide and size.X >= 560
+	goalCard.Position = wide and UDim2.new(1, -14, 0.5, 30) or split and UDim2.new(0.75, 0, 0, 136)
+		or UDim2.new(0.5, 0, 0, 176)
+	goalCard.Size = wide and UDim2.fromOffset(250, 178) or split and UDim2.new(0.5, -16, 0, 50)
+		or UDim2.new(1, -24, 0, 62)
+	goalDetail.Visible = not split
 	local cardLimit = goalCard:FindFirstChildOfClass("UISizeConstraint") or Instance.new("UISizeConstraint", goalCard)
 	cardLimit.MaxSize = Vector2.new(wide and 250 or 420, 178)
 	goalHeader.Visible = wide
 	goalButton.Visible = wide
 	goalHeader.Position = UDim2.fromOffset(14, 8)
 	goalHeader.Size = UDim2.new(1, -28, 0, 18)
-	goalBadgeHolder.Position = wide and UDim2.fromOffset(12, 30) or UDim2.fromOffset(6, 5)
+	goalBadgeHolder.Position = wide and UDim2.fromOffset(12, 30) or split and UDim2.fromOffset(4, -1)
+		or UDim2.fromOffset(6, 5)
 	local left = wide and 74 or 62
-	goalName.Position = UDim2.fromOffset(left, wide and 32 or 6)
+	goalName.Position = UDim2.fromOffset(left, wide and 32 or split and 4 or 6)
 	goalName.Size = UDim2.new(1, -(left + 10), 0, 22)
 	goalDetail.Position = UDim2.fromOffset(left, wide and 54 or 26)
 	goalDetail.Size = UDim2.new(1, -(left + 10), 0, 14)
-	goalTrack.Position = wide and UDim2.fromOffset(14, 90) or UDim2.fromOffset(left, 42)
+	goalTrack.Position = wide and UDim2.fromOffset(14, 90) or UDim2.fromOffset(left, split and 28 or 42)
 	goalTrack.Size = wide and UDim2.new(1, -28, 0, 20) or UDim2.new(1, -(left + 12), 0, 14)
 	goalButton.AnchorPoint = Vector2.new(0.5, 1)
 	goalButton.Position = UDim2.new(0.5, 0, 1, -12)
@@ -1598,6 +1606,36 @@ function playHatch(list)
 	end)
 end
 
+-- ---------- Moedas voando até o contador (vendas) ----------
+local function coinBurst(amount)
+	if Theme.reducedMotion(stage) then return end
+	local target = creditsPill.badge.AbsolutePosition + creditsPill.badge.AbsoluteSize / 2
+	local origin = stage.AbsoluteSize * Vector2.new(0.5, 0.72)
+	for index = 1, amount do
+		local coin = Theme.badge(stage, "coin", C.Gold, 30)
+		coin.AnchorPoint = Vector2.new(0.5, 0.5)
+		coin.ZIndex = 30
+		coin.Position = UDim2.fromOffset(origin.X, origin.Y)
+		-- Espalha num leque e depois voa para o contador.
+		local spread = Vector2.new(math.random(-140, 140), math.random(-90, 40))
+		local out = TweenService:Create(coin, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.fromOffset(origin.X + spread.X, origin.Y + spread.Y),
+		})
+		local fly = TweenService:Create(coin, TweenInfo.new(0.45, Enum.EasingStyle.Quad, Enum.EasingDirection.In,
+			0, false, index * 0.03), {
+			Position = UDim2.fromOffset(target.X, target.Y),
+			Size = UDim2.fromOffset(16, 16),
+		})
+		out.Completed:Once(function() fly:Play() end)
+		fly.Completed:Once(function()
+			coin:Destroy()
+			if index == amount then Theme.pop(creditsPill.frame, 0.15) end
+		end)
+		out:Play()
+		Debris:AddItem(coin, 2)
+	end
+end
+
 -- ---------- Estado vindo do servidor ----------
 local displayedCredits = Instance.new("NumberValue")
 displayedCredits.Changed:Connect(function(value)
@@ -1636,7 +1674,13 @@ local announced = {}
 local alertsReady = false
 local function updateAlerts(s)
 	local upgrades = affordableUpgrades(s)
-	alertDots["Loja"].Visible = #upgrades > 0
+	-- Também avisa quando há Fragmentos para uma melhoria permanente.
+	local perkReady = false
+	for _, perk in ipairs(Config.Perks) do
+		local cost = perk.Costs[((s.Perks and s.Perks[perk.Id]) or 0) + 1]
+		if cost and s.Fragments >= cost then perkReady = true end
+	end
+	alertDots["Loja"].Visible = #upgrades > 0 or perkReady
 	alertDots["Renascer"].Visible = s.RebirthCost ~= nil and s.Credits >= s.RebirthCost
 	alertDots["Mochila"].Visible = s.Weight >= s.Capacity
 	alertDots["Prêmio"].Visible = s.DailyAvailable == true
@@ -1697,6 +1741,7 @@ remote.OnClientEvent:Connect(function(snapshot)
 		local delta = snapshot.Credits - lastCredits
 		floatFrom(creditsPill, (delta > 0 and "+" or "") .. Theme.format(delta), delta > 0 and C.Gold or C.Red)
 		if delta > 0 then Sound.play("reward") end
+		if delta > 0 and snapshot.Tone == "sale" then coinBurst(math.clamp(delta // 20, 6, 18)) end
 	end
 	lastCredits = snapshot.Credits
 
