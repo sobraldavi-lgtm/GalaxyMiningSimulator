@@ -618,8 +618,8 @@ Valores são **hipóteses para testes**, em `MiningConfig` (`DailyRewards`, `Aut
 - **Venda automática:** exceção à regra "com a mochila cheia, vender na estação".
   Liberada no **nível 5**, vende tudo ao encher, em qualquer lugar, por **80%** do
   valor (a Estação de Venda continua pagando 100%). Liga e desliga em Ajustes.
-- **Contratos da Orion:** depois da campanha de ORBI, sempre 3 contratos ativos,
-  trocados ao concluir:
+- **Contratos da Orion:** depois da campanha de ORBI, sempre 3 contratos ativos
+  e diferentes entre si (mesmo tipo e alvo não se repetem), trocados ao concluir:
   - minerar 20 de um dos 3 melhores minérios que quebram em até 6 golpes com o
     poder atual (recompensa = valor de venda do lote + 1 Fragmento);
   - ganhar em vendas o valor de 2 mochilas cheias do melhor minério viável

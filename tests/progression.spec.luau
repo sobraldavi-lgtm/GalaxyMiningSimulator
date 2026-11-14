@@ -296,3 +296,20 @@ local tampered = InventoryModel.fromData(Config, { MissionIndex = #Config.Missio
 equal(#tampered.contracts, Config.Contracts.Slots, "Contratos inválidos descartados e repostos")
 print("PASS: contratos da Orion.")
 
+-- Contratos ativos não se repetem quando o sorteio varia.
+local varied = InventoryModel.new(Config)
+varied.missionIndex = #Config.Missions + 1
+local sequence = { 0, 0, 0, 0, 0.5, 0.9 } -- mineração (cobre) duas vezes, depois vendas, depois ovos
+local position = 0
+varied:FillContracts(function()
+	position = position % #sequence + 1
+	return sequence[position]
+end)
+local seen = {}
+for _, contract in ipairs(varied.contracts) do
+	local key = contract.Kind .. tostring(contract.Target)
+	equal(seen[key], nil, "Contrato repetido: " .. key)
+	seen[key] = true
+end
+print("PASS: contratos distintos.")
+

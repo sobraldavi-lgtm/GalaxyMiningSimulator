@@ -545,11 +545,28 @@ function InventoryModel:NewContract(roll)
 	return { Kind = "Hatch", Count = settings.HatchCount, Progress = 0, Credits = 0, Fragments = settings.HatchFragments }
 end
 
+-- Gera um contrato diferente dos já ativos (mesmo tipo e alvo contam como iguais).
+-- Depois de algumas tentativas aceita um repetido, para nunca travar.
+function InventoryModel:DistinctContract(roll, replacing)
+	local contract
+	for _ = 1, 8 do
+		contract = self:NewContract(roll)
+		local repeated = false
+		for index, other in ipairs(self.contracts) do
+			if index ~= replacing and other.Kind == contract.Kind and other.Target == contract.Target then
+				repeated = true
+			end
+		end
+		if not repeated then break end
+	end
+	return contract
+end
+
 -- Contratos só existem depois da campanha de ORBI.
 function InventoryModel:FillContracts(roll)
 	if self:CurrentMission() then return end
 	while #self.contracts < self.config.Contracts.Slots do
-		table.insert(self.contracts, self:NewContract(roll))
+		table.insert(self.contracts, self:DistinctContract(roll))
 	end
 end
 
@@ -565,7 +582,7 @@ function InventoryModel:UpdateContracts(kind, target, amount, roll)
 				self.fragments += contract.Fragments
 				table.insert(done, { Title = "Contrato concluído", Credits = contract.Credits,
 					Fragments = contract.Fragments, Contract = true, Kind = contract.Kind })
-				self.contracts[index] = self:NewContract(roll)
+				self.contracts[index] = self:DistinctContract(roll, index)
 			end
 		end
 	end
